@@ -17,7 +17,7 @@
 \input{"Title Page"}
 
 \frontmatter{}
-\pagestyle{leplainheader}
+\pagestyle{cnpcusareportothermatter}
 
 % Generate the tables of things.
 \tableofcontents{}
@@ -25,6 +25,7 @@
 \listoftables{}
 
 \mainmatter{}
+\pagestyle{cnpcusareportothermatter}
 
 % Glossary entries need to be defined before they can be referenced.
 \input{"Glossary"}
@@ -42,13 +43,36 @@
 % This is a citation example \referencename~\cite{ref:aarsnes2017a}.
 
 % Figure.
+% Note, don't add the end of sentence period for the short title in the caption (part between the []).
+%\begin{figure}
+%	\centering
+%	\includegraphics[height=1.5in]{cnpclogo}
+%	\caption[Short title for list of figures]{Longer title.  This is descriptive and can be multiple sentences.}
+%	\label{fig:cnpclogo}
+%\end{figure}
+
+% Lists.
+%\begin{bulletedlist}
+%	\item The first bullet point.
+%	\begin{bulletedlist}
+%		\item Lists can include other lists.
+%		\begin{plainlist}
+%			\item A list with no markers.
+%		\end{plainlist}
+%	\end{bulletedlist}
+%	\item The second bullet point.
+%	\begin{numberedlist}
+%		\item Item 1.
+%		\item Item 2.
+%	\end{numberedlist}
+%\end{bulletedlist}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \appendix{}
 
 \backmatter{}
-\pagestyle{leplainheader}
+\pagestyle{cnpcusareportothermatter}
 
 % Standard glossary entries.
 \printglossary[type=main, title=Glossary]{}
@@ -73,4 +97,4 @@
 
 \bibliography{le}
 
-\end{document} 
+\end{document}
