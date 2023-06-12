@@ -1,0 +1,76 @@
+% This document requires the following to be processed.
+%
+% Lance A. Endres's LaTeX library available at the following location:
+% https://github.com/lendres/LaTeX
+%
+% Perl
+% https://strawberryperl.com/
+
+\documentclass{lebook}
+
+\input{"Setup"}
+\input{"Equations"}
+
+
+\begin{document}
+\input{"Notes"}
+\input{"Title Page"}
+
+\frontmatter{}
+\pagestyle{leplainheader}
+
+% Generate the tables of things.
+\tableofcontents{}
+\listoffigures{}
+\listoftables{}
+
+\mainmatter{}
+
+% Glossary entries need to be defined before they can be referenced.
+\input{"Glossary"}
+\input{"Acronyms"}
+
+\input{"Introduction"}
+\input{"Models Evaluated"}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXAMPLES
+% Add to bibliography without directly citing.
+% \nocite{ref:abbassian1998a}
+
+% Citation example.
+% This is a citation example \referencename~\cite{ref:aarsnes2017a}.
+
+% Figure.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\appendix{}
+
+\backmatter{}
+\pagestyle{leplainheader}
+
+% Standard glossary entries.
+\printglossary[type=main, title=Glossary]{}
+\renewcommand*{\chaptertitle}{Glossary}
+
+% Acronyms.
+\printglossary[type=\acronymtype]
+\renewcommand*{\chaptertitle}{Acronyms}
+
+% Use all glossary entries without specifically referencing them.
+% Putting it before "\printgossaries" seems to cause a blank page to be injected.
+\glsaddallunused{}
+
+% PRINT A LIST OF NOTATIONS / NOMENCLATURE.
+% Argument is a text/tex file containing lines in the form of:
+% \addnotation{Variable}{Meaning of variable.}
+\input{"List of Notations"}
+
+% Use all glossary entries without specifically referencing them.
+% Gather all unused glossary terms.  Putting it before "\printgossaries" seems to cause a blank page to be injected.
+%\glsaddallunused{}
+
+\bibliography{le}
+
+\end{document} 

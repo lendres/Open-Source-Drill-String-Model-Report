@@ -1,0 +1,121 @@
+% HYPERLINKS	
+\usepackage[pdfauthor={Lance A. Endres}, pdftitle={Drilling Dynamics and Mechanics}]{lehyperlink}
+
+
+% GRAPHICS/FIGURES
+\usepackage{legraphicextensions}
+
+% Set the search path for figures.  This way we can change it if required without having to modified all of the \includegraphics calls.
+\graphicspath{{Figures/}}
+
+% Tweaks to the amount of space floats can occupy on a page.
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\floatpagefraction}{0.85}
+
+
+% HEADERS AND FOOTERS
+\usepackage{leheadersandfooters}
+
+
+% FONTS
+\usepackage{times}
+
+% Define colors for use with fonts.
+\usepackage{color}
+\definecolor{warningcolor}{rgb}{0.753,0,0}	
+
+% Special font formatting commands.
+\newcommand*{\important}[1]{\textbf{\textit{#1}}}
+\newcommand*{\warning}[1]{\textcolor{warningcolor}{\bfseries#1}}
+
+
+% LISTS
+\usepackage{lelists}
+\setlength{\listtopsep}{0pt}
+\setlength{\leftlistindent}{0pt}
+\setlength{\rightlistindent}{0pt}
+
+
+% LIST OF NOTATIONS
+\usepackage{lelistofnotations}
+\spacingbetweennotations{0.5\baselineskip}
+\notationheadinglinesize{16pt}
+
+
+% GLOSSARIES
+% Optional arguments are:
+%		toc: Adds the main glossary to the table of contents.  The others are added by default.
+%		nonumberlist: Prevents the page numbers from being added to each entry in the glossaries.
+\usepackage[toc=true, nonumberlist=true, acronym]{glossaries}
+\newcommand*{\addacronym}[2]{\newacronym{#1}{\MakeUppercase{#1}}{#2}}
+\newcommand*{\addacronymlowercase}[2]{\newacronym{#1}{\MakeUppercase{#1}}{#2}}
+\makeglossaries{}
+
+
+% EPIGRAPHS
+% Quotes at the start of chapters.
+\usepackage{epigraph}
+\renewcommand{\epigraphflush}{center}
+\renewcommand{\epigraphrule}{0pt}
+\setlength{\epigraphwidth}{\textwidth-3in}
+\newcommand*{\formattedepigraph}[2]{\epigraph{\textit{#1}}{--- #2}}
+
+
+% NOTES
+% This macro just eats the input.  This allows notes or comments to be added without them being output to the document.
+\newcommand{\note}[1]{}
+
+
+% MATH
+\usepackage{lemath}
+\setlength{\mathwhererightmargin}{0pt}
+\setlength{\mathdefspacelength}{5.0pt}
+\usepackage{bm}
+
+
+% SPECIAL FORMATTING
+% To use hanging indent (hang) and decrease margins (changepage) inside of definition environment.
+\usepackage{hang}
+\usepackage{changepage}
+
+\setlength{\hangingindent}{\parindent}
+\newlength{\definitionspace}
+\setlength{\definitionspace}{0.5\baselineskip plus 2pt minus 12pt}
+
+\newenvironment{definition}[1]
+{
+%	\vspace{0.5\baselineskip plus 2pt minus 12pt}
+	\begin{hangingpar}
+	{\bfseries\MakeLowercase{#1}}\hspace*{0.5em}%
+}
+{
+	\end{hangingpar}
+	\vspace{\definitionspace}
+}
+
+\newenvironment{inlinedefinition}[1]
+{
+	\vspace{\definitionspace}
+	\itshape
+	\begin{adjustwidth}{\parindent}{\parindent}
+	\begin{definition}{#1}
+}
+{
+	\end{definition}
+	\end{adjustwidth}
+}
+
+\newenvironment{inlinewrongdefinition}[1]
+{
+	\color{warningcolor}
+	\begin{inlinedefinition}{#1}
+}
+{
+	\end{inlinedefinition}
+}
+
+
+% INCLUDE A BIBLIOGRAPHY.
+\bibliographystyle{leplain} 

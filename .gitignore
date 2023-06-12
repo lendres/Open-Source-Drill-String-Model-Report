@@ -1,17 +1,39 @@
-# Libraries
-*.lvlibp
-*.llb
+# For Latex Files and associated figures.
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Temporary and output files
+*.bak
+*.log
+*.dvi
+*.pdf
+*.out
+*.aux
+*.bbl
+*.blg
+*.toc
+*.lof
+*.lot
+*.alg
+*.acn
+*.acr
+*.stg
+*.sto
+*.sts
+*.ist
+*.mdg
+*.mto
+*.mts
+*.glg
+*.glo
+*.gls
+*.glsdefs
 
-# Executables
-*.exe
+# Files
+Archive/
+src/Figures/Image Sources/Jpg/Work Product/
+src/Figures/*.jpg
+src/Figures/*.eps
+Thumbs.db
 
-# Metadata
-*.aliases
-*.lvlps
-.cache/
+_temp.*
+*.sav
+*.synctex

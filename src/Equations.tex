@@ -1,0 +1,24 @@
+% Removes italics from terms that use the \mbf{} command.  Use this or next command, but not both.
+\newcommand*{\mrm}[1]{\mathrm{#1}}
+
+% Math fonts.
+\newcommand*{\mscalar}[1]{\mbox{$#1$}}
+\newcommand*{\mbf}[1]{\mbox{\boldmath$\mrm{#1}$}}
+\newcommand*{\half}{\textstyle\frac{1}{2}}
+
+% Points, lines, angles, and polygons.
+\newcommand*{\point}[1]{\mbf{#1}}
+\newcommand*{\pointprime}[1]{\mbf{#1^\prime}}
+\newcommand*{\pointdoubleprime}[1]{\mbf{#1^{\prime\prime}}}
+\newcommand*{\lineseg}[1]{\mbf{\overline{#1}}}
+\newcommand*{\anglenot}[1]{\mbf{\angle#1}}
+
+% STATISTICS
+% Scalars.
+
+
+% Coordinate system axes.
+\newcommand*{\axis}[1]{\mbf{\vec{#1}}}
+\newcommand*{\xaxis}{\axis{x}}
+\newcommand*{\yaxis}{\axis{y}}
+\newcommand*{\zaxis}{\axis{z}} 
