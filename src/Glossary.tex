@@ -16,13 +16,13 @@
 \newglossaryentry{coupled}
 {
 	name=coupled,
-	description=In classical mechanics two variables are coupled if they appeared in each others' equations of motion.  This could be thought of as one variable \textit{always} influences the other
+	description=In classical mechanics two variables are coupled if they appeared in each other's equations of motion.  This could be thought of as one variable \textit{always} influences the other
 }
 
 \newglossaryentry{coupledcode}
 {
 	name=coupled code,
-	description=In the drilling dynamics realm\comma this taken the definition of a dynamic drill string code combined with a high fidelity drill bit code
+	description=In the drilling dynamics realm\comma{} this taken the definition of a dynamic drill string code combined with a high fidelity drill bit code
 }
 
 \newcommand*{\dynamicforcebalance}{$a \neq 0; \sum F = MA$}
@@ -35,19 +35,19 @@
 \newglossaryentry{frequencydomainmodel}
 {
 	name=frequency domain model,
-	description=The frequency domain refers to the analysis of mathematical functions or signals with respect to frequency\comma rather than time.  It may be used to refer to graphs plotted with respect to frequency or to a static model that is used for eigenmode and eigenvalue calculations
+	description=The frequency domain refers to the analysis of mathematical functions or signals with respect to frequency\comma{} rather than time.  It may be used to refer to graphs plotted with respect to frequency or to a static model that is used for eigenmode and eigenvalue calculations
 }
 
 \newglossaryentry{qualitative}
 {
 	name=qualitative,
-	description={Data that is non numeric in nature and cannot be measured}
+	description={Data that is non-numeric in nature and cannot be measured}
 }
 
 \newglossaryentry{quantitative}
 {
 	name=quantitative,
-	description={Data that is numerical in nature and can be measured and can be classified into two: discrete and continuous}
+	description={Data that is numerical in nature and can be measured.  It can be classified into two types: discrete and continuous}
 }
 
 \newglossaryentry{sample}
@@ -60,7 +60,7 @@
 \newglossaryentry{staticmodel}
 {
 	name=static model,
-	description=Models that calculate statics.  Statics is the branch of classical mechanics that is concerned with the analysis of force and torque (also called moment) acting on physical systems that do not experience an acceleration (\staticforcebalance) \comma but rather\comma are in static equilibrium with their environment.  Note that this does not mean they are not moving
+	description=Models that calculate statics.  Statics is the branch of classical mechanics that is concerned with the analysis of force and torque (also called moment) acting on physical systems that do not experience an acceleration (\staticforcebalance)\comma{} but rather\comma{} are in static equilibrium with their environment.  Note that this does not mean they are not moving
 }
 
 \newglossaryentry{statistic}
@@ -69,23 +69,26 @@
 	description={A numerical value associated with an observed sample.  Example: The average amount of time people spent on a website on a specific day}
 }
 
+\newcommand*{\systemproperty}{$p$}
+\newcommand*{\continuoussteadystate}{\ensuremath{\left( \frac{\partial p}{\partial t}=0 \;\;\forall\;\; t \right)}}
+\newcommand*{\discretesteadystate}{\ensuremath{\left( p_t-p_{t-1}=0 \;\;\forall\;\; t \right)}}
 \newglossaryentry{steadystate}
 {
 	name=steady state,
-	description=S
+	description=Steady-state can have two meanings. In the first\comma{} a system or a process is in steady-state if the variables which define the behavior of the system or the process are unchanging in time.  In continuous time\comma{} this means that for those properties \systemproperty{} of the system\comma{} the partial derivative with respect to time is zero and remains so \continuoussteadystate{}.  In discrete time\comma{} it means that the first difference of each property is zero and remains so \discretesteadystate{}.  The second meaning refers to steady-state harmonic vibration that represents the particular part of the solution to the governing equations of motion with only sinusoidal forces.  The transient response is assumed to be damped out so that it has diminished to zero
 }
 
 \newglossaryentry{steadystatemodel}
 {
 	name=steady-state model,
-	description=This term should not be used.  The preferred terms are \textit{static model} or \textit{dynamic model}.  Steady-state is a condition that does not change in time.  Note that the condition does not change; that does not mean there are no accelerations.  For example\comma the stick-slip of a drill string is steady state
+	description=The preferred terms are \textit{static model} or \textit{dynamic model} as they are more general and more commonly used.  See \emph{steady-state}
 }
 
-\newglossaryentry{supervisedlearning}
-{
-    name=supervised learning,
-    description=Supervised learning is when you already know the label (value) of the target variable.  It is of two types: regression (for continuous variables) and classification (for categorical or discrete values)
-}
+%\newglossaryentry{supervisedlearning}
+%{
+%    name=supervised learning,
+%    description=Supervised learning is when you already know the label (value) of the target variable.  It is of two types: regression (for continuous variables) and classification (for categorical or discrete values)
+%}
 
 \newglossaryentry{timedomainmodel}
 {
@@ -99,17 +102,23 @@
 	description=A mathematical equation to convert input parameters such as WOB to a torque value.  Used at the end of a drill string model to generate the torque that would result from the bit-rock interaction.  It does not account for bottom hole patterns or interaction
 }
 
+\newglossaryentry{transientdynamics}
+{
+	name=transient model,
+	description=A transient phase is the pattern of change as a system moves from one equilibrium state to another.  The transition phase is often described as\comma{} or assumed to be\comma{} over a short time period\comma{} however\comma{} ``short'' is relative to the system and events being studies.  Any transition that change regimes.
+}
+
 \newglossaryentry{transientmodel}
 {
 	name=transient model,
-	description=This term should not be used.  The preferred term is \textit{dynamic model}.  A transient phase is the pattern of change as a system moves from one equilibrium state to another.  For example\comma the phase between backward whirl and forward whirl
+	description=The preferred term is \textit{dynamic model}.  See transient dynamics
 }
 
-\newglossaryentry{uniformdistribution}
-{
-	name=uniform distribution,
-	description=The probability is the same across a range of values (the probability of occurrence is uniformly distributed).  Does not favor a particular outcome
-}
+%\newglossaryentry{uniformdistribution}
+%{
+%	name=uniform distribution,
+%	description=The probability is the same across a range of values (the probability of occurrence is uniformly distributed).  Does not favor a particular outcome
+%}
 
 \newglossaryentry{unstablemodels}
 {
@@ -117,8 +126,8 @@
     description=Models that are very sensitive to small changes in the data (small changes in data lead to a different model)
 }
 
-\newglossaryentry{unsupervisedlearning}
-{
-    name=unsupervised learning,
-	description=Unsupervised learning uses machine learning algorithms to analyze and cluster unlabeled data sets.  These algorithms discover hidden patterns in data without the need for human intervention (hence\comma they are ``unsupervised'').  Unsupervised learning models are used for three main tasks: clustering\comma association and dimensionality reduction
-}
+%\newglossaryentry{unsupervisedlearning}
+%{
+%    name=unsupervised learning,
+%	description=Unsupervised learning uses machine learning algorithms to analyze and cluster unlabeled data sets.  These algorithms discover hidden patterns in data without the need for human intervention (hence\comma{} they are ``unsupervised'').  Unsupervised learning models are used for three main tasks: clustering\comma{} association and dimensionality reduction
+%} 
