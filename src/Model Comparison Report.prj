@@ -1,118 +1,46 @@
-36 Patch Control
+41 Patch Control
 
 1
 1
 1
 Model Comparison Report.tex
-35
-13
 11
+10
+8
 
-:\Custom Program Files\LaTeX\bibtex\bib\le.bib
-BibTeX
-1049586 1 326 16 326 30 208 208 1254 627 1 1 289 272 -1 -1 0 0 60 0 0 60 1 0 30 326  0 -1 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\lebook.cls
-TeX:STY
-1060850 0 30 16 6 1 130 130 1478 549 1 0 71 32 -1 -1 0 0 23 0 0 23 1 0 1 6  0 0 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\leucsdthesis.cls
-TeX:STY
-1060850 1 56 1 57 1 26 26 1420 467 1 0 71 288 -1 -1 0 0 23 0 0 23 1 0 1 57  0 0 0
-Setup.tex
-TeX
-17838075 4 -1 1125 -1 1126 104 104 1150 523 1 1 492 320 -1 -1 0 0 260 -1 -1 260 1 0 1126 -1  0 0 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\leheadersandfooters.sty
-TeX:STY
-1060850 0 425 57 425 57 78 78 1426 497 1 0 505 352 -1 -1 0 0 25 0 0 25 1 0 57 425  0 0 0
-Introduction.tex
-TeX
-1060859 4 -1 358 -1 359 130 130 1226 551 1 1 1073 48 -1 -1 0 0 22 -1 -1 22 1 0 359 -1  0 -1 0
-Title Page.tex
-TeX
-17838075 0 -1 735 -1 497 182 182 1150 783 1 1 177 352 -1 -1 0 0 152 -1 -1 152 1 0 497 -1  0 -1 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\lepageformat.sty
-TeX:STY
-1060850 1 22 27 22 1 156 156 1246 597 1 0 71 176 -1 -1 0 0 25 0 0 25 1 0 1 22  0 0 0
 Model Comparison Report.tex
 TeX
-135278587 4 -1 712 -1 713 104 104 1194 545 1 1 142 560 -1 -1 0 0 55 -1 -1 55 1 0 713 -1  0 -1 0
-Glossary.tex
-TeX
-17838075 0 -1 5003 -1 4805 78 78 1122 519 1 1 254 272 -1 -1 0 0 19 -1 -1 19 1 0 4805 -1  0 0 0
+135278587 0 35 48 -1 1034 104 104 1194 545 1 1 125 624 -1 -1 0 0 11 1 1 11 1 0 1034 -1  0 -1 0
 Models Evaluated.tex
 TeX
-1060859 0 -1 3273 -1 3273 182 182 1272 623 1 1 86 496 -1 -1 0 0 1002 -1 -1 1002 1 0 3273 -1  0 -1 0
-RGD Family of Models.tex
+17838075 0 182 31 -1 3289 182 182 1272 623 1 1 125 624 -1 -1 0 0 26 -1 -1 26 1 0 3289 -1  0 -1 0
+Introduction.tex
 TeX
-269496315 0 -1 208 -1 212 52 52 1452 493 1 1 1171 -896 -1 -1 0 0 -1 -1 -1 -1 1 0 212 -1  0 -1 0
-Notes.tex
-TeX
-1060859 0 -1 77 -1 77 0 0 1348 419 1 1 86 48 -1 -1 0 0 6 -1 -1 6 1 0 77 -1  0 0 0
+1060859 0 -1 147 -1 214 130 130 1226 551 1 1 807 48 -1 -1 0 0 22 -1 -1 22 1 0 214 -1  0 -1 0
 Acronyms.tex
 TeX
-269496315 0 -1 600 -1 165 130 130 1098 731 1 1 156 128 -1 -1 0 0 0 -1 -1 0 1 0 165 -1  0 0 0
-:\Projects\Drilling Dynamics\Writing\Literature Review\src\Drill String Models.tex
+1060859 0 -1 600 -1 219 130 130 1098 731 1 1 125 144 -1 -1 0 0 0 -1 -1 0 1 0 219 -1  0 0 0
+Glossary.tex
 TeX
-269496315 8 -1 3302 -1 3263 26 26 1116 467 1 1 86 624 -1 -1 0 0 -1 -1 -1 -1 1 0 3263 -1  0 -1 0
-List of Notations.tex
+17838075 0 353 4 -1 5114 78 78 1122 519 1 1 125 624 -1 -1 0 0 19 -1 -1 19 1 0 5114 -1  0 0 0
+Notes.tex
 TeX
-1060859 0 -1 1008 -1 1121 208 208 1176 809 1 1 86 624 -1 -1 0 0 36 -1 -1 36 1 0 1121 -1  0 -1 0
+1060859 0 -1 77 -1 77 0 0 1348 419 1 1 125 72 -1 -1 0 0 6 -1 -1 6 1 0 77 -1  0 0 0
 Equations.tex
 TeX
-1060859 0 -1 597 -1 597 156 156 1124 757 1 1 86 304 -1 -1 0 0 98 -1 -1 98 1 0 597 -1  0 0 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\lelists.sty
-TeX:STY
-1060850 1 27 40 27 1 182 182 1248 613 1 0 71 112 -1 -1 0 0 14 0 0 14 1 0 1 27  0 0 0
-:\Users\lance.endres\AppData\Roaming\WinEdt Team\WinEdt 11\ConfigEx\MainMenu.ini
-DATA:INI:EDT
-269485050 0 158 28 158 29 156 156 1118 757 1 1 282 320 -1 -1 0 0 83 0 0 83 1 0 29 158  0 -1 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\lesections.sty
-TeX:STY
-1060850 0 0 1 258 21 52 52 1400 471 1 0 211 304 -1 -1 0 0 25 0 0 25 1 0 21 258  0 0 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\lelistofnotations.sty
-TeX:STY
-269496306 0 13 1 13 48 0 0 1348 419 1 0 400 -253 -1 -1 0 0 -1 -1 -1 -1 1 0 48 13  0 0 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\lecaptions.sty
-TeX:STY
-269496306 0 0 1 0 1 26 26 1374 445 1 0 71 0 -1 -1 0 0 -1 -1 -1 -1 1 0 1 0  0 0 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\lehyperlink.sty
-TeX:STY
-1060850 1 47 20 47 32 104 104 1452 523 1 0 288 464 -1 -1 0 0 25 0 0 25 1 0 32 47  0 0 0
-:\Users\lance.endres\AppData\Roaming\WinEdt Team\WinEdt 11\ConfigEx\UserPreferences.ini
-DATA:INI:EDT
-269485050 0 0 1 0 1 104 104 1072 705 1 1 86 -1872 -1 -1 0 0 -1 -1 -1 -1 1 0 1 0  0 0 0
-:\Users\lance.endres\AppData\Roaming\WinEdt Team\WinEdt 11\ConfigEx\Toolbar.ini
-DATA:INI:EDT
-269485050 0 386 32 382 1 104 104 1066 705 1 1 86 288 -1 -1 0 0 83 0 0 83 1 0 1 382  0 -1 0
-:\Users\lance.endres\AppData\Roaming\WinEdt Team\WinEdt 11\ConfigEx\Preferences.ini
-DATA:INI:EDT
-269485050 1 62 24 62 1 156 156 1202 575 1 1 86 320 -1 -1 0 0 83 0 0 83 1 0 1 62  0 0 0
-:\Custom Program Files\WinEdt\Installation Notes\WinEdt Installation Notes.tex
+1060859 0 -1 597 -1 597 156 156 1124 757 1 1 125 456 -1 -1 0 0 98 -1 -1 98 1 0 597 -1  0 0 0
+Setup.tex
 TeX
-269496251 1 -1 7825 -1 7841 0 0 1319 583 0 1 170 3328 -1 0 0 255 0 -1 -1 2 1 0 7841 -1  0 -1 0
-:\Projects\Drilling Dynamics\tf16411191_win32.potx
-DATA
-407961842 0 0 1 0 1 78 78 1150 509 1 0 71 0 -1 -1 0 0 -1 -1 -1 -1 1 0 1 0  0 0 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\lecode.sty
-TeX:STY
-269496306 0 0 1 0 1 0 0 1066 431 1 0 71 0 -1 -1 0 0 25 0 0 25 1 0 1 0  0 0 0
-:\Users\lance.endres\WinEdt Team\WinEdt 11\Templates\LaTeX\Figure.ltx
+17838075 0 -1 3239 -1 3239 104 104 1150 523 1 1 136 624 -1 -1 0 0 116 -1 -1 116 1 0 3239 -1  0 0 0
+RGD Family of Models.tex
 TeX
-269496315 1 -1 136 -1 0 130 130 1098 731 1 1 86 0 -1 -1 0 0 -1 -1 -1 -1 1 0 0 -1  0 -1 0
-:\Custom Program Files\WinEdt\src V10 and Above\Figure.ltx
+269495547 0 -1 6696 -1 6089 114 114 1625 582 1 1 257 240 -1 -1 0 0 -1 -1 -1 -1 1 0 6089 -1  0 -1 0
+List of Notations.tex
 TeX
-269496315 0 -1 0 -1 134 52 52 1124 483 1 1 198 80 -1 -1 0 0 -1 -1 -1 -1 1 0 134 -1  0 -1 0
-:\Users\lance.endres\WinEdt Team\WinEdt 11\Menus\Insert\Image.edt
-ASCII:EDT
-269494266 1 19 39 19 13 104 104 1072 705 1 0 155 304 -1 -1 0 0 -1 -1 -1 -1 1 0 13 19  0 0 0
-:\Users\lance.endres\AppData\Roaming\WinEdt Team\WinEdt 11\ConfigEx\Images.ini
-DATA:INI:EDT
-269485050 0 0 1 0 1 130 130 1202 561 1 1 86 -2544 -1 -1 0 0 83 0 0 83 1 0 1 0  0 -1 0
-:\Users\lance.endres\WinEdt Team\WinEdt 11\ConfigEx\Images.ini
-DATA:INI:EDT
-303039482 0 0 1 0 1 182 182 1254 613 1 1 86 0 -1 -1 0 0 -1 -1 -1 -1 1 0 1 0  0 -1 0
-:\Custom Program Files\LaTeX\TeX\LaTeX\legraphicextensions.sty
-TeX:STY
-269496307 1 2 18 2 37 26 26 1092 457 1 0 323 32 -1 -1 0 0 -1 -1 -1 -1 1 0 37 2  0 0 0
+1060859 0 -1 1008 -1 1121 208 208 1176 809 1 1 125 624 -1 -1 0 0 36 -1 -1 36 1 0 1121 -1  0 -1 0
+Title Page.tex
+TeX
+17838075 0 -1 736 -1 665 182 182 1150 783 1 1 191 496 -1 -1 0 0 152 -1 -1 152 1 0 665 -1  0 -1 0
 
 *Model Comparison Report.tex
 >
@@ -124,6 +52,7 @@ TeX:STY
 *Acronyms
 *Introduction
 *Models Evaluated
+*RGD Family of Models
 *List of Notations
 *? le
 <
