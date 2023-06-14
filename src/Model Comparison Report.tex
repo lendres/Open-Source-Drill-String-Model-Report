@@ -36,13 +36,15 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXAMPLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CITATIONS
 % Add to bibliography without directly citing.
 % \nocite{ref:abbassian1998a}
 
 % Citation example.
 % This is a citation example \referencename~\cite{ref:aarsnes2017a}.
 
-% Figure.
+% FIGURES
 % Note, don't add the end of sentence period for the short title in the caption (part between the []).
 %\begin{figure}
 %	\centering
@@ -51,7 +53,7 @@
 %	\label{fig:cnpclogo}
 %\end{figure}
 
-% Lists.
+% LISTS
 %\begin{bulletedlist}
 %	\item The first bullet point.
 %	\begin{bulletedlist}
@@ -66,8 +68,11 @@
 %		\item Item 2.
 %	\end{numberedlist}
 %\end{bulletedlist}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% SPECIAL COMMANDS
+% Leave a note to finish a section later.
+% \notfinished{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \appendix{}
 
@@ -82,18 +87,14 @@
 \printglossary[type=\acronymtype]
 \renewcommand*{\chaptertitle}{Acronyms}
 
-% Use all glossary entries without specifically referencing them.
-% Putting it before "\printgossaries" seems to cause a blank page to be injected.
-\glsaddallunused{}
-
 % PRINT A LIST OF NOTATIONS / NOMENCLATURE.
 % Argument is a text/tex file containing lines in the form of:
 % \addnotation{Variable}{Meaning of variable.}
 \input{"List of Notations"}
 
 % Use all glossary entries without specifically referencing them.
-% Gather all unused glossary terms.  Putting it before "\printgossaries" seems to cause a blank page to be injected.
-%\glsaddallunused{}
+% Putting it before "\printgossaries" seems to cause a blank page to be injected.
+\glsaddallunused{}
 
 \bibliography{le}
 
