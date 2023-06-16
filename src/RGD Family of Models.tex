@@ -139,12 +139,12 @@ Afterwards, equation (\ref{matrix}) can be solved with reduced equations from eq
 \section{Extended RGD model (Zhang and Detournay, 2022)}
 
 
-This section summarizes the paper from Zhang and Detournay 2022, which is an extension of RGD model. The proposed model is a multi-degrees of freedom (MDOF) model of a rotary drilling system simulating axial-torsional self-excited vibrations induced by the bit/rock interactions. Figure \ref{model_develop_figure} illustrates the development of the RGD model.
+This section summarizes the paper from Zhang and Detournay 2022, which is an extension of RGD model. The proposed model is a multi-degrees of freedom (MDOF) model of a rotary drilling system simulating axial-torsional self-excited vibrations induced by the bit/rock interactions. \figurename~\ref{model_develop_figure} illustrates the development of the RGD model.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=5in]{ModelDevelop.jpg}
-  \caption{RGD model development.}\label{model_develop_figure}
+  \includegraphics[width=5in]{ModelDevelop}
+  \caption[RGD model development]{RGD model development.}\label{model_develop_figure}
 \end{figure}
 
 The model represents the drillstring with multiple damped axial and torsional oscillators and the bit with symmetrically arranged blades. The schematic of MDOF model of the drillstring is shown in Figure \ref{MDOF_illustration}. The model takes into account damping and
@@ -152,8 +152,8 @@ different properties of drill pipe and BHA
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=3in]{MDOF_illustration.jpg}
-  \caption{Schematic of the MDOF model of the drillstring. a) axial, b) torsional.}\label{MDOF_illustration}
+  \includegraphics[height=3in]{MDOF_illustration}
+  \caption[Schematic of the MDOF model of the drillstring]{Schematic of the MDOF model of the drillstring. a) axial, b) torsional.}\label{MDOF_illustration}
 \end{figure}
 
 The following assumptions are made: 1) The borehole is vertical, 2) Lateral vibration of the drillstring are neglected, 3) axial and torsional damping are proportional to the length of drill pipes and BHA, 4) constant hook load and rotary speed from surface (surface boundary conditions). Additionally, the discontinuity of the boundary condition at the bit-rock interface is modeled by
@@ -165,24 +165,24 @@ The PDE-ODE coupled system is numerically solved by discretizing the PDE-ODEs in
 \noindent Some of the results and potential of the model are summarized below.
 \begin{bulletedlist}
   \item Modeling the vibrations of entire drillstring (not only the bit).
-  \item Possible to conduct frequency analysis since it is multi-degrees of freedom model (Figure \ref{StickslipExample}).
-  \item It can simulate axial and torsional vibrations including stick-slip event (Figure \ref{Axial_torsional_vibration_example}).
+  \item Possible to conduct frequency analysis since it is multi-degrees of freedom model (\figurename~\ref{StickslipExample}).
+  \item It can simulate axial and torsional vibrations including stick-slip event (\figurename~\ref{Axial_torsional_vibration_example}).
   \item Mode analysis can be done by computing the eigenvalues of the linearized system of equation.
   \item Computationally efficient compared to FEM assuming geometrically simple structure.
 \end{bulletedlist}
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=6in]{StickslipExample.jpg}
-  \caption{Simulation results of bit angular velocity and its frequency spectrum. The result shows the stick-slip occupance due to self-excited torsional vibration}\label{StickslipExample}
+  \includegraphics[width=6in]{StickslipExample}
+  \caption[Simulation results of bit angular velocity and its frequency spectrum]{Simulation results of bit angular velocity and its frequency spectrum. The result shows the stick-slip occupance due to self-excited torsional vibration}\label{StickslipExample}
 \end{figure}
 
 \newpage
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[height=5in]{Axial_torsional_vibration_example.jpg}
-  \caption{Simulation results showing axial and angular velocity with scaled time. a) stable regime, b) slow regime of instability, c) fast regime of instability.}\label{Axial_torsional_vibration_example}
+  \includegraphics[height=5in]{Axial_torsional_vibration_example}
+  \caption[Simulation results showing axial and angular velocity with scaled time]{Simulation results showing axial and angular velocity with scaled time. a) stable regime, b) slow regime of instability, c) fast regime of instability.}\label{Axial_torsional_vibration_example}
 \end{figure}
 
 \noindent The following are key questions or points that should be addressed for the model selection.
