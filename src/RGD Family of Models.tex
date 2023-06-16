@@ -6,7 +6,6 @@ This section briefly summarizes the workflow of RGB model written in MATLAB. Mor
 \begin{equation}\label{matrix}
   \bm{Adx} + \bm{BX} = \bm{Q}
 \end{equation}
-
 where $\bm{dx}$ and $\bm{X}$ are defined as follow:
 
 \noindent\begin{minipage}{.5\linewidth}
@@ -194,3 +193,83 @@ The PDE-ODE coupled system is numerically solved by discretizing the PDE-ODEs in
   \item Decoupling of axial and torsional vibration. this can be important when it comes to 3D model (i.e., whirling effect).
   \item Current code provided is 2 DOF model.
 \end{bulletedlist} 
+
+\newpage
+\chapter{Aarsnes-Shor model}
+
+\section{Aasnes-Shor model}
+
+The proposed model applies the distributed model of the drillsring with the Coulomb friction given as distributed source term. Most of the previous studies explained the stick-slip behaviour from bit-rock interaction \referencename~\cite{ref:germay2009a, ref:richard2007a, ref:zhang2020a}. Therefore theses models could not validate the stick-slip behavior while off bottom state (i.e., back reaming). The proposed model simulates the torsional stick-slip by take in to account Coulomb-type friction throughout the drillstring. The effect of the distributed, along-string, Coulomb friction becomes prominent of torsional drill string dynamics in wellbores with high-inclination laters. The model was validated with field data from rotational startups, off bottom rotation (without any axial movement), after connection.\\
+
+\noindent Assumptions of the model are listed below:
+\begin{bulletedlist}
+    \item No bit-rock interaction
+    \item No lateral and axial motion
+    \item the effects of cuttings distribution on the friction is homogeneous
+    \item The transition from static to dynamic coulomb friction is modeled as a jump
+\end{bulletedlist}
+
+
+\noindent Mathematical procedure is summarized below (follows the code flow provided):
+
+The model is based on the euqations of angular motion, here named wave equation, which is:
+\begin{equation}\label{AS-motion}
+  J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x)
+\end{equation}
+where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is angular velocity, $\tau(t,x)$ is torque, and S is the source term which can be represented as:
+\begin{equation}\label{AS-sourceterm}
+  S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
+\end{equation}
+where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed, and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole. 
+The 
+The partial wave equation is transformed into their Riemann invariants and it is solved by first order upwind scheme. The Riemann invariants are defined as:
+\begin{equation}\label{AS-Riemann}
+  \alpha = w + \frac{c_t}{JG}\tau, \quad \beta=w-\frac{c_t}{JG}\tau
+\end{equation}
+where $c_t = \sqrt{\frac{\rho}{J}}$ is the velocity of the torsional wave. and the variable $\alpha, \beta$ satisfies the PDE system below:
+\begin{equation}\label{AS-Riemann_alpha}
+  \frac{\partial \alpha}{\partial t} + c_t\frac{\partial \alpha}{\partial x} = -\mathcal{S}
+\end{equation}
+\begin{equation}\label{AS-Riemann_alpha}
+  \frac{\partial \beta}{\partial t} - c_t\frac{\partial \beta}{\partial x} = -\mathcal{S}
+\end{equation}
+
+where the source term $\mathcal{S}$ is
+\begin{equation}\label{AS-source}
+  \mathcal{S} = \frac{S}{J \rho} j= k_t(\alpha + \beta) + \frac{1}{J \rho} \mathcal{F}
+\end{equation}
+The boundary conditions are given as:
+\begin{equation}\label{AS-BC}
+  w_{p,top} = w_{TD} \quad \tau_{c,bottom} = \tau_{bit}
+\end{equation}
+where subscript p, c represents drill pipe and drill collar.
+Additionally, the conditions at the drill pipe - drill collar interface are imposed:
+\begin{equation}\label{AS-interface}
+  w_{p,interface} = w_{c,interface}, \quad \tau_{p,interface} = \tau_{c,interface}
+\end{equation}
+\equationname~\ref{AS-BC} and \ref{AS-interface} in Riemann invariants can be written as:
+\begin{equation}\label{AS-riemannBC}
+  \alpha_{p,top} = -\beta_{p,top} + 2*w_{TD}, \quad \beta_{c,bottom} = \alpha_{c,top} - 2\tau_{bit} \frac{c_t}{J_c G_c}
+\end{equation}
+**Have to check the equation above... This boundary condition seems to take into account the torque from the bit**
+\begin{equation}\label{AS-riemanninterface}
+\begin{split}
+    & \beta_{p,bottom} = \frac{1}{1+\overline{Z}}\left(\alpha_{p,bottom}(1-\overline{Z}) + 2\overline{Z}\beta_{c,top} \right) \\
+    & \alpha_{c,top} = \frac{1}{1+\overline{Z}}\left(2*\alpha_{p,bottom} - \beta_{c,top}(1-\overline{Z})\right)
+\end{split}
+\end{equation}
+where $\overline{Z}$is the relative magnitude of the impedance (assuming same $c_t$ for drill pipe and collar - ** need to be checked** ):
+\begin{equation}\label{AS_Zbar}
+  \overline{Z} = \frac{J_c G_c}{J_p G_p}
+\end{equation}
+
+\figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drillstring with boundary conditions, and interface conditions in terms of Riemann invariants. The boundary conditions at the top and bottom of the drillsring are applied to $\alpha$, and $\beta$, respectively. However, since the two variables are coupled by interface conditions, the PDE can be solved. 
+The PDE is solved from upwind scheme according to:
+
+\newpage
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=6in]{AS_discretizedDS}
+  \caption[Schematic of discretized drillstring and boundary conditions]{Schematic of discretized drillstring, boundary conditions, and interface conditions based on Riemann invariants $\alpha$, and $\beta$.}\label{AS_discretizeDS}
+\end{figure}
+
