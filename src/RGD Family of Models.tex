@@ -9,7 +9,7 @@ This section briefly summarizes the workflow of RGB model written in MATLAB. Mor
 where $\bm{dx}$ and $\bm{X}$ are defined as follow:
 \vspace{\abovedisplayskip}
 
-\noindent\begin{minipage}{.5\linewidth}
+\noindent\begin{minipage}{.4\linewidth}
 \begin{equation}
 \bm{x}=
 \begin{bmatrix}
@@ -23,7 +23,8 @@ a_N \\
 \end{bmatrix}
 \end{equation}
 \end{minipage}%
-\begin{minipage}{.5\linewidth}
+\hfill
+\begin{minipage}{.4\linewidth}
 \begin{equation}
 \bm{dx}=
 \begin{bmatrix}
@@ -75,6 +76,15 @@ Equation (\ref{GM1})-(\ref{GM2}) represent a system of N first order equations f
 
 Which is coupled with the equation of motion (governing equation) which are:
 
+\begin{equation}\label{GE1_}
+  \ddot{u} = \psi(\varpi_0 - \varpi)
+\end{equation}
+
+\begin{equation}\label{GE2_}
+  \ddot{\phi} + \phi = \Gamma_0 - \Gamma
+\end{equation}
+
+where 
 \begin{equation}\label{GE1}
   \varpi-\varpi_0 = n(\delta_n - \lambda(g(\nu)) - \frac{2\pi v}{w_0}
 \end{equation}
@@ -83,7 +93,7 @@ Which is coupled with the equation of motion (governing equation) which are:
   \Gamma-\Gamma_0 = n(\delta_n -\beta \lambda(g(\nu)) - \frac{2\pi v}{w_0}
 \end{equation}
 
-where $\delta_n$ is given as:
+and $\delta_n$ is given as:
 
 \begin{equation}\label{deltan1}
   \delta_n = \overline{h}\left(\frac{2\pi}{n}, n\right) + u(\tau)
@@ -161,9 +171,9 @@ The following assumptions are made: 1) The borehole is vertical, 2) Lateral vibr
 five different regimes classified based on axial, angular velocities, and depth-of-cut, namely, 1) normal drilling, 2) axial stick, 3) loss of contact, 4) torsional stick, 5) backward rotation
 
 The system equations (PDE-ODE coupled) are established from equation of motions (axial and torsional), and bit trajectory function, which is defined to project depth of cut from the angular displacement of the bit. Then,
-The PDE-ODE coupled system is numerically solved by discretizing the PDE-ODEs into ODEs. In this study, spectral method with Chebyshev polynomial is applied rather than finite element (FEM) or finite different method (FDM). Spectral method achieved high accuracy for a given number of basis functions and also converged faster compared to other numerical methods. (this is valid with simple geometry). \\
+The PDE-ODE coupled system is numerically solved by discretizing the PDE-ODEs into ODEs. In this study, spectral method with Chebyshev polynomial is applied rather than finite element (FEM) or finite different method (FDM). Spectral method achieved high accuracy for a given number of basis functions and also converged faster compared to other numerical methods. (this is valid with simple geometry). 
 
-\noindent Some of the results and potential of the model are summarized below.
+Some of the results and potential of the model are summarized below.
 \begin{bulletedlist}
   \item Modeling the vibrations of entire drillstring (not only the bit).
   \item Possible to conduct frequency analysis since it is multi-degrees of freedom model (\figurename~\ref{StickslipExample}).
@@ -201,9 +211,9 @@ The PDE-ODE coupled system is numerically solved by discretizing the PDE-ODEs in
 
 \section{Aasnes-Shor model}
 
-The proposed model applies the distributed model of the drillsring with the Coulomb friction given as distributed source term. Most of the previous studies explained the stick-slip behaviour from bit-rock interaction \referencename~\cite{ref:germay2009a, ref:richard2007a, ref:zhang2020a}. Therefore theses models could not validate the stick-slip behavior while off bottom state (i.e., back reaming). The proposed model simulates the torsional stick-slip by take in to account Coulomb-type friction throughout the drillstring. The effect of the distributed, along-string, Coulomb friction becomes prominent of torsional drill string dynamics in wellbores with high-inclination laters. The model was validated with field data from rotational startups, off bottom rotation (without any axial movement), after connection.\\
+The proposed model applies the distributed model of the drillsring with the Coulomb friction given as distributed source term. Most of the previous studies explained the stick-slip behaviour from bit-rock interaction \referencename~\cite{ref:germay2009a, ref:richard2007a, ref:zhang2020a}. Therefore theses models could not validate the stick-slip behavior while off bottom state (i.e., back reaming). The proposed model simulates the torsional stick-slip by take in to account Coulomb-type friction throughout the drillstring. The effect of the distributed, along-string, Coulomb friction becomes prominent of torsional drill string dynamics in wellbores with high-inclination laters. The model was validated with field data from rotational startups, off bottom rotation (without any axial movement), after connection.
 
-\noindent Assumptions of the model are listed below:
+Assumptions of the model are listed below:
 \begin{bulletedlist}
     \item No bit-rock interaction
     \item No lateral and axial motion
@@ -232,7 +242,7 @@ where $c_t = \sqrt{\frac{\rho}{J}}$ is the velocity of the torsional wave. and t
 \begin{equation}\label{AS-Riemann_alpha}
   \frac{\partial \alpha}{\partial t} + c_t\frac{\partial \alpha}{\partial x} = -\mathcal{S}
 \end{equation}
-\begin{equation}\label{AS-Riemann_alpha}
+\begin{equation}\label{AS-Riemann_beta}
   \frac{\partial \beta}{\partial t} - c_t\frac{\partial \beta}{\partial x} = -\mathcal{S}
 \end{equation}
 
@@ -251,7 +261,7 @@ Additionally, the conditions at the drill pipe - drill collar interface are impo
 \end{equation}
 \equationname~\ref{AS-BC} and \ref{AS-interface} in Riemann invariants can be written as:
 \begin{equation}\label{AS-riemannBC}
-  \alpha_{p,top} = -\beta_{p,top} + 2*w_{TD}, \quad \beta_{c,bottom} = \alpha_{c,top} - 2\tau_{bit} \frac{c_t}{J_c G_c}
+  \alpha_{p,top} = -\beta_{p,top} + 2*w_{TD}, \quad \beta_{c,bottom} = \alpha_{c,bottom} - 2\tau_{bit} \frac{c_t}{J_c G_c}
 \end{equation}
 **Have to check the equation above... This boundary condition seems to take into account the torque from the bit**
 \begin{equation}\label{AS-riemanninterface}
@@ -266,12 +276,16 @@ where $\overline{Z}$is the relative magnitude of the impedance (assuming same $c
 \end{equation}
 
 \figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drillstring with boundary conditions, and interface conditions in terms of Riemann invariants. The boundary conditions at the top and bottom of the drillsring are applied to $\alpha$, and $\beta$, respectively. However, since the two variables are coupled by interface conditions, the PDE can be solved. 
-The PDE is solved from upwind scheme according to:
-
+The PDE is solved from upwind scheme according to (for sell size $\Delta x$ and time step $\Delta t$, at cell j and time step k):
+\begin{equation}\label{AS-upwind}
+  \mathcal{F}_{j}^k = \frac{1}{2 \Delta t}\left(a_j^k - c_t \frac{\Delta t}{\Delta x}(a_j^k - a_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+t}^k-\beta_j^k) + \Delta t k_t (\alpha_j^k + \beta_j^k)\right)
+\end{equation}
+** There are some difference between code and paper **
 \newpage
 \begin{figure}[ht]
   \centering
   \includegraphics[width=6in]{AS_discretizedDS}
   \caption[Schematic of discretized drillstring and boundary conditions]{Schematic of discretized drillstring, boundary conditions, and interface conditions based on Riemann invariants $\alpha$, and $\beta$.}\label{AS_discretizeDS}
 \end{figure}
+
 
