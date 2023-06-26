@@ -1,3 +1,21 @@
 \chapter{Recommendations}
 
 \section{Path Forward}
+\subsection{Collaboration of Industry and Academia}
+Key collaborations both within the industry and between industry an academia can be highly beneficial.  Development of a commercial grade drill string software is a complex and expensive operation.  Collaboration can both lower overall costs and accelerate projects.
+
+This project combined personnel from multiple industry and academia entities.  Even in this relatively small scale project, the combined knowledge and resources of all these entities greatly resulted in an observable decrease in time and increase in productivity.
+
+\subsubsection{Commercialization Collaboration}
+It can be observed on the academic side that there are many knowledgable and skill individuals in developing the theory and mathematics behind drill string codes.  What academia often lacks is the resources to run a large scale software development project.  While industry has skill individuals capable of understanding the theory and math required to develop a drill string code, that learning can take time.  At the same time, industry can often contribute development resources that a university may have a hard time justifying.  It seems natural, therefore, that a partnership between academia and industry could leverage advantages from both sides.
+ 
+\subsection{Development of Generalized User Interface}
+All drill string models have a common need for certain input.  These items include the wellbore geometry, drill string definition, fluid properties, et cetera.  The drill string can further be broken down into the length, inside diameter, outside diameter, material, et cetera of each tubular section.  An important component of user friendly drill string software application is a graphical user interface to quickly and easily input this information.  While the exact format of this information may change from model to model, the content remains the same.
+
+Therefore, it seems feasible to create a universal ``front end'' for a drill string code that could serve as a user friendly interface to any model.  In such a design, there would likely require an intermediate ``interpreter'' to convert the information to the require format.  However, this \emph{Interpreter} could be a lightweight object that simply marshes data into the necessary format for a particular model.
+
+\subsubsection{Requirements}
+To develop a universal front end, a few requirements would have to be met.  Use of an interpreter interface would seem a natural way to convert to each models particular formats.  An alternate approach would be to require each model to conform to a particular input.  The front end would need to allow for extensions to the software to meet particular input required by a specific model but not used in others.  This could be in the form of an ``add on'' or in the case of an open-source front end these could be added directly.  Care would have to be taken to separate out these sections of code so it is clear they are specific and not universal.
+
+\subsubsection{Potential Pitfalls}
+While is seems reasonable that a universal interface could be developed, it would need to be carefully evaluated.  Trying to create a piece of software that is too general often leads to an over complex piece of code that is difficult to understand. 
