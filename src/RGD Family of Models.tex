@@ -1,6 +1,6 @@
 \chapter{RGD Family of Models}
 
-\section{RGD model}
+\section{RGD Model}
 
 This section briefly summarizes the workflow of RGB model written in MATLAB. More detail description can be seen in \referencename~\cite{ref:zhang2020a}.  This code is for symmetric full blade which is defined as D1 bit in the paper.  The code calculates coupled PDE and ODE by solving the matrix
 \begin{equation}\label{matrix}
@@ -127,7 +127,7 @@ Finally we obtained N+4 equations for the same number of unknowns and represent 
   \end{cases}
 \end{equation}
 
-\section{Normal drilling}
+\section{Normal Drilling}
 Normal drilling mode simplifies the equations (\ref{GE1}), and (\ref{GE2}) since g($\nu$) = 0 which can be represented as:
 
 \begin{equation}\label{GE1_normaldrilling}
@@ -147,7 +147,7 @@ Also, the depth of cut (\ref{deltan1}) is reduced to:
 Afterwards, equation (\ref{matrix}) can be solved with reduced equations from equations (\ref{GE1_normaldrilling}) - (\ref{deltan_normaldrilling})
 
 \newpage
-\section{Extended RGD model (Zhang and Detournay, 2022)}
+\section{Extended RGD Model (Zhang and Detournay, 2022)}
 
 
 This section summarizes the paper from Zhang and Detournay 2022, which is an extension of RGD model. The proposed model is a multi-degrees of freedom (MDOF) model of a rotary drilling system simulating axial-torsional self-excited vibrations induced by the bit/rock interactions. \figurename~\ref{model_develop_figure} illustrates the development of the RGD model.
@@ -169,7 +169,6 @@ different properties of drill pipe and BHA
 
 The following assumptions are made: 1) The borehole is vertical, 2) Lateral vibration of the drillstring are neglected, 3) axial and torsional damping are proportional to the length of drill pipes and BHA, 4) constant hook load and rotary speed from surface (surface boundary conditions). Additionally, the discontinuity of the boundary condition at the bit-rock interface is modeled by
 five different regimes classified based on axial, angular velocities, and depth-of-cut, namely, 1) normal drilling, 2) axial stick, 3) loss of contact, 4) torsional stick, 5) backward rotation
-
 The system equations (PDE-ODE coupled) are established from equation of motions (axial and torsional), and bit trajectory function, which is defined to project depth of cut from the angular displacement of the bit. Then,
 The PDE-ODE coupled system is numerically solved by discretizing the PDE-ODEs into ODEs. In this study, spectral method with Chebyshev polynomial is applied rather than finite element (FEM) or finite different method (FDM). Spectral method achieved high accuracy for a given number of basis functions and also converged faster compared to other numerical methods. (this is valid with simple geometry). 
 
@@ -207,9 +206,9 @@ Some of the results and potential of the model are summarized below.
 \end{bulletedlist} 
 
 \newpage
-\chapter{Aarsnes-Shor model}
+\chapter{Aarsnes-Shor Model}
 
-\section{Aasnes-Shor model}
+\section{Aarsnes-Shor Model}
 
 The proposed model applies the distributed model of the drillsring with the Coulomb friction given as distributed source term. Most of the previous studies explained the stick-slip behaviour from bit-rock interaction \referencename~\cite{ref:germay2009a, ref:richard2007a, ref:zhang2020a}. Therefore theses models could not validate the stick-slip behavior while off bottom state (i.e., back reaming). The proposed model simulates the torsional stick-slip by take in to account Coulomb-type friction throughout the drillstring. The effect of the distributed, along-string, Coulomb friction becomes prominent of torsional drill string dynamics in wellbores with high-inclination laters. The model was validated with field data from rotational startups, off bottom rotation (without any axial movement), after connection.
 
@@ -287,5 +286,79 @@ The PDE is solved from upwind scheme according to (for sell size $\Delta x$ and 
   \includegraphics[width=6in]{AS_discretizedDS}
   \caption[Schematic of discretized drillstring and boundary conditions]{Schematic of discretized drillstring, boundary conditions, and interface conditions based on Riemann invariants $\alpha$, and $\beta$.}\label{AS_discretizeDS}
 \end{figure}
+\section{Aarsnes-Shor Mode - PYTHON}
+This section briefly summarizes the code flow (PYTHON version), since it is slightly different in the way they calculated compared to the MATLAB version (section 4.1). The input for torsional modeling is summarized in \tablename~\ref{AS_inptut_params}.
 
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Parameter & Units & Notes\\                                                              
+\hline
+Simulation length & s & Total simulation time \\                                                  
+\hline
+Bit depth & ft & MD of the bit \\                                                   
+\hline
+dx & ft & Discretization length\\                                                       
+\hline
+dt & s & Time interval \\                                                         
+\hline
+$w_c$ & rad/s & Cut-off angular velocity (static, dynamic transition)\\                                                              
+\hline
+$\mu_s$ & -& Static friction factor\\
+\hline
+$\mu_k$ & - & Kinetic friction factor \\ 
+\hline
+$K_t$ &- & Inertial torsional damping \\                                                  
+\hline
+$K_s$ &- & Viscous damping coefficient \\                                                   
+\hline
+$\rho$ & $lbf/ft_3$ & Drill string density \\                                                       
+\hline
+G & $lbf/ft^2$ & Shear modulus   \\                                                         
+\hline
+E & $lbf/ft^2$ & Young's modulus \\                                                              
+\hline
+$K_p$ &- &P-gain of top drive (PI controller) \\
+\hline
+$K_i$ & - &I-gain of top drive (PI controller)\\ 
+\hline
+\end{tabular}
+\caption[Input parameters of Aarsnes-Shor model]{Input parameters of Aarsnes-shor model. well trajectory, top drive set velocity, and bit constant are the additional parameters which are not included in this table.}\label{AS_inptut_params}
+\end{table}
 
+First, the static behavior is calculated after descritizing the drillstring. Since the model assumes the off-bottom scenario, WOB and TOB is zero. The normal force, tension, and momentum throughout the drillstring is calculated (Johancsik et al., 1984). Then, the angular velocity, torque is calculated by iterating untill the desired simulation length reaches. The calculation procedure is shown below: 
+
+\begin{algorithm}
+\caption{Aarsnes-Shor model pseudocode algorithm}\label{AS-pseudocode}
+\begin{algorithmic}
+\For{\texttt{i = 1: simulation length/dt}}
+\State nstep = freq/dt
+\For{\texttt{j=1:nstep}}
+    \State 1. Set the topdrive setpoint torque and angular veloctiy
+    \State $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+    \State $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+    \State $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+    \State 2. Bit rotation
+    \State $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+    \State $w_{bit}(t+1) \gets w_{bottom}(t)$
+    \State 3. Update topdrive torque (?)
+    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+    \State 3. Calculate source term
+    \State $fric \gets \mu_k*f_n*r (friction)$
+    \State $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+    \State $vis \gets k_s*w(t) (viscous\:damping)$
+    \State $S \gets (fric+iner+vis)/dx$
+    \State 4. Update the torque and angular velocity \Comment{eqn.\ref{AS-motion}}
+    \State $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \Comment{n is discretized number}
+    \State $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+    \EndFor
+\State $\overline{w} \gets \overline{w} \cdot Kernel$ \Comment{remove high frequency noise}
+\State $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+\EndFor
+
+\end{algorithmic}
+\end{algorithm}
+
+ 
