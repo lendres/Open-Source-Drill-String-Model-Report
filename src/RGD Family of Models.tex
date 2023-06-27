@@ -335,7 +335,7 @@ First, the static behavior is calculated after descritizing the drillstring. Sin
 \For{\texttt{i = 1: simulation length/dt}}
 \State nstep = freq/dt
 \For{\texttt{j=1:nstep}}
-    \State 1. Set the topdrive setpoint torque and angular veloctiy
+    \State 1. Set the topdrive setpoint torque and angular velocity
     \State $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
     \State $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
     \State $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
@@ -361,4 +361,39 @@ First, the static behavior is calculated after descritizing the drillstring. Sin
 \end{algorithmic}
 \end{algorithm}
 
- 
+\newcommand{\codecomment}[1]{\hfill #1}
+\pushinitialcodeindent{0in}
+
+\begin{code}[\codenumbering]{}
+\codeitemnonumber \pseudocodefor{} {\texttt{i = 1: simulation length/dt}}
+	\stepcodelevel{}
+	\codeitemnonumber nstep = freq/dt
+	\pseudocodefor{} {\texttt{j=1:nstep}}
+		\stepcodelevel{}
+	    \codeitemnonumber 1. Set the topdrive setpoint torque and angular velocity
+	    \codeitemnonumber $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+	    \codeitemnonumber $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+	    \codeitemnonumber $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+	    \codeitemnonumber 2. Bit rotation
+	    \codeitemnonumber $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+	    \codeitemnonumber $w_{bit}(t+1) \gets w_{bottom}(t)$
+	    \codeitemnonumber 3. Update topdrive torque (?)
+	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+	    \codeitemnonumber 4. Calculate source term
+	    \codeitemnonumber $fric \gets \mu_k*f_n*r (friction)$
+	    \codeitemnonumber $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+	    \codeitemnonumber $vis \gets k_s*w(t) (viscous\:damping)$
+	    \codeitemnonumber $S \gets (fric+iner+vis)/dx$
+	    \codeitemnonumber 5. Update the torque and angular velocity \codecomment{eqn.\ref{AS-motion}}
+	    \codeitemnonumber $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \codecomment{n is discretized number}
+	    \codeitemnonumber $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+	    \prevcodelevel{}
+	\codeitemnonumber \pseudocodedonefor{}
+	\codeitemnonumber $\overline{w} \gets \overline{w} \cdot Kernel$ \codecomment{remove high frequency noise}
+	\codeitemnonumber $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+	\prevcodelevel{}
+\codeitemnonumber \pseudocodedonefor{}
+\end{code}
+\popinitialcodeindent{}
+
