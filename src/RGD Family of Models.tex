@@ -225,8 +225,13 @@ Assumptions of the model are listed below:
 
 The model is based on the euqations of angular motion, here named wave equation, which is:
 \begin{equation}\label{AS-motion}
-  J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x)
+  J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x) 
 \end{equation}
+
+\begin{equation}
+ \frac{\partial\tau(t,x)}{\partial t} + JG\frac{\partial w(t,x)}{\partial x} = 0 
+\end{equation}
+
 where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is angular velocity, $\tau(t,x)$ is torque, and S is the source term which can be represented as:
 \begin{equation}\label{AS-sourceterm}
   S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
@@ -287,9 +292,9 @@ The PDE is solved from upwind scheme according to (for sell size $\Delta x$ and 
   \caption[Schematic of discretized drillstring and boundary conditions]{Schematic of discretized drillstring, boundary conditions, and interface conditions based on Riemann invariants $\alpha$, and $\beta$.}\label{AS_discretizeDS}
 \end{figure}
 \section{Aarsnes-Shor Mode - PYTHON}
-This section briefly summarizes the code flow (PYTHON version), since it is slightly different in the way they calculated compared to the MATLAB version (section 4.1). The input for torsional modeling is summarized in \tablename~\ref{AS_inptut_params}.
+This section briefly summarizes the code flow (PYTHON version), since it is slightly different in the way they calculated compared to the MATLAB version. The input for torsional modeling is summarized in \tablename~\ref{AS_inptut_params}.
 
-\begin{table}[ht]
+\begin{table}[!hbt]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -298,10 +303,6 @@ Parameter & Units & Notes\\
 Simulation length & s & Total simulation time \\                                                  
 \hline
 Bit depth & ft & MD of the bit \\                                                   
-\hline
-dx & ft & Discretization length\\                                                       
-\hline
-dt & s & Time interval \\                                                         
 \hline
 $w_c$ & rad/s & Cut-off angular velocity (static, dynamic transition)\\                                                              
 \hline
@@ -319,9 +320,13 @@ G & $lbf/ft^2$ & Shear modulus   \\
 \hline
 E & $lbf/ft^2$ & Young's modulus \\                                                              
 \hline
-$K_p$ &- &P-gain of top drive (PI controller) \\
+$K_p$ & $lb$-$ft$ & P-gain of top drive (PI controller) \\
 \hline
-$K_i$ & - &I-gain of top drive (PI controller)\\ 
+$K_i$ & $lb$-$ft/s$ &I-gain of top drive (PI controller)\\ 
+\hline
+$J_{TD}$ & $lb$-$ft^2$ & Top drive inertia \\
+\hline
+ramp speed & RPM/s & ramp speed of top drive\\
 \hline
 \end{tabular}
 \caption[Input parameters of Aarsnes-Shor model]{Input parameters of Aarsnes-shor model. well trajectory, top drive set velocity, and bit constant are the additional parameters which are not included in this table.}\label{AS_inptut_params}
@@ -329,71 +334,164 @@ $K_i$ & - &I-gain of top drive (PI controller)\\
 
 First, the static behavior is calculated after descritizing the drillstring. Since the model assumes the off-bottom scenario, WOB and TOB is zero. The normal force, tension, and momentum throughout the drillstring is calculated (Johancsik et al., 1984). Then, the angular velocity, torque is calculated by iterating untill the desired simulation length reaches. The calculation procedure is shown below: 
 
-\begin{algorithm}
-\caption{Aarsnes-Shor model pseudocode algorithm}\label{AS-pseudocode}
-\begin{algorithmic}
-\For{\texttt{i = 1: simulation length/dt}}
-\State nstep = freq/dt
-\For{\texttt{j=1:nstep}}
-    \State 1. Set the topdrive setpoint torque and angular velocity
-    \State $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
-    \State $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
-    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
-    \State $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
-    \State 2. Bit rotation
-    \State $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
-    \State $w_{bit}(t+1) \gets w_{bottom}(t)$
-    \State 3. Update topdrive torque (?)
-    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
-    \State 3. Calculate source term
-    \State $fric \gets \mu_k*f_n*r (friction)$
-    \State $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
-    \State $vis \gets k_s*w(t) (viscous\:damping)$
-    \State $S \gets (fric+iner+vis)/dx$
-    \State 4. Update the torque and angular velocity \Comment{eqn.\ref{AS-motion}}
-    \State $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \Comment{n is discretized number}
-    \State $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
-    \EndFor
-\State $\overline{w} \gets \overline{w} \cdot Kernel$ \Comment{remove high frequency noise}
-\State $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
-\EndFor
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6in]{algorithm_ASmodel}
+\end{figure}
 
-\end{algorithmic}
-\end{algorithm}
 
-\newcommand{\codecomment}[1]{\hfill #1}
-\pushinitialcodeindent{0in}
+%\end{figure}
+%\begin{algorithm}
+%\caption{Aarsnes-Shor model pseudocode algorithm}\label{AS-pseudocode}
+%\begin{algorithmic}
+%\For{\texttt{i = 1: simulation length/dt}}
+%\State nstep = freq/dt
+%\For{\texttt{j=1:nstep}}
+%    \State 1. Set the topdrive setpoint torque and angular velocity
+%    \State $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+%    \State $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+%    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+%    \State $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+%    \State 2. Bit rotation
+%    \State $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+%    \State $w_{bit}(t+1) \gets w_{bottom}(t)$
+%    \State 3. Update topdrive torque (?)
+%    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+%    \State 3. Calculate source term
+%    \State $fric \gets \mu_k*f_n*r (friction)$
+%    \State $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+%    \State $vis \gets k_s*w(t) (viscous\:damping)$
+%    \State $S \gets (fric+iner+vis)/dx$
+%    \State 4. Update the torque and angular velocity \Comment{eqn.\ref{AS-motion}}
+%    \State $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \Comment{n is discretized number}
+%    \State $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+%    \If{$\tau(t+1)<fric$ or $w(t+1)<w_c$}
+%    \State $w(t+1) = 0$
+%    \EndIf
+%    \EndFor
+%\State $\overline{w} \gets \overline{w} \cdot Kernel$ \Comment{remove high frequency noise}
+%\State $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+%\EndFor
+%\end{algorithmic}
+%\end{algorithm}
 
-\begin{code}[\codenumbering]{}
-\codeitemnonumber \pseudocodefor{} {\texttt{i = 1: simulation length/dt}}
-	\stepcodelevel{}
-	\codeitemnonumber nstep = freq/dt
-	\pseudocodefor{} {\texttt{j=1:nstep}}
-		\stepcodelevel{}
-	    \codeitemnonumber 1. Set the topdrive setpoint torque and angular velocity
-	    \codeitemnonumber $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
-	    \codeitemnonumber $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
-	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
-	    \codeitemnonumber $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
-	    \codeitemnonumber 2. Bit rotation
-	    \codeitemnonumber $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
-	    \codeitemnonumber $w_{bit}(t+1) \gets w_{bottom}(t)$
-	    \codeitemnonumber 3. Update topdrive torque (?)
-	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
-	    \codeitemnonumber 4. Calculate source term
-	    \codeitemnonumber $fric \gets \mu_k*f_n*r (friction)$
-	    \codeitemnonumber $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
-	    \codeitemnonumber $vis \gets k_s*w(t) (viscous\:damping)$
-	    \codeitemnonumber $S \gets (fric+iner+vis)/dx$
-	    \codeitemnonumber 5. Update the torque and angular velocity \codecomment{eqn.\ref{AS-motion}}
-	    \codeitemnonumber $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \codecomment{n is discretized number}
-	    \codeitemnonumber $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
-	    \prevcodelevel{}
-	\codeitemnonumber \pseudocodedonefor{}
-	\codeitemnonumber $\overline{w} \gets \overline{w} \cdot Kernel$ \codecomment{remove high frequency noise}
-	\codeitemnonumber $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
-	\prevcodelevel{}
-\codeitemnonumber \pseudocodedonefor{}
-\end{code}
-\popinitialcodeindent{}
+%\newcommand{\codecomment}[1]{\hfill #1}
+%\pushinitialcodeindent{0in}
+%
+%\begin{code}[\codenumbering]{}
+%\codeitemnonumber \pseudocodefor{} {\texttt{i = 1: simulation length/dt}}
+%	\stepcodelevel{}
+%	\codeitemnonumber nstep = freq/dt
+%	\pseudocodefor{} {\texttt{j=1:nstep}}
+%		\stepcodelevel{}
+%	    \codeitemnonumber 1. Set the topdrive setpoint torque and angular velocity
+%	    \codeitemnonumber $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+%	    \codeitemnonumber $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+%	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+%	    \codeitemnonumber $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+%	    \codeitemnonumber 2. Bit rotation
+%	    \codeitemnonumber $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+%	    \codeitemnonumber $w_{bit}(t+1) \gets w_{bottom}(t)$
+%	    \codeitemnonumber 3. Update topdrive torque (?)
+%	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+%	    \codeitemnonumber 4. Calculate source term
+%	    \codeitemnonumber $fric \gets \mu_k*f_n*r (friction)$
+%	    \codeitemnonumber $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+%	    \codeitemnonumber $vis \gets k_s*w(t) (viscous\:damping)$
+%	    \codeitemnonumber $S \gets (fric+iner+vis)/dx$
+%	    \codeitemnonumber 5. Update the torque and angular velocity \codecomment{eqn.\ref{AS-motion}}
+%	    \codeitemnonumber $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \codecomment{n is discretized number}
+%	    \codeitemnonumber $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+%	    \prevcodelevel{}
+%	\codeitemnonumber \pseudocodedonefor{}
+%	\codeitemnonumber $\overline{w} \gets \overline{w} \cdot Kernel$ \codecomment{remove high frequency noise}
+%	\codeitemnonumber $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+%	\prevcodelevel{}
+%\codeitemnonumber \pseudocodedonefor{}
+%\end{code}
+%\popinitialcodeindent{}
+
+\section{Model Comparison}
+
+* This is on-going work, will be updated whenever there are new findings...*
+* Will be moved to new chapter *
+
+Exxon mobil model and Aarsnes-shor model (MATLAB ver. and PYTHON ver.) are compared with simple well and drill string configurations. The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input}., and Figure \figurename~\ref{figure_verticalwell}. The Exxon mobil model and MATLAB ver. A-S model uses metric units while PYTHON ver. A-S model uses imperial units. For the future convenience, the Table in this chapter contains both imperial and metric units.
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=1.5in]{VerticalWellConfig}
+  \caption[Schematic of well and drill string for model comparison.]{Schematic of well and drill string for model comparison.}\label{figure_verticalwell}
+\end{figure}
+
+\begin{table}[!hbt]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Parameter & value (imperial units) & value (metric units) & description\\                                                              
+\hline
+$\rho$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+\hline
+G & $1.67e^9\;lbf/ft^3$ & $7.99e^{10}\;Pa$  & Shear modulus \\                                                  
+\hline
+OD & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
+\hline
+ID & 5.00 in & l.127 m & drill pipe inner diameter  \\                                                      
+\hline
+MD & 6561 ft & 2000 m & measured depth\\                                                              
+\hline
+TVD & 6561 ft & 2000 m & total vertical depth\\
+\hline
+Bit depth & 5905 ft & 1800 m & - \\ 
+\hline
+\end{tabular}
+\caption[Well survey data for model comparison (vertical well)]{Well survey and drill string data for model comparison (vertical well without BHA components)}\label{table_verticalwell_input}
+\end{table}
+The top drive velocity is increased from 0 RPM to 40 RPM at 1 second and maintained the velocity for rest of the time. The top drive velocity is shown in \figurename~\ref{figure_topdrive_VSP}
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=3.2in]{TopdriveVSP}
+  \caption[Top drive set velocity]{Top drive set velocity}\label{figure_topdrive_VSP}
+\end{figure}
+
+
+Before comparing between the models, the PI-controller of the top drive in PYTHON ver. was eliminated since it was sensitive to input parameter which are $k_e, k_i, J_{TD}$, and ramp speed (\tablename~\ref{AS_inptut_params}). \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between MATLAB ver. and PYTHON ver. when same parameters were used for top drive (\tablename~\ref{table_topdrivesensitivity_input}). Please note that the absolute value is different because of the unit differences.
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6in]{verticalwell_topdrive_sensitivity}
+  \caption[Comparison of drillstring response to same top drive parameters]{Comparison of top drive and bit responses with same top drive parameters between MATLAB ver. and PYTHON ver. a): Results from MATLAB ver., and b) : results from PYTHON ver.}\label{figure_topdrive_sensitivity}
+\end{figure}
+
+\begin{table}[!hbt]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Parameter & value (imperial units) & value (metric units) & description\\                                                              
+\hline
+$k_t$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+\hline
+G & $1.67e^9\;lbf/ft^3$ & $7.99e^{10}\;pa$  & Shear modulus \\                                                  
+\hline
+OD & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
+\hline
+ID & 5.00 in & l.127 m & drill pipe inner diameter  \\                                                      
+\hline
+MD & 6561 ft & 2000 m & measured depth\\                                                              
+\hline
+TVD & 6561 ft & 2000 m & total vertical depth\\
+\hline
+Bit depth & 5905 ft & 1800 m & - \\ 
+\hline
+\end{tabular}
+\caption[Well survey data for model comparison (vertical well)]{Well survey and drill string data for model comparison (vertical well without BHA components)}\label{table_topdrivesensitivity_input}
+\end{table}
+
+
+First, for the simplicity, the viscous damping was assumed to be zero. Moreover, the coulomb friction is also zero since there is no contact between drill string and borehole (vertical well). Therefore the source term of the governing equation will be zero in equation \equationname~\ref{AS-motion}.
+
+The comparison between MATLAB ver. and PYTHON ver. are illustrated in Figure
+
+
 
