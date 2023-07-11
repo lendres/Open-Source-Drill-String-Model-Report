@@ -413,8 +413,7 @@ First, the static behavior is calculated after descritizing the drillstring. Sin
 
 \section{Model Comparison}
 
-* This is on-going work, will be updated whenever there are new findings...*
-* Will be moved to new chapter *
+\subsection{Case 1 - vertical well}
 
 Exxon mobil model and Aarsnes-shor model (MATLAB ver. and PYTHON ver.) are compared with simple well and drill string configurations. The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input}., and Figure \figurename~\ref{figure_verticalwell}. The Exxon mobil model and MATLAB ver. A-S model uses metric units while PYTHON ver. A-S model uses imperial units. For the future convenience, the Table in this chapter contains both imperial and metric units.
 
@@ -469,7 +468,7 @@ Before comparing between the models, the PI-controller of the top drive in PYTHO
 \hline
 Parameter & value (imperial units) & value (metric units) & description\\                                                              
 \hline
-$k_t$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+$\rho$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
 \hline
 G & $1.67e^9\;lbf/ft^3$ & $7.99e^{10}\;pa$  & Shear modulus \\                                                  
 \hline
@@ -484,7 +483,7 @@ TVD & 6561 ft & 2000 m & total vertical depth\\
 Bit depth & 5905 ft & 1800 m & - \\ 
 \hline
 \end{tabular}
-\caption[Well survey data for model comparison (vertical well)]{Well survey and drill string data for model comparison (vertical well without BHA components.)}\label{table_topdrivesensitivity_input}
+\caption[Well survey data for model comparison (vertical well).]{Well survey and drill string data for model comparison (vertical well without BHA components.)}\label{table_topdrivesensitivity_input}
 \end{table}
 
 To acquire stable behavior of the drill string from PYTHON ver., parameter tuning was conducted. After finding the proper top drive PI-controller parameters, we also modified the code which removes the top drive assuming the fixed velocity at the top of the drill string. This is to reduce the parameters of the model for more simple comparison between different models for the future work. The flowchart of PI-controller removal is shown in \figurename~\ref{figure_Topdriveremove_math}.
@@ -541,3 +540,44 @@ The comparison between different models are shown in \figurename~\ref{figure_mod
 %\end{tabular}
 %\caption[Summary of model comparison without damping and BHA components in vertical well.]{Summary of model comparison without damping and BHA components in vertical well.}\label{table_modelcomparison_vertical_input}
 %\end{table}
+
+\newpage
+\subsection{Case 2 - Inclined well}
+
+The model was tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60 deg inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with test case 1 (\figurename\ref{figure_topdrive_VSP}).For test case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in 
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=4in]{InclinedWellConfig}
+  \caption[Schematic view of test case 2.]{Schematic view of wellbore and drill string for test case 2.}\label{figure_wellconfig_inclined}
+\end{figure}
+
+ \begin{table}[!hbt]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Parameter & value (imperial units) & value (metric units) & description\\                                                              
+\hline
+$OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
+\hline
+$ID_{dp}$ & 5.00 in & l.127 m & drill pipe inner diameter  \\                                                      
+\hline
+$\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+\hline
+$G_{dp}$ & $1.27e^{9}\;lb/ft^3$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
+\hline
+$\mu$ & 0.5 & 0.5 & Static friction factor\\
+\hline
+$fRat$ & 0.5 & 0.5 & Static friction/Dynamic friction\\
+\hline
+$w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
+\hline
+\end{tabular}
+\caption[Input parameters for test case 2.]{Input parameters for test case 2. fRat only included in MATLAB ver. model, have to figure how to convert it to dynamic friction factor***).}\label{table_Inclinedwell_input}
+\end{table}
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6.5in]{Testcase2_ASmodel}
+  \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model, MATLAB ver and PYTHON ver. Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
+\end{figure}
