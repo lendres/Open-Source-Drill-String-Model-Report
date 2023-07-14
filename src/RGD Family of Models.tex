@@ -205,12 +205,11 @@ Some of the results and potential of the model are summarized below.
   \item Current code provided is 2 DOF model.
 \end{bulletedlist} 
 
-\newpage
 \chapter{Aarsnes-Shor Model}
 
 \section{Aarsnes-Shor Model}
 
-The proposed model applies the distributed model of the drillsring with the Coulomb friction given as distributed source term. Most of the previous studies explained the stick-slip behaviour from bit-rock interaction \referencename~\cite{ref:germay2009a, ref:richard2007a, ref:zhang2020a}. Therefore theses models could not validate the stick-slip behavior while off bottom state (i.e., back reaming). The proposed model simulates the torsional stick-slip by take in to account Coulomb-type friction throughout the drillstring. The effect of the distributed, along-string, Coulomb friction becomes prominent of torsional drill string dynamics in wellbores with high-inclination laters. The model was validated with field data from rotational startups, off bottom rotation (without any axial movement), after connection.
+The proposed model applies the distributed model of the drillstring with the Coulomb friction given as distributed source term. Most of the previous studies explained the stick-slip behaviour from bit-rock interaction \referencename~\cite{ref:germay2009a, ref:richard2007a, ref:zhang2020a}. Therefore theses models could not validate the stick-slip behavior while off bottom state (i.e., back reaming). The proposed model simulates the torsional stick-slip by take in to account Coulomb-type friction throughout the drillstring. The effect of the distributed, along-string, Coulomb friction becomes prominent of torsional drill string dynamics in wellbores with high-inclination laters. The model was validated with field data from rotational startups, off bottom rotation (without any axial movement), after connection.
 
 Assumptions of the model are listed below:
 \begin{bulletedlist}
@@ -223,7 +222,7 @@ Assumptions of the model are listed below:
 
 \noindent Mathematical procedure is summarized below (follows the code flow provided):
 
-The model is based on the euqations of angular motion, here named wave equation, which is:
+The model is based on the equations of angular motion, here named wave equation, which is:
 \begin{equation}\label{AS-motion}
   J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x)
 \end{equation}
@@ -274,7 +273,7 @@ where $\overline{Z}$is the relative magnitude of the impedance (assuming same $c
   \overline{Z} = \frac{J_c G_c}{J_p G_p}
 \end{equation}
 
-\figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drillstring with boundary conditions, and interface conditions in terms of Riemann invariants. The boundary conditions at the top and bottom of the drillsring are applied to $\alpha$, and $\beta$, respectively. However, since the two variables are coupled by interface conditions, the PDE can be solved. 
+\figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drillstring with boundary conditions, and interface conditions in terms of Riemann invariants. The boundary conditions at the top and bottom of the drillstring are applied to $\alpha$, and $\beta$, respectively. However, since the two variables are coupled by interface conditions, the PDE can be solved. 
 The PDE is solved from upwind scheme according to (for sell size $\Delta x$ and time step $\Delta t$, at cell j and time step k):
 \begin{equation}\label{AS-upwind}
   \mathcal{F}_{j}^k = \frac{1}{2 \Delta t}\left(a_j^k - c_t \frac{\Delta t}{\Delta x}(a_j^k - a_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+t}^k-\beta_j^k) + \Delta t k_t (\alpha_j^k + \beta_j^k)\right)
@@ -365,10 +364,10 @@ First, the static behavior is calculated after descritizing the drillstring. Sin
 \pushinitialcodeindent{0in}
 
 \begin{code}[\codenumbering]{}
-\codeitemnonumber \pseudocodefor{} {\texttt{i = 1: simulation length/dt}}
+\codeitemnonumber \pseudocodefor{} i = 1 simulation length/dt
 	\stepcodelevel{}
 	\codeitemnonumber nstep = freq/dt
-	\pseudocodefor{} {\texttt{j=1:nstep}}
+	\codeitemnonumber \pseudocodefor{} {j=1:nstep}
 		\stepcodelevel{}
 	    \codeitemnonumber 1. Set the topdrive setpoint torque and angular velocity
 	    \codeitemnonumber $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$

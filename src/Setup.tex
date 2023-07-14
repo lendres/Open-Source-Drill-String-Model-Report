@@ -1,6 +1,11 @@
 % HYPERLINKS	
 \usepackage[pdfauthor={Lance A. Endres}, pdftitle={Drilling Dynamics and Mechanics}]{lehyperlink}
 
+
+% SPECIAL NAMES
+\newcommand*{\osdc}{\emph{Open-Source Drilling Community}}
+
+
 % HEADERS AND FOOTERS
 % Use this to use the CNPC header with the logo and a bottom footer with line and page number.
 \cnpctopbottommargins{}
@@ -28,17 +33,6 @@
 
 % FONTS
 \usepackage{times}
-
-% Define colors for use with fonts.
-\usepackage{color}
-\definecolor{warningcolor}{rgb}{0.753,0,0}	
-
-% Special font formatting commands.
-\newcommand*{\important}[1]{\textbf{\emph{#1}}}
-\newcommand*{\warning}[1]{\textcolor{warningcolor}{\bfseries#1}}
-
-% Special names.
-\newcommand*{\osdc}{\emph{Open-Source Drilling Community}}
 
 
 % LISTS
@@ -73,9 +67,8 @@
 \newcommand*{\formattedepigraph}[2]{\epigraph{\textit{#1}}{--- #2}}
 
 
-% NOTES
-% This macro just eats the input.  This allows notes or comments to be added without them being output to the document.
-\newcommand{\note}[1]{}
+% NOTATIONS AND MARKUP
+\usepackage{lemarkup}
 
 
 % MATH
