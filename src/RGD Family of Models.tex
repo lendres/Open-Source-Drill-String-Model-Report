@@ -187,7 +187,6 @@ Some of the results and potential of the model are summarized below.
   \caption[Simulation results of bit angular velocity and its frequency spectrum]{Simulation results of bit angular velocity and its frequency spectrum. The result shows the stick-slip occupance due to self-excited torsional vibration}\label{StickslipExample}
 \end{figure}
 
-\newpage
 
 \begin{figure}[ht]
   \centering
@@ -333,37 +332,37 @@ ramp speed & RPM/s & ramp speed of top drive\\
 
 First, the static behavior is calculated after descritizing the drillstring. Since the model assumes the off-bottom scenario, WOB and TOB is zero. The normal force, tension, and momentum throughout the drillstring is calculated (Johancsik et al., 1984). Then, the angular velocity, torque is calculated by iterating untill the desired simulation length reaches. The calculation procedure is shown below: 
 
-\begin{algorithm}
-\caption{Aarsnes-Shor model pseudocode algorithm}\label{AS-pseudocode}
-\begin{algorithmic}
-\For{\texttt{i = 1: simulation length/dt}}
-\State nstep = freq/dt
-\For{\texttt{j=1:nstep}}
-    \State 1. Set the topdrive setpoint torque and angular velocity
-    \State $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
-    \State $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
-    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
-    \State $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
-    \State 2. Bit rotation
-    \State $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
-    \State $w_{bit}(t+1) \gets w_{bottom}(t)$
-    \State 3. Update topdrive torque (?)
-    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
-    \State 3. Calculate source term
-    \State $fric \gets \mu_k*f_n*r (friction)$
-    \State $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
-    \State $vis \gets k_s*w(t) (viscous\:damping)$
-    \State $S \gets (fric+iner+vis)/dx$
-    \State 4. Update the torque and angular velocity \Comment{eqn.\ref{AS-motion}}
-    \State $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \Comment{n is discretized number}
-    \State $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
-    \EndFor
-\State $\overline{w} \gets \overline{w} \cdot Kernel$ \Comment{remove high frequency noise}
-\State $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
-\EndFor
-
-\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}
+%\caption{Aarsnes-Shor model pseudocode algorithm}\label{AS-pseudocode}
+%\begin{algorithmic}
+%\For{\texttt{i = 1: simulation length/dt}}
+%\State nstep = freq/dt
+%\For{\texttt{j=1:nstep}}
+%    \State 1. Set the topdrive setpoint torque and angular velocity
+%    \State $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+%    \State $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+%    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+%    \State $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+%    \State 2. Bit rotation
+%    \State $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+%    \State $w_{bit}(t+1) \gets w_{bottom}(t)$
+%    \State 3. Update topdrive torque (?)
+%    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+%    \State 3. Calculate source term
+%    \State $fric \gets \mu_k*f_n*r (friction)$
+%    \State $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+%    \State $vis \gets k_s*w(t) (viscous\:damping)$
+%    \State $S \gets (fric+iner+vis)/dx$
+%    \State 4. Update the torque and angular velocity \Comment{eqn.\ref{AS-motion}}
+%    \State $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \Comment{n is discretized number}
+%    \State $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+%    \EndFor
+%\State $\overline{w} \gets \overline{w} \cdot Kernel$ \Comment{remove high frequency noise}
+%\State $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+%\EndFor
+%
+%\end{algorithmic}
+%\end{algorithm}
 
 \newcommand{\codecomment}[1]{\hfill #1}
 \pushinitialcodeindent{0in}
@@ -650,9 +649,10 @@ The results from A-S models are shown in \figurename~\ref{figure_testcase2_ASmod
   \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model for test case 2, a): MATLAB ver, and b): PYTHON ver. Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
 \end{figure}
 
-A-S model\\
-1) Difference in torque amplitude\\
-2) Difference in oscillation frequencies\\
-3) Bit model - constant torque\\
-4) Comparison using color map? \\
-
+A-S model
+\begin{numberedlist}
+	\item Difference in torque amplitude
+	\item Difference in oscillation frequencies
+	\item Bit model - constant torque
+	\item Comparison using color map?
+\end{numberedlist}
