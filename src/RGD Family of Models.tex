@@ -187,7 +187,6 @@ Some of the results and potential of the model are summarized below.
   \caption[Simulation results of bit angular velocity and its frequency spectrum]{Simulation results of bit angular velocity and its frequency spectrum. The result shows the stick-slip occupance due to self-excited torsional vibration}\label{StickslipExample}
 \end{figure}
 
-\newpage
 
 \begin{figure}[ht]
   \centering
@@ -205,12 +204,11 @@ Some of the results and potential of the model are summarized below.
   \item Current code provided is 2 DOF model.
 \end{bulletedlist} 
 
-\newpage
 \chapter{Aarsnes-Shor Model}
 
 \section{Aarsnes-Shor Model}
 
-The proposed model applies the distributed model of the drillsring with the Coulomb friction given as distributed source term. Most of the previous studies explained the stick-slip behaviour from bit-rock interaction \referencename~\cite{ref:germay2009a, ref:richard2007a, ref:zhang2020a}. Therefore theses models could not validate the stick-slip behavior while off bottom state (i.e., back reaming). The proposed model simulates the torsional stick-slip by take in to account Coulomb-type friction throughout the drillstring. The effect of the distributed, along-string, Coulomb friction becomes prominent of torsional drill string dynamics in wellbores with high-inclination laters. The model was validated with field data from rotational startups, off bottom rotation (without any axial movement), after connection.
+The proposed model applies the distributed model of the drillstring with the Coulomb friction given as distributed source term. Most of the previous studies explained the stick-slip behaviour from bit-rock interaction \referencename~\cite{ref:germay2009a, ref:richard2007a, ref:zhang2020a}. Therefore theses models could not validate the stick-slip behavior while off bottom state (i.e., back reaming). The proposed model simulates the torsional stick-slip by take in to account Coulomb-type friction throughout the drillstring. The effect of the distributed, along-string, Coulomb friction becomes prominent of torsional drill string dynamics in wellbores with high-inclination laters. The model was validated with field data from rotational startups, off bottom rotation (without any axial movement), after connection.
 
 Assumptions of the model are listed below:
 \begin{bulletedlist}
@@ -223,7 +221,7 @@ Assumptions of the model are listed below:
 
 \noindent Mathematical procedure is summarized below (follows the code flow provided):
 
-The model is based on the euqations of angular motion, here named wave equation, which is:
+The model is based on the equations of angular motion, here named wave equation, which is:
 \begin{equation}\label{AS-motion}
   J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x) 
 \end{equation}
@@ -279,7 +277,7 @@ where $\overline{Z}$is the relative magnitude of the impedance (assuming same $c
   \overline{Z} = \frac{J_c G_c}{J_p G_p}
 \end{equation}
 
-\figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drillstring with boundary conditions, and interface conditions in terms of Riemann invariants. The boundary conditions at the top and bottom of the drillsring are applied to $\alpha$, and $\beta$, respectively. However, since the two variables are coupled by interface conditions, the PDE can be solved. 
+\figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drillstring with boundary conditions, and interface conditions in terms of Riemann invariants. The boundary conditions at the top and bottom of the drillstring are applied to $\alpha$, and $\beta$, respectively. However, since the two variables are coupled by interface conditions, the PDE can be solved. 
 The PDE is solved from upwind scheme according to (for sell size $\Delta x$ and time step $\Delta t$, at cell j and time step k):
 \begin{equation}\label{AS-upwind}
   \mathcal{F}_{j}^k = \frac{1}{2 \Delta t}\left(a_j^k - c_t \frac{\Delta t}{\Delta x}(a_j^k - a_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+t}^k-\beta_j^k) + \Delta t k_t (\alpha_j^k + \beta_j^k)\right)
@@ -334,6 +332,73 @@ ramp speed & RPM/s & ramp speed of top drive\\
 
 First, the static behavior is calculated after descritizing the drillstring. Since the model assumes the off-bottom scenario, WOB and TOB is zero. The normal force, tension, and momentum throughout the drillstring is calculated (Johancsik et al., 1984). Then, the angular velocity, torque is calculated by iterating untill the desired simulation length reaches. The calculation procedure is shown below: 
 
+%\begin{algorithm}
+%\caption{Aarsnes-Shor model pseudocode algorithm}\label{AS-pseudocode}
+%\begin{algorithmic}
+%\For{\texttt{i = 1: simulation length/dt}}
+%\State nstep = freq/dt
+%\For{\texttt{j=1:nstep}}
+%    \State 1. Set the topdrive setpoint torque and angular velocity
+%    \State $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+%    \State $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+%    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+%    \State $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+%    \State 2. Bit rotation
+%    \State $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+%    \State $w_{bit}(t+1) \gets w_{bottom}(t)$
+%    \State 3. Update topdrive torque (?)
+%    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+%    \State 3. Calculate source term
+%    \State $fric \gets \mu_k*f_n*r (friction)$
+%    \State $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+%    \State $vis \gets k_s*w(t) (viscous\:damping)$
+%    \State $S \gets (fric+iner+vis)/dx$
+%    \State 4. Update the torque and angular velocity \Comment{eqn.\ref{AS-motion}}
+%    \State $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \Comment{n is discretized number}
+%    \State $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+%    \EndFor
+%\State $\overline{w} \gets \overline{w} \cdot Kernel$ \Comment{remove high frequency noise}
+%\State $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+%\EndFor
+%
+%\end{algorithmic}
+%\end{algorithm}
+
+\newcommand{\codecomment}[1]{\hfill #1}
+\pushinitialcodeindent{0in}
+
+\begin{code}[\codenumbering]{}
+\codeitemnonumber \pseudocodefor{} i = 1 simulation length/dt
+	\stepcodelevel{}
+	\codeitemnonumber nstep = freq/dt
+	\codeitemnonumber \pseudocodefor{} {j=1:nstep}
+		\stepcodelevel{}
+	    \codeitemnonumber 1. Set the topdrive setpoint torque and angular velocity
+	    \codeitemnonumber $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+	    \codeitemnonumber $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+	    \codeitemnonumber $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+	    \codeitemnonumber 2. Bit rotation
+	    \codeitemnonumber $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+	    \codeitemnonumber $w_{bit}(t+1) \gets w_{bottom}(t)$
+	    \codeitemnonumber 3. Update topdrive torque (?)
+	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+	    \codeitemnonumber 4. Calculate source term
+	    \codeitemnonumber $fric \gets \mu_k*f_n*r (friction)$
+	    \codeitemnonumber $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+	    \codeitemnonumber $vis \gets k_s*w(t) (viscous\:damping)$
+	    \codeitemnonumber $S \gets (fric+iner+vis)/dx$
+	    \codeitemnonumber 5. Update the torque and angular velocity \codecomment{eqn.\ref{AS-motion}}
+	    \codeitemnonumber $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \codecomment{n is discretized number}
+	    \codeitemnonumber $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+	    \prevcodelevel{}
+	\codeitemnonumber \pseudocodedonefor{}
+	\codeitemnonumber $\overline{w} \gets \overline{w} \cdot Kernel$ \codecomment{remove high frequency noise}
+	\codeitemnonumber $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+	\prevcodelevel{}
+\codeitemnonumber \pseudocodedonefor{}
+\end{code}
+\popinitialcodeindent{}
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=6in]{algorithm_ASmodel}
@@ -584,11 +649,14 @@ The results from A-S models are shown in \figurename~\ref{figure_testcase2_ASmod
   \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model for test case 2, a): MATLAB ver, and b): PYTHON ver. Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
 \end{figure}
 
-A-S model\\
-1) Difference in torque amplitude\\
-2) Difference in oscillation frequencies\\
-3) Bit model - constant torque\\
-4) Comparison using color map? \\
+
+A-S model
+\begin{numberedlist}
+	\item Difference in torque amplitude
+	\item Difference in oscillation frequencies
+	\item Bit model - constant torque
+	\item Comparison using color map?
+\end{numberedlist}
 
 \newpage
 \subsection{Case 3 - Vertical Well with BHA}
@@ -626,3 +694,4 @@ A-S model\\
 In this specific scenario, an additional configuration of the drill string included a Bottom Hole Assembly (BHA). The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged, while the parameters for the top drive were kept constant. For the sake of simplicity, the influence of viscous damping was disregarded. The specific input parameters can be found in the provided \tablename~\ref{Input Parameters TC3}.
 
 After running the simulation we get the following results. Top-drive torque remains constant while Rotational speed of the drill bit plays around
+
