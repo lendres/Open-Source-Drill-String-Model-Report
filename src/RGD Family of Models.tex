@@ -649,6 +649,7 @@ The results from A-S models are shown in \figurename~\ref{figure_testcase2_ASmod
   \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model for test case 2, a): MATLAB ver, and b): PYTHON ver. Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
 \end{figure}
 
+
 A-S model
 \begin{numberedlist}
 	\item Difference in torque amplitude
@@ -656,3 +657,41 @@ A-S model
 	\item Bit model - constant torque
 	\item Comparison using color map?
 \end{numberedlist}
+
+\newpage
+\subsection{Case 3 - Vertical Well with BHA}
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=2in]{VerticalWellConfigBHA}
+  \caption{Schematic of well and drill string for model comparison}\label{Vert_well_conf_BHA}
+\end{figure}
+
+
+\begin{table}
+  \centering
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+    Parameter & Value (imperial units) & Value (metric units) & Description \\
+    \hline
+    $OD_{HWDP}$ & 4.50 in & 0.1143 m & Heavy weight drill pipe outer diameter \\
+    \hline
+    $ID_{HWDP}$ & 2.50 in & 0.0635 m & Heavy weight drill pipe inner diameter \\
+    \hline
+    $OD_{DC}$ & 6.00 in & 0.1524 m & Drill collars outer diameter \\
+    \hline
+    $ID_{DC}$ & 2.00 in & 0.0508 m & Drill collars inner diameter \\
+    \hline
+    $\rho_{dp}$ & 490.6 $lb/ft^{3}$ & 7850 $kg/m^{3}$ & Drill pipe density \\
+    \hline
+    $G_{dp}$ & 1.27$e^{9}\;lb/ft^{2}$ & 6.08$e^{10} pa$ & Drill pipe shear modulus \\
+    \hline
+  \end{tabular}
+  \caption{Input parameters of BHA for test case 3}\label{Input Parameters TC3}
+\end{table} 
+
+In this specific scenario, an additional configuration of the drill string included a Bottom Hole Assembly (BHA). The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged, while the parameters for the top drive were kept constant. For the sake of simplicity, the influence of viscous damping was disregarded. The specific input parameters can be found in the provided \tablename~\ref{Input Parameters TC3}.
+
+After running the simulation we get the following results. Top-drive torque remains constant while Rotational speed of the drill bit plays around
+
