@@ -224,8 +224,13 @@ Assumptions of the model are listed below:
 
 The model is based on the equations of angular motion, here named wave equation, which is:
 \begin{equation}\label{AS-motion}
-  J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x)
+  J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x) 
 \end{equation}
+
+\begin{equation}
+ \frac{\partial\tau(t,x)}{\partial t} + JG\frac{\partial w(t,x)}{\partial x} = 0 
+\end{equation}
+
 where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is angular velocity, $\tau(t,x)$ is torque, and S is the source term which can be represented as:
 \begin{equation}\label{AS-sourceterm}
   S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
@@ -286,9 +291,9 @@ The PDE is solved from upwind scheme according to (for sell size $\Delta x$ and 
   \caption[Schematic of discretized drillstring and boundary conditions]{Schematic of discretized drillstring, boundary conditions, and interface conditions based on Riemann invariants $\alpha$, and $\beta$.}\label{AS_discretizeDS}
 \end{figure}
 \section{Aarsnes-Shor Mode - PYTHON}
-This section briefly summarizes the code flow (PYTHON version), since it is slightly different in the way they calculated compared to the MATLAB version (section 4.1). The input for torsional modeling is summarized in \tablename~\ref{AS_inptut_params}.
+This section briefly summarizes the code flow (PYTHON version), since it is slightly different in the way they calculated compared to the MATLAB version. The input for torsional modeling is summarized in \tablename~\ref{AS_inptut_params}.
 
-\begin{table}[ht]
+\begin{table}[!hbt]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -297,10 +302,6 @@ Parameter & Units & Notes\\
 Simulation length & s & Total simulation time \\                                                  
 \hline
 Bit depth & ft & MD of the bit \\                                                   
-\hline
-dx & ft & Discretization length\\                                                       
-\hline
-dt & s & Time interval \\                                                         
 \hline
 $w_c$ & rad/s & Cut-off angular velocity (static, dynamic transition)\\                                                              
 \hline
@@ -318,9 +319,13 @@ G & $lbf/ft^2$ & Shear modulus   \\
 \hline
 E & $lbf/ft^2$ & Young's modulus \\                                                              
 \hline
-$K_p$ &- &P-gain of top drive (PI controller) \\
+$K_p$ & $lb$-$ft$ & P-gain of top drive (PI controller) \\
 \hline
-$K_i$ & - &I-gain of top drive (PI controller)\\ 
+$K_i$ & $lb$-$ft/s$ &I-gain of top drive (PI controller)\\ 
+\hline
+$J_{TD}$ & $lb$-$ft^2$ & Top drive inertia \\
+\hline
+ramp speed & RPM/s & ramp speed of top drive\\
 \hline
 \end{tabular}
 \caption[Input parameters of Aarsnes-Shor model]{Input parameters of Aarsnes-shor model. well trajectory, top drive set velocity, and bit constant are the additional parameters which are not included in this table.}\label{AS_inptut_params}
@@ -395,4 +400,259 @@ First, the static behavior is calculated after descritizing the drillstring. Sin
 \codeitemnonumber \pseudocodedonefor{}
 \end{code}
 \popinitialcodeindent{}
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6in]{algorithm_ASmodel}
+\end{figure}
+
+
+%\end{figure}
+%\begin{algorithm}
+%\caption{Aarsnes-Shor model pseudocode algorithm}\label{AS-pseudocode}
+%\begin{algorithmic}
+%\For{\texttt{i = 1: simulation length/dt}}
+%\State nstep = freq/dt
+%\For{\texttt{j=1:nstep}}
+%    \State 1. Set the topdrive setpoint torque and angular velocity
+%    \State $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+%    \State $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+%    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+%    \State $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+%    \State 2. Bit rotation
+%    \State $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+%    \State $w_{bit}(t+1) \gets w_{bottom}(t)$
+%    \State 3. Update topdrive torque (?)
+%    \State $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+%    \State 3. Calculate source term
+%    \State $fric \gets \mu_k*f_n*r (friction)$
+%    \State $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+%    \State $vis \gets k_s*w(t) (viscous\:damping)$
+%    \State $S \gets (fric+iner+vis)/dx$
+%    \State 4. Update the torque and angular velocity \Comment{eqn.\ref{AS-motion}}
+%    \State $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \Comment{n is discretized number}
+%    \State $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+%    \If{$\tau(t+1)<fric$ or $w(t+1)<w_c$}
+%    \State $w(t+1) = 0$
+%    \EndIf
+%    \EndFor
+%\State $\overline{w} \gets \overline{w} \cdot Kernel$ \Comment{remove high frequency noise}
+%\State $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+%\EndFor
+%\end{algorithmic}
+%\end{algorithm}
+
+%\newcommand{\codecomment}[1]{\hfill #1}
+%\pushinitialcodeindent{0in}
+%
+%\begin{code}[\codenumbering]{}
+%\codeitemnonumber \pseudocodefor{} {\texttt{i = 1: simulation length/dt}}
+%	\stepcodelevel{}
+%	\codeitemnonumber nstep = freq/dt
+%	\pseudocodefor{} {\texttt{j=1:nstep}}
+%		\stepcodelevel{}
+%	    \codeitemnonumber 1. Set the topdrive setpoint torque and angular velocity
+%	    \codeitemnonumber $w_{SP}(t+1)=w_{SP}(t)\pm ramp*dt$
+%	    \codeitemnonumber $e=w_{SP}(t+1)-w_{TD}(t), \quad I=e*dt$
+%	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t) + (k_e e + k_i I)*dt$
+%	    \codeitemnonumber $w_{TD}(t+1) \gets w_{TD}(t) + (\tau_{TD}(t+1)-\tau_{top}(t))/J_{TD}*dt$
+%	    \codeitemnonumber 2. Bit rotation
+%	    \codeitemnonumber $\tau_{bit}(t+1) \gets bitconstant * w_{bottom}(t)$
+%	    \codeitemnonumber $w_{bit}(t+1) \gets w_{bottom}(t)$
+%	    \codeitemnonumber 3. Update topdrive torque (?)
+%	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
+%	    \codeitemnonumber 4. Calculate source term
+%	    \codeitemnonumber $fric \gets \mu_k*f_n*r (friction)$
+%	    \codeitemnonumber $Iner \gets k_t*\rho*J*(w(t)-w(t-1)) (intertia\:damping)$
+%	    \codeitemnonumber $vis \gets k_s*w(t) (viscous\:damping)$
+%	    \codeitemnonumber $S \gets (fric+iner+vis)/dx$
+%	    \codeitemnonumber 5. Update the torque and angular velocity \codecomment{eqn.\ref{AS-motion}}
+%	    \codeitemnonumber $\tau(t+1) \gets \tau(t) - JG*dl/dt (w_n(t)-w_(n-1)(t))$ \codecomment{n is discretized number}
+%	    \codeitemnonumber $w(t+1) \gets w(t) 2*dt/(J*\rho)\left[(\tau_n(t)-\tau_{n-2}(t))/(2*dx)+S\right]$
+%	    \prevcodelevel{}
+%	\codeitemnonumber \pseudocodedonefor{}
+%	\codeitemnonumber $\overline{w} \gets \overline{w} \cdot Kernel$ \codecomment{remove high frequency noise}
+%	\codeitemnonumber $\overline{\tau} \gets \overline{\tau} \cdot Kernel$
+%	\prevcodelevel{}
+%\codeitemnonumber \pseudocodedonefor{}
+%\end{code}
+%\popinitialcodeindent{}
+
+\section{Model Comparison}
+
+\subsection{Case 1 - vertical well}
+
+Exxon mobil model and Aarsnes-shor model (MATLAB ver. and PYTHON ver.) are compared with simple well and drill string configurations. The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input}., and Figure \figurename~\ref{figure_verticalwell}. The Exxon mobil model and MATLAB ver. A-S model uses metric units while PYTHON ver. A-S model uses imperial units. For the future convenience, the Table in this chapter contains both imperial and metric units.
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=1.5in]{VerticalWellConfig}
+  \caption[Schematic of well and drill string for model comparison.]{Schematic of well and drill string for model comparison.}\label{figure_verticalwell}
+\end{figure}
+
+\begin{table}[!hbt]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Parameter & value (imperial units) & value (metric units) & description\\                                                              
+\hline
+$\rho$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+\hline
+G & $1.67e^9\;lbf/ft^3$ & $7.99e^{10}\;Pa$  & Shear modulus \\                                                  
+\hline
+OD & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
+\hline
+ID & 5.00 in & l.127 m & drill pipe inner diameter  \\                                                      
+\hline
+MD & 6561 ft & 2000 m & measured depth\\                                                              
+\hline
+TVD & 6561 ft & 2000 m & total vertical depth\\
+\hline
+Bit depth & 5905 ft & 1800 m & - \\ 
+\hline
+\end{tabular}
+\caption[Well survey data for model comparison (vertical well)]{Well survey and drill string data for model comparison (vertical well without BHA components)}\label{table_verticalwell_input}
+\end{table}
+The test was conducted by assuming the top drive velocity to be increased from 0 RPM to 40 RPM at 1 second and maintained the velocity for rest of the time. The top drive velocity is shown in \figurename~\ref{figure_topdrive_VSP}
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=3in]{TopdriveVSP}
+  \caption[Top drive set velocity]{Top drive set velocity}\label{figure_topdrive_VSP}
+\end{figure}
+
+Before comparing between the models, the PI-controller of the top drive in PYTHON ver. was eliminated since it was sensitive to input parameter which are $k_e, k_i, J_{TD}$, and ramp speed (\tablename~\ref{AS_inptut_params}). \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between MATLAB ver. and PYTHON ver. when same parameters were used for top drive (\tablename~\ref{table_topdrivesensitivity_input}). Please note that the absolute value is different because of the unit differences.
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6in]{verticalwell_topdrive_sensitivity}
+  \caption[Comparison of drillstring response to same top drive parameters]{Comparison of top drive and bit responses with same top drive parameters between MATLAB ver. and PYTHON ver. a): Results from MATLAB ver., and b) : results from PYTHON ver.}\label{figure_topdrive_sensitivity}
+\end{figure}
+
+\begin{table}[!hbt]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Parameter & value (imperial units) & value (metric units) & description\\                                                              
+\hline
+$\rho$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+\hline
+G & $1.67e^9\;lbf/ft^3$ & $7.99e^{10}\;pa$  & Shear modulus \\                                                  
+\hline
+OD & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
+\hline
+ID & 5.00 in & l.127 m & drill pipe inner diameter  \\                                                      
+\hline
+MD & 6561 ft & 2000 m & measured depth\\                                                              
+\hline
+TVD & 6561 ft & 2000 m & total vertical depth\\
+\hline
+Bit depth & 5905 ft & 1800 m & - \\ 
+\hline
+\end{tabular}
+\caption[Well survey data for model comparison (vertical well).]{Well survey and drill string data for model comparison (vertical well without BHA components.)}\label{table_topdrivesensitivity_input}
+\end{table}
+
+To acquire stable behavior of the drill string from PYTHON ver., parameter tuning was conducted. After finding the proper top drive PI-controller parameters, we also modified the code which removes the top drive assuming the fixed velocity at the top of the drill string. This is to reduce the parameters of the model for more simple comparison between different models for the future work. The flowchart of PI-controller removal is shown in \figurename~\ref{figure_Topdriveremove_math}.
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6in]{Topdriveremove_math}
+  \caption[flow chart of top drive elimination]{Flow chart of top drive elimination. The modification of the model assumes only drill string in the model and it rotates with given (fixed) velocity at the top of the drill string.}\label{figure_Topdriveremove_math}
+\end{figure}
+
+The comparison of bit and top drive angular velocity and torque between when the top drive is existed and removed are depicted in \figurename~\ref{figure_topdriveremove}. In the modified code, top drive velocity and torque will refer that of top of the drill string. Both showed same behavior except during the very first stage when the top drive velocity increased from 0 to 40 RPM. The spikes can be seen when the top drive with PI-controller exits. 
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6.5in]{Topdriveremove}
+  \caption[comparison between with and without top drive]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive. a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove}
+\end{figure}
+
+Interestingly, in both cases, there was a period where angular velocity of the bit was maintained at maximum value for about 2 seconds. The duration that the bit maintains the angular velocity was reduced by increasing the top drive velocity smoothly. The effect of how the top drive velocity increases are illustrated in \figurename~\ref{figure_topdriveveleffect}.
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6.5in]{topdriveveleffect}
+  \caption{Effect of top drive velocity increasing method. When the velocity increased to set point velocity a): drastically, and b): smoothly.}\label{figure_topdriveveleffect}
+\end{figure}
+
+Comparison between A-S model (both Matlab ver. and Python ver.), and Exxon mobil model was conducted with given input in \tablename~\ref{table_verticalwell_input}. The modified code of PYTHON ver. with removed top drive was used for the comparison. First, for the simplicity, the viscous damping was assumed to be zero. Moreover, the coulomb friction is also zero since there is no contact between drill string and borehole (vertical well). Therefore the source term of the governing equation will be zero in equation \equationname~\ref{AS-motion} and the parameters that affects the model will be the density, shear modulus of drill pipe.
+
+The comparison between different models are shown in \figurename~\ref{figure_modelcomparison_vertical_torque}. As can be seen from the results all the model showed  oscillation of the top drive torque, however, significant difference were observed in A-S model PYTHON ver. while MATLAB ver., and exxon mobil model shwed maximum torque about 2000 lb-ft, torque of the PYTHON ver. reached 10,000 lb-ft. Also, the differences in the oscillation frequencies were observed. The frequency of oscillation were 0.32, 0.45, and 0.125 for MATLAB ver., and Exxon mobil model, and PYTHON ver., respectively. Although MATLAB ver. and Exxon mobil model showed similar response, the convergence time of this oscillation were significantly shorter in MATLAB ver. The comparison of the converging time between MATLAB ver. and PYTHON ver. is illustrated in \figurename~\ref{figure_modelcomparison_vertical_convergence}. The comparison of the model are summerized in Table....
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[width=6in]{modelcomparison_vertical_torque}
+  \caption[Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well]{Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well. the input parameteres for drill string is summarized in \tablename~\ref{table_verticalwell_input}. a): A-S model (MATLAB ver.), b): Exxon mobil model, c) A-S model (PYTHON ver.), and d): A-S model (PYTHON ver.) with smooth increase of top drive velocity.}\label{figure_modelcomparison_vertical_torque}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=6.5in]{modelcomparison_vertical_convergence}
+  \caption[Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well.]{Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well. a): A-S model MATLAB ver., b): A-S model PYTHON ver.}\label{figure_modelcomparison_vertical_convergence}
+\end{figure}
+
+%\begin{table}[!hbt]
+%\centering
+%\begin{tabular}{|c|c}|c|c|}
+%\hline
+% & Exxon mobil model & A-S model (MATLAB ver.) & A-S model (PYTHON ver.) \\                                                              
+%\hline
+%Drill string vibration convergence & - & $<$ 150s & $>$ 30min \\                                                  
+%\hline
+%Vibration frequency & 0.32 & 0.45  & 0.125 \\                                                  
+%\hline
+%Maximum torque on top drive (lb-ft) & 2000 in & 2000 & \\                                                       
+%\hline
+%\end{tabular}
+%\caption[Summary of model comparison without damping and BHA components in vertical well.]{Summary of model comparison without damping and BHA components in vertical well.}\label{table_modelcomparison_vertical_input}
+%\end{table}
+
+\newpage
+\subsection{Case 2 - Inclined well}
+
+The model was tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60 deg inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with test case 1 (\figurename\ref{figure_topdrive_VSP}). For test case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_input}.
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=4in]{InclinedWellConfig}
+  \caption[Schematic view of test case 2.]{Schematic view of wellbore and drill string for test case 2.}\label{figure_wellconfig_inclined}
+\end{figure}
+
+ \begin{table}[!hbt]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Parameter & Value (imperial units) & Value (metric units) & description\\                                                              
+\hline
+$OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
+\hline
+$ID_{dp}$ & 5.00 in & 0.l127 m & drill pipe inner diameter  \\                                                      
+\hline
+$\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+\hline
+$G_{dp}$ & $1.27e^{9}\;lb/ft^3$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
+\hline
+$\mu$ & 0.5 & 0.5 & Static friction factor\\
+\hline
+$fRat$ & 0.5 & 0.5 & Static friction/Dynamic friction\\
+\hline
+$w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
+\hline
+\end{tabular}
+\caption[Input parameters for test case 2.]{Input parameters for test case 2. fRat only included in MATLAB ver. model, have to figure how to convert it to dynamic friction factor***).}\label{table_Inclinedwell_input}
+\end{table}
+
+The results from A-S models are shown in \figurename~\ref{figure_testcase2_ASmodel}. Both model captured the stick-slip event during of-bottom drill string rotation. However, similar to test case 1 (have to rename it later: vertical well test), the top drive torque amplitude and the frequency of the oscillation showed significant differences.
+ 
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6.5in]{Testcase2_ASmodel}
+  \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model for test case 2, a): MATLAB ver, and b): PYTHON ver. Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
+\end{figure}
+
+A-S model\\
+1) Difference in torque amplitude\\
+2) Difference in oscillation frequencies\\
+3) Bit model - constant torque\\
+4) Comparison using color map? \\
 
