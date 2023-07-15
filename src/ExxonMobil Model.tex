@@ -60,7 +60,7 @@ Below you will find the Friction model input parameters:
 
 \begin{table}
   \centering
-  \begin{tabular}{|m{3cm}|}
+  \begin{tabular}{|c|}
     \hline
     % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
     Equivalent diameter of pipe\\
@@ -102,7 +102,7 @@ To convert these equation sets into vector form, we can represent the variables 
   \begin{aligned}
   & \{M\} \ddot{\boldsymbol{Z}}+\left\{C_a\right\} \dot{\boldsymbol{Z}}+\left\{K_a\right\} \boldsymbol{Z}+\boldsymbol{f}_{\text {fric }}=\boldsymbol{F}_{\text {forcing }} \\
   & \{J\} \ddot{\boldsymbol{\theta}}+\left\{C_t\right\} \dot{\boldsymbol{\theta}}+\left\{K_t\right\} \boldsymbol{\theta}+\boldsymbol{\tau}_{\text {fric }}=\boldsymbol{\tau}_{\text {forcing }}
-  \end{aligne
+  \end{aligned}
 \end{equation}
 
 
@@ -171,5 +171,5 @@ Where:
 \end{itemize}
 
 
-The differential equation sets are solved using the ODE45 solver. ODE45 is a versatile numerical solver that employs the Runge-Kutta method with a variable time step. This solver is chosen for its efficiency in computational calculations.
+The differential equation sets are solved using the ODE45 solver. This solver is chosen for its efficiency in computational calculations.
 
