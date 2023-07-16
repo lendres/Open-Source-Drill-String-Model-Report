@@ -1,5 +1,28 @@
 \section{Test Case}
-Exxon mobil model and Aarsnes-shor model (MATLAB ver. and PYTHON ver.) are compared with simple well and drill string configurations. The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input} and \ref{figure_verticalwell}. The Exxon mobil model and MATLAB ver. A-S model uses metric units while PYTHON ver. A-S model uses imperial units. For the future convenience, the Table in this chapter contains both imperial and metric units.
+Exxon mobil model and Aarsnes-shor model are compared with simple well and drill string configurations. Since the issue with the PYTHON ver. is not resolved, PYTHON ver. was only run with test case 1 (It will be added if the issue is fixed). Summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}
+
+\begin{table}[!hbt]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline & A-S model & Exxon mobil Model\\
+\hline
+Motion & Torsional & Torsional + Axial\\                                                              
+\hline
+Bit model & Constant &  \\                                                  
+\hline
+Friction model & Coulomb friction as a jump (see chapter4) &  \\                                                  
+\hline
+Numerical method & FDM & FEM\\      
+\hline                                                 
+\end{tabular}
+\caption[Summary of the difference between two models]{Summary of the difference between A-S and Exxonmobil models)}\label{table_model_difference}
+
+\end{table}
+
+
+
+\subsection{Test Case 1 - Vertical well, No BHA}
+The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input} and \ref{figure_verticalwell}. The Exxon mobil model and MATLAB ver. A-S model uses metric units while PYTHON ver. A-S model uses imperial units. For the future convenience, the Table in this chapter contains both imperial and metric units.
 
 \begin{figure}[!hbt]
   \centering
@@ -70,8 +93,7 @@ The comparison between different models are shown in \figurename~\ref{figure_mod
 %\caption[Summary of model comparison without damping and BHA components in vertical well.]{Summary of model comparison without damping and BHA components in vertical well.}\label{table_modelcomparison_vertical_input}
 %\end{table}
 
-\newpage
-\subsection{Case 2 - Inclined well}
+\subsection{Test Case 1 - Inclined well, No BHA}
 
 The model was tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60 deg inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with test case 1 (\figurename\ref{figure_topdrive_VSP}). For test case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_input}.
 
