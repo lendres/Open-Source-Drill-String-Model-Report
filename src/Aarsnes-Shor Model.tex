@@ -4,7 +4,7 @@
 \section{Model Description}
 The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping which are modeled as distributed source term. The effect of this Coulomb friction becomes prominent as the well inclination increases, therefore this model can be effective in predicting the drill string dysfunctions in high inclined wells. Currently, the model is only applicable for torsional mode simulation but the axial mode will be added soon. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are: 1) no bit-rock interaction, 2) no lateral and axial motion, 3) the effects of cuttings distribution on the friction is homogeneous and 4) the transition from static to dynamic coulomb friction is modeled as a jump. 
 
-Two different versions of the codes are available which are written in MATLAB and PYTHON. The MATLAB ver. is more matured and the validation with field data was also conducted \referencename~\cite{ref:aarsnes2017a}. One the other hand, PYTHON ver. is relatively recent version and the axial mode will be added on this version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while PYTHON ver. directly solves the governing equation for angular velocity and torque seperately, MATLAB ver. introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section. 
+Two different versions of the codes are available which are written in MATLAB and PYTHON. The MATLAB ver. is more matured and the validation with field data was also conducted \cite{ref:aarsnes2017a}. One the other hand, PYTHON ver. is relatively recent version and the axial mode will be added on this version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while PYTHON ver. directly solves the governing equation for angular velocity and torque seperately, MATLAB ver. introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section. 
 
 \section{Top Drive Model}
 The model contains PI-controller on the top drive. Therefore, boundary condition at the top is given by top drive torque and velocity calculated from top drive set point velocity. Torque on top drive are derived as:
@@ -21,7 +21,7 @@ The model contains PI-controller on the top drive. Therefore, boundary condition
   tau_{td} = K_pe + k_iI_e
 \end{equation}
 
-where $W_{sp}$ is set point velocity, $W_{td}$ is top drive velocity, $\tau_{td}$ is top drive torque, $K_p$ and $K_i$ are proportional and integral gain, respectively. $K_p$ and $K_i$ are normally given value from the field. The top drive velocity, $W_{td}$ is then obtained by dynamics:
+where $w_{sp}$ is set point velocity, $w_{td}$ is top drive velocity, $\tau_{td}$ is top drive torque, $K_p$ and $K_i$ are proportional and integral gain, respectively. $K_p$ and $K_i$ are normally given value from the field. The top drive velocity, $W_{td}$ is then obtained by dynamics:
 
 \begin{equation}\label{AS_w_td}
   \frac{\partial w_{td}}{\partial t} = \frac{1}{J_{td}}(\tau_{td} - \tau_0)
@@ -33,7 +33,9 @@ where $J_{td}$ is top drive inertia, $\tau_{0}$ is the torque on top of the dril
 The model assumes the toque on bit to be constant. The test cases for this projects are off-bottom scenario with not bit-rock contact, therefore, the torque on bit is fixed to zero. In addition, model does not consider weight on bit since current model is only for torsional mode. 
 
 \section{Friction Model}
-The Coulomb friction $\mathcal{F}(w,x)$ is modeled as an inclusion such as:
+The Coulomb friction is modeled as a jump. In other words, the friction is constant with transition between static and dynamic friction. The static friction is applied when the angular velocity of the drill string is below the given threshold, while the friction transit to dynamic friction when the angular velocity is above the threshold. The static friction is obtained from normal force along the drill string and static friction factor. On the other hand, the dynamic friction is simply obtained as a certain ratio of the static friction. More details can be seen from equations below:
+
+The Coulomb friction $\mathcal{F}(w,x)$ is modeled as an inclusion which is shown in \equationname~\ref{equation_A-S_columnbfriciton}. The parameters for the equations can be seen from \figurename~\ref{figure_AS_equation_schematic}.
 \begin{equation}\label{equation_A-S_columnbfriciton}
   \begin{cases}
      \mathcal{F}(w,x) = F_d(x), & \mbox{if } w>w_c \\
@@ -41,12 +43,32 @@ The Coulomb friction $\mathcal{F}(w,x)$ is modeled as an inclusion such as:
      \mathcal{F}(w,x) = -F_d(x), & \mbox{if } w < -w_c.
   \end{cases}
 \end{equation}
-where $w_c$ is the angular velocity threshold for Coulomb friction transition from static to dynamic. $F_d$ and $F_c$ are dynamic and static Coulomb torque, respectively. For condition $|w|<w_c$, $\mathcal{F}(w,x)$ takes the boundary values $\pm F_C(x)$.
+where $w_c$ is the angular velocity threshold for Coulomb friction transition from static to dynamic. x is the location of the drill string, w is the angular velocity at x, $F_d$ and $F_c$ are dynamic and static Coulomb torque, respectively. For condition $|w|<w_c$, $\mathcal{F}(w,x)$ takes the boundary values $\pm F_C(x)$.
 
-The static friction is calculated based on the normal force along the drill string 
+\begin{figure}[!hpt]
+  \centering
+  \includegraphics[width=2.5in]{AS_parameters}
+  \caption[Schematic of distributed drill string in deviated well]{Schematic of distributed drill string in deviated well and indication of parameters used in the equations \cite{ref:aarsnes2017a}.}\label{figure_AS_equation_schematic}
+\end{figure}
 
-\subsection{Mathematical Background}\label{SubSec_AS_mathematicalbackground}
-The model is based on the equations of angular motion, here named wave equation, which are:
+The static friction is calculated based on the normal force along the drill string that is:
+\begin{equation}\label{equation_A-S-Fn}
+  F_N(x) = gA(x)(\rho-\rho_{mud})sin\theta
+\end{equation}
+where g is the gravitational force, A(x) is the cross sectional area at x, $\rho$ is the denstiy of drill string, $\rho_{mud}$ is the mud density, and $\theta$ is the inclination angle of deviated wel.
+Then the static Coulomb friction is obtained as
+\begin{equation}\label{equation_A-S_static_fric}
+  F_c(x,\mu_s) = \mu_s r_o(x) F_N(x) 
+\end{equation}
+where $\mu_s$ is static frction factor, $r_o$ is outer radius of drill string and $F_N(x)$ is the normal force. The dynacmic friction is calulcated as a given ratio of static friction angle such as:
+\begin{equation}\label{equation_A-S_dynamic_fric}
+  F_d(x) = fRat\;F_c(x,\mu_s)
+\end{equation}
+where fRat is the pre-established ratio between dynamic and static friction ($0 \leq fRat \leq 1$). 
+
+\section{Mathematical Background}
+\subsection{Governing Equations}
+The model is based on the equations of angular motion which are:
 \begin{equation}\label{AS-motion}
   J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x) 
 \end{equation}
@@ -57,62 +79,71 @@ where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is a
 \begin{equation}\label{AS-sourceterm}
   S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
 \end{equation}
-where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed, and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole. 
-The 
-The partial wave equation is transformed into their Riemann invariants and it is solved by first order upwind scheme. The Riemann invariants are defined as:
+where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed, and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole that is derived from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_static_fric}. 
+
+\subsection{Numerical Implementation of MATALB ver.}
+The partial governing equations \equationname~\ref{AS-motion}, and \ref{AS-sourceterm} are transformed into their Riemann invariants solved by first order upwind scheme. The Riemann invariants are defined as:
 \begin{equation}\label{AS-Riemann}
   \alpha = w + \frac{c_t}{JG}\tau, \quad \beta=w-\frac{c_t}{JG}\tau
 \end{equation}
-where $c_t = \sqrt{\frac{\rho}{J}}$ is the velocity of the torsional wave. and the variable $\alpha, \beta$ satisfies the PDE system below:
+where $c_t = \sqrt{\frac{\rho}{J}}$ is the velocity of the torsional wave. It can be noticed that angular velocity and torque can be obtained from the relationship below: 
+\begin{equation}\label{equation_Riemann_relation1}
+  \frac{\alpha + \beta}{2} = w
+\end{equation}
+\begin{equation}\label{equation_Riemann_relation2}
+  J \rho \frac{\alpha + \beta}{2c_t} = \tau
+\end{equation}
+The variable $\alpha$, $\beta$ satisfies the PDE system below: 
 \begin{equation}\label{AS-Riemann_alpha}
   \frac{\partial \alpha}{\partial t} + c_t\frac{\partial \alpha}{\partial x} = -\mathcal{S}
 \end{equation}
 \begin{equation}\label{AS-Riemann_beta}
   \frac{\partial \beta}{\partial t} - c_t\frac{\partial \beta}{\partial x} = -\mathcal{S}
 \end{equation}
-
-where the source term $\mathcal{S}$ is
+Therefore, angular velocity w, and torque $\tau$ can be obtained by solving $\alpha$ and $\beta$.
+The source term $\mathcal{S}$ is:
 \begin{equation}\label{AS-source}
   \mathcal{S} = \frac{S}{J \rho} j= k_t(\alpha + \beta) + \frac{1}{J \rho} \mathcal{F}
 \end{equation}
-The boundary conditions are given as:
+where $k_t$ is damping coefficient and $\mathcal{F}$ is Coulomb friction defined in \equationname~\ref{equation_A-S_columnbfriciton}. The boundary conditions are given as:
 \begin{equation}\label{AS-BC}
   w_{p,top} = w_{TD} \quad \tau_{c,bottom} = \tau_{bit}
 \end{equation}
-where subscript p, c represents drill pipe and drill collar.
+where subscript p, c represents drill pipe and drill collar. In this project, $\tau_{bit}$ is assumed to be 0 with the off-bottom scenario. 
 Additionally, the conditions at the drill pipe - drill collar interface are imposed:
 \begin{equation}\label{AS-interface}
   w_{p,interface} = w_{c,interface}, \quad \tau_{p,interface} = \tau_{c,interface}
 \end{equation}
-\equationname~\ref{AS-BC} and \ref{AS-interface} in Riemann invariants can be written as:
+\equationname~\ref{AS-BC} can be re-written from the relationship from \equationname~\ref{equation_Riemann_relation1}, and \ref{equation_Riemann_relation2} as:
 \begin{equation}\label{AS-riemannBC}
   \alpha_{p,top} = -\beta_{p,top} + 2*w_{TD}, \quad \beta_{c,bottom} = \alpha_{c,bottom} - 2\tau_{bit} \frac{c_t}{J_c G_c}
 \end{equation}
-**Have to check the equation above... This boundary condition seems to take into account the torque from the bit**
+Also, \equationname~\ref{AS-interface} can be re-written as:
 \begin{equation}\label{AS-riemanninterface}
 \begin{split}
     & \beta_{p,bottom} = \frac{1}{1+\overline{Z}}\left(\alpha_{p,bottom}(1-\overline{Z}) + 2\overline{Z}\beta_{c,top} \right) \\
     & \alpha_{c,top} = \frac{1}{1+\overline{Z}}\left(2*\alpha_{p,bottom} - \beta_{c,top}(1-\overline{Z})\right)
 \end{split}
 \end{equation}
-where $\overline{Z}$is the relative magnitude of the impedance (assuming same $c_t$ for drill pipe and collar - ** need to be checked** ):
+where $\overline{Z}$ is the relative magnitude of the impedance:
 \begin{equation}\label{AS_Zbar}
-  \overline{Z} = \frac{J_c G_c}{J_p G_p}
+  \overline{Z} = \left[\frac{c_t}{JG}\right]_{p,bottom} / \left[\frac{c_t}{JG}\right]_{c,top}
 \end{equation}
 
-\figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drillstring with boundary conditions, and interface conditions in terms of Riemann invariants. The boundary conditions at the top and bottom of the drillstring are applied to $\alpha$, and $\beta$, respectively. However, since the two variables are coupled by interface conditions, the PDE can be solved. 
-The PDE is solved from upwind scheme according to (for sell size $\Delta x$ and time step $\Delta t$, at cell j and time step k):
-\begin{equation}\label{AS-upwind}
-  \mathcal{F}_{j}^k = \frac{1}{2 \Delta t}\left(a_j^k - c_t \frac{\Delta t}{\Delta x}(a_j^k - a_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+t}^k-\beta_j^k) + \Delta t k_t (\alpha_j^k + \beta_j^k)\right)
-\end{equation}
-** There are some difference between code and paper **
-\newpage
-\begin{figure}[ht]
+\figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drillstring with boundary conditions, and interface conditions in terms of Riemann invariants. 
+
+\begin{figure}[!hbt]
   \centering
   \includegraphics[width=6in]{AS_discretizedDS}
   \caption[Schematic of discretized drillstring and boundary conditions]{Schematic of discretized drillstring, boundary conditions, and interface conditions based on Riemann invariants $\alpha$, and $\beta$.}\label{AS_discretizeDS}
 \end{figure}
 
+The PDE is solved from upwind scheme according to (for sell size $\Delta x$ and time step $\Delta t$, at cell j and time step k):
+\begin{equation}\label{AS-upwind}
+  \mathcal{F}_{j}^k = \frac{1}{2 \Delta t}\left(a_j^k - c_t \frac{\Delta t}{\Delta x}(a_j^k - a_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+t}^k-\beta_j^k) + \Delta t k_t (\alpha_j^k + \beta_j^k)\right)
+\end{equation}
+
+\subsection{Results}
 This section briefly summarizes the code flow (PYTHON version), since it is slightly different in the way they calculated compared to the MATLAB version. The input for torsional modeling is summarized in \tablename~\ref{AS_inptut_params}.
 
 \begin{table}[!hbt]
