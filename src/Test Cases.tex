@@ -1,27 +1,27 @@
-\section{Test Case}
-Exxon mobil model and Aarsnes-shor model are compared with simple well and drill string configurations. Since the issue with the PYTHON ver. is not resolved, PYTHON ver. was only run with test case 1 (It will be added if the issue is fixed). Summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}
+\chapter{Test Case}
+Exxon mobil and Aarsnes-shor models are compared with simple well and drill string configurations. Each test case represents Vertical and Inclined wells with identical parameters. Currently, all test cases were run for Off-bottom case. For test cases 3 and 4, we incorporated BHA to compare the outputs of the two models. Initially, all test cases were executed with various static and friction factor values, which are described in the subsequent subsections. However, an additional set of experiments were conducted with identical static and dynamic friction factor values. Since there is no friction in Vertical wells, it is primarily related to Inclined wells. The problem with the ExxonMobil model's On-Bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. Regarding the Aarsnes-shor model, since the issue with the PYTHON version has not been resolved, the PYTHON version was only executed with test case 1 (it will be added once the issue has been resolved). Summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}
 
 \begin{table}[!hbt]
 \centering
-\begin{tabular}{|c|c|c|c|}
-\hline & A-S model & Exxon mobil Model\\
+\begin{tabular}{|c|p{1.8in}|p{1.8in}|c|}
+\hline 
+ & A-S model & Exxon mobil Model\\
 \hline
 Motion & Torsional & Torsional + Axial\\                                                              
 \hline
-Bit model & Constant &  \\                                                  
+Bit model & Constant & Constant \\                                                  
 \hline
-Friction model & Coulomb friction as a jump (see chapter 4) &  \\                                                  
+Friction model & Coulomb friction as a jump (see chapter 4) & Stribeck  effect: Coulumb + Viscous Friction \\                                                  
 \hline
 Numerical method & FDM & FEM\\      
 \hline                                                 
 \end{tabular}
 \caption[Summary of the difference between two models]{Summary of the difference between A-S and Exxonmobil models)}\label{table_model_difference}
-
 \end{table}
 
 
 
-\subsection{Test Case 1 - Vertical well, No BHA}
+\section{Test Case 1 - Vertical well, No BHA}
 The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input} and \ref{figure_verticalwell}. The Exxon mobil model and MATLAB ver. A-S model uses metric units while PYTHON ver. A-S model uses imperial units. For the future convenience, the Table in this chapter contains both imperial and metric units.
 
 \begin{figure}[!hbt]
@@ -36,13 +36,13 @@ The model parameters and schematic of the wellbore surveys and drill string comp
 \hline
 Parameter & value (imperial units) & value (metric units) & description\\                                                              
 \hline
-$\rho$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+$\rho$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
 \hline
-G & $1.67e^9\;lbf/ft^3$ & $7.99e^{10}\;Pa$  & Shear modulus \\                                                  
+G & $1.67e^9\;lbf/ft^2$ & $7.99e^{10}\;Pa$  & Shear modulus \\                                                  
 \hline
 OD & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
 \hline
-ID & 5.00 in & l.127 m & drill pipe inner diameter  \\                                                      
+ID & 5.00 in & 0.127 m & drill pipe inner diameter  \\                                                      
 \hline
 MD & 6561 ft & 2000 m & measured depth\\                                                              
 \hline
@@ -61,41 +61,41 @@ The test was conducted by assuming the top drive velocity to be increased from 0
   \caption[Top drive set velocity]{Top drive set velocity}\label{figure_topdrive_VSP}
 \end{figure}
 
-Comparison between A-S model (both Matlab ver. and Python ver.), and Exxon mobil model was conducted with given input in \tablename~\ref{table_verticalwell_input}. The modified code of PYTHON ver. with removed top drive was used for the comparison. First, for the simplicity, the viscous damping was assumed to be zero. Moreover, the coulomb friction is also zero since there is no contact between drill string and borehole (vertical well). Therefore the source term of the governing equation will be zero in equation \equationname~\ref{AS-motion} and the parameters that affects the model will be the density, shear modulus of drill pipe.
+%Comparison between A-S model (both Matlab ver. and Python ver.), and Exxon mobil model was conducted with given input in \tablename~\ref{table_verticalwell_input}. The modified code of PYTHON ver. with removed top drive was used for the comparison. First, for the simplicity, the viscous damping was assumed to be zero. Moreover, the coulomb friction is also zero since there is no contact between drill string and borehole (vertical well). Therefore the source term of the governing equation will be zero in equation \equationname~\ref{AS-motion} and the parameters that affect the model will be the density and shear modulus of drill pipe.
+%
+%The comparison between different models are shown in \figurename~\ref{figure_modelcomparison_vertical_torque}. As can be seen from the results all the model showed  oscillation of the top drive torque, however, significant difference were observed in A-S model PYTHON ver. while MATLAB ver., and exxon mobil model shwed maximum torque about 2000 lb-ft, torque of the PYTHON ver. reached 10,000 lb-ft. Also, the differences in the oscillation frequencies were observed. The frequency of oscillation were 0.32, 0.45, and 0.125 for MATLAB ver., and Exxon mobil model, and PYTHON ver., respectively. Although MATLAB ver. and Exxon mobil model showed similar response, the convergence time of this oscillation were significantly shorter in MATLAB ver. The comparison of the converging time between MATLAB ver. and PYTHON ver. is illustrated in \figurename~\ref{figure_modelcomparison_vertical_convergence}. The comparison of the model are summerized in Table....
 
-The comparison between different models are shown in \figurename~\ref{figure_modelcomparison_vertical_torque}. As can be seen from the results all the model showed  oscillation of the top drive torque, however, significant difference were observed in A-S model PYTHON ver. while MATLAB ver., and exxon mobil model shwed maximum torque about 2000 lb-ft, torque of the PYTHON ver. reached 10,000 lb-ft. Also, the differences in the oscillation frequencies were observed. The frequency of oscillation were 0.32, 0.45, and 0.125 for MATLAB ver., and Exxon mobil model, and PYTHON ver., respectively. Although MATLAB ver. and Exxon mobil model showed similar response, the convergence time of this oscillation were significantly shorter in MATLAB ver. The comparison of the converging time between MATLAB ver. and PYTHON ver. is illustrated in \figurename~\ref{figure_modelcomparison_vertical_convergence}. The comparison of the model are summerized in Table....
+%\begin{figure}[hbt!]
+%  \centering
+%  \includegraphics[width=6in]{modelcomparison_vertical_torque}
+%  \caption[Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well]{Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well. the input parameteres for drill string is summarized in \tablename~\ref{table_verticalwell_input}. a): A-S model (MATLAB ver.), b): Exxon mobil model, c) A-S model (PYTHON ver.), and d): A-S model (PYTHON ver.) with smooth increase of top drive velocity.}\label{figure_modelcomparison_vertical_torque}
+%\end{figure}
+%
+%\begin{figure}
+%  \centering
+%  \includegraphics[width=6.5in]{modelcomparison_vertical_convergence}
+%  \caption[Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well.]{Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well. a): A-S model MATLAB ver., b): A-S model PYTHON ver.}\label{figure_modelcomparison_vertical_convergence}
+%\end{figure}
+%
+%%\begin{table}[!hbt]
+%%\centering
+%%\begin{tabular}{|c|c}|c|c|}
+%%\hline
+%% & Exxon mobil model & A-S model (MATLAB ver.) & A-S model (PYTHON ver.) \\                                                              
+%%\hline
+%%Drill string vibration convergence & - & $<$ 150s & $>$ 30min \\                                                  
+%%\hline
+%%Vibration frequency & 0.32 & 0.45  & 0.125 \\                                                  
+%%\hline
+%%Maximum torque on top drive (lb-ft) & 2000 in & 2000 & \\                                                       
+%%\hline
+%%\end{tabular}
+%%\caption[Summary of model comparison without damping and BHA components in vertical well.]{Summary of model comparison without damping and BHA components in vertical well.}\label{table_modelcomparison_vertical_input}
+%%\end{table}
 
-\begin{figure}[hbt!]
-  \centering
-  \includegraphics[width=6in]{modelcomparison_vertical_torque}
-  \caption[Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well]{Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well. the input parameteres for drill string is summarized in \tablename~\ref{table_verticalwell_input}. a): A-S model (MATLAB ver.), b): Exxon mobil model, c) A-S model (PYTHON ver.), and d): A-S model (PYTHON ver.) with smooth increase of top drive velocity.}\label{figure_modelcomparison_vertical_torque}
-\end{figure}
+\section{Test Case 2 - Inclined well, No BHA}
 
-\begin{figure}
-  \centering
-  \includegraphics[width=6.5in]{modelcomparison_vertical_convergence}
-  \caption[Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well.]{Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well. a): A-S model MATLAB ver., b): A-S model PYTHON ver.}\label{figure_modelcomparison_vertical_convergence}
-\end{figure}
-
-%\begin{table}[!hbt]
-%\centering
-%\begin{tabular}{|c|c}|c|c|}
-%\hline
-% & Exxon mobil model & A-S model (MATLAB ver.) & A-S model (PYTHON ver.) \\                                                              
-%\hline
-%Drill string vibration convergence & - & $<$ 150s & $>$ 30min \\                                                  
-%\hline
-%Vibration frequency & 0.32 & 0.45  & 0.125 \\                                                  
-%\hline
-%Maximum torque on top drive (lb-ft) & 2000 in & 2000 & \\                                                       
-%\hline
-%\end{tabular}
-%\caption[Summary of model comparison without damping and BHA components in vertical well.]{Summary of model comparison without damping and BHA components in vertical well.}\label{table_modelcomparison_vertical_input}
-%\end{table}
-
-\subsection{Test Case 1 - Inclined well, No BHA}
-
-The model was tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60 deg inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with test case 1 (\figurename\ref{figure_topdrive_VSP}). For test case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_input}.
+The models were tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60 deg inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with test case 1 (\figurename\ref{figure_topdrive_VSP}). For test case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_input}.
 
 \begin{figure}[!hbt]
   \centering
@@ -111,41 +111,45 @@ Parameter & Value (imperial units) & Value (metric units) & description\\
 \hline
 $OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
 \hline
-$ID_{dp}$ & 5.00 in & 0.l127 m & drill pipe inner diameter  \\                                                      
+$ID_{dp}$ & 5.00 in & 0.127 m & drill pipe inner diameter  \\                                                      
 \hline
-$\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^2$ & Drill pipe density \\                                                  
+$\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
 \hline
-$G_{dp}$ & $1.27e^{9}\;lb/ft^3$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
+$G_{dp}$ & $1.27e^{9}\;lb/ft^2$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
 \hline
-$\mu$ & 0.5 & 0.5 & Static friction factor\\
+$\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
 \hline
-$fRat$ & 0.5 & 0.5 & Static friction/Dynamic friction\\
+$\mu_{d}$ & 0.5 & 0.5 & Static friction factor\\
 \hline
 $w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
 \hline
 \end{tabular}
-\caption[Input parameters for test case 2.]{Input parameters for test case 2. fRat only included in MATLAB ver. model, have to figure how to convert it to dynamic friction factor***).}\label{table_Inclinedwell_input}
+\caption[Input parameters for test case 2.]{Input parameters for test case 2.}\label{table_Inclinedwell_input}
 \end{table}
 
-The results from A-S models are shown in \figurename~\ref{figure_testcase2_ASmodel}. Both model captured the stick-slip event during of-bottom drill string rotation. However, similar to test case 1 (have to rename it later: vertical well test), the top drive torque amplitude and the frequency of the oscillation showed significant differences.
- 
-\begin{figure}[!hbt]
-  \centering
-  \includegraphics[width=6.5in]{Testcase2_ASmodel}
-  \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model for test case 2, a): MATLAB ver, and b): PYTHON ver. Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
-\end{figure}
+%The results from A-S models are shown in \figurename~\ref{figure_testcase2_ASmodel}. Both model captured the stick-slip event during of-bottom drill string rotation. However, similar to test case 1 (have to rename it later: vertical well test), the top drive torque amplitude and the frequency of the oscillation showed significant differences.
+% 
+%\begin{figure}[!hbt]
+%  \centering
+%  \includegraphics[width=6.5in]{Testcase2_ASmodel}
+%  \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model for test case 2, a): MATLAB ver, and b): PYTHON ver. Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
+%\end{figure}
+%
+%
+%A-S model
+%\begin{numberedlist}
+%	\item Difference in torque amplitude
+%	\item Difference in oscillation frequencies
+%	\item Bit model - constant torque
+%	\item Comparison using color map?
+%\end{numberedlist}
+\subsection{Test Case 2 - Inclined Well, No BHA, Different FF values}
 
+The models were tested with the exact same configuration from the previous test case, except with different values of Static and Dyanmic FF(friction factor) values. The following table summarizes the 
 
-A-S model
-\begin{numberedlist}
-	\item Difference in torque amplitude
-	\item Difference in oscillation frequencies
-	\item Bit model - constant torque
-	\item Comparison using color map?
-\end{numberedlist}
+\section{Test Case 3 - Vertical Well with BHA}
 
-\newpage
-\subsection{Case 3 - Vertical Well with BHA}
+In this specific case, all parameters were same with the input parameters from Test Case 1, except this time we included Bottom Hole Assembly (BHA). The BHA introudced extra components, resulting in an increase in both the wwight and size of the drilling string. The well design depicted in \figurename~\ref{Vert_well_conf_BHA}
 
 \begin{figure}[!hbt]
   \centering
