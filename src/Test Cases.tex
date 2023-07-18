@@ -1,4 +1,4 @@
-\chapter{Test Case}
+\chapter{Test Cases}
 Exxon mobil and Aarsnes-shor models are compared with simple well and drill string configurations. Each test case represents Vertical and Inclined wells with identical parameters. Currently, all test cases were run for Off-bottom case. For test cases 3 and 4, we incorporated BHA to compare the outputs of the two models. Initially, all test cases were executed with various static and friction factor values, which are described in the subsequent subsections. However, an additional set of experiments were conducted with identical static and dynamic friction factor values. Since there is no friction in Vertical wells, it is primarily related to Inclined wells. The problem with the ExxonMobil model's On-Bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. Regarding the Aarsnes-shor model, since the issue with the PYTHON version has not been resolved, the PYTHON version was only executed with test case 1 (it will be added once the issue has been resolved). Summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}
 
 \begin{table}[!hbt]
@@ -34,7 +34,7 @@ The model parameters and schematic of the wellbore surveys and drill string comp
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
-Parameter & value (imperial units) & value (metric units) & description\\                                                              
+Parameter & value (imperial units) & value (metric units) & Description\\                                                              
 \hline
 $\rho$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
 \hline
@@ -94,9 +94,9 @@ The test was conducted by assuming the top drive velocity to be increased from 0
 %%\end{table}
 
 \section{Test Case 2 - Inclined well, No BHA}
-\subsection{Test case 2a - Same Friction Factor values}
+\subsection{Test Case 2a - Different Friction Factor values}
 
-The models were tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60 deg inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with test case 1 (\figurename\ref{figure_topdrive_VSP}). For test case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_input}.
+The models were tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60 deg inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with test case 1 (\figurename\ref{figure_topdrive_VSP}). For test case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_2a_input}.
 
 \begin{figure}[!hbt]
   \centering
@@ -106,26 +106,59 @@ The models were tested with inclined well with simple configuration of drill str
 
  \begin{table}[!hbt]
 \centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-Parameter & Value (imperial units) & Value (metric units) & description\\                                                              
-\hline
-$OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
-\hline
-$ID_{dp}$ & 5.00 in & 0.127 m & drill pipe inner diameter  \\                                                      
-\hline
-$\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
-\hline
-$G_{dp}$ & $1.27e^{9}\;lb/ft^2$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
-\hline
-$\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
-\hline
-$\mu_{d}$ & 0.5 & 0.5 & Static friction factor\\
-\hline
-$w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
-\hline
-\end{tabular}
+   \begin{tabular}{|c|c|c|c|}
+   \hline
+   Parameter & Value (imperial units) & Value (metric units) & Description\\                                                              
+   \hline
+   $OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
+   \hline
+   $ID_{dp}$ & 5.00 in & 0.127 m & drill pipe inner diameter  \\                                                      
+   \hline
+   $\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
+   \hline
+   $G_{dp}$ & $1.27e^{9}\;lb/ft^2$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
+   \hline
+   $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
+   \hline
+   $\mu_{d}$ & 0.25 & 0.25 & Static friction factor\\
+   \hline
+   $w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
+   \hline
+   $\theta$ & $60^{\circ}$ & $60^{\circ}$ & Inclination\\
+   \hline
+   \end{tabular}
 \caption[Input parameters for test case 2a.]{Input parameters for test case 2a.}\label{table_Inclinedwell_2a_input}
+\end{table}
+
+
+\subsection{Test case 2b - Same Friction Factor values}
+
+The models were tested with the exact same configuration from the previous subsection, except with same values of Static and Dynamic FF (Friction Factor) values. The following \tablename~\ref{table_Inclinedwell_2b_input} summarizes the input parameters. 
+
+\begin{table}[!hbt]
+  \centering
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  Parameter & Value (imperial units) & Value (metric units) & Description\\                                                              
+  \hline
+  $OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
+  \hline
+  $ID_{dp}$ & 5.00 in & 0.127 m & drill pipe inner diameter  \\                                                      
+  \hline
+  $\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
+  \hline
+  $G_{dp}$ & $1.27e^{9}\;lb/ft^2$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
+  \hline
+  $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
+  \hline
+  $\mu_{d}$ & 0.5 & 0.5 & Static friction factor\\
+  \hline
+  $w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
+  \hline
+  $\theta$ & $60^{\circ}$ & $60^{\circ}$ & Inclination\\
+  \hline
+  \end{tabular}
+\caption[Input parameters for test case 2b.]{Input parameters for test case 2b.}\label{table_Inclinedwell_2b_input}
 \end{table}
 
 %The results from A-S models are shown in \figurename~\ref{figure_testcase2_ASmodel}. Both model captured the stick-slip event during of-bottom drill string rotation. However, similar to test case 1 (have to rename it later: vertical well test), the top drive torque amplitude and the frequency of the oscillation showed significant differences.
@@ -144,37 +177,10 @@ $w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
 %	\item Bit model - constant torque
 %	\item Comparison using color map?
 %\end{numberedlist}
-\subsection{Test Case 2b - Different Friction Factor values}
-
-The models were tested with the exact same configuration from the previous test case, except with different values of Static and Dynamic FF(friction factor) values. The following table summarizes the input parameters 
-
-\begin{table}[!hbt]
-  \centering
-  \begin{tabular}{|c|c|c|c|}
-  \hline
-  Parameter & Value (imperial units) & Value (metric units) & description\\                                                              
-  \hline
-  $OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
-  \hline
-  $ID_{dp}$ & 5.00 in & 0.127 m & drill pipe inner diameter  \\                                                      
-  \hline
-  $\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
-  \hline
-  $G_{dp}$ & $1.27e^{9}\;lb/ft^2$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
-  \hline
-  $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
-  \hline
-  $\mu_{d}$ & 0.25 & 0.25 & Static friction factor\\
-  \hline
-  $w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
-  \hline
-  \end{tabular}
-\caption[Input parameters for test case 2b.]{Input parameters for test case 2b.}\label{table_Inclinedwell_2b_input}
-\end{table}
 
 \section{Test Case 3 - Vertical Well with BHA}
 
-In this specific case, all parameters were same with the input parameters from Test Case 1, except this time we included Bottom Hole Assembly (BHA). The BHA introudced extra components, resulting in an increase in both the wwight and size of the drilling string. The well design depicted in \figurename~\ref{Vert_well_conf_BHA}
+In this specific scenario, an additional configuration of the drill string included a Bottom Hole Assembly (BHA). The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged, as well as, the parameters for the top drive. For the sake of simplicity, the influence of viscous damping was disregarded. The specific input parameters can be found in the provided \tablename~\ref{Input Parameters TC3}.
 
 \begin{figure}[!hbt]
   \centering
@@ -200,12 +206,85 @@ In this specific case, all parameters were same with the input parameters from T
     \hline
     $\rho_{dp}$ & 490.6 $lb/ft^{3}$ & 7850 $kg/m^{3}$ & Drill pipe density \\
     \hline
-    $G_{dp}$ & 1.27$e^{9}\;lb/ft^{2}$ & 6.08$e^{10} pa$ & Drill pipe shear modulus \\
+    $G_{dp}$ & $1.67e^9\;lbf/ft^2$ & $7.99e^{10}\;Pa$ & Drill pipe shear modulus \\
     \hline
   \end{tabular}
   \caption{Input parameters of BHA for test case 3}\label{Input Parameters TC3}
 \end{table} 
 
-In this specific scenario, an additional configuration of the drill string included a Bottom Hole Assembly (BHA). The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged, while the parameters for the top drive were kept constant. For the sake of simplicity, the influence of viscous damping was disregarded. The specific input parameters can be found in the provided \tablename~\ref{Input Parameters TC3}.
+\section{Test Case 4 - Icnlined Well with BHA}
+\subsection{Test Case 4a - Different Friction Factor values}
 
-After running the simulation we get the following results. Top-drive torque remains constant while Rotational speed of the drill bit plays around
+The models were tested with the same input parameters from test case 2, with additional configuration of the drill string including a Bottom Hole Assembly (BHA). Well survey data for the inclined well remained same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{figure_wellconfig_inclined_BHA}, remained unchanged, as well as, the parameters for the top drive. As stated previously in test case 2 the influence of viscous damping was disregarded. The input parameters can be found in the  \tablename~\ref{table_Inclinedwell_4a_input}.
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=4in]{InclinedWellConfigBHA}
+  \caption[Schematic view of test case 4.]{Schematic view of wellbore and drill string for test case 4.}\label{figure_wellconfig_inclined_BHA}
+\end{figure}
+
+ \begin{table}
+\centering
+   \begin{tabular}{|c|c|c|p{2.75in}|}
+   \hline
+   Parameter & Value  & Value & Description\\                                                              
+     & imperial units &  (metric units) & \\                                                              
+   \hline
+   $OD_{HWDP}$ & 4.50 in & 0.1143 m & Heavy weight drill pipe outer diameter \\
+   \hline
+   $ID_{HWDP}$ & 2.50 in & 0.0635 m & Heavy weight drill pipe inner diameter \\
+   \hline
+   $OD_{DC}$ & 6.00 in & 0.1524 m & Drill collars outer diameter \\
+   \hline
+   $ID_{DC}$ & 2.00 in & 0.0508 m & Drill collars inner diameter \\                                                    
+   \hline
+   $\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
+   \hline
+   $G_{dp}$ & $1.27e^{9}\;lb/ft^2$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
+   \hline
+   $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
+   \hline
+   $\mu_{d}$ & 0.25 & 0.25 & Static friction factor\\
+   \hline
+   $w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
+   \hline
+   $\theta$ & $60^{\circ}$ & $60^{\circ}$ & Inclination\\
+   \hline
+   \end{tabular}
+\caption[Input parameters for test case 4a.]{Input parameters for test case 4a.}\label{table_Inclinedwell_4a_input}
+\end{table}
+
+\subsection{Test Case 4b - Same Friction Factor values}
+
+Lastly, the models were tested with the exact same configuration from the previous subsection, except with same values of Static and Dynamic FF (Friction Factor) values. The following \tablename~\ref{table_Inclinedwell_4b_input} summarizes the input parameters. 
+
+\begin{table}
+\centering
+   \begin{tabular}{|c|c|c|p{2.75in}|}
+   \hline
+   Parameter & Value  & Value & Description\\                                                              
+     & imperial units &  (metric units) & \\                                                             
+   \hline
+   $OD_{HWDP}$ & 4.50 in & 0.1143 m & Heavy weight drill pipe outer diameter \\
+   \hline
+   $ID_{HWDP}$ & 2.50 in & 0.0635 m & Heavy weight drill pipe inner diameter \\
+   \hline
+   $OD_{DC}$ & 6.00 in & 0.1524 m & Drill collars outer diameter \\
+   \hline
+   $ID_{DC}$ & 2.00 in & 0.0508 m & Drill collars inner diameter \\                                                    
+   \hline
+   $\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
+   \hline
+   $G_{dp}$ & $1.27e^{9}\;lb/ft^2$ & $6.10e^{10}\;pa$ & drill pipe shear modulus\\                                                              
+   \hline
+   $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
+   \hline
+   $\mu_{d}$ & 0.5 & 0.5 & Static friction factor\\
+   \hline
+   $w_c$ & 10 RPM & 10 RPM & Cut-off angular velocity\\
+   \hline
+   $\theta$ & $60^{\circ}$ & $60^{\circ}$ & Inclination\\
+   \hline
+   \end{tabular}
+\caption[Input parameters for test case 4b.]{Input parameters for test case 4b.}\label{table_Inclinedwell_4b_input}
+\end{table}
