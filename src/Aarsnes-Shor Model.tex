@@ -51,24 +51,8 @@ where $w_c$ is the angular velocity threshold for Coulomb friction transition fr
   \caption[Schematic of distributed drill string in deviated well]{Schematic of distributed drill string in deviated well and indication of parameters used in the equations \cite{ref:aarsnes2017a}.}\label{figure_AS_equation_schematic}
 \end{figure}
 
-The static friction is calculated based on the normal force along the drill string that is:
-\begin{equation}\label{equation_A-S-Fn}
-  F_N(x) = gA(x)(\rho-\rho_{mud})sin\theta
-\end{equation}
-where g is the gravitational force, A(x) is the cross sectional area at x, $\rho$ is the denstiy of drill string, $\rho_{mud}$ is the mud density, and $\theta$ is the inclination angle of deviated wel.
-Then the static Coulomb friction is obtained as
-\begin{equation}\label{equation_A-S_static_fric}
-  F_c(x,\mu_s) = \mu_s r_o(x) F_N(x) 
-\end{equation}
-where $\mu_s$ is static frction factor, $r_o$ is outer radius of drill string and $F_N(x)$ is the normal force. The dynacmic friction is calulcated as a given ratio of static friction angle such as:
-\begin{equation}\label{equation_A-S_dynamic_fric}
-  F_d(x) = fRat\;F_c(x,\mu_s)
-\end{equation}
-where fRat is the pre-established ratio between dynamic and static friction ($0 \leq fRat \leq 1$). 
-
-\section{Mathematical Background}
-\subsection{Governing Equations}
-The model is based on the equations of angular motion which are:
+\section{Mathematical Background}\label{SubSec_AS_mathematicalbackground}
+The model is based on the equations of angular motion, here named wave equation, which are:
 \begin{equation}\label{AS-motion}
   J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x) 
 \end{equation}
@@ -369,25 +353,3 @@ The results implies that, for the further study, we need an exact input paramete
 \end{figure}
 
 The comparison of bit and top drive angular velocity and torque between when the top drive is existed and removed are depicted in \figurename~\ref{figure_topdriveremove_MATLAB} and \ref{figure_topdriveremove} for MATLAB and PYTHON ver, respectively. In the modified code, top drive velocity and torque will refer that of top of the drill string. The original and modified code showed almost the same behavior except during the very first stage when the top drive velocity increased from 0 to 40 RPM. The spikes can be seen when the top drive with PI-controller exits. Additionally, the decaying of the vibration amplitude was  observed in the original code which can be clearly seen in the MATLAB ver. This is due to the damping effect from the PI controller acts while controlling the top drive velocity and it eventually converges the vibration. In summary, There are mainly two advantages of removing the PI controller in this project and we can achieve 1): insensitive model to top drive input parameters, 2) removing damping effect from the PI-controller.
-
-\begin{figure}[!hbt]
-  \centering
-  \includegraphics[width=6.5in]{Topdriveremove_MATLAB}
-  \caption[comparison between with and without top drive: Matlab ver.]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive in MATLAB ver. a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove_MATLAB}
-\end{figure}
-
-\begin{figure}[!hbt]
-  \centering
-  \includegraphics[width=6.5in]{Topdriveremove}
-  \caption[comparison between with and without top drive: PYTHON ver.]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive in PYTHON ver. a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove}
-\end{figure}
-
-\subsection{Issue with the PYTHON ver.}
-%Interestingly, in both cases, there was a period where angular velocity of the bit was maintained at maximum value for about 2 seconds. The duration that the bit maintains the angular velocity was reduced by increasing the top drive velocity smoothly. The effect of how the top drive velocity increases are illustrated in \figurename~\ref{figure_topdriveveleffect}.
-%
-%\begin{figure}[!hbt]
-%  \centering
-%  \includegraphics[width=6.5in]{topdriveveleffect}
-%  \caption{Effect of top drive velocity increasing method. When the velocity increased to set point velocity a): drastically, and b): smoothly.}\label{figure_topdriveveleffect}
-%\end{figure}
-
