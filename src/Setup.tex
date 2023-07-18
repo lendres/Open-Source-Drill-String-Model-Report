@@ -87,44 +87,24 @@
 % SPECIAL FORMATTING
 % To use hanging indent (hang) and decrease margins (changepage) inside of definition environment.
 \usepackage{hang}
-\usepackage{changepage}
 
-\setlength{\hangingindent}{\parindent}
-\newlength{\definitionspace}
-\setlength{\definitionspace}{0.5\baselineskip plus 2pt minus 12pt}
+\newlength{\committeespacing}
+\setlength{\committeespacing}{0.5\baselineskip plus 2pt minus 12pt}
 
-\newenvironment{definition}[1]
+\newfont{\helveticbc}{phvbc7t at 12pt}
+\newenvironment{committeemember}[3]
 {
 %	\vspace{0.5\baselineskip plus 2pt minus 12pt}
+	\vspace{\committeespacing}
 	\begin{hangingpar}
-	{\bfseries\MakeLowercase{#1}}\hspace*{0.5em}%
+	{\helveticbc #1}\\%
+	\textbf{#2}\\
+	\textit{#3}\\
 }
 {
 	\end{hangingpar}
-	\vspace{\definitionspace}
+	\vspace{\committeespacing}
 }
-
-\newenvironment{inlinedefinition}[1]
-{
-	\vspace{\definitionspace}
-	\itshape
-	\begin{adjustwidth}{\parindent}{\parindent}
-	\begin{definition}{#1}
-}
-{
-	\end{definition}
-	\end{adjustwidth}
-}
-
-\newenvironment{inlinewrongdefinition}[1]
-{
-	\color{warningcolor}
-	\begin{inlinedefinition}{#1}
-}
-{
-	\end{inlinedefinition}
-}
-
 
 % INCLUDE A BIBLIOGRAPHY.
 \bibliographystyle{leplain} 
