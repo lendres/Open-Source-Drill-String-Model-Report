@@ -1,12 +1,12 @@
 \chapter{Aarsnes-Shor Model}
 \label{ch:aarnessshormodel}
 
-\subsection{Model Description}
+\section{Model Description}
 The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping which are modeled as distributed source term. The effect of this Coulomb friction becomes prominent as the well inclination increases, therefore this model can be effective in predicting the drill string dysfunctions in high inclined wells. Currently, the model is only applicable for torsional mode simulation but the axial mode will be added soon. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are: 1) no bit-rock interaction, 2) no lateral and axial motion, 3) the effects of cuttings distribution on the friction is homogeneous and 4) the transition from static to dynamic coulomb friction is modeled as a jump. 
 
 Two different versions of the codes are available which are written in MATLAB and PYTHON. The MATLAB ver. is more matured and the validation with field data was also conducted \referencename~\cite{ref:aarsnes2017a}. One the other hand, PYTHON ver. is relatively recent version and the axial mode will be added on this version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while PYTHON ver. directly solves the governing equation for angular velocity and torque seperately, MATLAB ver. introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section. 
 
-\subsection{Top Drive Model}
+\section{Top Drive Model}
 The model contains PI-controller on the top drive. Therefore, boundary condition at the top is given by top drive torque and velocity calculated from top drive set point velocity. Torque on top drive are derived as:
 
 \begin{equation}\label{AS_err}
@@ -29,20 +29,19 @@ where $W_{sp}$ is set point velocity, $W_{td}$ is top drive velocity, $\tau_{td}
 
 where $J_{td}$ is top drive inertia, $\tau_{0}$ is the torque on top of the drill string. The angular velocity at the top of the drill string is assume to be same as top drive velocity $w_0 = w_{td}$.
 
-\subsection{Bit Model}
+\section{Bit Model}
 The model assumes the toque on bit to be constant. The test cases for this projects are off-bottom scenario with not bit-rock contact, therefore, the torque on bit is fixed to zero. In addition, model does not consider weight on bit since current model is only for torsional mode. 
 
-\subsection{Friction Model}
-The Coulomb friction is modeled as an inclusion such as:
+\section{Friction Model}
+The Coulomb friction $\mathcal{F}(w,x)$ is modeled as an inclusion such as:
 \begin{equation}\label{equation_A-S_columnbfriciton}
-  \mathcal{F}(w,x) =
   \begin{cases}
-    F_d(x), & \mbox{if } w>w_c \\
-    [-F_c(x), F_c(x)], & \mbox{if } |w|<w_c \ \\
-    -F_d(x), & \mbox{if } w < -w_c.
+     \mathcal{F}(w,x) = F_d(x), & \mbox{if } w>w_c \\
+     \mathcal{F}(w,x) \in [-F_c(x), F_c(x)], & \mbox{if } |w|<w_c \ \\
+     \mathcal{F}(w,x) = -F_d(x), & \mbox{if } w < -w_c.
   \end{cases}
 \end{equation}
-where $w_c$ is the angular velocity threshold for Coulomb friction transition from static to dynamic. $F_d$ and $F_c$ are dynamic and static Coulomb torque, respectively. 
+where $w_c$ is the angular velocity threshold for Coulomb friction transition from static to dynamic. $F_d$ and $F_c$ are dynamic and static Coulomb torque, respectively. For condition $|w|<w_c$, \mathcal{F}(w,x) takes the boundary values $\pm F_C(x).
 
 \subsection{Mathematical Background}\label{SubSec_AS_mathematicalbackground}
 The model is based on the equations of angular motion, here named wave equation, which are:

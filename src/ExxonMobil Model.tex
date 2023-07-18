@@ -152,25 +152,23 @@ To convert these equation sets into vector form, we can represent the variables 
   \end{aligned}
 \end{equation}
 
-Where:
-\begin{itemize}
-  \item $Z_o = \int V_0 , dt$ \\
-  \item $m_n$: drill string element mass \\
-  \item Z: bit position (downward direction considered as positive) \\
-  \item $k_a$: axial stiffness of drill-string element \\
-  \item $V_o$: Top-drive (draw-works) axial velocity as input \\
-  \item $Z_{top\_drive}$: Top-drive (draw-works) axial displacement as input \\
-  \item $\dot{Z}$: bit axial velocity (downward direction considered as positive) \\
-  \item $WOB_{\text{Surface}}$: Surface/Top-drive WOB (In ROP Control Mode) \\
-  \item $J_n$: mass moment of inertia of drill string element \\
-  \item $\theta$: \text{rotation angle (Clockwise direction is considered as positive)} \\
-  \item $\omega_o$: Topdrive angular velocity as input \\
-  \item $\theta_{top\_drive}$: Topdrive rotation as input \\
-  \item $k_t$: Torsional stiffness of drill-string \\
-  \item $\dot{\theta}$: bit rotary velocity (Clockwise direction considered as positive) \\
-  \item $TQ_{\text{Surface}}$: Surface/Top-drive Torque \\
-\end{itemize}
-
+\begin{mathwhere}[1.0in]
+\mathdefitem{Z_0}{$\int V_0\ dt$;}
+\mathdefitem{m_n}{drill string element mass;}
+\mathdefitem{Z}{position (downward direction considered as positive);}
+\mathdefitem{k_a}{axial stiffness of drill-string element;}
+\mathdefitem{V_o}{Top-drive (draw-works) axial velocity as input;}
+\mathdefitem{Z_{top\_drive}}{Top-drive (draw-works) axial displacement as input;}
+\mathdefitem{\dot{Z}}{bit axial velocity (downward direction considered as positive);}
+\mathdefitem{WOB_{Surface}}{Surface/Top-drive WOB (In ROP Control Mode);}
+\mathdefitem{J_n}{mass moment of inertia of drill string element;}
+\mathdefitem{\theta}{rotation angle (Clockwise direction is considered as positive);}
+\mathdefitem{\omega_o}{Topdrive angular velocity as input;}
+\mathdefitem{\theta_{top\_drive}}{Topdrive rotation as input;}
+\mathdefitem{k_t}{Torsional stiffness of drill-string;}
+\mathdefitem{\dot{\theta}}{bit rotary velocity (Clockwise direction considered as positive);}
+\mathdefitem{TQ_{Surface}}{Surface/Top-drive Torque;}
+\end{mathwhere}
 
 The differential equation sets are solved using the ODE45 solver. This solver is chosen for its efficiency in computational calculations.
 
