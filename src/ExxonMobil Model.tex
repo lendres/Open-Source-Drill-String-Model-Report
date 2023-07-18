@@ -6,7 +6,7 @@ The model utilizes a coupled axial-torsional system, considering the interaction
 The interaction between the bit and the rock is governed by a model based on the depth of cut. To incorporate Coulomb friction, the Stribeck friction model is employed, while borehole friction is considered through the use of viscous frictional forces. The net frictional force is influenced by factors such as gravity force, drilling mud properties, and well inclination. Reaction forces resulting from the bit-rock interaction occur when the bit is in contact with the formation. These forces persist for the duration that the bit remains on the bottom of the well. 
 
 
-\subsection{Bit-rock Interaction}
+\section{Bit-rock Interaction}
 
 A significant commonality observed in the aforementioned literature is the utilization of bit-rock interaction to explain the occurrence of stick slip. The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between Weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
 
@@ -25,7 +25,7 @@ where $k_WOB$, $k_TQ$ is Weight on bit and Torque coefficient, $DOC_iteration$ i
 The cutting components exhibit a direct dependency on the depth of cut, representing the material removed during drilling, while the frictional components are considered to account for the dissipated energy in the drilling process. To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a consolidated friction model (IADC/SPE-199678) is implemented within the drilling simulator. 
 
 
-\subsection{Friction Model}
+\section{Friction Model}
 
 Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior and the continuous changes in velocity direction. The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating frictional torque within the system.
  
@@ -84,7 +84,7 @@ Below you will find the Friction model input parameters:
   \caption{Input parameters for Friction model}\label{Table_Friction_Input}
 \end{table}
 
-\subsection{Governing equations and solution}
+\section{Governing equations and solution}
 
 The set of partial differential equations that describe the motion of the drill-string can be combined into a coupled axial-torsional system of second-order differential equations. 
 
