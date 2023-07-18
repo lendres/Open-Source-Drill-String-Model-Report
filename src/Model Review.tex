@@ -18,7 +18,7 @@ The full featured model is not open-source.  Instead, a limited version has been
 Specifically, since the dynamics have been removed, this model was not considered fit for purpose.
 
 \section{Texas A\&M Model}
-Texas A\&M developed a model to serve as simulator used for training horizontal directional drilling (\referencename~\cite{ref:losoya2020a}).  It was developed on top of a high-performance open-source library written in C++.  The model seems promising; it incorporates multibody physics, CFD, and other solvers as well as leveraging GPU acceleration.  However, the full model has not been released.  Importantly for our purposes, the dynamics portion has not been open-sourced.  Therefore, this model was not selected.
+Texas A\&M developed a model to serve as simulator used for training horizontal directional drilling (\referencename~\cite{ref:losoya2020a}).  It was developed on top of a high-performance open-source library written in C++.  The model seems promising; it incorporates multibody physics, CFD, and other solvers as well as leveraging GPU acceleration.  However, the full model has not been released.  Importantly for the purpose of this project, the dynamics portion has not been open-sourced.  Therefore, this model was not selected.
 
 \section{Tulsa University Models}
 Two models from Tulsa University were evaluated.  The source code for these models is available to CNPC USA through the TUDRP program. Ultimately, neither were selected for further evaluation.  The reviews of each and reasoning for not selecting them are presented below.
@@ -32,10 +32,10 @@ The soft string model from Tulsa University is originally based on \referencenam
 In \referencename~\cite{ref:zamanipour2018a}, the model from  \referencename~\cite{ref:miska2015a} is imporoved to add axial stiffness, static friction, and drilling fluid drag.  The primary objective is calculation of forces for drillstrings during tripping operations.  It uses a lumped mass and spring system.  It claims to be an axial ``stiff string'' model.  It allows for the string to be at the top or bottom of the hole automatically, however, it does not seem to account for the no contact case.  The wellbore is considered to be 2D.  A comparison is done between the axial ``stiff string'' model and a soft string model.  It seems that ``dynamic'' and ``static'' would be better nomenclature for these models.  The improved model does seem to be an axially dynamic model.  However, torsional effects are still not considered.  Therefore, this model was not selected.
 
 \section{Richard-Germay-Detournay Bit Model}
-While the current project focuses on drill string models, it is natural to couple a string model with a bit model. The Richard-Germay-Detournay family of bit models (RGD models) represents theoretical bit-rock interactions.  Moreover, they represent a more sophisticated approach than many bit models.  Therefore, a review of these models is included.  Please see \chaptername~\ref{ch:rgdmodels} for a complete review.
+While the current project focuses on drill string models, it is natural to couple a string model with a bit model. The Richard-Germay-Detournay family of bit models (RGD models) represents theoretical bit-rock interactions.  They use a more sophisticated approach than many bit models and are, therefore, of interest.  Please see \chaptername~\ref{ch:rgdmodels} for a complete review.
 
 \section{Aarsnes-Shor Models}
 The Aarsnes-Shor model is a soft string torsional model.  It was selected for evaluation.  Please see \chaptername~\ref{ch:aarnessshormodel} for a complete analysis.
 
 \section{ExxonMobil Model}
-The ExxonMobil model is a soft string axial-torsional model.  It was selected for evaluation.  Please see \chaptername~\ref{ch:exxonmobilmodel} for a complete analysis.
+The ExxonMobil model is a soft string axial-torsional model.  It was selected for evaluation.  Please see \chaptername~\ref{ch:exxonmobilmodel} for a complete analysis. 
