@@ -1,4 +1,5 @@
 \chapter{Test Cases}
+\label{ch:testcases}
 Exxon mobil and Aarsnes-shor models are compared with simple well and drill string configurations. Each test case represents Vertical and Inclined wells with identical parameters. Currently, all test cases were run for Off-bottom case. For test cases 3 and 4, we incorporated BHA to compare the outputs of the two models. Initially, all test cases were executed with various static and friction factor values, which are described in the subsequent subsections. However, an additional set of experiments were conducted with identical static and dynamic friction factor values. Since there is no friction in Vertical wells, it is primarily related to Inclined wells. The problem with the ExxonMobil model's On-Bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. Regarding the Aarsnes-shor model, since the issue with the PYTHON version has not been resolved, the PYTHON version was only executed with test case 1 (it will be added once the issue has been resolved). Summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}
 
 \begin{table}[!hbt]
@@ -22,7 +23,7 @@ Numerical method & FDM & FEM\\
 
 
 \section{Test Case 1 - Vertical well, No BHA}
-The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input} and \ref{figure_verticalwell}. The Exxon mobil model and MATLAB ver. A-S model uses metric units while PYTHON ver. A-S model uses imperial units. For the future convenience, the Table in this chapter contains both imperial and metric units.
+The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input} and \ref{figure_verticalwell}. The Exxon mobil model and MATLAB ver.\ A-S model uses metric units while PYTHON ver.\ A-S model uses imperial units. For the future convenience, the Table in this chapter contains both imperial and metric units.
 
 \begin{figure}[!hbt]
   \centering
@@ -56,27 +57,27 @@ The test was conducted by assuming the top drive velocity to be increased from 0
   \caption[Top drive set velocity]{Top drive set velocity}\label{figure_topdrive_VSP}
 \end{figure}
 
-%Comparison between A-S model (both Matlab ver. and Python ver.), and Exxon mobil model was conducted with given input in \tablename~\ref{table_verticalwell_input}. The modified code of PYTHON ver. with removed top drive was used for the comparison. First, for the simplicity, the viscous damping was assumed to be zero. Moreover, the coulomb friction is also zero since there is no contact between drill string and borehole (vertical well). Therefore the source term of the governing equation will be zero in equation \equationname~\ref{AS-motion} and the parameters that affect the model will be the density and shear modulus of drill pipe.
+%Comparison between A-S model (both Matlab ver.\ and Python ver.\), and Exxon mobil model was conducted with given input in \tablename~\ref{table_verticalwell_input}. The modified code of PYTHON ver.\ with removed top drive was used for the comparison. First, for the simplicity, the viscous damping was assumed to be zero. Moreover, the coulomb friction is also zero since there is no contact between drill string and borehole (vertical well). Therefore the source term of the governing equation will be zero in equation \equationname~\ref{AS-motion} and the parameters that affect the model will be the density and shear modulus of drill pipe.
 %
-%The comparison between different models are shown in \figurename~\ref{figure_modelcomparison_vertical_torque}. As can be seen from the results all the model showed  oscillation of the top drive torque, however, significant difference were observed in A-S model PYTHON ver. while MATLAB ver., and exxon mobil model shwed maximum torque about 2000 lb-ft, torque of the PYTHON ver. reached 10,000 lb-ft. Also, the differences in the oscillation frequencies were observed. The frequency of oscillation were 0.32, 0.45, and 0.125 for MATLAB ver., and Exxon mobil model, and PYTHON ver., respectively. Although MATLAB ver. and Exxon mobil model showed similar response, the convergence time of this oscillation were significantly shorter in MATLAB ver. The comparison of the converging time between MATLAB ver. and PYTHON ver. is illustrated in \figurename~\ref{figure_modelcomparison_vertical_convergence}. The comparison of the model are summerized in Table....
+%The comparison between different models are shown in \figurename~\ref{figure_modelcomparison_vertical_torque}. As can be seen from the results all the model showed  oscillation of the top drive torque, however, significant difference were observed in A-S model PYTHON ver.\ while MATLAB ver.\, and exxon mobil model shwed maximum torque about 2000 lb-ft, torque of the PYTHON ver.\ reached 10,000 lb-ft. Also, the differences in the oscillation frequencies were observed. The frequency of oscillation were 0.32, 0.45, and 0.125 for MATLAB ver.\, and Exxon mobil model, and PYTHON ver.\, respectively. Although MATLAB ver.\ and Exxon mobil model showed similar response, the convergence time of this oscillation were significantly shorter in MATLAB ver.\ The comparison of the converging time between MATLAB ver.\ and PYTHON ver.\ is illustrated in \figurename~\ref{figure_modelcomparison_vertical_convergence}. The comparison of the model are summerized in Table....
 
 %\begin{figure}[hbt!]
 %  \centering
 %  \includegraphics[width=6in]{modelcomparison_vertical_torque}
-%  \caption[Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well]{Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well. the input parameteres for drill string is summarized in \tablename~\ref{table_verticalwell_input}. a): A-S model (MATLAB ver.), b): Exxon mobil model, c) A-S model (PYTHON ver.), and d): A-S model (PYTHON ver.) with smooth increase of top drive velocity.}\label{figure_modelcomparison_vertical_torque}
+%  \caption[Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well]{Comparison of torque of top drive and bit without viscous damping and BHA components in vertical well. the input parameteres for drill string is summarized in \tablename~\ref{table_verticalwell_input}. a): A-S model (MATLAB ver.\), b): Exxon mobil model, c) A-S model (PYTHON ver.\), and d): A-S model (PYTHON ver.\) with smooth increase of top drive velocity.}\label{figure_modelcomparison_vertical_torque}
 %\end{figure}
 %
 %\begin{figure}
 %  \centering
 %  \includegraphics[width=6.5in]{modelcomparison_vertical_convergence}
-%  \caption[Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well.]{Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well. a): A-S model MATLAB ver., b): A-S model PYTHON ver.}\label{figure_modelcomparison_vertical_convergence}
+%  \caption[Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well.]{Comparison of torsional vibration convergence time without viscous damping and BHA components in vertical well. a): A-S model MATLAB ver.\, b): A-S model PYTHON ver.}\label{figure_modelcomparison_vertical_convergence}
 %\end{figure}
 %
 %%\begin{table}[!hbt]
 %%\centering
 %%\begin{tabular}{|c|c}|c|c|}
 %%\hline
-%% & Exxon mobil model & A-S model (MATLAB ver.) & A-S model (PYTHON ver.) \\                                                              
+%% & Exxon mobil model & A-S model (MATLAB ver.\) & A-S model (PYTHON ver.\) \\                                                              
 %%\hline
 %%Drill string vibration convergence & - & $<$ 150s & $>$ 30min \\                                                  
 %%\hline
@@ -151,7 +152,7 @@ The models were tested with the exact same configuration from the previous subse
 %\begin{figure}[!hbt]
 %  \centering
 %  \includegraphics[width=6.5in]{Testcase2_ASmodel}
-%  \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model for test case 2, a): MATLAB ver, and b): PYTHON ver. Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
+%  \caption[Result from A-S model. (test case 2)]{Simulation results of A-S model for test case 2, a): MATLAB ver, and b): PYTHON ver.\ Stick-slip was observed from the model.}\label{figure_testcase2_ASmodel}
 %\end{figure}
 %
 %
