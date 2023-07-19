@@ -132,9 +132,9 @@ This section briefly summarizes the code flow (PYTHON version), since it is slig
 
 \begin{table}[!hbt]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabularx}{\linewidth-0.75in}{|c|c|L|}
 \hline
-Parameter & Units & Notes\\                                                              
+\tablecolumnheadervlinesone{Parameter} & \tablecolumnheadervlinestwo{Units} & \tablecolumnheadervlinestwo{Notes} \\                                                              
 \hline
 Simulation length & s & Total simulation time \\                                                  
 \hline
@@ -164,7 +164,7 @@ $J_{TD}$ & $lb$-$ft^2$ & Top drive inertia \\
 \hline
 ramp speed & RPM/s & ramp speed of top drive\\
 \hline
-\end{tabular}
+\end{tabularx}
 \caption[Input parameters of Aarsnes-Shor model]{Input parameters of Aarsnes-shor model. well trajectory, top drive set velocity, and bit constant are the additional parameters which are not included in this table.}\label{AS_inptut_params}
 \end{table}
 
@@ -323,21 +323,16 @@ Before conducting the tests, MATLAB ver. and PYTHON ver. were compared. The comp
 The A-S model contains PI-controller on top drive for more realistic simulation, however, the results were sensitive to input parameters which are $k_p, k_i, J_{TD}$, and ramp speed (\tablename~\ref{AS_inptut_params}), especially when the exact value is not provided. \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between MATLAB ver. and PYTHON ver. when same top drive related parameters used 
 (\tablename~\ref{table_topdrivesensitivity_input}). Please note that the model was run with same input parameters with different units (MATLAB ver: Metric unit, PYTHON ver: Imperial unit). 
 
-\begin{table}[!hbt]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-Parameter & value (imperial units) & value (metric units) & description\\                                                              
-\hline
+\begin{testcasetable}
 $k_p$ & $38e^3 \; Nm/s $ & $28e3\; lbfft/s$ & p-gain \\                                                  
 \hline
 $k_i$ & $100e^3 \; Nm$ & $74e^3\; lbfft$  & i-gain \\                                                  
 \hline
 $J_{TD}$ & $2900 \; kgm^2 $ & $ 68818 \; lbft^2$ & top drive inertia\\                                                       
 \hline
-\end{tabular}
+\end{tabularx}
 \caption[Top drive related parameters for comparison.]{Top drive related parameters for comparison.}\label{table_topdrivesensitivity_input}
-\end{table}
+\end{testcasetable}
 
 \begin{figure}[!hbt]
   \centering

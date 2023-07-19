@@ -27,6 +27,34 @@
 \renewcommand{\floatpagefraction}{0.85}
 
 
+% TABLES
+\usepackage{letable}
+\setlength{\tablerowheight}{6mm}
+\setlength{\tabledoublelinespace}{-13pt}
+\tablecolumnheaderfont{\bfseries}
+% Use tabularx to have adjustable width columns.
+\usepackage{tabularx}
+% Create a tabularx column with ragged right interiors.  The default paragraph style columns tries to justify the
+% text and ends up creating underfull warnings.
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+% Test case tables.
+\newenvironment{testcasetable}
+{
+	\begin{table}
+		\centering
+		\begin{tabularx}{\linewidth}{|c|c|c|L|}
+		\hline
+		\tablecolumnheadervlinesone{Parameter} & \tablecolumnheadervlinestwo{Value}            & \tablecolumnheadervlinestwo{Value}           & \tablecolumnheadervlinestwo{Description} \\[-7pt]
+		                                       & \tablecolumnheadervlinestwo{(imperial units)} &  \tablecolumnheadervlinestwo{(metric units)} & \\
+		\hline
+}
+{
+		
+	\end{table}
+}
+
+
 % HEADERS AND FOOTERS
 \usepackage{leheadersandfooters}
 

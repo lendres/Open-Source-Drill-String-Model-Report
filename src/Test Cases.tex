@@ -5,7 +5,7 @@ Exxon mobil and Aarsnes-shor models are compared with simple well and drill stri
 \centering
 \begin{tabular}{|c|p{1.8in}|p{1.8in}|c|}
 \hline 
- & A-S model & Exxon mobil Model\\
+\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
 \hline
 Motion & Torsional & Torsional + Axial\\                                                              
 \hline
@@ -16,7 +16,7 @@ Friction model & Coulomb friction as a jump (see chapter 4) & Stribeck  effect: 
 Numerical method & FDM & FEM\\      
 \hline                                                 
 \end{tabular}
-\caption[Summary of the difference between two models]{Summary of the difference between A-S and Exxonmobil models)}\label{table_model_difference}
+\caption[Summary of the difference between two models]{Summary of the difference between A-S and ExxonMobil models.}\label{table_model_difference}
 \end{table}
 
 
@@ -30,12 +30,7 @@ The model parameters and schematic of the wellbore surveys and drill string comp
   \caption[Schematic of well and drill string for model comparison.]{Schematic of well and drill string for model comparison.}\label{figure_verticalwell}
 \end{figure}
 
-\begin{table}[!hbt]
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-Parameter & value (imperial units) & value (metric units) & Description\\                                                              
-\hline
+\begin{testcasetable}
 $\rho$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
 \hline
 G & $1.67e^9\;lbf/ft^2$ & $7.99e^{10}\;Pa$  & Shear modulus \\                                                  
@@ -50,9 +45,9 @@ TVD & 6561 ft & 2000 m & total vertical depth\\
 \hline
 Bit depth & 5905 ft & 1800 m & - \\ 
 \hline
-\end{tabular}
+\end{tabularx}
 \caption[Well survey data for model comparison (vertical well)]{Well survey and drill string data for model comparison (vertical well without BHA components)}\label{table_verticalwell_input}
-\end{table}
+\end{testcasetable}
 The test was conducted by assuming the top drive velocity to be increased from 0 RPM to 40 RPM at 1 second and maintained the velocity for rest of the time. The top drive velocity is shown in \figurename~\ref{figure_topdrive_VSP}
 
 \begin{figure}[!hbt]
@@ -104,12 +99,7 @@ The models were tested with inclined well with simple configuration of drill str
   \caption[Schematic view of test case 2.]{Schematic view of wellbore and drill string for test case 2.}\label{figure_wellconfig_inclined}
 \end{figure}
 
- \begin{table}[!hbt]
-\centering
-   \begin{tabular}{|c|c|c|c|}
-   \hline
-   Parameter & Value (imperial units) & Value (metric units) & Description\\                                                              
-   \hline
+\begin{testcasetable}
    $OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
    \hline
    $ID_{dp}$ & 5.00 in & 0.127 m & drill pipe inner diameter  \\                                                      
@@ -126,21 +116,16 @@ The models were tested with inclined well with simple configuration of drill str
    \hline
    $\theta$ & $60^{\circ}$ & $60^{\circ}$ & Inclination\\
    \hline
-   \end{tabular}
-\caption[Input parameters for test case 2a.]{Input parameters for test case 2a.}\label{table_Inclinedwell_2a_input}
-\end{table}
+   \end{tabularx}
+\caption[Input parameters for test case 2a]{Input parameters for test case 2a.}\label{table_Inclinedwell_2a_input}
+\end{testcasetable}
 
 
 \subsection{Test case 2b - Same Friction Factor values}
 
 The models were tested with the exact same configuration from the previous subsection, except with same values of Static and Dynamic FF (Friction Factor) values. The following \tablename~\ref{table_Inclinedwell_2b_input} summarizes the input parameters. 
 
-\begin{table}[!hbt]
-  \centering
-  \begin{tabular}{|c|c|c|c|}
-  \hline
-  Parameter & Value (imperial units) & Value (metric units) & Description\\                                                              
-  \hline
+\begin{testcasetable}
   $OD_{dp}$ & 5.88 in & 0.15 m & drill pipe outer diameter\\                                                       
   \hline
   $ID_{dp}$ & 5.00 in & 0.127 m & drill pipe inner diameter  \\                                                      
@@ -157,9 +142,9 @@ The models were tested with the exact same configuration from the previous subse
   \hline
   $\theta$ & $60^{\circ}$ & $60^{\circ}$ & Inclination\\
   \hline
-  \end{tabular}
-\caption[Input parameters for test case 2b.]{Input parameters for test case 2b.}\label{table_Inclinedwell_2b_input}
-\end{table}
+  \end{tabularx}
+\caption[Input parameters for test case 2b]{Input parameters for test case 2b.}\label{table_Inclinedwell_2b_input}
+\end{testcasetable}
 
 %The results from A-S models are shown in \figurename~\ref{figure_testcase2_ASmodel}. Both model captured the stick-slip event during of-bottom drill string rotation. However, similar to test case 1 (have to rename it later: vertical well test), the top drive torque amplitude and the frequency of the oscillation showed significant differences.
 % 
@@ -182,20 +167,14 @@ The models were tested with the exact same configuration from the previous subse
 
 In this specific scenario, an additional configuration of the drill string included a Bottom Hole Assembly (BHA). The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged, as well as, the parameters for the top drive. For the sake of simplicity, the influence of viscous damping was disregarded. The specific input parameters can be found in the \tablename~\ref{Input Parameters TC3}.
 
-\begin{figure}[!hbt]
+\begin{figure}
   \centering
   \includegraphics[width=2in]{VerticalWellConfigBHA}
   \caption{Schematic of well and drill string for model comparison}\label{Vert_well_conf_BHA}
 \end{figure}
 
 
-\begin{table}[!h]
-  \centering
-  \begin{tabular}{|c|c|c|p{2.2in}|}
-    \hline
-    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-    Parameter & Value (imperial units) & Value (metric units) & Description \\
-    \hline
+\begin{testcasetable}
     $OD_{HWDP}$ & 4.50 in & 0.1143 m & Heavy weight drill pipe outer diameter \\
     \hline
     $ID_{HWDP}$ & 2.50 in & 0.0635 m & Heavy weight drill pipe inner diameter \\
@@ -208,11 +187,11 @@ In this specific scenario, an additional configuration of the drill string inclu
     \hline
     $G_{dp}$ & $1.67e^9\;lbf/ft^2$ & $7.99e^{10}\;Pa$ & Drill pipe shear modulus \\
     \hline
-  \end{tabular}
+    \end{tabularx}
   \caption{Input parameters of BHA for test case 3}\label{Input Parameters TC3}
-\end{table} 
+\end{testcasetable} 
 
-\section{Test Case 4 - Icnlined Well with BHA}
+\section{Test Case 4 - Inclined Well with BHA}
 \subsection{Test Case 4a - Different Friction Factor values}
 
 The models were tested with the same input parameters from test case 2, with additional configuration of the drill string including a Bottom Hole Assembly (BHA). Well survey data for the inclined well remained same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{figure_wellconfig_inclined_BHA}, remained unchanged, as well as, the parameters for the top drive. As stated previously in test case 2 the influence of viscous damping was disregarded. The input parameters can be found in the  \tablename~\ref{table_Inclinedwell_4a_input}.
@@ -223,14 +202,8 @@ The models were tested with the same input parameters from test case 2, with add
   \caption[Schematic view of test case 4.]{Schematic view of wellbore and drill string for test case 4.}\label{figure_wellconfig_inclined_BHA}
 \end{figure}
 
- \begin{table}[h]
-\centering
-   \begin{tabular}{|c|c|c|p{2.75in}|}
-   \hline
-   Parameter & Value  & Value & Description\\                                                              
-     & imperial units &  (metric units) & \\                                                              
-   \hline
-   $OD_{HWDP}$ & 4.50 in & 0.1143 m & Heavy weight drill pipe outer diameter \\
+\begin{testcasetable}
+   $OD_{HWDP}$ & 4.50 in & 0.1143 m & Heavy weight drill pipe outer diameter \\   
    \hline
    $ID_{HWDP}$ & 2.50 in & 0.0635 m & Heavy weight drill pipe inner diameter \\
    \hline
@@ -250,21 +223,15 @@ The models were tested with the same input parameters from test case 2, with add
    \hline
    $\theta$ & $60^{\circ}$ & $60^{\circ}$ & Inclination\\
    \hline
-   \end{tabular}
-\caption[Input parameters for test case 4a.]{Input parameters for test case 4a.}\label{table_Inclinedwell_4a_input}
-\end{table}
+   \end{tabularx}
+   \caption[Input parameters for test case 4a]{Input parameters for test case 4a.}\label{table_Inclinedwell_4a_input}
+\end{testcasetable}
 
 \subsection{Test Case 4b - Same Friction Factor values}
 
 Lastly, the models were tested with the exact same configuration from the previous subsection, except with same values of Static and Dynamic FF (Friction Factor) values. The following \tablename~\ref{table_Inclinedwell_4b_input} summarizes the input parameters. 
 
-\begin{table}[h]
-\centering
-   \begin{tabular}{|c|c|c|p{2.75in}|}
-   \hline
-   Parameter & Value  & Value & Description\\                                                              
-     & imperial units &  (metric units) & \\                                                             
-   \hline
+\begin{testcasetable}
    $OD_{HWDP}$ & 4.50 in & 0.1143 m & Heavy weight drill pipe outer diameter \\
    \hline
    $ID_{HWDP}$ & 2.50 in & 0.0635 m & Heavy weight drill pipe inner diameter \\
@@ -285,6 +252,6 @@ Lastly, the models were tested with the exact same configuration from the previo
    \hline
    $\theta$ & $60^{\circ}$ & $60^{\circ}$ & Inclination\\
    \hline
-   \end{tabular}
+   \end{tabularx}
 \caption[Input parameters for test case 4b.]{Input parameters for test case 4b.}\label{table_Inclinedwell_4b_input}
-\end{table}
+\end{testcasetable}
