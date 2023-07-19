@@ -10,7 +10,7 @@ Exxon mobil and Aarsnes-shor models are compared with simple well and drill stri
 \hline
 Motion & Torsional & Torsional + Axial\\                                                              
 \hline
-Bit model & Constant & Constant \\                                                  
+Bit model & Constant & Dynamic \\                                                  
 \hline
 Friction model & Coulomb friction as a jump (see chapter 4) & Stribeck  effect: Coulumb + Viscous Friction \\                                                  
 \hline
@@ -184,6 +184,10 @@ In this specific scenario, an additional configuration of the drill string inclu
     \hline
     $ID_{DC}$ & 2.00 in & 0.0508 m & Drill collars inner diameter \\
     \hline
+    $L_{HWDP}$ & 60 ft & 18.30 m & Length of heavy weight drill pipe \\
+    \hline
+    $L_{DC}$ & 270 ft & 82.30 m & Length of drill collars \\
+    \hline
     $\rho_{dp}$ & 490.6 $lb/ft^{3}$ & 7850 $kg/m^{3}$ & Drill pipe density \\
     \hline
     $G_{dp}$ & $1.67e^9\;lbf/ft^2$ & $7.99e^{10}\;Pa$ & Drill pipe shear modulus \\
@@ -211,6 +215,10 @@ The models were tested with the same input parameters from test case 2, with add
    $OD_{DC}$ & 6.00 in & 0.1524 m & Drill collars outer diameter \\
    \hline
    $ID_{DC}$ & 2.00 in & 0.0508 m & Drill collars inner diameter \\                                                    
+   \hline
+   $L_{HWDP}$ & 60 ft & 18.30 m & Length of heavy weight drill pipe \\
+   \hline
+   $L_{DC}$ & 270 ft & 82.30 m & Length of drill collars \\
    \hline
    $\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
    \hline
@@ -240,6 +248,10 @@ Lastly, the models were tested with the exact same configuration from the previo
    $OD_{DC}$ & 6.00 in & 0.1524 m & Drill collars outer diameter \\
    \hline
    $ID_{DC}$ & 2.00 in & 0.0508 m & Drill collars inner diameter \\                                                    
+   \hline
+   $L_{HWDP}$ & 60 ft & 18.30 m & Length of heavy weight drill pipe \\
+   \hline
+   $L_{DC}$ & 270 ft & 82.30 m & Length of drill collars \\
    \hline
    $\rho_{dp}$ & $490.6\;lb/ft^3$ & $7850\;kg/m^3$ & Drill pipe density \\                                                  
    \hline
