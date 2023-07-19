@@ -4,7 +4,7 @@
 \section{Model Description}
 The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping which are modeled as distributed source term. The effect of this Coulomb friction becomes prominent as the well inclination increases, therefore this model can be effective in predicting the drill string dysfunctions in high inclined wells. Currently, the model is only applicable for torsional mode simulation but the axial mode will be added soon. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are: 1) no bit-rock interaction, 2) no lateral and axial motion, 3) the effects of cuttings distribution on the friction is homogeneous and 4) the transition from static to dynamic coulomb friction is modeled as a jump. 
 
-Two different versions of the codes are available which are written in MATLAB and PYTHON. The MATLAB ver. is more matured and the validation with field data was also conducted \cite{ref:aarsnes2017a}. One the other hand, PYTHON ver. is relatively recent version and the axial mode will be added on this version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while PYTHON ver. directly solves the governing equation for angular velocity and torque seperately, MATLAB ver. introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section. 
+Two different versions of the codes are available which are written in MATLAB and PYTHON. The MATLAB ver.\ is more matured and the validation with field data was also conducted \cite{ref:aarsnes2017a}. One the other hand, PYTHON ver.\ is relatively recent version and the axial mode will be added on this version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while PYTHON ver.\ directly solves the governing equation for angular velocity and torque seperately, MATLAB ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section. 
 
 \section{Top Drive Model}
 The model contains PI-controller on the top drive. Therefore, boundary condition at the top is given by top drive torque and velocity calculated from top drive set point velocity. Torque on top drive are derived as:
@@ -161,7 +161,7 @@ where ${F_C}_j^k$ is the static friction calculated at cell j and time step k. F
   \beta_j^{k+1} = \beta_j^{k} - c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k - \beta_{j}^k) - \Delta t k_t (\alpha_j^k + \beta_j^k) - \mathcal{F}_j^k
 \end{equation}
 \subsection{Numerical Implementation of PYTHON ver.}
-PYTHON ver. directly solves the \equationname~\ref{AS-motion}, and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants as MATLAB ver. The angular velocity and torque are updated untill the desired simulation length reaches by the algorithm below (The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}): 
+PYTHON ver.\ directly solves the \equationname~\ref{AS-motion}, and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants as MATLAB ver.\ The angular velocity and torque are updated untill the desired simulation length reaches by the algorithm below (The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}): 
 \newcommand{\codecomment}[1]{\hfill #1}
 \pushinitialcodeindent{0in}
 \begin{code}[\codenumbering]{}
@@ -236,63 +236,83 @@ ramp speed & RPM/s & ramp speed of top drive\\
 %\end{tabular}
 \end{table}
 
-\section{Results}
+\section{Findings and Code Modifications}
+Some findings are reported in this section and the tests were conducted based on Test Case 1 scenario. Please refer to \chaptername~\ref{ch:testcases} for detail description and input parameters for each test case.
+
 \subsection{Effect of PI-controller}
-**CONTINUE FROM THIS SECTION**
-Before conducting the tests, MATLAB ver. and PYTHON ver. were compared. The comparison was conducted with off-bottom scenario in vertical well. The detailed description of the test scenario can be seen in \figurename~\ref{figure_verticalwell}, and \ref{figure_topdrive_VSP}. and \tablename~\ref{table_verticalwell_input}.
- 
-The A-S model contains PI-controller on top drive for more realistic simulation, however, the results were sensitive to input parameters which are $k_p, k_i, J_{TD}$, and ramp speed (\tablename~\ref{AS_inptut_params}), especially when the exact value is not provided. \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between MATLAB ver. and PYTHON ver. when same top drive related parameters used 
+The A-S model contains PI-controller on top drive for more realistic simulation, however, the results were sensitive to input parameters which are $k_p, k_i, J_{TD}$, and ramp speed. Therefore, it is difficult to compare between different models when the exact value is not provided. \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between MATLAB ver.\ and PYTHON ver.\ when same top drive related parameters used 
 (\tablename~\ref{table_topdrivesensitivity_input}). Please note that the model was run with same input parameters with different units (MATLAB ver: Metric unit, PYTHON ver: Imperial unit). 
 
 \begin{testcasetable}
-$k_p$ & $38e^3 \; Nm/s $ & $28e3\; lbfft/s$ & p-gain \\                                                  
+$k_p$ & $38e^3 \; lbf\cdot ft/s $ & $28e^3\; Nm/s$ & P-gain \\                                                  
 \hline
-$k_i$ & $100e^3 \; Nm$ & $74e^3\; lbfft$  & i-gain \\                                                  
+$k_i$ & $100e^3 \; lbf\cdot ft$ & $74e^3\; Nm$  & I-gain \\                                                  
 \hline
-$J_{TD}$ & $2900 \; kgm^2 $ & $ 68818 \; lbft^2$ & top drive inertia\\                                                       
+$J_{TD}$ & $2900 \; lb\cdot ft^2 $ & $ 68818 \; kgm^2$ & Top drive inertia\\                                                       
 \hline
 \end{tabularx}
 \caption[Top drive related parameters for comparison.]{Top drive related parameters for comparison.}\label{table_topdrivesensitivity_input}
 \end{testcasetable}
 
+
+%\begin{table}[!hbt]
+%\centering
+%\begin{tabular}{|c|c|c|c|}
+%\hline
+%\tablecolumnheadervlinesone{Parameter} & \tablecolumnheadervlinestwo{Value (imperial units)} & \tablecolumnheadervlinestwo{Value (metric units)} & \tablecolumnheadervlinestwo{Description} \\                                                              
+%\hline
+%$k_p$ & $38e^3 \; Nm/s $ & $28e3\; lbfft/s$ & P-gain \\                                                  
+%\hline
+%$k_i$ & $100e^3 \; Nm$ & $74e^3\; lbfft$  & I-gain \\                                                  
+%\hline
+%$J_{TD}$ & $2900 \; kgm^2 $ & $ 68818 \; lbft^2$ & top drive inertia\\                                                       
+%\hline
+%\end{tabular}
+%\caption[Top drive related parameters for comparison.]{Top drive related parameters for comparison.}\label{table_topdrivesensitivity_input}
+%\end{table}
+
 \begin{figure}[!hbt]
   \centering
-  \includegraphics[width=6in]{verticalwell_topdrive_sensitivity}
-  \caption[Comparison of drillstring response to same top drive parameters]{Comparison of top drive and bit responses with same top drive parameters between MATLAB ver. and PYTHON ver. a): Results from MATLAB ver., and b) : results from PYTHON ver.}\label{figure_topdrive_sensitivity}
+  \includegraphics[width=6.5in]{verticalwell_topdrive_sensitivity}
+  \caption[Comparison of drillstring response to same top drive parameters]{Comparison of top drive and bit responses with same top drive parameters between MATLAB ver.\ and PYTHON ver.\ a): Results from MATLAB ver., and b) : results from PYTHON ver.}\label{figure_topdrive_sensitivity}
 \end{figure}
 
-The results implies that, for the further study, we need an exact input parameters or remove the PI-controller from the top drive. Therefore, the codes were modified and top drive was removed from the system assuming the fixed velocity at the top of the drill string. The modified code enables reducing the parameters of the model for more simple comparison between different models for the future work. The flowchart of PI-controller removal is shown in \figurename~\ref{figure_Topdriveremove_math}.
+The results implies that, for the further study, exact input parameters are required or the PI-controller should be removed. Therefore, the codes were modified and top drive was removed from the system assuming the fixed velocity at the top of the drill string. Moreover, The modified code enables reducing the parameters of the model for more simple comparison between different models. The flowchart of PI-controller removal is shown in \figurename~\ref{figure_Topdriveremove_math}. 
+
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=5in]{Topdriveremove_math}
   \caption[flow chart of top drive elimination]{Flow chart of top drive elimination. The modification of the model assumes only drill string in the model and it rotates with given (fixed) velocity at the top of the drill string.}\label{figure_Topdriveremove_math}
 \end{figure}
 
-The comparison of bit and top drive angular velocity and torque between when the top drive is existed and removed are depicted in \figurename~\ref{figure_topdriveremove_MATLAB} and \ref{figure_topdriveremove} for MATLAB and PYTHON ver, respectively. In the modified code, top drive velocity and torque will refer that of top of the drill string. The original and modified code showed almost the same behavior except during the very first stage when the top drive velocity increased from 0 to 40 RPM. The spikes can be seen when the top drive with PI-controller exits. Additionally, the decaying of the vibration amplitude was  observed in the original code which can be clearly seen in the MATLAB ver. This is due to the damping effect from the PI controller acts while controlling the top drive velocity and it eventually converges the vibration. In summary, There are mainly two advantages of removing the PI controller in this project and we can achieve 1): insensitive model to top drive input parameters, 2) removing damping effect from the PI-controller.
-
-The results implies that, for the further study, we need an exact input parameters or remove the PI-controller from the top drive. Therefore, the codes were modified and top drive was removed from the system assuming the fixed velocity at the top of the drill string. The modified code enables reducing the parameters of the model for more simple comparison between different models for the future work. The flowchart of PI-controller removal is shown in \figurename~\ref{figure_Topdriveremove_math}.
-
-The comparison of bit and top drive angular velocity and torque between when the top drive is existed and removed are depicted in \figurename~\ref{figure_topdriveremove_MATLAB} and \ref{figure_topdriveremove} for MATLAB and PYTHON ver, respectively. In the modified code, top drive velocity and torque will refer that of top of the drill string. The original and modified code showed almost the same behavior except during the very first stage when the top drive velocity increased from 0 to 40 RPM. The spikes can be seen when the top drive with PI-controller exits. Additionally, the decaying of the vibration amplitude was  observed in the original code which can be clearly seen in the MATLAB ver. This is due to the damping effect from the PI controller acts while controlling the top drive velocity and it eventually converges the vibration. In summary, There are mainly two advantages of removing the PI controller in this project and we can achieve 1): insensitive model to top drive input parameters, 2) removing damping effect from the PI-controller.
+The comparison of angular velocity and torque of top drive and bit between when the top drive is existed and removed are depicted in \figurename~\ref{figure_topdriveremove_MATLAB} and \ref{figure_topdriveremove} for MATLAB and PYTHON ver, respectively. In the modified code, top drive velocity and torque will refer that of top of the drill string. The original and modified code showed almost the same behavior except during the very first stage when the top drive set point velocity increased from 0 to 40 RPM (0 to 1 second). The spikes can be seen when the top drive includes PI-controller. Additionally, the decaying of the vibration amplitude was observed when the simulation was run with PI controller, which can be clearly seen in the MATLAB ver.\ This is due to the damping effect from the PI controller while controlling the top drive velocity and it eventually converges the vibration. In summary, There are mainly two advantages of removing the PI controller in this project: 1) Obtain model with reduced parameters 2) Remove damping effect from the PI-controller. However, if the PI controller is available in the rig, simulation with PI controller can provide more accurate results for field application.
 
 \begin{figure}[!hbt]
   \centering
-  \includegraphics[width=6.5in]{Topdriveremove_MATLAB}
-  \caption[comparison between with and without top drive: Matlab ver.]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive in MATLAB ver. a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove_MATLAB}
+  \includegraphics[width=5.8in]{Topdriveremove_MATLAB}
+  \caption[comparison between with and without top drive: Matlab ver]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive in MATLAB ver.\ a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove_MATLAB}
 \end{figure}
 
 \begin{figure}[!hbt]
   \centering
-  \includegraphics[width=6.5in]{Topdriveremove}
-  \caption[comparison between with and without top drive: PYTHON ver.]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive in PYTHON ver. a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove}
+  \includegraphics[width=6in]{Topdriveremove}
+  \caption[comparison between with and without top drive: PYTHON ver]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive in PYTHON ver.\ a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove}
 \end{figure}
 
-\subsection{Issue with the PYTHON ver.}
-%Interestingly, in both cases, there was a period where angular velocity of the bit was maintained at maximum value for about 2 seconds. The duration that the bit maintains the angular velocity was reduced by increasing the top drive velocity smoothly. The effect of how the top drive velocity increases are illustrated in \figurename~\ref{figure_topdriveveleffect}.
-%
-%\begin{figure}[!hbt]
-%  \centering
-%  \includegraphics[width=6.5in]{topdriveveleffect}
-%  \caption{Effect of top drive velocity increasing method. When the velocity increased to set point velocity a): drastically, and b): smoothly.}\label{figure_topdriveveleffect}
-%\end{figure}
+\subsection{Comparison between MATLAB and PYTHON ver.}
+The model of MATLAB ver.\ and PYTHON ver.\ were compared before conducting the tests to validate the model. The comparison was conducted with Test case 1 scenario. The PYTHON ver.\ showed different patterns of bit and topdrive compared to MATLAB ver.\ there was a period where bit angular velocity and top drive torque maintained at maximum value for about 2 seconds. The comparison between the MATLAB and PYTHON ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from ExxonMobil model for reference. The PYTHON ver.\ showed different results, which assumed to be caused by the difference in wave travel velocity along the drill string, which is proportional to $\sqrt{\rho/J}$. By decreasing the density to $1/4$ of the default input ($490.50 lb/ft^3 \rightarrow 122.65 lb/ft^3$), PYTHON ver.\, similar result to MATLAB ver.\ and Exxonmobil ver.\ was obtained. (\figurename~\ref{figure_PYTHON_reducedDensity}). The modification of the PYTHON code has not been made yet. Therefore, only MATLAB ver.\ AS model and ExxonMobil model will be used for the final results and discussions in \chaptername~\ref{ch:results}.
+
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=6.5in]{Test1_comp_chASmodel}
+  \caption[Comparison between different models for Test case 1]{Comparison of top drive and bit angular velocity and torque between AS model MATLAB, PYTHON ver.\ and Exxonmobil model for Test case 1.}\label{figure_Test1_comp_chASmodel}
+\end{figure}
+
+\newpage
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=6.5in]{PYTHON_reducedDensity}
+  \caption[Effect of density to PYTHON ver.\ for Test case 1]{Effect of density to PYTHON ver.\ for Test case 1.\ a): $\rho=409.5\;lb/ft^3$, and b): $\rho=122.65\;lb/ft^3$.}\label{figure_PYTHON_reducedDensity}
+\end{figure}
 
 
