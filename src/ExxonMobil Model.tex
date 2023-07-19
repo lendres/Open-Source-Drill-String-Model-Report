@@ -2,10 +2,9 @@
 \label{ch:exxonmobilmodel}
 
 \section{Introduction}
+The model employs a coupled axial-torsional system, meticulously considering interactions among various elements, such as drill pipes, HWDP, and collars. Through a lumped-parameter study, the model enables thorough investigations into the impacts of different operational conditions on drill string behavior. Additionally, it integrates friction models to accurately represent the axial and tangential forces acting along the drill string, as well as the bit-rock interaction model (IADC/SPE-199678) to explain the cause of stick-slip. This model features 4 degrees of freedom per node, encompassing axial displacement, axial velocity, angular displacement, and angular velocity.The governing equations of both torsional and axial motion are solved by finite element method (FEM). The validation of the model is achieved by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations. 
 
-The model utilizes a coupled axial-torsional system, considering the interactions between drill pipes, HWDP, collars, and other elements. By incorporating a lumped-parameter study, the model enables the investigation of the effects of various operating conditions on drill string behavior. Additionally, it integrates friction models, such as the consolidated friction model, to accurately represent the axial and tangential forces acting along the drill string, as well as the bit-rock interaction model (IADC/SPE-199678) to explain the cause of stick-slip. The governing equations of both torsional and axial motion are solved by finite element method (FEM). The validation of the model is achieved by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations. 
-
-The interaction between the bit and the rock is governed by a model based on the depth of cut. To incorporate Coulomb friction, the Stribeck friction model is employed, while borehole friction is considered through the use of viscous frictional forces. The net frictional force is influenced by factors such as gravity force, drilling mud properties, and well inclination. Reaction forces resulting from the bit-rock interaction occur when the bit is in contact with the formation. These forces persist for the duration that the bit remains on the bottom of the well. 
+In the axial direction, the displacement is one-dimensional, while in the rotational direction, equations are coupled using the Striebeck friction model. This model takes into account the resultant velocity to accurately compute friction forces. Notably, the model incorporates well trajectory and buoyancy effects to ensure precise calculation of resultant friction forces. Furthermore, it uniformly applies drag due to mud throughout the system. The model's ability to simulate Mud-motor and Heave compensator dynamics enhances its versatility. The bit-rock interaction model is based on depth-of-cut, while simultaneously tracking the revolution of bit-depth relative to hole-depth. This feature contributes to a more realistic representation of the drilling process.
 
 Following features are described for bit-rock and friction models below:
 \begin{bulletedlist}
@@ -19,9 +18,35 @@ Following features are described for bit-rock and friction models below:
 
 The Python-based source code is designed with a modular approach, wherein most functions are distributed across separate Python files, easily accessible by importing them. The code's operational instructions and guidelines are included in the provided manual, offering users comprehensive guidance on running the code effectively.
 
-\section{Bit-rock Interaction Model}
+\section{Features}
+\subsection{Top-drive Model}
 
-A significant commonality observed in the aforementioned literature is the utilization of bit-rock interaction to explain the occurrence of stick slip. The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between Weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
+The model utilizes the axial and rotational velocity magnitudes of the top-drive as input and primarily computes the area under the velocity curve. It then provides outputs for axial and rotational top-drive velocities, as well as the corresponding displacements and rotations of the top-drive.
+
+Torque on top-drive can be derived as:
+\begin{equation}\label{TorqueEQ}
+  \tau_{top\_drive} = k_{t1} \times \theta_{top\_drive}
+\end{equation}
+
+where 
+$\tau_{top\_drive}$ is top-drive torque, $k_{t1}$ is torsional stiffness of first drill-string element, and $\theta_{top\_drive}$ is top-drive rotation.
+
+Furthermore, the model incorporates an additional parameter known as "Heave." If the runtime surpasses the Heave delay, additional computations are conducted to determine Heave displacement and Rate of Penetration (ROP). These calculated values are subsequently added to the original top-drive ROP and displacement data. The Heave ROP and displacement calculations are represented by the following equations:
+
+\begin{equation}\label{Z_heave}
+  Z_{heave} = x \cdot \sin(\omega \cdot (t - t_{heave\_delay}))
+\end{equation}
+
+\begin{equation}\label{ROP_heave}
+  ROP_{heave} = x \cdot \omega \cdot \cos(\omega \cdot (t - t_{heave\_delay}))
+\end{equation}
+
+where 
+$Z_{heave}$ and $ROP_{heave}$ are Heave displacement and ROP, $x$ is Heave amplitude, $\omega$ is Heave angular velocity, $t$ is runtime and $t_{heave\_delay}$ is Heave delay time.
+ 
+\subsection{Bit-rock Interaction Model}
+
+The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between Weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
 
 The interaction between PDC bits and the rock formation encompasses a combination of cutting and frictional contact, as identified by (Detournay and Defourny in 1992). Weight on bit and torque on bit are further decomposed into cutting and frictional components, which are contingent upon the strength of the rock formation being drilled.
 
@@ -37,8 +62,7 @@ where $k_WOB$, $k_TQ$ is Weight on bit and Torque coefficient, $DOC_iteration$ i
 
 The cutting components exhibit a direct dependency on the depth of cut, representing the material removed during drilling, while the frictional components are considered to account for the dissipated energy in the drilling process. To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a consolidated friction model (IADC/SPE-199678) is implemented within the drilling simulator. 
 
-
-\section{Friction Model}
+\subsection{Friction Model}
 
 Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior and the continuous changes in velocity direction. The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating frictional torque within the system.
  
@@ -185,3 +209,4 @@ To convert these equation sets into vector form, we can represent the variables 
 
 The differential equation sets are solved using the ODE45 solver. This solver is chosen for its efficiency in computational calculations.
 
+\section{Finding, Code Changes, }
