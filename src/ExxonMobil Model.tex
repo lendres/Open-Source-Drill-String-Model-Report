@@ -1,12 +1,25 @@
 \chapter{ExxonMobil Model}
 \label{ch:exxonmobilmodel}
 
-The model utilizes a coupled axial-torsional system, considering the interactions between drill pipes, HWDP, collars, and other elements. By incorporating a lumped-parameter study, the model enables the investigation of the effects of various operating conditions on drill string behavior. Additionally, it integrates friction models, such as the consolidated friction model, to accurately represent the axial and tangential forces acting along the drill string, as well as the bit-rock interaction model (IADC/SPE-199678) to explain the cause of stick-slip. The validation of the model is achieved by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations. 
+\section{Introduction}
+
+The model utilizes a coupled axial-torsional system, considering the interactions between drill pipes, HWDP, collars, and other elements. By incorporating a lumped-parameter study, the model enables the investigation of the effects of various operating conditions on drill string behavior. Additionally, it integrates friction models, such as the consolidated friction model, to accurately represent the axial and tangential forces acting along the drill string, as well as the bit-rock interaction model (IADC/SPE-199678) to explain the cause of stick-slip. The governing equations of both torsional and axial motion are solved by finite element method (FEM). The validation of the model is achieved by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations. 
 
 The interaction between the bit and the rock is governed by a model based on the depth of cut. To incorporate Coulomb friction, the Stribeck friction model is employed, while borehole friction is considered through the use of viscous frictional forces. The net frictional force is influenced by factors such as gravity force, drilling mud properties, and well inclination. Reaction forces resulting from the bit-rock interaction occur when the bit is in contact with the formation. These forces persist for the duration that the bit remains on the bottom of the well. 
 
+Following features are described for bit-rock and friction models below:
+\begin{bulletedlist}
+    \item Bit-rock interaction model is coupled with bit's displacement and angular displacement.
+    \item Drilling mode gets activated when the DOC and angular displacement are higher than 0. (Clockwise rotation) 
+    \item Friction model is coupled i.e, resultant reaction force from axial and tangential direction is taken into account.
+    \item No movement untill the resultant reaction force reaches static limit.
+    \item Coloumb friction model is implemented when the drill string is in motion.
+    \item The friction state is tracked for each element.
+\end{bulletedlist}
 
-\section{Bit-rock Interaction}
+The Python-based source code is designed with a modular approach, wherein most functions are distributed across separate Python files, easily accessible by importing them. The code's operational instructions and guidelines are included in the provided manual, offering users comprehensive guidance on running the code effectively.
+
+\section{Bit-rock Interaction Model}
 
 A significant commonality observed in the aforementioned literature is the utilization of bit-rock interaction to explain the occurrence of stick slip. The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between Weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
 
@@ -29,11 +42,11 @@ The cutting components exhibit a direct dependency on the depth of cut, represen
 
 Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior and the continuous changes in velocity direction. The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating frictional torque within the system.
  
-%\begin{figure}
-%  \centering
-%  \includegraphics[width=4]{Stribeck}
-%  \caption{Friction moedls: a) Wihtout Viscous Friction , b) Coulomb + Viscous Friction}\label{Friction models}
-%\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=4in]{Stribeck}
+  \caption{Friction models: a) Without Viscous Friction , b) Coulomb + Viscous Friction}\label{Friction models}
+\end{figure}
 
 As the force of friction increases, it introduces a negative damping effect as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. In deviated wells, the axial velocity of the top drive and the drum's revolutions per minute do not instantaneously transfer to the bit. The elements of the drill string must overcome the static limits of friction to transfer energy to the next element. This lag in energy transfer is effectively described by the Stribeck curve, where the net frictional torque decreases as the sliding velocity increases.
 
