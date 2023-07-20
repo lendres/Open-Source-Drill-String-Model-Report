@@ -113,16 +113,16 @@
 
 
 % SPECIAL FORMATTING
-% To use hanging indent (hang) and decrease margins (changepage) inside of definition environment.
+% To use hanging indent (hang) inside of the environment.
 \usepackage{hang}
 
+% Committee member biography formatting.
 \newlength{\committeespacing}
 \setlength{\committeespacing}{0.5\baselineskip plus 2pt minus 6pt}
 
 \newfont{\helveticbc}{phvbc7t at 12pt}
 \newenvironment{committeemember}[3]
 {
-%	\vspace{0.5\baselineskip plus 2pt minus 12pt}
 	\vspace{\committeespacing}
 	\begin{hangingpar}
 	{\helveticbc #1}\\%
@@ -134,5 +134,35 @@
 	\vspace{\committeespacing}
 }
 
+% Formatting for notes on code modifications.
+\newlength{\codemodifcationspacing}
+\setlength{\codemodifcationspacing}{0.15\baselineskip plus 2pt minus 2pt}
+\newlength{\parskipsave}
+
+\newenvironment{codemodifications}
+{
+	\setlength{\parskipsave}{\parskip}
+	\setlength{\parskip}{\codemodifcationspacing}
+}
+{
+	\setlength{\parskip}{\parskipsave}
+}
+
+\newenvironment{codemodification2}[1]%
+{%
+	\noindent\textbf{\textcode{\MakeUppercase{Line: }#1}}\\\indent\begin{minipage}[b]{\linewidth-\parindent-3pt}%
+}%
+{%
+	\end{minipage}%
+}%
+
+% For dummy text.  Can be removed later.
+%\usepackage{blindtext}
+\usepackage{lipsum}
+\newenvironment{codemodification}[1]
+{\noindent\begin{hangingpar}\textbf{\textcode{\MakeUppercase{Line: }#1}}\\}
+{\end{hangingpar}}
+
+
 % INCLUDE A BIBLIOGRAPHY.
-\bibliographystyle{leplain} 
+\bibliographystyle{leplain}

@@ -66,6 +66,7 @@ On the other hand, the dynamic friction is calculated as a pre-established ratio
 \end{equation}
 
 \section{Mathematical Background}\label{SubSec_AS_mathematicalbackground}
+\subsection{Governing Equations}
 The model is based on the equations of angular motion, here named wave equation, which are:
 \begin{equation}\label{AS-motion}
   J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x) 
@@ -286,14 +287,13 @@ The results implies that, for the further study, exact input parameters are requ
 \end{figure}
 
 The comparison of angular velocity and torque of top drive and bit between when the top drive is existed and removed are depicted in \figurename~\ref{figure_topdriveremove_MATLAB} and \ref{figure_topdriveremove} for MATLAB and PYTHON ver, respectively. In the modified code, top drive velocity and torque will refer that of top of the drill string. The original and modified code showed almost the same behavior except during the very first stage when the top drive set point velocity increased from 0 to 40 RPM (0 to 1 second). The spikes can be seen when the top drive includes PI-controller. Additionally, the decaying of the vibration amplitude was observed when the simulation was run with PI controller, which can be clearly seen in the MATLAB ver.\ This is due to the damping effect from the PI controller while controlling the top drive velocity and it eventually converges the vibration. In summary, There are mainly two advantages of removing the PI controller in this project: 1) Obtain model with reduced parameters 2) Remove damping effect from the PI-controller. However, if the PI controller is available in the rig, simulation with PI controller can provide more accurate results for field application.
-
-\begin{figure}[!hbt]
+\begin{figure}
   \centering
-  \includegraphics[width=5.8in]{Topdriveremove_MATLAB}
+  \includegraphics[width=6in]{Topdriveremove_MATLAB}
   \caption[comparison between with and without top drive: Matlab ver]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive in MATLAB ver.\ a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove_MATLAB}
 \end{figure}
 
-\begin{figure}[!hbt]
+\begin{figure}
   \centering
   \includegraphics[width=6in]{Topdriveremove}
   \caption[comparison between with and without top drive: PYTHON ver]{Comparison of the angular velocity and torque of the top drive and bit when top drive with and without top drive in PYTHON ver.\ a): Response with top drive, b): response without top drive (only drill string).}\label{figure_topdriveremove}
@@ -302,14 +302,14 @@ The comparison of angular velocity and torque of top drive and bit between when 
 \subsection{Comparison between MATLAB and PYTHON ver.}
 The model of MATLAB ver.\ and PYTHON ver.\ were compared before conducting the tests to validate the model. The comparison was conducted with Test case 1 scenario. The PYTHON ver.\ showed different patterns of bit and topdrive compared to MATLAB ver.\ there was a period where bit angular velocity and top drive torque maintained at maximum value for about 2 seconds. The comparison between the MATLAB and PYTHON ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from ExxonMobil model for reference. The PYTHON ver.\ showed different results, which assumed to be caused by the difference in wave travel velocity along the drill string, which is proportional to $\sqrt{\rho/J}$. By decreasing the density to $1/4$ of the default input ($490.50 lb/ft^3 \rightarrow 122.65 lb/ft^3$), PYTHON ver.\, similar result to MATLAB ver.\ and Exxonmobil ver.\ was obtained. (\figurename~\ref{figure_PYTHON_reducedDensity}). The modification of the PYTHON code has not been made yet. Therefore, only MATLAB ver.\ AS model and ExxonMobil model will be used for the final results and discussions in \chaptername~\ref{ch:results}.
 
+\newpage
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{Test1_comp_chASmodel}
-  \caption[Comparison between different models for Test case 1]{Comparison of top drive and bit angular velocity and torque between AS model MATLAB, PYTHON ver.\ and Exxonmobil model for Test case 1.}\label{figure_Test1_comp_chASmodel}
+  \caption[Comparison between different models for Test case 1]{Comparison of top drive and bit angular velocity and torque between A-S model MATLAB, PYTHON ver.\ and Exxonmobil model for Test case 1.}\label{figure_Test1_comp_chASmodel}
 \end{figure}
 
-\newpage
-\begin{figure}[!htbp]
+\begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{PYTHON_reducedDensity}
   \caption[Effect of density to PYTHON ver.\ for Test case 1]{Effect of density to PYTHON ver.\ for Test case 1.\ a): $\rho=409.5\;lb/ft^3$, and b): $\rho=122.65\;lb/ft^3$.}\label{figure_PYTHON_reducedDensity}
