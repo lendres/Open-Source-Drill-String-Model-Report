@@ -209,10 +209,8 @@ To convert these equation sets into vector form, we can represent the variables 
 
 The differential equation sets are solved using the ODE45 solver.\ This solver is chosen for its efficiency in computational calculations.
 
-\section{Model Specific Examples}
 
-
-\section{Finding, Code Changes, Reasons for Changes}
+\section{Findings}
  
  Extra Stuff
  
@@ -227,3 +225,35 @@ Another concern pertains to the inclusion of a Mud-Motor in the test cases. When
 Here, I will elaborate on the on-bottom case for the model. To assess any actual changes, we conducted a run of the model using a specific parameter that slightly raises the bit from the bottom. This approach allows us to simulate the off-bottom case initially and then transition to the on-bottom case once the bit makes contact with the bottom. The results are clearly evident in the subsequent plots.
 
 As observed, the drilling process initiates after approximately 30 seconds. Initially, there are vibrations, which is a common occurrence, but as soon as the bit touches the bottom at 30 seconds, both the bit and top-drive torque increase, along with the Weight on Bit (WOB) and Depth of Cut (DOC). Additionally, the hole depth begins to change concurrently with the bit depth, indicating the onset of the drilling mode. Approximately 20 seconds later, the vibrations start to diminish, indicating the presence of oscillations in the system. 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=6.5in]{Torque_onbottom}
+  \caption{Torque for On bottom case}\label{torque_onbottom}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=6.5in]{RPM_onbottom}
+  \caption{RPM for on bottom case}\label{RPM_onbottom}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=6.5in]{bit_vel_onbottom}
+  \caption{Bit velocity for on bottom case}\label{bit_vel_onbottom}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=6.5in]{wob_onbottom}
+  \caption{Weight on bit for on bottom case}\label{wob_onbottom}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=6.5in]{DOC_onbottom}
+  \caption{Depth of cut for on bottom case}\label{doc_onbottom}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=6.5in]{depth_onbottom}
+  \caption{Bit and Hole depths for on bottom case}\label{depth_onbottom}
+\end{figure}
+
