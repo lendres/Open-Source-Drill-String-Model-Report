@@ -1,6 +1,9 @@
 \chapter{Aarsnes-Shor Model}
 \label{ch:aarnessshormodel}
 
+\section{Introduction}
+------------
+
 \section{Model Description}
 The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping which are modeled as distributed source term. The effect of this Coulomb friction becomes prominent as the well inclination increases, therefore this model can be effective in predicting the drill string dysfunctions in high inclined wells. Currently, the model is only applicable for torsional mode simulation but the axial mode will be added soon. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are: 1) no bit-rock interaction, 2) no lateral and axial motion, 3) the effects of cuttings distribution on the friction is homogeneous and 4) the transition from static to dynamic coulomb friction is modeled as a jump. 
 
@@ -67,14 +70,14 @@ On the other hand, the dynamic friction is calculated as a pre-established ratio
 
 \section{Mathematical Background}\label{SubSec_AS_mathematicalbackground}
 \subsection{Governing Equations}
-The model is based on the equations of angular motion, here named wave equation, which are:
+The model is based on the equations of angular motion, here named wave equation, which are
 \begin{equation}\label{AS-motion}
   J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x) 
 \end{equation}
 \begin{equation}\label{AS-motion1}
  \frac{\partial\tau(t,x)}{\partial t} + JG\frac{\partial w(t,x)}{\partial x} = 0 
 \end{equation}
-where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is angular velocity, $\tau(t,x)$ is torque, and S is the source term which can be represented as:
+where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is angular velocity, $\tau(t,x)$ is torque, and S is the source term which can be represented as
 \begin{equation}\label{AS-sourceterm}
   S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
 \end{equation}
@@ -82,7 +85,7 @@ where $k_t$ is damping constant which is viscous shear stresses from drilling mu
 
 \subsection{Numerical Implementation of MATALB ver.}
 \subsubsection{Riemann Invariants}
-The partial governing equations \equationname~\ref{AS-motion}, and \ref{AS-sourceterm} are transformed into their Riemann invariants solved by first order upwind scheme. The Riemann invariants are defined as:
+The partial governing equations \equationname~\ref{AS-motion}, and \ref{AS-sourceterm} are transformed into their Riemann invariants solved by first order upwind scheme. The Riemann invariants are defined as
 \begin{equation}\label{AS-Riemann}
   \alpha = w + \frac{c_t}{JG}\tau, \quad \beta=w-\frac{c_t}{JG}\tau
 \end{equation}
@@ -162,7 +165,7 @@ where ${F_C}_j^k$ is the static friction calculated at cell j and time step k. F
   \beta_j^{k+1} = \beta_j^{k} - c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k - \beta_{j}^k) - \Delta t k_t (\alpha_j^k + \beta_j^k) - \mathcal{F}_j^k
 \end{equation}
 \subsection{Numerical Implementation of Python ver.}
-Python ver.\ directly solves the \equationname~\ref{AS-motion}, and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants as Matlab ver.\ The angular velocity and torque are updated until the desired simulation length reaches by the algorithm below (The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}): 
+Python ver.\ directly solves the \equationname~\ref{AS-motion}, and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants as Matlab ver.\ The angular velocity and torque are updated until the desired simulation length reaches by the algorithm below The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}. 
 \newcommand{\codecomment}[1]{\hfill #1}
 \pushinitialcodeindent{0in}
 \begin{code}[\codenumbering]{}
@@ -230,7 +233,7 @@ $K_i$ & $lb$-$ft/s$ &I-gain of top drive (PI controller)\\
 \hline
 $J_{TD}$ & $lb$-$ft^2$ & Top drive inertia \\
 \hline
-ramp speed & $RPM$/s & ramp speed of top drive\\
+Ramp speed & $RPM$/s & Ramp speed of top drive\\
 \hline
 \end{tabularx}
 \caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model. well trajectory, top drive set velocity, and bit constant are the additional parameters which are not included in this table.}\label{AS_inptut_params}
@@ -300,18 +303,18 @@ The comparison of angular velocity and torque of top drive and bit between when 
 \end{figure}
 
 \subsection{Comparison between Matlab and Python ver.}
-The model of Matlab ver.\ and Python ver.\ were compared before conducting the tests to validate the model. The comparison was conducted with Test Case 1 scenario. The Python ver.\ showed different patterns of bit and top drive compared to Matlab ver.\ there was a period where bit angular velocity and top drive torque maintained at maximum value for about 2 seconds. The comparison between the Matlab and Python ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from ExxonMobil model for reference. The Python ver.\ showed different results, which assumed to be caused by the difference in wave travel velocity along the drill string, which is proportional to $\sqrt{\rho/J}$. By decreasing the density to $1/4$ of the default input ($490.50 lb/ft^3 \rightarrow 122.65 lb/ft^3$), Python ver.\, similar result to Matlab ver.\ and ExxonMobil ver.\ was obtained. (\figurename~\ref{figure_Python_reducedDensity}). The modification of the Python code has not been made yet. Therefore, only Matlab ver.\ AS model and ExxonMobil model will be used for the final results and discussions in \chaptername~\ref{ch:results}.
+The model of Matlab ver.\ and Python ver.\ were compared before conducting the tests to validate the model. The comparison was conducted with Test Case 1 scenario. The Python ver.\ showed different patterns of bit and top drive compared to Matlab ver.\ there was a period where bit angular velocity and top drive torque maintained at maximum value for about 2 seconds. The comparison between the Matlab and Python ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from ExxonMobil model for reference. The Python ver.\ showed different results, which assumed to be caused by the difference in wave travel velocity along the drill string, which is proportional to $\sqrt{\rho/J}$. By decreasing the density to $1/4$ of the default input (490.50 $lb/ft^3$ $\rightarrow$ 122.65 $lb/ft^3$), Python ver.\, similar result to Matlab ver.\ and ExxonMobil ver.\ was obtained. (\figurename~\ref{figure_Python_reducedDensity}). The modification of the Python code has not been made yet. Therefore, only Matlab ver.\ AS model and ExxonMobil model will be used for the final results and discussions in \chaptername~\ref{ch:results}.
 
 \begin{figure}
   \centering
   \includegraphics[height=4.5in]{version_comp}
   \caption[Comparison between different models for Test case 1]{Comparison of angular velocity of bit and top drive between A-S model Matlab, Python ver.\ and ExxonMobil model for Test Case 1.}\label{figure_Test1_comp_chASmodel}
 \end{figure}
-
+The ExxonMobil model is presented in the next chapter. See \chaptername~\ref{ch:results} for a more direct comparison between each model outputs.
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{density_comp}
-  \caption[Effect of drill pipe density in Python ver.\ for Test case 1]{Effect of drill pipe density to drill string vibration for A-S model, Python ver.\ First and second columns show the results with $\rho=409.5\;lb/ft^3$, and  $\rho=122.65\;lb/ft^3$, respectively.}\label{figure_Python_reducedDensity}
+  \caption[Effect of drill pipe density in Python ver.\ for Test case 1]{Effect of drill pipe density to drill string vibration for A-S model, Python ver.\ First and second columns show the results with $\rho$ = 409.5 $lb/ft^3$, and  $\rho$ = 122.65 $lb/ft^3$, respectively.}\label{figure_Python_reducedDensity}
 \end{figure}
 
 
