@@ -1,5 +1,31 @@
 \chapter{Results and Comparisons} 
 \label{ch:results} 
+This Chapter contains results from both A-S and ExxonMobil models for all the Test Cases. \tablename~\ref{Test_case_summary} summarizes characteristics of each Test Case. More details can be find in \chaptername~\ref{ch:testcases}.
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Test Cases} & \textbf{Well Type} & \textbf{Static FF} & \textbf{Dynamic FF}& \textbf{BHA}\\
+        \hline
+        Test Case 1 & Vertical & 0 & 0 & X\\
+        \hline
+        Test Case 2a & Deviated (60\textdegree{}) & 0.5 & 0.5 & X \\
+        \hline
+        Test Case 2b & Deviated (60\textdegree{}) & 0.5 & 0.25 & X \\
+        \hline
+        Test Case 3 & Vertical & 0 & 0 & O\\                                                
+        \hline
+        Test Case 4a & Deviated (60\textdegree{}) & 0.5 & 0.5 & O \\                                                  
+        \hline
+        Test Case 4b & Deviated (60\textdegree{}) & 0.5 & 0.25 & O \\                                                     
+        \hline
+    \end{tabular}
+    \caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model. Well trajectory, top drive set velocity, and bit constant are the additional parameters not included in this table.}
+    \label{Test_case_summary}
+\end{table} 
+
+ 
 \section{Test Case 1}
 The results for Test Case 1 in each model are depicted in \figurename~\ref{figure_testcase1}. Both models exhibited similar outcomes, revealing a fundamental vibration frequency of 0.43 Hz. The maximum bit velocity was at 79 RPM for the A-S model and 81 RPM for the ExxonMobil model. Also, the torque on the top drive was predicted as 1762 lb-ft for the A-S model and 1814 lb-ft for the ExxonMobil model. The comparison between the results from different models are illustrated in \figurename~\ref{figure_testcase1_overlapped}. Although both models exhibited similar frequencies, the minimal phase differences (1e3$^{\circ}$ ) contribute to the observed shift between the two models.
 \begin{figure}
@@ -47,7 +73,7 @@ The fundamental frequencies of the vibration were 0.28 and 0.27 for A-S model an
   \caption[Comparison of the results for Test Case 2b]{Comparison between the results from A-S model (MATLAB ver.) and ExxonMobil model for Test Case 2b.}\label{figure_testcase2_2_overlapped}
 \end{figure}
 
-\subsection{Test Case 3}
+\section{Test Case 3}
 Test Case 3 shows the effect of BHA components in vertical well. The results show similarities with Test Case 1, but fluctuations in the peak values of the vibration, for both bit angular velocity and top drive torque, were observed. Specifically, the peak value decreases until 80 seconds and then starts to increase again, ultimately reaching the same value as the beginning at 120 seconds. Figure \ref{figure_testcase3} and Figure \ref{figure_testcase3_overlapped} illustrate the results for each model and comparisons for Test Case 3. \ref{figure_testcase3_overlapped} shows the simulation results for 120 seconds to clearly show the change in the peak values.
 
 Compared to Test Case 1 (without BHA components), the fundamental vibration frequencies in Test Case 3 were slightly decreased, which are 0.42 Hz for the A-S model and 0.40 Hz for the ExxonMobil model. Conversely, the bit velocity and torque on the top drive increased. The maximum bit velocity was 80 RPM for the A-S model and 81 RPM for the ExxonMobil model, while the torque on the top drive was predicted as 1844 lb-ft for the A-S model and 1841 lb-ft for the ExxonMobil model. 
@@ -102,4 +128,49 @@ The comparison between A-S, and ExxonMobil model are illustrated in \figurename~
   \caption[Effects of BHA components (MATLAB model)]{Effects of BHA components in deviated wells in MATLAB model. }\label{figure_BHA_MATLAB}
 \end{figure}
 
-\subsection{Summary} 
+\section{Summary} 
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Test Cases} & \textbf{Frequency (Hz)} & \textbf{Max top drive torque (lb-ft)} & \textbf{Max bit velocity (RPM)}\\
+        \hline
+        Test Case 1 & 0.433 & 1762 & 79\\
+        \hline
+        Test Case 2a & 0.283 & 6643 & 78\\
+        \hline
+        Test Case 2b & 0.283 & 5184 & 106\\ 
+        \hline
+        Test Case 3 & 0.417 & 1844 & 80 \\                                                  
+        \hline
+        Test Case 4a & 0.267 & 8083 & 78 \\                                                   
+        \hline
+        Test Case 4b & 0.267 & 7056 & 116\\                                                       
+        \hline
+    \end{tabular}
+    \caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model. Well trajectory, top drive set velocity, and bit constant are the additional parameters not included in this table.}
+    \label{AS_input_params}
+\end{table} 
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Test Cases} & \textbf{Frequency (Hz)} & \textbf{Max top drive torque (lb-ft)} & \textbf{Max bit velocity (RPM)}\\
+        \hline
+        Test Case 1  & 0.433 & 1814 & 81\\
+        \hline
+        Test Case 2a  & 0.267 & 6891 & 79\\
+        \hline
+        Test Case 2b  & 0.267 & 5539 & 115\\ 
+        \hline
+        Test Case 3  & 0.400 & 1841 & 81\\                                                  
+        \hline
+        Test Case 4a  & 0.267 & 8379 & 79\\                                                   
+        \hline
+        Test Case 4b & 0.267 & 5825 & 96\\                                                       
+        \hline
+    \end{tabular}
+    \caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model. Well trajectory, top drive set velocity, and bit constant are the additional parameters not included in this table.}
+    \label{AS_input_params}
+\end{table}

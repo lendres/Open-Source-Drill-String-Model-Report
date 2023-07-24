@@ -2,6 +2,7 @@
 \label{ch:testcases}
 Each Test Case represents vertical and inclined wells with identical parameters. Currently, all Test Cases were run for off-bottom case. For Test Cases 3 and 4, we incorporated BHA to compare the outputs of the two models. Initially, all Test Cases were executed with various static and friction factor values, which are described in the subsequent subsections. However, an additional set of experiments were conducted with identical static and dynamic friction factor values. Since there is no friction in vertical wells, it is primarily related to inclined wells. The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. Regarding the Aarsnes-Shor model, since the issue with the Python version has not been resolved, the Python version was only executed with Test Case 1 (it will be added once the issue has been resolved). Summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}.
 
+
 \begin{table}[!hbt]
 \centering
 \begin{tabular}{|c|p{1.8in}|p{1.8in}|c|}
@@ -25,11 +26,11 @@ Model Approach & ? & Lump Mass Spring \\
 \section{Terminology}
 \subsection{No BHA vs BHA}
 
-The Test Cases in this study focus on comparing drilling scenarios with and without the Bottom Hole Assembly (BHA). It introduces specific parameters that differ from the rest of the drillpipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drillpipe above the bit will have the same weight and diameter as the rest of the drillpipe.
+The Test Cases in this study focus on comparing drilling scenarios with and without the Bottom Hole Assembly (BHA). It introduces specific parameters that differ from the rest of the drill pipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drill pipe above the bit will have the same weight and diameter as the rest of the drill pipe.
 
-To maintain simplicity and establish a baseline, we begin the study with a single drillpipe configuration. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drillpipe, including the section above the bit, are uniform.
+To maintain simplicity and establish a baseline, we begin the study with a single drill pipe configuration. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe, including the section above the bit, are uniform.
 
-As we proceed with the investigation, we will introduce the BHA into the system and examine its impact on drilling dynamics. The BHA's distinct parameters, such as its weight and diameter, will be considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drillstring's behavior and the overall drilling process.
+As we proceed with the investigation, we will introduce the BHA into the system and examine its impact on drilling dynamics. The BHA's distinct parameters, such as its weight and diameter, will be considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drill string's behavior and the overall drilling process.
 
 In the next subsection we will explore additional configurations with varying BHA designs and properties to further investigate their influence on drilling efficiency and performance. These test cases will enable us to optimize drilling operations and develop a comprehensive understanding of how the presence or absence of the BHA affects the system's behavior.
 
@@ -37,10 +38,10 @@ In the next subsection we will explore additional configurations with varying BH
 
 Both models under consideration account for both static and dynamic friction factors (FF), but the disparity in FF values is expected to be more pronounced in inclined wells compared to vertical ones. To gain insights into the impact of varying and consistent FF values on drilling dynamics, a detailed investigation is warranted.
 
-In inclined wells, the interaction between the drillstring and the wellbore wall becomes more complex due to the influence of gravity and the inclination angle. This results in differing frictional forces acting on the drillstring as it traverses the wellbore. As a consequence, the FF values play a crucial role in affecting the drilling performance and behavior.
+In inclined wells, the interaction between the drill string and the wellbore wall becomes more complex due to the influence of gravity and the inclination angle. This results in differing frictional forces acting on the drill string as it traverses the wellbore. As a consequence, the FF values play a crucial role in affecting the drilling performance and behavior.
 
 \section{Test Case 1 - Vertical well, No BHA}
-The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input} and \ref{figure_verticalwell}. The Exxon mobil model and Matlab ver.\ A-S model uses metric units while Python ver.\ A-S model uses imperial units. For the future convenience, the tables in this chapter contains both imperial and metric units.
+The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input} and \ref{figure_verticalwell}. The ExxonMobil model and MATLAB ver.\ A-S model uses metric units while PYTHON ver.\ A-S model uses imperial units. For the future convenience, the tables in this chapter contains both imperial and metric units.
 
 \begin{figure}[!hbt]
   \centering
