@@ -44,7 +44,7 @@ $Z_{heave}$ and $ROP_{heave}$ are heave displacement and ROP, $x$ is heave ampli
 
 The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
 
-The interaction between PDC bits and the rock formation encompasses a combination of cutting and frictional contact, as identified by (Detournay and Defourny in 1992). Weight on bit and torque on bit are further decomposed into cutting and frictional components, which are contingent upon the strength of the rock formation being drilled.
+The interaction between PDC bits and the rock formation encompasses a combination of cutting and frictional contact, as identified by (\referencename~\cite{ref:detournay1992a}). Weight on bit and torque on bit are further decomposed into cutting and frictional components, which are contingent upon the strength of the rock formation being drilled.
 \begin{equation}\label{WOB}
   WOB_{bit} = (k_{WOB}\times DOC_{iteration}) + (c_{bit-axial\times \dot{Z}_{bit-ietration}})
 \end{equation}
@@ -53,7 +53,7 @@ The interaction between PDC bits and the rock formation encompasses a combinatio
 \end{equation}
 where $k_{WOB}$, $k_{TQ}$ is weight on bit and torque coefficient, $DOC_{iteration}$ is depth of cut per iteration, $C_{bit-axial}$ is axial drag coefficient of bit and $Z$ is bit displacement 
 
-The cutting components exhibit a direct dependency on the depth of cut, representing the material removed during drilling, while the frictional components are considered to account for the dissipated energy in the drilling process. To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a consolidated friction model (IADC/SPE-199678) is implemented within the drilling simulator. 
+The cutting components exhibit a direct dependency on the depth of cut, representing the material removed during drilling, while the frictional components are considered to account for the dissipated energy in the drilling process. To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a consolidated friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator. 
 
 \subsection{Friction Model}
 
@@ -61,9 +61,10 @@ Modeling friction forces along the drill string is a challenging task due to the
  
 \begin{figure}
   \centering
-  \includegraphics[width=6in]{Stribeck}
-  \caption{Friction models: a) without viscous friction , b) Coulomb + viscous friction}\label{Friction models}
+  \includegraphics[width=\linewidth]{Stribeck}
+  \caption[Comparison of friction models]{Friction models: a) without fluid drag\footnotemark{} , b) Coulomb + fluid drag\footnotemark{\value{drag}}   \referencename~\cite{ref:cayeux2020a}}\label{Friction models}
 \end{figure}
+\footnotetext{It is called ``viscous friction" in the manual.}
 
 As the force of friction increases, it introduces a negative damping effect as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. In deviated wells, the axial velocity of the top drive and the drum's revolutions per minute do not instantaneously transfer to the bit. The elements of the drill string must overcome the static limits of friction to transfer energy to the next element. This lag in energy transfer is effectively described by the Stribeck curve, where the net frictional torque decreases as the sliding velocity increases.
 
@@ -79,7 +80,7 @@ The dynamic friction force opposes the direction of axial motion, while static f
 
 If static friction calculated above is less than $\mu_{k}\times F_{n}$, where $\mu_{s} > \mu_{k}\times F_{n}$, then the surface is not sliding.
 
-In order to avoid the discontinuities when $V_{iteration}$ tends to zero, Stribeck friction model is used. The following equation was proposed by Tustin 1947:
+In order to avoid the discontinuities when $V_{iteration}$ tends to zero, Stribeck friction model is used. The following equation was proposed by (\referencename~\cite{ref:tustin1947a}):
 
 \begin{equation}\label{Stribeck velocity}
   F_{\mu,i} = F_{\mu_{k},i} + (F_{\mu_{s},i} - F_{\mu_{k},i})e^{-\dfrac{|\nu_{i}|}{\nu_{cs}}}
@@ -88,31 +89,16 @@ In order to avoid the discontinuities when $V_{iteration}$ tends to zero, Stribe
 The model incorporates $F_{\mu,i}$ and $\nu_{CS}$ (Stribeck critical velocity) to consider the velocity weakening effect in the dynamics of the system. However, it should be noted that the model does not account for string Capstan effects.Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. In the case of a multi-element string, the distribution of borehole dampers is considered by assigning damper values to each element based on the fraction of its mass contribution. For example, Collars are assigned 50\% of the damper value, HWDP is assigned 30\%, and drill-pipes are assigned 20\%. 
 
 Below you will find the Friction model input parameters:
-
-\begin{table}
-  \centering
-  \begin{tabular}{|c|}
-    \hline
-    % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
-    Equivalent diameter of pipe\\
-    \hline
-    Coulomb Friction Force \\
-    \hline
-    Coulomb Friction Force Axial Component \\
-    \hline
-    Coulomb Friction Force Tangential Component \\
-    \hline
-    Coulomb Friction Torque Tangential Component \\
-    \hline
-    Viscous Friction Force Axial Component \\
-    \hline
-    Viscous Friction Force Tangential Direction Component \\
-    \hline
-    Axial and Tangential components of Net Frictional Force and Torque \\
-    \hline
-  \end{tabular}
-  \caption{Input parameters for Friction model}\label{Table_Friction_Input}
-\end{table}
+\begin{bulletedlist}
+    \item Equivalent diameter of pipe.
+    \item Coulomb Friction Force.
+    \item Coulomb Friction Force Axial Component.
+    \item Coulomb Friction Force Tangential Component.
+    \item Coulomb Friction Torque Tangential Component.
+    \item Viscous Friction Force Axial Component.
+    \item Viscous Friction Force Tangential Direction Component.
+    \item Axial and Tangential components of Net Frictional Force and Torque.
+\end{bulletedlist}
 
 \section{Governing equations and solution}
 
@@ -183,21 +169,21 @@ To convert these equation sets into vector form, we can represent the variables 
 \end{equation}
 
 \begin{mathwhere}[1.0in]
-\mathdefitem{Z_0}{$\int V_0\ dt$;}
-\mathdefitem{m_n}{drill string element mass;}
-\mathdefitem{Z}{position (downward direction considered as positive);}
-\mathdefitem{k_a}{axial stiffness of drill-string element;}
-\mathdefitem{V_o}{Top-drive (draw-works) axial velocity as input;}
-\mathdefitem{Z_{top\_drive}}{Top-drive (draw-works) axial displacement as input;}
-\mathdefitem{\dot{Z}}{bit axial velocity (downward direction considered as positive);}
-\mathdefitem{WOB_{Surface}}{Surface/Top-drive WOB (In ROP Control Mode);}
-\mathdefitem{J_n}{mass moment of inertia of drill string element;}
-\mathdefitem{\theta}{rotation angle (Clockwise direction is considered as positive);}
-\mathdefitem{\omega_o}{Topdrive angular velocity as input;}
-\mathdefitem{\theta_{top\_drive}}{Topdrive rotation as input;}
-\mathdefitem{k_t}{Torsional stiffness of drill-string;}
-\mathdefitem{\dot{\theta}}{bit rotary velocity (Clockwise direction considered as positive);}
-\mathdefitem{TQ_{Surface}}{Surface/Top-drive Torque;}
+\mathdefitem{Z_0}{$\int V_0\ dt$}
+\mathdefitem{m_n}{drill string element mass}
+\mathdefitem{Z}{position (downward direction considered as positive)}
+\mathdefitem{k_a}{axial stiffness of drill-string element}
+\mathdefitem{V_o}{Top-drive (draw-works) axial velocity as input}
+\mathdefitem{Z_{top\_drive}}{Top-drive (draw-works) axial displacement as input}
+\mathdefitem{\dot{Z}}{bit axial velocity (downward direction considered as positive)}
+\mathdefitem{WOB_{Surface}}{Surface/Top-drive WOB (In ROP Control Mode)}
+\mathdefitem{J_n}{mass moment of inertia of drill string element}
+\mathdefitem{\theta}{rotation angle (Clockwise direction is considered as positive)}
+\mathdefitem{\omega_o}{Topdrive angular velocity as input}
+\mathdefitem{\theta_{top\_drive}}{Topdrive rotation as input}
+\mathdefitem{k_t}{Torsional stiffness of drill-string}
+\mathdefitem{\dot{\theta}}{bit rotary velocity (Clockwise direction considered as positive)}
+\mathdefitem{TQ_{Surface}}{Surface/Top-drive Torque}
 \end{mathwhere}
 
 The differential equation sets are solved using the ODE45 solver.\ This solver is chosen for its efficiency in computational calculations.
@@ -209,15 +195,15 @@ The differential equation sets are solved using the ODE45 solver.\ This solver i
  
 
  
-I organized the code by creating separate folders for Input and Output files, facilitating easier usage and data storage. Additionally, I made modifications to the original source code to ensure compatibility with different operating systems, as it was previously designed exclusively for Windows and was 'Path' sensitive.
+The code was organized by creating separate folders for input and output files, facilitating easier usage and data storage. Additional modifications were made to the original source code to ensure compatibility with different operating systems, as it was previously designed exclusively for Windows and was ``Path" sensitive.
 
-During testing, I encountered an issue with the "on-bottom" case, specifically related to the bit-rock interaction model. The code was not displaying the "Drilling" mode, indicating a constant value of Depth of Cut (DOC) and bit depth. Upon thorough investigation, I identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, I incorporated the original bit depth into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the "drilling" mode, enabling dynamic changes in both hole depth and non-zero DOC.
+During testing, we encountered an issue with the ``on-bottom" case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling" mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling" mode, enabling dynamic changes in both hole depth and non-zero DOC.
 
-Another concern pertains to the inclusion of a Mud-Motor in the Test Cases. When attempting to run the code with the Mud-Motor integrated, it led to multiple errors and code crashes. Currently, our team is conducting an in-depth investigation to address the issues associated with the Mud-Motor functionality. 
+Another concern pertains to the inclusion of a mud-motor in the Test Cases. When attempting to run the code with the mud-motor integrated, it led to multiple errors and code crashes. Currently, our team is conducting an in-depth investigation to address the issues associated with the Mud-Motor functionality. 
 
 Here, I will elaborate on the on-bottom case for the model. To assess any actual changes, we conducted a run of the model using a specific parameter that slightly raises the bit from the bottom. This approach allows us to simulate the off-bottom case initially and then transition to the on-bottom case once the bit makes contact with the bottom. The results are clearly evident in the subsequent plots.
 
-As observed, the drilling process initiates after approximately 30 seconds. Initially, there are vibrations, which is a common occurrence, but as soon as the bit touches the bottom at 30 seconds, both the bit and top-drive torque increase, along with the Weight on Bit (WOB) and Depth of Cut (DOC). Additionally, the hole depth begins to change concurrently with the bit depth, indicating the onset of the drilling mode. Approximately 20 seconds later, the vibrations start to diminish, indicating the presence of oscillations in the system. 
+As observed, the drilling process initiates after approximately 30 seconds. Initially, there are vibrations, which is a common occurrence, but as soon as the bit touches the bottom at 30 seconds, both the bit and top-drive torque increase, along with WOB and DOC. Additionally, the hole depth begins to change concurrently with the bit depth, indicating the onset of the drilling mode. Approximately 20 seconds later, the vibrations start to diminish, indicating the presence of oscillations in the system. 
 
 \begin{figure}
   \centering
