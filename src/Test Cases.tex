@@ -1,7 +1,9 @@
 \chapter{Test Cases}
 \label{ch:testcases}
-Each Test Case represents vertical and inclined wells with identical parameters. Currently, all Test Cases were run for off-bottom case. For Test Cases 3 and 4, we incorporated BHA to compare the outputs of the two models. Initially, all Test Cases were executed with various static and friction factor values, which are described in the subsequent subsections. However, an additional set of experiments were conducted with identical static and dynamic friction factor values. Since there is no friction in vertical wells, it is primarily related to inclined wells. The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. Regarding the Aarsnes-Shor model, since the issue with the Python version has not been resolved, Only Matlab version was used for the final results. The Python version was only executed with Test Case 1 (it will be added once the issue has been resolved). \tablename~\ref{Test_case_summary} summarizes characteristics of each Test Case. 
+The Test Cases presented in this study serve the purpose of comparing and validating different drill string models. All the parameters and results from AS model and ExxonMobil model are provided, therefore; other models can use these Test Cases for validation. All the suggested Test Cases are off-bottom scenarios since AS model only has torsional modeling capability. However, these Test Cases can provide reliable means of cross-checking and comparing the performances of various models. Specifically, Test Cases 1 and 3 encompass scenarios involving vertical wells, with the distinction in the presence BHA components.
+Similarly, Test Cases 2 and 4 are the deviated well scenarios with 60\textdegree inclination angle. The only difference between Test Case 2 and 4 are the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into Test Case 2a, 2b, Test Case 4a, and 4b. This extension of Test Cases was established for deviated wells, as vertical wells experience no friction where the drill string - well bore friction is assumed to be only Coulomb friction from the normal force at drill string. \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case. 
 
+Additionally, some of the findings and modifications made on the provided source code of the AS and ExxonMobil models are presented in this chapter. In the AS model, the effect of the PI controller was tested. Also, some of the issues with the Python ver. of AS model are shown. Since this issue has not been resolved yet, the Python ver. was only executed with Test Case 1. On the other hand, The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. 
 \begin{table}
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|}
@@ -21,7 +23,7 @@ Each Test Case represents vertical and inclined wells with identical parameters.
         Test Case 4b & Deviated (60\textdegree{}) & 0.5 & 0.25 & O \\                                                     
         \hline
     \end{tabular}
-    \caption[Summary of characteristics of each Test Case]{Summary of characteristics of each Test Case.}
+    \caption[Scenarios of different Test Cases]{Scenarios of different Test Cases.}
     \label{Test_case_summary}
 \end{table} 
 
@@ -29,7 +31,7 @@ Each Test Case represents vertical and inclined wells with identical parameters.
 \section{Terminology}
 \subsection{No BHA vs BHA}
 
-The Test Cases in this study focus on comparing drilling scenarios with and without the Bottom Hole Assembly (BHA). It introduces specific parameters that differ from the rest of the drill pipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drill pipe above the bit will have the same weight and diameter as the rest of the drill pipe.
+The Test Cases in this study focus on comparing drilling scenarios with and without the BHA components. It introduces specific parameters that differ from the rest of the drill pipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drill pipe above the bit will have the same weight and diameter as the rest of the drill pipe.
 
 To maintain simplicity and establish a baseline, we begin the study with a single drill pipe configuration. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe, including the section above the bit, are uniform.
 
@@ -70,7 +72,7 @@ Bit depth & 5905 $ft$ & 1800 $m$ & - \\
 \end{tabularx}
 \caption[Well survey data for model comparison (vertical well)]{Well survey and drill string data for model comparison (vertical well without BHA components)}\label{table_verticalwell_input}
 \end{testcasetable}
-The test was conducted by assuming the top drive velocity to be increased from 0 $RPM$ to 40 $RPM$ at 1 second and maintained the velocity for rest of the time. The top drive velocity is shown in \figurename~\ref{figure_topdrive_VSP}
+The test was conducted by assuming the top drive velocity to be increased from 0 RPM to 40 RPM at 1 second and maintained the velocity for rest of the time. The top drive velocity is shown in \figurename~\ref{figure_topdrive_VSP}
 
 \begin{figure}[!hbt]
   \centering
@@ -80,7 +82,7 @@ The test was conducted by assuming the top drive velocity to be increased from 0
 
 \section{Test Case 2 - Inclined well, No BHA}
 \subsection{Test case 2a - Same FF values}
-The models were tested with inclined well with simple configuration of drill string. The MD of the well is 4000 $m$ with 60$^{\circ}$ inclination. The drill bit is off-bottom where located at 2500 $m$ depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 $RPM$ at 1 second which is same with Test Case 1 (\figurename\ref{figure_topdrive_VSP}). For Test Case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_2a_input}.
+The models were tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60$^{\circ}$ inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with Test Case 1 (\figurename\ref{figure_topdrive_VSP}). For Test Case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_2a_input}.
 
 \begin{figure}[!hbt]
   \centering
