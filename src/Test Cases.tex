@@ -1,27 +1,30 @@
 \chapter{Test Cases}
 \label{ch:testcases}
-Each Test Case represents vertical and inclined wells with identical parameters. Currently, all Test Cases were run for off-bottom case. For Test Cases 3 and 4, we incorporated BHA to compare the outputs of the two models. Initially, all Test Cases were executed with various static and friction factor values, which are described in the subsequent subsections. However, an additional set of experiments were conducted with identical static and dynamic friction factor values. Since there is no friction in vertical wells, it is primarily related to inclined wells. The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. Regarding the Aarsnes-Shor model, since the issue with the Python version has not been resolved, the Python version was only executed with Test Case 1 (it will be added once the issue has been resolved). Summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}.
+Each Test Case represents vertical and inclined wells with identical parameters. Currently, all Test Cases were run for off-bottom case. For Test Cases 3 and 4, we incorporated BHA to compare the outputs of the two models. Initially, all Test Cases were executed with various static and friction factor values, which are described in the subsequent subsections. However, an additional set of experiments were conducted with identical static and dynamic friction factor values. Since there is no friction in vertical wells, it is primarily related to inclined wells. The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. Regarding the Aarsnes-Shor model, since the issue with the Python version has not been resolved, Only Matlab version was used for the final results. The Python version was only executed with Test Case 1 (it will be added once the issue has been resolved). \tablename~\ref{Test_case_summary} summarizes characteristics of each Test Case. 
 
+\begin{table}
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \textbf{Test Cases} & \textbf{Well Type} & \textbf{Static FF} & \textbf{Dynamic FF}& \textbf{BHA}\\
+        \hline
+        Test Case 1 & Vertical & 0 & 0 & X\\
+        \hline
+        Test Case 2a & Deviated (60\textdegree{}) & 0.5 & 0.5 & X \\
+        \hline
+        Test Case 2b & Deviated (60\textdegree{}) & 0.5 & 0.25 & X \\
+        \hline
+        Test Case 3 & Vertical & 0 & 0 & O\\                                                
+        \hline
+        Test Case 4a & Deviated (60\textdegree{}) & 0.5 & 0.5 & O \\                                                  
+        \hline
+        Test Case 4b & Deviated (60\textdegree{}) & 0.5 & 0.25 & O \\                                                     
+        \hline
+    \end{tabular}
+    \caption[Summary of characteristics of each Test Case]{Summary of characteristics of each Test Case.}
+    \label{Test_case_summary}
+\end{table} 
 
-\begin{table}[!hbt]
-\centering
-\begin{tabular}{|c|p{1.8in}|p{1.8in}|c|}
-\hline 
-\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
-\hline
-Motion & Torsional & Torsional + Axial\\                                                              
-\hline
-Bit model & Constant & Dynamic \\                                                  
-\hline
-Friction model & Coulomb friction as a jump (see \chaptername~\ref{ch:aarnessshormodel}) & Stribeck  effect: Coulomb + Viscous Friction \\                                                  
-\hline
-Solver & FDM & ODE45 Runge Kutta \\      
-\hline       
-Model Approach & ? & Lump Mass Spring \\
-\hline      
-\end{tabular}
-\caption[Summary of the difference between two models]{Summary of the difference between A-S and ExxonMobil models.}\label{table_model_difference}
-\end{table}
 
 \section{Terminology}
 \subsection{No BHA vs BHA}
