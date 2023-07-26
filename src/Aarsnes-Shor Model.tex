@@ -73,15 +73,15 @@ The model is based on the equations of angular motion, here named wave equation,
 \begin{equation}\label{AS-motion1}
  \frac{\partial\tau(t,x)}{\partial t} + JG\frac{\partial w(t,x)}{\partial x} = 0 
 \end{equation}
-where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is angular velocity, $\tau(t,x)$ is torque, and S is the source term which can be represented as
+where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is angular velocity, $\tau(t,x)$ is torque and S is the source term which can be represented as
 \begin{equation}\label{AS-sourceterm}
   S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
 \end{equation}
-where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed, and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole that is derived from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_static_fric}.
+where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole that is derived from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_static_fric}.
 
 \subsection{Numerical Implementation of Matlab ver.}
 \subsubsection{Riemann Invariants}
-The partial governing equations \equationname~\ref{AS-motion}, and \ref{AS-sourceterm} are transformed into their Riemann invariants solved by first order upwind scheme. The Riemann invariants are defined as
+The partial governing equations \equationname~\ref{AS-motion} and \ref{AS-sourceterm} are transformed into their Riemann invariants solved by first order upwind scheme. The Riemann invariants are defined as
 \begin{equation}\label{AS-Riemann}
   \alpha = w + \frac{c_t}{JG}\tau, \quad \beta=w-\frac{c_t}{JG}\tau
 \end{equation}
@@ -99,7 +99,7 @@ and the variable $\alpha$, $\beta$ satisfies the PDE system
 \begin{equation}\label{AS-Riemann_beta}
   \frac{\partial \beta}{\partial t} - c_t\frac{\partial \beta}{\partial x} = -\mathcal{S}
 \end{equation}
-Therefore, angular velocity w, and torque $\tau$ can be obtained by solving $\alpha$ and $\beta$.
+Therefore, angular velocity w and torque $\tau$ can be obtained by solving $\alpha$ and $\beta$.
 The source term $\mathcal{S}$ is
 \begin{equation}\label{AS-source}
   \mathcal{S} = \frac{S}{J \rho} j= k_t(\alpha + \beta) + \frac{1}{J \rho} \mathcal{F}
@@ -115,9 +115,9 @@ Additionally, the conditions at the drill pipe - drill collar interface are impo
 \begin{equation}\label{AS-interface}
   w_{p,interface} = w_{c,interface}, \quad \tau_{p,interface} = \tau_{c,interface}
 \end{equation}
-The boundary and interface condition is then expressed for $\alpha$, and $\beta$. \figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discredited drill string with boundary conditions, and interface conditions in terms of Riemann invariants.
+The boundary and interface condition is then expressed for $\alpha$ and $\beta$. \figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discredited drill string with boundary conditions and interface conditions in terms of Riemann invariants.
 
-\equationname~\ref{AS-BC} can be re-written from the relationship from \equationname~\ref{equation_Riemann_relation1}, and \ref{equation_Riemann_relation2} as
+\equationname~\ref{AS-BC} can be re-written from the relationship from \equationname~\ref{equation_Riemann_relation1} and \ref{equation_Riemann_relation2} as
 \begin{equation}\label{AS-riemannBC}
   \alpha_{p,top} = -\beta_{p,top} + 2*w_{te}, \quad \beta_{c,bottom} = \alpha_{c,bottom} - 2\tau_{bit} \frac{c_t}{J_c G_c}
 \end{equation}
@@ -135,7 +135,7 @@ where $\overline{Z}$ is the relative magnitude of the impedance that is
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{AS_discretizedDS}
-  \caption[Schematic of discretized drill string and boundary conditions]{Schematic of discretized drill string, boundary conditions, and interface conditions based on Riemann invariants $\alpha$, and $\beta$.}\label{AS_discretizeDS}
+  \caption[Schematic of discretized drill string and boundary conditions]{Schematic of discretized drill string, boundary conditions and interface conditions based on Riemann invariants $\alpha$ and $\beta$.}\label{AS_discretizeDS}
 \end{figure}
 
 \subsubsection{Forward Scheme}
@@ -160,7 +160,7 @@ where ${F_C}_j^k$ is the static friction calculated at cell j and time step k. F
   \beta_j^{k+1} = \beta_j^{k} - c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k - \beta_{j}^k) - \Delta t k_t (\alpha_j^k + \beta_j^k) - \mathcal{F}_j^k
 \end{equation}
 \subsection{Numerical Implementation of Python ver.}
-Python ver.\ directly solves the \equationname~\ref{AS-motion}, and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants as Matlab ver.\ The angular velocity and torque are updated until the desired simulation length reaches by the algorithm below. The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}. 
+Python ver.\ directly solves the \equationname~\ref{AS-motion} and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants as Matlab ver.\ The angular velocity and torque are updated until the desired simulation length reaches by the algorithm below. The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}. 
 \begin{table}[!hbt]
 \centering
 \begin{tabularx}{\linewidth-0.75in}{|c|c|L|}
@@ -192,7 +192,7 @@ $J_{TD}$ & $lb$-$ft^2$ & Top drive inertia \\
 Ramp speed & $RPM$/s & Ramp speed of top drive\\
 \hline
 \end{tabularx}
-\caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model. well trajectory, top drive set velocity, and bit constant are the additional parameters which are not included in this table.}\label{AS_inptut_params}
+\caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model. well trajectory, top drive set velocity and bit constant are the additional parameters which are not included in this table.}\label{AS_inptut_params}
 %\end{tabular}
 \end{table}
 \newcommand{\codecomment}[1]{\hfill #1}
@@ -233,7 +233,7 @@ Ramp speed & $RPM$/s & Ramp speed of top drive\\
 Some findings are reported in this section and the tests were conducted based on Test Case 1 scenario. Please refer to \chaptername~\ref{ch:testcases} for detail description and input parameters for each Test Case.
 
 \subsection{Effect of PI-controller}
-The A-S model contains PI-controller on top drive for more realistic simulation, however; the results were sensitive to input parameters which are $k_p, k_i, J_{TD}$, and ramp speed. Therefore, it was difficult to compare between different models when the exact value of these parameters were not provided. \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between Matlab ver.\ and Python ver.\ when same top drive related parameters used 
+The A-S model contains PI-controller on top drive for more realistic simulation, however; the results were sensitive to input parameters which are $k_p, k_i, J_{TD}$ and ramp speed. Therefore, it was difficult to compare between different models when the exact value of these parameters were not provided. \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between Matlab ver.\ and Python ver.\ when same top drive related parameters used 
 (\tablename~\ref{table_topdrivesensitivity_input}). Please note that the model was run with same input parameters with different units (Matlab ver: Metric unit, Python ver: Imperial unit). 
 
 \begin{testcasetable}[!hbt]
@@ -250,7 +250,7 @@ $J_{TD}$ & $2900 \; lb\cdot ft^2 $ & $ 68818 \; kgm^2$ & Top drive inertia\\
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{PI_comp}
-  \caption[Comparison of drill string response to same top drive parameters]{Comparison of top drive and bit responses with same top drive parameters between Matlab ver.\ and Python ver.\ First and second columns are results from Matlab ver., and from Python ver., respectively}\label{figure_topdrive_sensitivity}
+  \caption[Comparison of drill string response to same top drive parameters]{Comparison of top drive and bit responses with same top drive parameters between Matlab ver.\ and Python ver.\ First and second columns are results from Matlab ver. and from Python ver., respectively}\label{figure_topdrive_sensitivity}
 \end{figure}
 The results implies that, for the further study, exact input parameters are required or the PI-controller should be removed. Therefore, the codes were modified and top drive was removed from the system assuming the fixed velocity at the top of the drill string. Moreover, The modified code enables reducing the parameters of the model for more simple comparison between different models. The flowchart of PI-controller removal is shown in \figurename~\ref{figure_Topdriveremove_math}. 
 
@@ -288,7 +288,7 @@ The model of Matlab ver.\ and Python ver.\ were compared before conducting the t
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{density_comp}
-  \caption[Effect of drill pipe density in Python ver.\ for Test case 1]{Effect of drill pipe density to drill string vibration for A-S model, Python ver.\ First and second columns show the results with $\rho$ = 409.5 $lb/ft^3$, and  $\rho$ = 122.65 $lb/ft^3$, respectively.}\label{figure_Python_reducedDensity}
+  \caption[Effect of drill pipe density in Python ver.\ for Test case 1]{Effect of drill pipe density to drill string vibration for A-S model, Python ver.\ First and second columns show the results with $\rho$ = 409.5 $lb/ft^3$ and  $\rho$ = 122.65 $lb/ft^3$, respectively.}\label{figure_Python_reducedDensity}
 \end{figure}
 
  

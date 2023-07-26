@@ -1,29 +1,38 @@
 \chapter{Aarsnes-Shor Code Alterations}
 This \appendixname{} contains a list of modifications made to the Aarsnes-Shor model during the testing and evaluation.
 
-\section{Matlab Ver.\ {\codefont filename.m}}
-\warning{Example uses remove these and add your own.}
+\section{Matlab ver.\ {\codefont torsionalWaveStep.m}}
+Modifications were made to turn off PI-controller and rotate drill string in fixed velocity. You can use function \textbf{torsionalWaveStet\_FixedVal.m} instead of function \textbf{torsionalWaveStep.m} to turn off PI controller. Modifications were made to turn off PI-controller and rotate drill string in fixed velocity. Input parameters are changed from (p, x, u), to (p, x, omega\_stat, k), where u is removed while omega\_stat, k are added, where u is structure array containing top drive PI controller information, omega\_stat is set point velocity of the top drive and k is current step of the loop. Below explains the modifications of the code from torsionalWaveStep.m.
+
 \begin{codemodifications}
-
-\begin{codemodification}{19-30}
-The line was commented out to turn off the top drive controller.
+\begin{codemodification}{120-124}
+Added lines to set the top drive velocity. Top drive velocity will increase until the set point velocity at set desired time.
 \end{codemodification}
 
-\begin{codemodification}{25}%
-The value \textcode{TD} was changed to \textcode{TD/2.5} to correct the units.
+\begin{codemodification}{126-128}
+Commented out the previous top drive velocity and torque updating procedure and add new line for calculating torque on top drive
 \end{codemodification}
-
-\begin{codemodification}{29}
-\lipsum[1]
-\end{codemodification}
-
 \end{codemodifications}
 
-\section{Python Ver.\ {\codefont filename.m}}
+\section{Matlab ver.\ {\codefont parameters\_WellB.m}}
+This is the function for setting up the well data. For this project there are separated functions for each test cases i.e., TestCase1.m, TestCase2.m etc. Modifications were made to add buoyancy factor in normal force calculation.
 \begin{codemodifications}
-
-\begin{codemodification}{XX}
-Comment.
+\begin{codemodification}{82-84}
+Added buoyancy factor in normal force calculation
 \end{codemodification}
+\end{codemodifications} 
 
+\section{Python ver.\ {\codefont dynamics.py}}
+Turning off the PI controller and set the fixed angular velocity at top of the drill string
+
+\begin{codemodifications}
+\begin{codemodification}{202-209, 267-274, 315}
+Commented out to turn off the PI controller. 
+\end{codemodification}
+\begin{codemodification}{214-220}
+Code added to increase the top drive speed to set point at desired time.
+\end{codemodification}
+\begin{codemodification}{276-278, 316}
+Code added to calculate torque on top drive (torque on top of the drill string) without PI controller.
+\end{codemodification}
 \end{codemodifications} 
