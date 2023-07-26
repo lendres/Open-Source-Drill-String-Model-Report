@@ -24,12 +24,11 @@ Model approach & Distributed model & Lump Mass Spring \\
 \end{table}
 \section{Test Case 1}
 The results for Test Case 1 in each model are depicted in \figurename~\ref{figure_testcase1}. Both models exhibited similar outcomes, revealing a fundamental vibration frequency of 0.440 and 0.427 from A-S model and ExxonMobil model, respecitvley. The maximum bit velocity was at 79 RPM for the A-S model and 81 RPM for the ExxonMobil model. Also, the torque on the top drive was predicted as 1762 lb-ft for the A-S model and 1814 lb-ft for the ExxonMobil model. The comparison between the results from different models are illustrated in \figurename~\ref{figure_testcase1_overlapped}. Although both models exhibited similar frequencies, the minimal phase differences contribute to the observed shift between the two models.
-\begin{figure}
+\begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{output_figureTestCase1}
   \caption[Results of Test Case 1]{Results of Test Case 1. First and second columns show the results from A-S model (MATLAB ver.) and ExxonMobil model, respectively.}\label{figure_testcase1}
 \end{figure}
-
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{overlapped_figureTestCase1}
@@ -123,51 +122,51 @@ The comparison between A-S, and ExxonMobil model are illustrated in \figurename~
   \caption[Effects of BHA components (ExxonMobil model)]{Effects of BHA components in deviated wells in ExxonMobil model. The graph shows the comparison between Test Case 2b and 4b. Adding BHA components increased torque on top drive while rotating the bit at a similar velocity. The spikes in torque and bit velocity are observed when BHA is added. On the other hand, spikes below 0 RPM on bit velocity are only observed when there are no BHA components. The period of stick-phase is longer for about 2-3 cycles from the beginning when BHA exists; however, it becomes similar which is about 1.6-1.8 s. The fundamental frequency of the vibration decreases when BHA exists.}\label{figure_BHA_EXXON}
 \end{figure}
 
-
 \section{Summary} 
-\begin{table}
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-        \hline
-        \textbf{Test Cases} & \textbf{Frequency (Hz)} & \textbf{Max top drive torque (lb-ft)} & \textbf{Max bit velocity (RPM)}\\
-        \hline
-        Test Case 1 & 0.440 & 1762 & 79\\
-        \hline
-        Test Case 2a & 0.283 & 6643 & 78\\
-        \hline
-        Test Case 2b & 0.280 & 5184 & 106\\ 
-        \hline
-        Test Case 3 & 0.420 & 1844 & 80 \\                                                  
-        \hline
-        Test Case 4a & 0.268 & 8083 & 78 \\                                                   
-        \hline
-        Test Case 4b & 0.268 & 7056 & 116\\                                                       
-        \hline
-    \end{tabular}
-    \caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model. Well trajectory, top drive set velocity, and bit constant are the additional parameters not included in this table.}
-    \label{AS_results_summary}
-\end{table} 
+The results from the A-S model and ExxonMobil model for all the Test Cases are summarized in \tablename~\ref{AS_results_summary} and \ref{Exxon_results_summary}, respectively. Overall, both models showed comparable predictions across all Test Cases. Additionally, the run time of the simulator, modeling 60 seconds, is included in the table, where the simulations were conducted with a computing system featuring i7-CPU and 16GB RAM. 
 
 \begin{table}
     \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|c|}
         \hline
-        \textbf{Test Cases} & \textbf{Frequency (Hz)} & \textbf{Max top drive torque (lb-ft)} & \textbf{Max bit velocity (RPM)}\\
+        \multirow{2}{*}\makecell{\textbf{Test Cases}} & \makecell{\textbf{Frequency} \\ \textbf{(Hz)}} & \makecell{\textbf{Max top drive torque} \\ \textbf{(lb-ft)}} & \makecell{\textbf{Max bit velocity} \\ \textbf{(RPM)}} & \makecell{\textbf{Simulation time} \\ \textbf{(s)}}\\
         \hline
-        Test Case 1  & 0.427 & 1814 & 81\\
+        Test Case 1 & 0.440 & 1762 & 79 & 36\\
         \hline
-        Test Case 2a  & 0.272 & 6891 & 79\\
+        Test Case 2a & 0.283 & 6643 & 78 & 25 \\
         \hline
-        Test Case 2b  & 0.269 & 5539 & 115\\ 
+        Test Case 2b & 0.280 & 5184 & 106 & 25\\ 
         \hline
-        Test Case 3  & 0.408 & 1841 & 81\\                                                  
+        Test Case 3 & 0.420 & 1844 & 80 & 36\\                                                  
         \hline
-        Test Case 4a  & 0.260 & 8379 & 79\\                                                   
+        Test Case 4a & 0.268 & 8083 & 78 & 32\\                                                   
         \hline
-        Test Case 4b & 0.260 & 5825 & 96\\                                                       
+        Test Case 4b & 0.268 & 7056 & 116 & 32\\                                                       
         \hline
     \end{tabular}
-    \caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model. Well trajectory, top drive set velocity, and bit constant are the additional parameters not included in this table.}
+    \caption[Summary of simulation results for A-S model]{Summary of simulation results for A-S model.}    \label{AS_results_summary}
+\end{table}
+
+\begin{table}
+    \centering
+        \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \multirow{2}{*}\makecell{\textbf{Test Cases}} & \makecell{\textbf{Frequency} \\ \textbf{(Hz)}} & \makecell{\textbf{Max top drive torque} \\ \textbf{(lb-ft)}} & \makecell{\textbf{Max bit velocity} \\ \textbf{(RPM)}} & \makecell{\textbf{Simulation time} \\ \textbf{(s)}}\\
+        \hline
+        Test Case 1  & 0.427 & 1814 & 81 & \\
+        \hline
+        Test Case 2a  & 0.272 & 6891 & 79 & \\
+        \hline
+        Test Case 2b  & 0.269 & 5539 & 115 & \\ 
+        \hline
+        Test Case 3  & 0.408 & 1841 & 81 & \\                                                  
+        \hline
+        Test Case 4a  & 0.260 & 8379 & 79 & \\                                                   
+        \hline
+        Test Case 4b & 0.260 & 5825 & 96 &\\                                                       
+        \hline
+    \end{tabular}
+    \caption[Summary of simulation results for ExxonMobil model]{Summary of simulation results for ExxonMobil model.}
     \label{Exxon_results_summary}
 \end{table}
 

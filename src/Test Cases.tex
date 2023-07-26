@@ -1,10 +1,11 @@
 \chapter{Test Cases}
 \label{ch:testcases}
-The Test Cases presented in this study serve the purpose of comparing and validating different drill string models. All the parameters and results from AS model and ExxonMobil model are provided, therefore; other models can use these Test Cases for validation. All the suggested Test Cases are off-bottom scenarios since AS model only has torsional modeling capability. However, these Test Cases can provide reliable means of cross-checking and comparing the performances of various models. Specifically, Test Cases 1 and 3 encompass scenarios involving vertical wells, with the distinction in the presence BHA components.
-Similarly, Test Cases 2 and 4 are the deviated well scenarios with 60\textdegree inclination angle. The only difference between Test Case 2 and 4 are the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into Test Case 2a, 2b, Test Case 4a, and 4b. This extension of Test Cases was established for deviated wells, as vertical wells experience no friction where the drill string - well bore friction is assumed to be only Coulomb friction from the normal force at drill string. \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case. 
+The Test Cases presented in this study serve the purpose of comparing and validating different drill string models. All the parameters and results from AS model and ExxonMobil model are provided, therefore; other models can use these Test Cases for validation. All the suggested Test Cases are off-bottom scenarios since AS model only has torsional modeling capability. However, these Test Cases can provide reliable means of cross-checking and comparing the performances of various models. 
 
-Additionally, some of the findings and modifications made on the provided source code of the AS and ExxonMobil models are presented in this chapter. In the AS model, the effect of the PI controller was tested. Also, some of the issues with the Python ver. of AS model are shown. Since this issue has not been resolved yet, the Python ver. was only executed with Test Case 1. On the other hand, The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. 
-\begin{table}
+Total six Test Cases are presented. Specifically, Test Cases 1 and 3 encompass scenarios involving vertical wells, with the distinction in the presence BHA components.Similarly, Test Cases 2 and 4 are the deviated well scenarios with 60\textdegree inclination angle. The only difference between Test Case 2 and 4 are the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into Test Case 2a, 2b, Test Case 4a, and 4b. This extension of Test Cases was established for deviated wells, as vertical wells experience no friction where the drill string - well bore friction is assumed to be only Coulomb friction from the normal force at drill string. \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case. 
+
+
+\begin{table}[!hbt]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
@@ -26,27 +27,39 @@ Additionally, some of the findings and modifications made on the provided source
     \caption[Scenarios of different Test Cases]{Scenarios of different Test Cases.}
     \label{Test_case_summary}
 \end{table} 
+Additionally, the viscous damping is neglected for the simplicity of the test in this project, but it can be included in the future sutdy. Also, The test was conducted by assuming the top drive velocity to be increased from 0 RPM to 40 RPM at 1 second and maintained the velocity for rest of the time. The top drive velocity is shown in \figurename~\ref{figure_topdrive_VSP}
 
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=3.5in]{TopdriveVSP}
+  \caption[Top drive set velocity]{Top drive set velocity}\label{figure_topdrive_VSP}
+\end{figure}
 
+Some of the findings and modifications made on the provided source code of the AS and ExxonMobil models are presented in this chapter. In the AS model, the effect of the PI controller was tested. Also, some of the issues with the Python ver. of AS model are shown. Since this issue has not been resolved yet, the Python ver. was only executed with Test Case 1. On the other hand, The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. 
 \section{Terminology}
-\subsection{No BHA vs BHA}
+\subsection{With BHA vs without BHA}
 
-The Test Cases in this study focus on comparing drilling scenarios with and without the BHA components. It introduces specific parameters that differ from the rest of the drill pipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drill pipe above the bit will have the same weight and diameter as the rest of the drill pipe.
+The Test Cases enables comparing drilling scenarios with and without the BHA components. 
+%It introduces specific parameters that differ from the rest of the drill pipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drill pipe above the bit will have the same weight and diameter as the rest of the drill pipe.
 
-To maintain simplicity and establish a baseline, we begin the study with a single drill pipe configuration. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe, including the section above the bit, are uniform.
+\textbf{Without BHA}: To maintain simplicity and establish a baseline, we begin the study with a single drill pipe configuration. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe, including the section above the bit, are uniform.
 
-As we proceed with the investigation, we will introduce the BHA into the system and examine its impact on drilling dynamics. The BHA's distinct parameters, such as its weight and diameter, will be considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drill string's behavior and the overall drilling process.
+\textbf{With BHA}: Introduce the BHA into the system and examine its impact on drilling dynamics. The BHA's distinct parameters, such as its weight and diameter, will be considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drill string's behavior and the overall drilling process.
+%In the next subsection we will explore additional configurations with varying BHA designs and properties to further investigate their influence on drilling efficiency and performance. These test cases will enable us to optimize drilling operations and develop a comprehensive understanding of how the presence or absence of the BHA affects the system's behavior.
 
-In the next subsection we will explore additional configurations with varying BHA designs and properties to further investigate their influence on drilling efficiency and performance. These test cases will enable us to optimize drilling operations and develop a comprehensive understanding of how the presence or absence of the BHA affects the system's behavior.
+\subsection{Same vs different FF}
 
-\subsection{Different vs Same FF}
+Most of the drill string models including A-S and ExxonMobil model take in to account both static and dynamic friction factors (FF). The friction factors will affect the drill string vibration in deviated well, since the interaction between the drill string and the wellbore wall becomes complex due to the influence of gravity and the inclination angle.
+%but the disparity in FF values is expected to be more pronounced in inclined wells compared to vertical ones. 
+Therefore, to gain insights into the impact of FF values on drilling dynamics, a detailed investigation is warranted.
+%This results in differing frictional forces acting on the drill string as it traverses the wellbore. As a consequence, the FF values play a crucial role in affecting the drilling performance and behavior.
 
-Both models under consideration account for both static and dynamic friction factors (FF), but the disparity in FF values is expected to be more pronounced in inclined wells compared to vertical ones. To gain insights into the impact of varying and consistent FF values on drilling dynamics, a detailed investigation is warranted.
+\textbf{Same FF}: Test conducted with same value of static and dynamic friction. This simulates the model with no effect of dynamic friction. 
 
-In inclined wells, the interaction between the drill string and the wellbore wall becomes more complex due to the influence of gravity and the inclination angle. This results in differing frictional forces acting on the drill string as it traverses the wellbore. As a consequence, the FF values play a crucial role in affecting the drilling performance and behavior.
+\textbf{Different BHA}: Test conducted with different value between static and dynamic friction. This test will help analyze the effect of dynamic friction in the system.
 
-\section{Test Case 1 - Vertical well, No BHA}
-The model parameters and schematic of the wellbore surveys and drill string components are shown in Table \tablename~\ref{table_verticalwell_input} and \ref{figure_verticalwell}. The ExxonMobil model and MATLAB ver.\ A-S model uses metric units while PYTHON ver.\ A-S model uses imperial units. For the future convenience, the tables in this chapter contains both imperial and metric units.
+\section{Test Case 1 - Vertical well without BHA}
+The model parameters and schematic of the wellbore surveys and drill string components are shown in  \tablename~\ref{table_verticalwell_input} and \figurename~\ref{figure_verticalwell}. The ExxonMobil model and Matlab ver.\ A-S model uses metric units while Python ver.\ A-S model uses imperial units. For the future convenience, the tables in this chapter contains both imperial and metric units.
 
 \begin{figure}[!hbt]
   \centering
@@ -72,17 +85,10 @@ Bit depth & 5905 $ft$ & 1800 $m$ & - \\
 \end{tabularx}
 \caption[Well survey data for model comparison (vertical well)]{Well survey and drill string data for model comparison (vertical well without BHA components)}\label{table_verticalwell_input}
 \end{testcasetable}
-The test was conducted by assuming the top drive velocity to be increased from 0 RPM to 40 RPM at 1 second and maintained the velocity for rest of the time. The top drive velocity is shown in \figurename~\ref{figure_topdrive_VSP}
 
-\begin{figure}[!hbt]
-  \centering
-  \includegraphics[width=3in]{TopdriveVSP}
-  \caption[Top drive set velocity]{Top drive set velocity}\label{figure_topdrive_VSP}
-\end{figure}
-
-\section{Test Case 2 - Inclined well, No BHA}
+\section{Test Case 2 - Deviated well without BHA}
 \subsection{Test case 2a - Same FF values}
-The models were tested with inclined well with simple configuration of drill string. The MD of the well is 4000 m with 60$^{\circ}$ inclination. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. Also, the top drive velocity is increased to 40 RPM at 1 second which is same with Test Case 1 (\figurename\ref{figure_topdrive_VSP}). For Test Case 2, the viscous damping is neglected for the simplicity of the test. However, Coulomb friction is considered to investigate the stick-slip occurrence during drilling. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_2a_input}.
+The models were tested with deviated well with simple configuration of drill string. The MD of the well is 4000 m with 60$^{\circ}$ inclination from KOP of 1500 m. The drill bit is off-bottom where located at 2500 m depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. The static and dynamic friction factors were set to be the same as 0.5. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_2a_input}.
 
 \begin{figure}[!hbt]
   \centering
@@ -112,7 +118,7 @@ The models were tested with inclined well with simple configuration of drill str
 \end{testcasetable}
 
 \subsection{Test Case 2b - Different FF values}
-The models were tested with the exact same configuration from the previous subsection, except different values of static and dynamic FF values. The following \tablename~\ref{table_Inclinedwell_2b_input} summarizes the input parameters. 
+The models were tested with the exact same configuration with Test Case 2a, except different values of static and dynamic FF values. The following \tablename~\ref{table_Inclinedwell_2b_input} summarizes the input parameters. 
 
 \begin{testcasetable}
    $OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter\\                                                       
@@ -136,7 +142,7 @@ The models were tested with the exact same configuration from the previous subse
 \end{testcasetable}
 
 \section{Test Case 3 - Vertical Well with BHA}
-In this specific scenario, an additional configuration of the drill string included BHA. The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged, as well as, the parameters for the top drive. For the sake of simplicity, the influence of viscous damping was disregarded. The specific input parameters can be found in the \tablename~\ref{Input Parameters TC3}.
+In this specific scenario, an additional configuration of the drill string included BHA. The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged. The specific input parameters can be found in the \tablename~\ref{Input Parameters TC3}.
 
 \begin{figure}
   \centering
@@ -169,7 +175,7 @@ In this specific scenario, an additional configuration of the drill string inclu
 \section{Test Case 4 - Inclined Well with BHA}
 \subsection{Test Case 4a - Same FF values}
 
-The models were tested with the same input parameters from Test Case 2, with additional configuration of the drill string including BHA. Well survey data for the inclined well remained same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{figure_wellconfig_inclined_BHA}, remained unchanged, as well as, the parameters for the top drive. As stated previously in Test Case 2 the influence of viscous damping was disregarded. The input parameters can be found in the  \tablename~\ref{table_Inclinedwell_4a_input}.
+The models were tested with the same input parameters from Test Case 2, with additional configuration of the drill string including BHA. Well survey data for the inclined well remained same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{figure_wellconfig_inclined_BHA}, remained unchanged. The input parameters can be found in the  \tablename~\ref{table_Inclinedwell_4a_input}.
 
 \begin{figure}[!hbt]
   \centering
