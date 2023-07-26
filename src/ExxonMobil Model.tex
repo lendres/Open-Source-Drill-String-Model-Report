@@ -2,7 +2,10 @@
 \label{ch:exxonmobilmodel}
 
 \section{Introduction}
-The model employs a coupled axial-torsional system, meticulously considering interactions among various elements, such as drill pipes, HWDP and collars. Through a lumped-parameter study, the model enables thorough investigations into the impacts of different operational conditions on drill string behavior. Additionally, it integrates friction models to accurately represent the axial and tangential forces acting along the drill string, as well as the bit-rock interaction model (IADC/SPE-199678) to explain the cause of stick-slip. This model features 4 degrees of freedom per node, encompassing axial displacement, axial velocity, angular displacement and angular velocity.The governing equations of both torsional and axial motion are solved by finite element method (FEM). The validation of the model is achieved by comparing simulation results with field data from rotational startups, off-bottom rotations and post-connection operations. 
+The model is developed by Dixit and Manna in 2021, \referencename~\cite{ref:dixit2021a}. It is designed as a coupled 2-DOF Axial-torsional system to model the transient dynamics of drill string under different operating conditions of drilling and tripping. Modeling is carried out as a Lumped-parameter study. Also, the model incorporates bit-rock and friction models in order to investigate stick-slip effects. Governing equations are solved by RK method using ODE45 solver. 
+
+\section{Model Description}
+The model employs a coupled axial-torsional system, meticulously considering interactions among various elements, such as drill pipes, HWDP, and collars. Through a lumped-parameter study, the model enables thorough investigations into the impacts of different operational conditions on drill string behavior. Additionally, it integrates friction models to accurately represent the axial and tangential forces acting along the drill string, as well as the bit-rock interaction model (\referencename~\cite{ref:cayeux2020a}) to explain the cause of stick-slip. This model features 4 degrees of freedom per node, encompassing axial displacement, axial velocity, angular displacement, and angular velocity.The governing equations of both torsional and axial motion are solved by ODE45 solver. The validation of the model is achieved by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations. 
 
 In the axial direction, the displacement is one-dimensional, while in the rotational direction, equations are coupled using the Striebeck friction model. This model takes into account the resultant velocity to accurately compute friction forces. Notably, the model incorporates well trajectory and buoyancy effects to ensure precise calculation of resultant friction forces. Furthermore, it uniformly applies drag due to mud throughout the system. The model's ability to simulate Mud-motor and heave compensator dynamics enhances its versatility. The bit-rock interaction model is based on depth-of-cut, while simultaneously tracking the revolution of bit-depth relative to hole-depth. This feature contributes to a more realistic representation of the drilling process.
 
@@ -28,7 +31,7 @@ Torque on top-drive can be derived as
   \tau_{top\_drive} = k_{t1} \times \theta_{top\_drive}
 \end{equation}
 where 
-$\tau_{top\_drive}$ is top-drive torque, $k_{t1}$ is torsional stiffness of first drill-string element and $\theta_{top\_drive}$ is top-drive rotation.
+$\tau_{top\_drive}$ is top-drive torque, $k_{t1}$ is torsional stiffness of first drill-string element, and $\theta_{top\_drive}$ is top-drive rotation.
 
 Furthermore, the model incorporates an additional parameter known as "Heave." If the runtime surpasses the heave delay, additional computations are conducted to determine heave displacement and Rate of Penetration (ROP). These calculated values are subsequently added to the original top-drive ROP and displacement data. The heave ROP and displacement calculations are represented by the equations
 \begin{equation}\label{Z_heave}
@@ -42,7 +45,7 @@ $Z_{heave}$ and $ROP_{heave}$ are heave displacement and ROP, $x$ is heave ampli
  
 \subsection{Bit-rock Interaction Model}
 
-The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between weight on bit, torque on bit, rate of penetration and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
+The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
 
 The interaction between PDC bits and the rock formation encompasses a combination of cutting and frictional contact, as identified by (\referencename~\cite{ref:detournay1992a}). Weight on bit and torque on bit are further decomposed into cutting and frictional components, which are contingent upon the strength of the rock formation being drilled.
 \begin{equation}\label{WOB}
@@ -86,7 +89,7 @@ In order to avoid the discontinuities when $V_{iteration}$ tends to zero, Stribe
   F_{\mu,i} = F_{\mu_{k},i} + (F_{\mu_{s},i} - F_{\mu_{k},i})e^{-\dfrac{|\nu_{i}|}{\nu_{cs}}}
 \end{equation} 
 
-The model incorporates $F_{\mu,i}$ and $\nu_{CS}$ (Stribeck critical velocity) to consider the velocity weakening effect in the dynamics of the system. However, it should be noted that the model does not account for string Capstan effects.Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. In the case of a multi-element string, the distribution of borehole dampers is considered by assigning damper values to each element based on the fraction of its mass contribution. For example, Collars are assigned 50\% of the damper value, HWDP is assigned 30\% and drill-pipes are assigned 20\%. 
+The model incorporates $F_{\mu,i}$ and $\nu_{CS}$ (Stribeck critical velocity) to consider the velocity weakening effect in the dynamics of the system. However, it should be noted that the model does not account for string Capstan effects.Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. In the case of a multi-element string, the distribution of borehole dampers is considered by assigning damper values to each element based on the fraction of its mass contribution. For example, Collars are assigned 50\% of the damper value, HWDP is assigned 30\%, and drill-pipes are assigned 20\%. 
 
 Below you will find the Friction model input parameters:
 \begin{bulletedlist}
