@@ -198,13 +198,10 @@ The code was organized by creating separate folders for input and output files, 
 
 During testing, we encountered an issue with the ``on-bottom" case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling" mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling" mode, enabling dynamic changes in both hole depth and non-zero DOC.
 
-Here, I will elaborate on the on-bottom case for the model. To assess any actual changes, we conducted a run of the model using a specific approach where the bit is slightly raised from the bottom. This approach allows us to simulate the off-bottom case initially and then transition to the on-bottom case once the bit makes contact with the bottom. The results are clearly evident in the subsequent plots.
-
-As observed, the drilling process initiates after approximately 30 seconds. Initially, there are vibrations, which is a common occurrence, but as soon as the bit touches the bottom at 30 seconds, both the bit and top-drive torque increase, along with WOB and DOC. Additionally, the hole depth begins to change concurrently with the bit depth, indicating the onset of the drilling mode. Approximately 20 seconds later, the vibrations start to diminish, indicating the presence of oscillations in the system. 
-
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{on_bottom}
   \caption[Plots of on bottom case.]{Plot of drilling parameters for on bottom case.}\label{findings}
 \end{figure}
 
+The results of the modified model are illustrated in the following plots \figurename~\ref{findings}. More analysis can be found in \appendixname~\ref{ch:appendixexxonmobil}. 
