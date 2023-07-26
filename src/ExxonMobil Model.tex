@@ -21,9 +21,7 @@ Following features are described for bit-rock and friction models below:
 
 The Python-based source code is designed with a modular approach, wherein most functions are distributed across separate Python files, easily accessible by importing them. The code's operational instructions and guidelines are included in the provided manual, offering users comprehensive guidance on running the code effectively.
 
-\section{Features}
-\subsection{Top-drive Model}
-
+\section{Top Drive Model}
 The model utilizes the axial and rotational velocity magnitudes of the top-drive as input and primarily computes the area under the velocity curve. It then provides outputs for axial and rotational top-drive velocities, as well as the corresponding displacements and rotations of the top-drive.
 
 Torque on top-drive can be derived as
@@ -43,7 +41,7 @@ Furthermore, the model incorporates an additional parameter known as "Heave." If
 where 
 $Z_{heave}$ and $ROP_{heave}$ are heave displacement and ROP, $x$ is heave amplitude, $\omega$ is heave angular velocity, $t$ is runtime and $t_{heave\_delay}$ is heave delay time.
  
-\subsection{Bit-rock Interaction Model}
+\section{Bit Model}
 
 The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
 
@@ -58,7 +56,7 @@ where $k_{WOB}$, $k_{TQ}$ is weight on bit and torque coefficient, $DOC_{iterati
 
 The cutting components exhibit a direct dependency on the depth of cut, representing the material removed during drilling, while the frictional components are considered to account for the dissipated energy in the drilling process. To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a consolidated friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator. 
 
-\subsection{Friction Model}
+\section{Friction Model}
 
 Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior and the continuous changes in velocity direction. The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating frictional torque within the system.
  
@@ -103,7 +101,7 @@ Below you will find the Friction model input parameters:
     \item Axial and Tangential components of Net Frictional Force and Torque.
 \end{bulletedlist}
 
-\section{Governing equations and solution}
+\section{Mathematical Background}
 
 The set of partial differential equations that describe the motion of the drill-string can be combined into a coupled axial-torsional system of second-order differential equations. 
 
@@ -192,7 +190,7 @@ To convert these equation sets into vector form, we can represent the variables 
 The differential equation sets are solved using the ODE45 solver.\ This solver is chosen for its efficiency in computational calculations.
 
 
-\section{Findings}
+\section{Findings and Code Modifications}
  
 The code was organized by creating separate folders for input and output files, facilitating easier usage and data storage. Additional modifications were made to the original source code to ensure compatibility with different operating systems, as it was previously designed exclusively for Windows and was ``Path" sensitive.
 
