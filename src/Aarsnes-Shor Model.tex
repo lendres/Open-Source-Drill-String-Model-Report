@@ -2,7 +2,7 @@
 \label{ch:aarnessshormodel}
 
 \section{Introduction}
-The model is developed by Aarsnes and Shor 2017 \cite{ref:aarsnes2017a}. It is designed to simulate torsional drill string vibration using a distributed model, wherein the partial difference equations governing the motion are solved using the upwind scheme. Two versions of source code was provided which are written in Matlab and Python. The axial motion is currently being developed by Shor and will be integrated in Python ver. 
+The model is developed by Aarsnes and Shor, 2017 \cite{ref:aarsnes2017a}. It is designed to simulate torsional drill string vibration using a distributed model, wherein the partial difference equations governing the motion are solved using the upwind scheme. Two versions of source code were provided which are written in Matlab and Python. The Python version is being written to improve the older version, development is still in progress. The axial motion is currently being developed by Shor and will be integrated in Python ver. 
 
 \section{Model Description}
 The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping which are modeled as distributed source term. The effect of this Coulomb friction becomes prominent as the well inclination increases, therefore this model can be effective in predicting the drill string dysfunctions in high inclined wells. Currently, the model is only applicable for torsional mode simulation but the axial mode will be added soon. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are: 1) no bit-rock interaction, 2) no lateral and axial motion, 3) the effects of cuttings distribution on the friction is homogeneous and 4) the transition from static to dynamic coulomb friction is modeled as a jump. 
@@ -79,7 +79,7 @@ where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is a
 \end{equation}
 where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed, and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole that is derived from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_static_fric}.
 
-\subsection{Numerical Implementation of MATALB ver.}
+\subsection{Numerical Implementation of Matlab ver.}
 \subsubsection{Riemann Invariants}
 The partial governing equations \equationname~\ref{AS-motion}, and \ref{AS-sourceterm} are transformed into their Riemann invariants solved by first order upwind scheme. The Riemann invariants are defined as
 \begin{equation}\label{AS-Riemann}
