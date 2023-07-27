@@ -54,7 +54,7 @@
 	\end{table}
 }
 
-% Package from DY for table 
+% Package from DY for table
 \usepackage{multirow}
 \usepackage{makecell}
 
@@ -114,19 +114,19 @@
 \usepackage{lecode}
 \codefontsize{\small}
 
-
 % SPECIAL FORMATTING
+\usepackage{leparskip}
+\globalalternateparskip{0.5\baselineskip plus 2pt minus 2pt}
+
 % To use hanging indent (hang) inside of the environment.
 \usepackage{hang}
+\setlength{\hangingindent}{\parindent}
 
 % Committee member biography formatting.
-\newlength{\committeespacing}
-\setlength{\committeespacing}{0.5\baselineskip plus 2pt minus 6pt}
-
 \newfont{\helveticbc}{phvbc7t at 12pt}
 \newenvironment{committeemember}[3]
 {
-	\vspace{\committeespacing}
+	\pushparskip{}
 	\begin{hangingpar}
 	{\helveticbc #1}\\%
 	\textbf{#2}\\
@@ -134,34 +134,31 @@
 }
 {
 	\end{hangingpar}
-	\vspace{\committeespacing}
+	% No need to pop the parskip.  The change only remains in effect inside of the environment.
+}
+
+% Definitions.
+\newenvironment{definition}[1]
+{
+	\pushparskip{}
+	\begin{hangingpar}
+	{\bfseries#1}\hspace*{0.5em}%
+}
+{
+	\end{hangingpar}
+	% No need to pop the parskip.  The change only remains in effect inside of the environment.
 }
 
 % Formatting for notes on code modifications.
-\newlength{\codemodifcationspacing}
-\setlength{\codemodifcationspacing}{0.15\baselineskip plus 2pt minus 2pt}
-\newlength{\parskipsave}
-
 \newenvironment{codemodifications}
 {
-	\setlength{\parskipsave}{\parskip}
-	\setlength{\parskip}{\codemodifcationspacing}
+	\pushparskip[0.15\baselineskip plus 2pt minus 2pt]{}
 }
 {
-	\setlength{\parskip}{\parskipsave}
+	% No need to pop the parskip.  The change only remains in effect inside of the environment.
 }
 
-\newenvironment{codemodification2}[1]%
-{%
-	\noindent\textbf{\textcode{\MakeUppercase{Line: }#1}}\\\indent\begin{minipage}[b]{\linewidth-\parindent-3pt}%
-}%
-{%
-	\end{minipage}%
-}%
-
 % For dummy text.  Can be removed later.
-%\usepackage{blindtext}
-\usepackage{lipsum}
 \newenvironment{codemodification}[1]
 {\noindent\begin{hangingpar}\textbf{\textcode{\MakeUppercase{Line: }#1}}\\}
 {\end{hangingpar}}

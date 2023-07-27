@@ -39,9 +39,13 @@ Some of the findings and modifications made on the provided source code of the A
 The Test Cases enables comparing drilling scenarios with and without the BHA components. 
 %It introduces specific parameters that differ from the rest of the drill pipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drill pipe above the bit will have the same weight and diameter as the rest of the drill pipe.
 
-\textbf{Without BHA}: Analysis with a single drill pipe configuration to maintain simplicity and establish a baseline. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe are uniform.
+\begin{definition}{Without BHA}
+Analysis with a single drill pipe configuration to maintain simplicity and establish a baseline. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe are uniform.
+\end{definition}
+\begin{definition}{With BHA}
+Introduce the BHA into the system and examine its impact on drilling dynamics. The BHA's distinct parameters, such as its weight and diameter, will be considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drill string's behavior and the overall drilling process.
+\end{definition}
 
-\textbf{With BHA}: Introduce the BHA into the system and examine its impact on drilling dynamics. The BHA's distinct parameters, such as its weight and diameter, will be considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drill string's behavior and the overall drilling process.
 %In the next subsection we will explore additional configurations with varying BHA designs and properties to further investigate their influence on drilling efficiency and performance. These test cases will enable us to optimize drilling operations and develop a comprehensive understanding of how the presence or absence of the BHA affects the system's behavior.
 
 \subsection{Same vs Different FF}
@@ -51,9 +55,13 @@ Most of the drill string models, including A-S and ExxonMobil model, take into a
 Therefore, to gain insights into the impact of friction factors on drilling dynamics, a detailed investigation is warranted.
 %This results in differing frictional forces acting on the drill string as it traverses the wellbore. As a consequence, the FF values play a crucial role in affecting the drilling performance and behavior.
 
-\textbf{Same FF}: Test conducted with the same value of static and dynamic friction. It assumes there is no change between static and dynamic friction while drilling, which could be the baseline of the analysis. 
+\begin{definition}{Same FF}
+Test conducted with the same value of static and dynamic friction. It assumes there is no change between static and dynamic friction while drilling, which could be the baseline of the analysis.
+\end{definition}
+\begin{definition}{Different FF}
+Test conducted with different values between static and dynamic friction. This test will help analyze the effect of dynamic friction in the system.
+\end{definition}
 
-\textbf{Different FF}: Test conducted with different values between static and dynamic friction. This test will help analyze the effect of dynamic friction in the system.
 
 \section{Test Case 1 - Vertical Well Without BHA}
 The model parameters and schematic of the wellbore surveys and drill string components for Test Case 1 are shown in \tablename~\ref{table_verticalwell_input} and \figurename~\ref{figure_verticalwell}. The model were tested with vertical well with MD of 2000 $m$ and bit depth of 1800 $m$. The ExxonMobil model and Matlab ver.\ A-S model uses metric units while Python ver.\ A-S model uses imperial units. For the future convenience, the tables in this chapter contains both imperial and metric units.
