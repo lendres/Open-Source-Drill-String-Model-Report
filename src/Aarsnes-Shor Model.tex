@@ -166,7 +166,7 @@ where ${F_C}_j^k$ is the static friction calculated at cell j and time step k. F
   \beta_j^{k+1} = \beta_j^{k} - c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k - \beta_{j}^k) - \Delta t k_t (\alpha_j^k + \beta_j^k) - \mathcal{F}_j^k
 \end{equation}
 \subsection{Numerical Implementation of Python ver.}
-The Python ver.\ directly solves the \equationname~\ref{AS-motion} and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants like in the Matlab ver.\ The angular velocity and torque are updated until the desired simulation length reaches by the algorithm below.\reviewcomment{Discuss the previous sentence.} The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}. 
+The Python ver.\ directly solves the \equationname~\ref{AS-motion} and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants like in the Matlab ver.\ The angular velocity and torque are updated iteratively from the algorithm below. The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}. 
 \begin{table}[!hbt]
 \centering
 \begin{tabularx}{\linewidth-0.75in}{|c|c|L|}
