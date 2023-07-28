@@ -158,10 +158,15 @@
 	% No need to pop the parskip.  The change only remains in effect inside of the environment.
 }
 
-% For dummy text.  Can be removed later.
 \newenvironment{codemodification}[1]
 {\noindent\begin{hangingpar}\textbf{\textcode{\MakeUppercase{Line: }#1}}\\}
 {\end{hangingpar}}
+
+
+% WARNINGS
+% Suppress warnings about too many floats on a page.
+\usepackage{silence}
+\WarningFilter*{latex}{Text page \thepage\space contains only floats}
 
 
 % INCLUDE A BIBLIOGRAPHY.
