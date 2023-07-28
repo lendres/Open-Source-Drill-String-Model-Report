@@ -5,21 +5,25 @@
 The model is developed by Dixit and Manna in 2021, \referencename~\cite{ref:dixit2021a}. It is designed as a 2 DOF per node, axial-torsional system to model the dynamics of drill strings while drilling and tripping. Modeling is carried out as a lumped-parameter study. Also, the model incorporates bit-rock and friction models in order to investigate stick-slip effects. Governing equations are solved by a Runge-Kutta method using an ODE45 solver. 
 
 \section{Model Description}
-The model employs a coupled\reviewcomment{Coupled?}, axial-torsional system and uses a lumped-parameter technique. The features include the ability to use different operational conditions and allows for various components such as drill pipes, HWDP, and collars. Additionally, it integrates friction models to represent the axial and tangential forces acting along the drill string and includes a bit-rock interaction model (\referencename~\cite{ref:cayeux2020a})\reviewcomment{Is this the bit model used?}. The governing equations of motion are solved by an ODE45 solver. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations. 
+The model employs a coupled\reviewcomment{Fix coupled.}, axial-torsional system and uses a lumped-parameter technique. The features include the ability to use different operational conditions and allows for various components such as drill pipes, HWDP, and collars. Additionally, it integrates friction models to represent the axial and tangential forces acting along the drill string and includes a bit-rock interaction model (\referencename~\cite{ref:cayeux2020a})\reviewcomment{Is this the bit model used?}. The governing equations of motion are solved by an ODE45 solver. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations. 
 
-In the axial direction, the displacement is one-dimensional, while in the rotational direction, equations are coupled using the Stribeck friction model\reviewcomment{Sentence wording}. The model takes into account the velocity, well trajectory, and buoyancy effects in the calculations of friction forces. Furthermore, it uniformly applies drag due to mud throughout the system. The model's ability to simulate Mud-motor and heave compensator dynamics enhances its versatility. The bit-rock interaction model is based on depth-of-cut, while simultaneously tracking the revolution of bit-depth relative to hole-depth. This feature contributes to a more realistic representation of the drilling process.
+The model can also to simulate mud-motor and heave compensator dynamics.\reviewcomment{Find a place for this.}
 
-Following features are described for bit-rock and friction models below:
+In the axial direction, the displacement is one-dimensional, while in the rotational direction, equations are coupled using the Stribeck friction model\reviewcomment{Sentence wording}. The model takes into account the velocity, well trajectory, and buoyancy effects when calculations of friction forces. Drag from drilling fluid is uniformly applied throughout the system. The friction model also has the following features:
 \begin{bulletedlist}
-    \item Bit-rock interaction model is coupled with bit's displacement and angular displacement.
-    \item Drilling mode gets activated when the DOC and angular displacement are higher than 0 (clockwise rotation). 
-    \item Friction model is coupled i.e, resultant reaction force from axial and tangential direction is taken into account.
+    \item Friction model is coupled.  The resultant velocity of the axial and torsional DOF are use to determine the friction force.
     \item No movement until the resultant reaction force reaches static limit.
     \item Coulomb friction model is implemented when the drill string is in motion.
     \item The friction state is tracked for each element.
 \end{bulletedlist}
 
-The Python-based source code is designed using a modular approach.  Most functions are distributed across separate Python files and are easily accessible by importing them. The code's operational instructions and guidelines are included in the provided manual, offering users comprehensive guidance on running the code effectively.
+The bit-rock interaction model is based on depth-of-cut and calculated by tracking the revolution of bit-depth relative to hole-depth. This feature contributes to a more realistic representation of the drilling process.  The following features are described for bit-rock and friction models:
+\begin{bulletedlist}
+    \item The bit-rock interaction model is coupled with bit's displacement and angular displacement.\reviewcomment{We need to explain what this is intended to convey.}
+    \item At each time step, the bit is considered to be drilling ahead when the DOC is higher than zero and the angular displacement is in the direction of rotation.
+\end{bulletedlist}
+
+The Python-based source code is designed using a modular approach.  Most functions are distributed across separate Python files and are easily accessible by importing them. The code's operational instructions and guidelines are included in the provided manual, offering users guidance on running the code effectively.
 
 \section{Top Drive Model}
 The model utilizes the axial and rotational velocity magnitudes of the top-drive as input and primarily computes the area under the velocity curve. It then provides outputs for axial and rotational top-drive velocities, as well as the corresponding displacements and rotations of the top-drive.
@@ -31,7 +35,7 @@ Torque on top-drive can be derived as
 where 
 $\tau_{top\_drive}$ is top-drive torque, $k_{t1}$ is torsional stiffness of first drill-string element, and $\theta_{top\_drive}$ is top-drive rotation.
 
-Furthermore, the model incorporates an additional parameter known as "Heave." If the runtime surpasses the heave delay, additional computations are conducted to determine heave displacement and Rate of Penetration (ROP). These calculated values are subsequently added to the original top-drive ROP and displacement data. The heave ROP and displacement calculations are represented by the equations
+Furthermore, the model incorporates an additional parameter known as "heave." If the runtime surpasses the heave delay, additional computations are conducted to determine heave displacement and Rate of Penetration (ROP). These calculated values are subsequently added to the original top-drive ROP and displacement data. The heave ROP and displacement calculations are represented by the equations
 \begin{equation}\label{Z_heave}
   Z_{heave} = x \cdot \sin(\omega \cdot (t - t_{heave\_delay}))
 \end{equation}
