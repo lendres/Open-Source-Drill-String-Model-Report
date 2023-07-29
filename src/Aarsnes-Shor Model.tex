@@ -269,7 +269,7 @@ The results implies that, for the further study, exact input parameters are requ
 
 The comparison of angular velocity and torque of top drive and bit between when the top drive is existed and removed are depicted in \figurename~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove} for Matlab and Python ver, respectively. In the modified code, top drive velocity and torque will refer that of top of the drill string. The original and modified code showed almost the same behavior except during the very first stage when the top drive set point velocity increased from 0 to 40 $RPM$ (from 0 to 1 second). The spikes can be seen when the top drive includes PI controller. Additionally, the decaying of the vibration amplitude was observed when the simulation was run with PI controller, which can be clearly seen in the Matlab ver.\ This is due to the damping effect from the PI controller while controlling the top drive velocity and it eventually converges the vibration.
 
-In summary, There are mainly two advantages of removing the PI controller in this project: 1) Obtain model with reduced parameters 2) Remove damping effect from the PI controller. However, if the PI controller is available in the rig, simulation with PI controller can provide more accurate results for field application.
+In summary, there are mainly two advantages of removing the PI controller in this project: \reviewcomment{Numbering implies an order or ranking.} 1) Obtain model with reduced parameters 2) Remove damping effect from the PI controller. \reviewcomment{If we are going to list things, let's use a list environment.  Otherwise, we can just write them in sentence form.} However, if the PI controller is available in the rig, simulation with PI controller can provide more accurate results for field application.
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{PI_matlab}
@@ -295,7 +295,7 @@ The model of Matlab ver.\ and Python ver.\ were compared before conducting the t
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{density_comp}
-  \caption[Effect of drill pipe density in Python ver.\ for Test case 1]{Effect of drill pipe density to drill string vibration for A-S model, Python ver.\ First and second columns show the results with $\rho$ = 409.5 $lb/ft^3$ and  $\rho$ = 122.65 $lb/ft^3$, respectively.}\label{figure_Python_reducedDensity}
+  \caption[Effect of drill pipe density in Python ver.\ for Test Case 1]{Effect of drill pipe density to drill string vibration for A-S model, Python ver.\ for Test Case 1.  The first and second columns show the results with $\rho$ = 409.5 $lb/ft^3$ and  $\rho$ = 122.65 $lb/ft^3$, respectively.}\label{figure_Python_reducedDensity}
 \end{figure}
 
  
