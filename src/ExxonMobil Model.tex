@@ -70,13 +70,13 @@ Modeling friction forces along the drill string is a challenging task due to the
 \end{figure}
 \footnotetext{It is called ``viscous friction'' in the manual.}
 
-As the force of friction increases, it introduces a negative damping effect\needsclarification[How so?]as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. In deviated wells, the axial velocity of the top drive and the drum's revolutions per minute do not instantaneously transfer to the bit. The elements of the drill string must overcome the static limits of friction to transfer energy to the next element. This lag in energy transfer is effectively described by the Stribeck curve, where the net frictional torque decreases as the sliding velocity increases.
+As the force of friction increases, it introduces a negative damping effect\needsclarification[How so?]as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. In deviated wells,\reviewcomment{Not just in deviated wells} the axial velocity of the top drive and the drum's\reviewcomment{Drum?} revolutions per minute do not instantaneously transfer to the bit. The elements of the drill string must overcome the static limits of friction to transfer energy to the next element. This lag in energy transfer is effectively described by the Stribeck curve\reviewcomment{Sounds a little like only the Stribeck curve can capture this.}, where the net frictional torque decreases as the sliding velocity increases.\reviewcomment{Why is this separated between torque and sliding instead of using the resultant?  This might be true, but it is describe as a cause-effect.}
 
 \begin{equation}\label{dyanmic_force}
   F_{\mu\; k} = \mu_{k}\times F_{n} \times (Sign(V_{Sliding}))
 \end{equation}
 
-The dynamic friction force opposes the direction of axial motion, while static friction force $F_{\mu,s}$ acts in the opposite direction of the sum of all tangential forces when there is no sliding motion $V_{Sliding}=0$. The magnitude of the static friction force is equal to the sum of all tangential forces. This condition is valid when there is no sliding motion $V_{Sliding}=0$.
+The dynamic friction force opposes the direction of axial motion, while static friction force $F_{\mu,s}$ acts in the opposite direction of the sum of all tangential forces when there is no sliding motion $V_{Sliding}=0$.\reviewcomment{Why would dynamic be only in the axial direction?  Why is static the sum only when there is not motion?} The magnitude of the static friction force is equal to the sum of all tangential forces. This condition is valid when there is no sliding motion $V_{Sliding}=0$.\reviewcomment{This paragraph needs to be rewritten.}
 
 \begin{equation}\label{zero}
   F_{\mu,s} + \sum F_{Ext} = 0
