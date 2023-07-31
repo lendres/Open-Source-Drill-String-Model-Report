@@ -74,14 +74,14 @@ The dynamic friction force opposes the direction of axial motion, while static f
 
 If static friction calculated above is less than $\mu_{k}\times F_{n}$, where $\mu_{s} > \mu_{k}\times F_{n}$, then the surface is not sliding.\reviewcomment{What are the meaning of these variables?}
 
-\textcolor[rgb]{0.00,0.07,1.00}{The static friction applies when there is no slip ($\vec{v}_s$=0). Velocity vector, $\vec{v}_s$, is a function of rotational and axial velocities of the pipe. More details for the velocity vector can be seen from [Cayeux. 2018]. The magnitude and direction of the static force are equal and opposite to that of external force at contact point, respectively (\equationname~\ref{zero}). On the other hand, dynamic friction applies when the pipe starts to slide ($\vec{v} > 0$). The dynamic friction acts in the opposite direction to the velocity vector and the equations of dynamic friction forces are shown in \equationname~\ref{eq:dynamicFF}, where $\mu_k$ is kinetic friction factor.}
+\textcolor[rgb]{0.00,0.07,1.00}{The static friction applies when there is no slip ($\vec{v}_s$=0), where the velocity vector, $\vec{v}_s$, is a function of rotational and axial velocities of the pipe. More details for the velocity vector can be seen from [Cayeux. 2018]. The magnitude and direction of the static friction force are equal and opposite to that of the external force at contact point, respectively (\equationname~\ref{zero}). On the other hand, dynamic friction applies when the pipe starts to slide ($\vec{v} > 0$). The dynamic friction acts in the opposite direction to the velocity vector. The equation of dynamic friction force is shown in \equationname~\ref{eq:dynamicFF}, where $\mu_k$ is kinetic friction factor and $\vec{F_n}$ is the normal force at the drill string.}
 
 \begin{equation}\label{zero}
   F_{\mu,s} + \sum F_{Ext} = 0
 \end{equation}
 
 \begin{equation}\label{eq:dynamicFF}
-  \vec{F_{\mu k}} = -\mu_k ||\vec{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
+  \vec{F_{\mu k}} = -\mu_k ||{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
 \end{equation}
 
 
