@@ -6,7 +6,7 @@
 % Perl
 % https://strawberryperl.com/
 
-\documentclass[usechapterstylenumberandname]{lebook}
+\documentclass{lecnpcreport}
 
 \input{"Setup"}
 \input{"Equations"}
@@ -16,7 +16,7 @@
 \input{"Title Page"}
 
 \frontmatter{}
-\pagestyle{cnpcusareportothermatter}
+
 
 % Generate the tables of things.
 \tableofcontents{}
@@ -26,8 +26,6 @@
 \input{"Executive Summary"}
 
 \mainmatter{}
-\pagestyle{cnpcusareportothermatter}
-
 % Glossary entries need to be defined before they can be referenced.
 \input{"Glossary"}
 \input{"Acronyms"}
@@ -77,9 +75,6 @@
 
 
 \backmatter{}
-\pagestyle{cnpcusareportothermatter}
-
-
 % Standard glossary entries.
 \printglossary[type=main, title=Glossary]{}
 \renewcommand*{\chaptertitle}{Glossary}
@@ -99,4 +94,4 @@
 
 \bibliography{strings, le}
 
-\end{document}
+\end{document} 

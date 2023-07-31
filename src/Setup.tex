@@ -6,29 +6,11 @@
 \newcommand*{\osdc}{\emph{Open-Source Drilling Community}}
 
 
-% HEADERS AND FOOTERS
-% Use this to use the CNPC header with the logo and a bottom footer with line and page number.
-\cnpctopbottommargins{}
-
 % GRAPHICS/FIGURES
 \usepackage{legraphicextensions}
 
-% Packages added by DY,% pseudo-algorithm
-%\usepackage{algorithm}
-%\usepackage{algpseudocode}
-
 % Set the search path for figures.  This way we can change it if required without having to modified all of the \includegraphics calls.
 \graphicspath{{Figures/}}
-
-% Tweaks to the amount of space floats can occupy on a page.
-%\textfraction       minimum fraction of page for text	0.2
-%\topfraction        maximum fraction of page for floats at top	0.7
-%\bottomfraction     maximum fraction of page for floats at bottom	0.3
-%\floatpagefraction	 minimum fraction of floatpage that should have floats	0.5
-\renewcommand{\textfraction}{0.05}
-\renewcommand{\topfraction}{0.95}
-\renewcommand{\bottomfraction}{0.95}
-\renewcommand{\floatpagefraction}{0.85}
 
 
 % TABLES
@@ -61,9 +43,6 @@
 % Package from DY for table
 \usepackage{multirow}
 \usepackage{makecell}
-
-% HEADERS AND FOOTERS
-\usepackage{leheadersandfooters}
 
 
 % FONTS
@@ -107,6 +86,8 @@
 
 
 % MATH
+\usepackage{amsmath}
+\allowdisplaybreaks{}
 \usepackage{lemath}
 \setlength{\mathwhererightmargin}{0pt}
 \setlength{\mathdefspacelength}{5.0pt}
