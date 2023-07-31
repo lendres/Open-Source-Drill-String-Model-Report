@@ -42,7 +42,7 @@ The model incorporates an additional parameter known as ``heave.''\reviewcomment
   ROP_{heave} = x \cdot \omega \cdot \cos(\omega \cdot (t - t_{heave\_delay}))
 \end{equation}
 where 
-$Z_{heave}$ and $ROP_{heave}$ are heave displacement and ROP, $x$ is heave amplitude, $\omega$ is heave angular velocity, $t$ is runtime and $t_{heave\_delay}$ is heave delay time.
+$Z_{heave}$ and $ROP_{heave}$ are heave displacement and ROP, $x$ is heave amplitude, $\omega$ is heave angular velocity, $t$ is runtime\reviewcomment{Run time or current time?} and $t_{heave\_delay}$ is heave delay time.
  
 \section{Bit Model}
 
@@ -50,14 +50,14 @@ The laws governing the bit-rock interface in drilling operations primarily rely 
 
 The interaction between PDC bits and the rock formation encompasses a combination of cutting and frictional contact, as identified by \referencename~\cite{ref:detournay1992a}. Weight on bit and torque on bit are further decomposed into cutting and frictional components, which are contingent upon the strength of the rock formation being drilled.
 \begin{equation}\label{WOB}
-  WOB_{bit} = (k_{WOB}\times DOC_{iteration}) + (c_{bit-axial\times \dot{Z}_{bit-ietration}})
+  WOB_{bit} = (k_{WOB}\times DOC_{iteration}) + (c_{bit-axial}\times \dot{Z}_{bit-ietration})
 \end{equation}
 \begin{equation}\label{Torque}
   TQ_{bit} = k_{TQ}\times DOC_{iteration\; array}\times (\pm1)
 \end{equation}
 where $k_{WOB}$, $k_{TQ}$ is weight on bit and torque coefficient, $DOC_{iteration}$ is depth of cut per iteration\needsclarification[Increment of what?], $C_{bit-axial}$ is axial drag coefficient of bit and $Z$ is bit displacement.
 
-The cutting components exhibit a direct dependency on the depth of cut, representing the material removed during drilling, while the frictional components are considered to account for the dissipated energy in the drilling process. To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a consolidated friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator.\reviewcomment{Friction belongs in next section.}\needsclarification[What is a consolidated friction model.]
+The cutting components exhibit a direct dependency on the depth of cut, representing the material removed during drilling, while the frictional components are considered to account for the dissipated energy in the drilling process. To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a consolidated friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator.\reviewcomment{Friction belongs in next section.}\needsclarification[What is a consolidated friction model?]
 
 \section{Friction Model}
 Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior, continuous changes in velocity, and a large combination of materials (formation, drilling fluid, et cetera). The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating torque within the system.
@@ -70,107 +70,101 @@ Modeling friction forces along the drill string is a challenging task due to the
 \end{figure}
 \footnotetext{It is called ``viscous friction'' in the manual.}
 
-As the force of friction increases, it introduces a negative damping effect\needsclarification[How so?]as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. In deviated wells,\reviewcomment{Not just in deviated wells} the axial velocity of the top drive and the drum's\reviewcomment{Drum?} revolutions per minute do not instantaneously transfer to the bit. The elements of the drill string must overcome the static limits of friction to transfer energy to the next element. This lag in energy transfer is effectively described by the Stribeck curve\reviewcomment{Sounds a little like only the Stribeck curve can capture this.}, where the net frictional torque decreases as the sliding velocity increases.\reviewcomment{Why is this separated between torque and sliding instead of using the resultant?  This might be true, but it is describe as a cause-effect.}
+As the force of friction increases, it introduces a negative damping effect\needsclarification[How so?]as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. The axial and rotational displacement and velocity of the top drive do not instantaneously transfer to the bit. The elements of the drill string must overcome inertia and static friction to transfer energy to the next element. This lag in energy transfer is effectively described by the Stribeck curve\reviewcomment{Sounds a little like only the Stribeck curve can capture this.}, where the net frictional torque decreases as the sliding velocity increases.\reviewcomment{Why is this separated between torque and sliding instead of using the resultant?  This might be true, but it is describe as a cause-effect.}
 
 \begin{equation}\label{dyanmic_force}
-  F_{\mu\; k} = \mu_{k}\times F_{n} \times (Sign(V_{Sliding}))
-\end{equation}
+  F_{\mu,k} = \mu_{k}\times F_{n} \times (Sign(V_{Sliding}))
+\end{equation}\reviewcomment{Where is this equation referenced?}\reviewcomment{What are the meaning of these variables?}
 
-The dynamic friction force opposes the direction of axial motion, while static friction force $F_{\mu,s}$ acts in the opposite direction of the sum of all tangential forces when there is no sliding motion $V_{Sliding}=0$.\reviewcomment{Why would dynamic be only in the axial direction?  Why is static the sum only when there is not motion?} The magnitude of the static friction force is equal to the sum of all tangential forces. This condition is valid when there is no sliding motion $V_{Sliding}=0$.\reviewcomment{This paragraph needs to be rewritten.}
+The dynamic friction force opposes the direction of axial motion, while static friction force $F_{\mu,s}$ acts in the opposite direction of the sum of all tangential forces when there is no sliding motion $V_{Sliding}=0$.\reviewcomment{Why would dynamic be only in the axial direction?  Why is static the sum only when there is not motion?} The magnitude of the static friction force is equal to the sum of all tangential forces. This condition is valid when there is no sliding motion $V_{Sliding}=0$.
 
 \begin{equation}\label{zero}
   F_{\mu,s} + \sum F_{Ext} = 0
 \end{equation}
 
-If static friction calculated above is less than $\mu_{k}\times F_{n}$, where $\mu_{s} > \mu_{k}\times F_{n}$, then the surface is not sliding.
+If static friction calculated above is less than $\mu_{k}\times F_{n}$, where $\mu_{s} > \mu_{k}\times F_{n}$, then the surface is not sliding.\reviewcomment{What are the meaning of these variables?}
 
-In order to avoid the discontinuities when $V_{iteration}$ tends to zero, Stribeck friction model is used. The following equation was proposed by (\referencename~\cite{ref:tustin1947a}):
+In order to avoid the discontinuities when $V_{iteration}$ tends to zero, the Stribeck friction model is used. The following equation was proposed by (\referencename~\cite{ref:tustin1947a}):
 
 \begin{equation}\label{Stribeck velocity}
   F_{\mu,i} = F_{\mu_{k},i} + (F_{\mu_{s},i} - F_{\mu_{k},i})e^{-\dfrac{|\nu_{i}|}{\nu_{cs}}}
-\end{equation} 
+\end{equation}\reviewcomment{These variables are different than in the documentation.}
 
-The model incorporates $F_{\mu,i}$ and $\nu_{CS}$ (Stribeck critical velocity) to consider the velocity weakening effect in the dynamics of the system. However, it should be noted that the model does not account for string Capstan effects.Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. In the case of a multi-element string, the distribution of borehole dampers is considered by assigning damper values to each element based on the fraction of its mass contribution. For example, Collars are assigned 50\% of the damper value, HWDP is assigned 30\%, and drill-pipes are assigned 20\%. 
+The model incorporates $F_{\mu,i}$ and $\nu_{CS}$ (Stribeck critical velocity) to consider the velocity weakening effect in the dynamics of the system. However, it should be noted that the model does not account for capstan effects. Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. In the case of a multi-element string, the distribution of borehole dampers is considered by assigning damper values to each element based on the fraction of its mass contribution. For example, drill collars are assigned 50\% of the damper value, HWDP is assigned 30\%, and drill-pipes are assigned 20\%.\reviewcomment{This needs come context.}
 
-Below you will find the Friction model input parameters:
+Below, the friction model input parameters are listed.
 \begin{bulletedlist}
-    \item Equivalent diameter of pipe.
-    \item Coulomb Friction Force.
-    \item Coulomb Friction Force Axial Component.
-    \item Coulomb Friction Force Tangential Component.
-    \item Coulomb Friction Torque Tangential Component.
-    \item Viscous Friction Force Axial Component.
-    \item Viscous Friction Force Tangential Direction Component.
-    \item Axial and Tangential components of Net Frictional Force and Torque.
+    \item Equivalent diameter of pipe
+    \item Coulomb friction force
+    \item Coulomb friction force axial component
+    \item Coulomb friction force tangential component
+    \item Coulomb friction torque tangential component
+    \item Viscous friction force axial component
+    \item Viscous friction force tangential direction component
+    \item Axial and tangential components of net frictional force and torque
 \end{bulletedlist}
 
 \section{Mathematical Background}
 
 The set of partial differential equations that describe the motion of the drill-string can be combined into a coupled axial-torsional system of second-order differential equations. 
 
-\begin{equation}\label{Governing equations}
-  \begin{cases}
-   \begin{aligned}
+\begin{align}\label{Governing equations}
      m_{i}\dfrac{\partial^{2}s_{i}}{\partial t^{2}} & = -k_{a,i}(s_{i}-s_{i-1}-l_{i}) + k_{a,j+1}(s_{i+1}-s_{i}-l_{i+1}) + \sum{F_{ext, i}} \\
      I_{i}l_{i}\dfrac{\partial^{2}\theta_{i}}{\partial t^{2}} & = -k_{t,i}(\theta_{i}-\theta_{i-1}-l_{i}) + k_{t,j+1}(\theta_{i}-\theta_{i+1}) + \sum{\tau_{ext,/ i}}
-   \end{aligned}
-  \end{cases}
-\end{equation}
+\end{align}
 
 To convert these equation sets into vector form, we can represent the variables and their derivatives as vectors.
 
-\begin{equation}\label{Vector_form}
-  \begin{aligned}
-  & \{M\} \ddot{\boldsymbol{Z}}+\left\{C_a\right\} \dot{\boldsymbol{Z}}+\left\{K_a\right\} \boldsymbol{Z}+\boldsymbol{f}_{\text {fric }}=\boldsymbol{F}_{\text {forcing }} \\
-  & \{J\} \ddot{\boldsymbol{\theta}}+\left\{C_t\right\} \dot{\boldsymbol{\theta}}+\left\{K_t\right\} \boldsymbol{\theta}+\boldsymbol{\tau}_{\text {fric }}=\boldsymbol{\tau}_{\text {forcing }}
-  \end{aligned}
-\end{equation}
+\begin{align}
+  \{M\} \ddot{\boldsymbol{Z}}+\left\{C_a\right\} \dot{\boldsymbol{Z}}+\left\{K_a\right\} \boldsymbol{Z}+\boldsymbol{f}_{\text {fric }} &= \boldsymbol{F}_{\text {forcing }} \label{eq:em_axial_vector_form}\\
+  \{J\} \ddot{\boldsymbol{\theta}}+\left\{C_t\right\} \dot{\boldsymbol{\theta}}+\left\{K_t\right\} \boldsymbol{\theta}+\boldsymbol{\tau}_{\text {fric }} &= \boldsymbol{\tau}_{\text {forcing }} \label{eq:em_torsional_vector_form}
+\end{align}
 
 
-\begin{equation}\label{12}
-  \begin{aligned}
-  & \{M\}=\left[\begin{array}{ccc}
-  m_1 & \cdots & \vdots \\
-  \vdots & \ddots & \vdots \\
-  \vdots & \cdots & m_n
-  \end{array}\right] \\
-  & \{J\}=\left[\begin{array}{ccc}
-  J_1 & \cdots & \vdots \\
-  \vdots & \ddots & \vdots \\
-  \vdots & \cdots & J_n
-  \end{array}\right] \\
-  & \left\{C_a\right\}=\left[\begin{array}{ccc}
-  c_{a 1} & \cdots & \vdots \\
-  \vdots & \ddots & \vdots \\
-  \vdots & \cdots & c_{a n}
-  \end{array}\right] \\
-  & \left\{C_t\right\}=\left[\begin{array}{ccc}
-  c_{t 1} & \cdots & \vdots \\
-  \vdots & \ddots & \vdots \\
-  \vdots & \cdots & c_{t n}
-  \end{array}\right] \\
-  & \left\{K_a\right\}=\left[\begin{array}{ccc}
-  k_{a 1} & -k_{a 2} & \cdots \\
-  -k_{a 2} & \ddots & \vdots \\
-  \vdots & \cdots & k_{a(n-1)}+k_{a n}
-  \end{array}\right] \\
-  & \left\{K_t\right\}=\left[\begin{array}{ccc}
-  k_{t 1} & -k_{t 1} & \cdots \\
-  -k_{t 1} & \ddots & \vdots \\
-  \vdots & \cdots & k_{t(n-1)}+k_{t n}
-  \end{array}\right] \\
-  & F_{\text {forcing }}=\left[\begin{array}{c}
-  \boldsymbol{k}_{a 1} \cdot Z_{\text {top\_drive}} \\
-  \vdots \\
-  -\boldsymbol{k}_{a\_\text{bit}} \cdot \text {DOC}
-  \end{array}\right] \\
-  & \mathcal{T}_{\text {forcing }}=\left[\begin{array}{c}
-  \boldsymbol{k}_{t 1} \cdot \theta_{\text {top\_drive}} \\
-  \vdots \\
-  -\boldsymbol{k}_{t\_\text{bit}} \cdot \text {DOC}
-  \end{array}\right]
-  \end{aligned}
-\end{equation}
+\begin{align}
+	\{M\} &= \left[\begin{array}{ccc}
+				m_1 & \cdots & \vdots \\
+				\vdots & \ddots & \vdots \\
+				\vdots & \cdots & m_n
+				\end{array}\right] \\
+	\{J\} &= \left[\begin{array}{ccc}
+			J_1 & \cdots & \vdots \\
+			\vdots & \ddots & \vdots \\
+			\vdots & \cdots & J_n  \\
+  			\end{array}\right] \\
+	\left\{C_a\right\} &= \left[\begin{array}{ccc}
+							c_{a 1} & \cdots & \vdots \\
+							\vdots & \ddots & \vdots \\
+							\vdots & \cdots & c_{a n}
+							\end{array}\right] \\
+	\left\{C_t\right\} &= \left[\begin{array}{ccc}
+							c_{t 1} & \cdots & \vdots \\
+							\vdots & \ddots & \vdots \\
+							\vdots & \cdots & c_{t n}
+							\end{array}\right] \\
+ 	\left\{K_a\right\} &= \left[\begin{array}{ccc}
+							k_{a 1} & -k_{a 2} & \cdots \\
+							-k_{a 2} & \ddots & \vdots \\
+							\vdots & \cdots & k_{a(n-1)}+k_{a n}
+							\end{array}\right] \\
+	\left\{K_t\right\} &= \left[\begin{array}{ccc}
+							k_{t 1} & -k_{t 1} & \cdots \\
+							-k_{t 1} & \ddots & \vdots \\
+							\vdots & \cdots & k_{t(n-1)}+k_{t n}
+							\end{array}\right] \\
+  	F_{\text {forcing }} &= \left[\begin{array}{c}
+							\boldsymbol{k}_{a 1} \cdot Z_{\text {top\_drive}} \\
+							\vdots \\
+							-\boldsymbol{k}_{a\_\text{bit}} \cdot \text {DOC}
+							\end{array}\right] \\
+	\mathcal{T}_{\text {forcing }} &= \left[\begin{array}{c}
+							\boldsymbol{k}_{t 1} \cdot \theta_{\text {top\_drive}} \\
+							\vdots \\
+							-\boldsymbol{k}_{t\_\text{bit}} \cdot \text {DOC}
+							\end{array}\right]
+	\label{eq:emmatrixform}
+\end{align}
+
 
 \begin{mathwhere}[1.0in]
 \mathdefitem{Z_0}{$\int V_0\ dt$}
@@ -195,9 +189,9 @@ The differential equation sets are solved using the ODE45 solver.\ This solver i
 
 \section{Findings and Code Modifications}
  
-The code was organized by creating separate folders for input and output files, facilitating easier usage and data storage. Additional modifications were made to the original source code to ensure compatibility with different operating systems, as it was previously designed exclusively for Windows and was ``Path" sensitive.
+The code was organized by creating separate folders for input and output files, facilitating easier usage and data storage. Additional modifications were made to the original source code to ensure compatibility with different operating systems, as it was previously designed exclusively for Windows and was ``Path'' sensitive.
 
-During testing, we encountered an issue with the ``on-bottom" case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling" mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling" mode, enabling dynamic changes in both hole depth and non-zero DOC.
+During testing, we encountered an issue with the ``on-bottom'' case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling'' mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling'' mode, enabling dynamic changes in both hole depth and non-zero DOC.
 
 \begin{figure}
   \centering
