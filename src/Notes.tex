@@ -1,0 +1,47 @@
+\chapter{Notes}
+\warning{Remove before final printing.}
+\section{To Do}
+\begin{bulletedlist}
+	\item Plot comparisons on top of each other so the phase difference is easier to see.
+	\item Make note of the reflections at the bottom of the angular velocities as something to investigate.
+	\item Note the run times.  Also note the type of computer (processor, et cetera) they were run on.
+	\item Get feedback at the final presentation about if there is enough to publish.
+	\item Add a description of the general procedure for comparing models (simplified drill string, turn off top drive controller...).
+    \item Add description of fRat in Test Case chapter and add the parameter in the table.
+\end{bulletedlist}
+
+\section{Feedback}
+Small differences in natural frequency might be a result of:
+\begin{bulletedlist}
+	\item One model is fully distributed and the other is a lumped mass model.
+	\item How are the tool joints accounted for in each model?  The ExxonMobil model can handle tool joints.  Tool joints can be set to the same diameter as the drill pipe to remove this effect.  In real BHAs versus models there can be up to a 10\% difference
+	\item For A-S model, $\frac{\Delta t}{\Delta x} < \textrm{speed-of-sound}$
+\end{bulletedlist}
+
+\section{Spike in Velocity}
+\begin{bulletedlist}
+	\item Could be caused by a change in rotational inertia.
+	\item This could be tested by using a gradual change in inertia.
+	\item This could be investigated by interrogating different spacial points to plot the time histories of the velocity and torque.
+\end{bulletedlist}
+
+To add to the conclusions:
+\begin{bulletedlist}
+	\item A-S model good for stick-slip and runs faster.
+	\item ExxonMobil currently has axial and torsional.
+\end{bulletedlist}
+
+\section{Work to do}
+\begin{bulletedlist}
+	\item Convergence tests for time and discretization.
+\end{bulletedlist}
+
+Noise at bit on ExxonMobil model:
+\begin{bulletedlist}
+	\item Convergence tests for time and discretization.
+	\item Could be numerical because there isn't damping at the bit.
+\end{bulletedlist}
+
+First case of open-source comparison for drill string models. 
+
+Two very different models in their development, but the results are very similar.
