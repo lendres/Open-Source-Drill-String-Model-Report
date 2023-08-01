@@ -28,7 +28,7 @@ Torque on top-drive can be derived as
 \end{equation}
 where $\tau_{top\_drive}$ is top-drive torque, $k_{t1}$ is torsional stiffness of first drill-string element, and $\theta_{top\_drive}$ is top-drive rotation angle. \reviewcomment{This equation and explanation still seems off.}
 
-The model incorporates an additional parameter known as \emph{heave} which accounts for the influence of waves during offshore operations. If the current time surpasses the heave delay\reviewcomment{This needs clarification.}, additional computations are conducted to determine heave displacement and rate of penetration (ROP). These calculated values are subsequently added to the original top-drive ROP and displacement data. The heave ROP and displacement calculations are represented by the equations
+The model incorporates an additional parameter known as \emph{heave} which accounts for the influence of waves during offshore operations. Additional computations are conducted to determine heave displacement and rate of penetration (ROP) when $t > t_{heave\_delay}$. These calculated values are subsequently added to the original top-drive ROP and displacement data. The heave ROP and displacement calculations are represented by the equations
 \begin{equation}\label{Z_heave}
   Z_{heave} = x \cdot \sin(\omega \cdot (t - t_{heave\_delay}))
 \end{equation}
@@ -88,13 +88,13 @@ The Stribeck friction has the negatively sloped characteristics taking place at 
 \end{equation}
 where $F_{\mu,k}$ is dynamic friction force, $\mu_k$ is dynamic friction factor, $F_n$ is the normal force, and $V_{sliding}$ is sliding velocity.
 
-The static friction force opposes the direction of axial motion (\equationname~\ref{dynamic_force}), while static friction force $F_{\mu,s}$ acts in the opposite direction of the sum of all tangential forces when there is no sliding motion $V_{Sliding}=0$.\reviewcomment{Why would dynamic be only in the axial direction?  Why is static the sum only when there is not motion?  This seems like it was rushed in the original document and needs to be checked.}The magnitude of the static friction force is equal to the sum of all tangential forces. That is, the condition
+The dynamic friction force opposes the direction of motion (\equationname~\ref{dynamic_force}). If, static friction applies, i.e., $\omega=0$; $V_{Sliding}=0$, then static friction force $F_{\mu,s}$ acts in the direction opposite to the sum of all frictional forces with a magnitude that equals the sum of all frictional forces. That is, the condition
 \begin{equation}\label{zero}
   F_{\mu,s} + \sum F_{Ext} = 0
 \end{equation}
 where $F_{\mu,s}$ is static friction force and $\sum F_{Ext}$ is the sum of external forces, is valid when there is no sliding motion $V_{Sliding}=0$.
 
-If dynamic friction force calculated above is less than $\mu_{s}\times F_{n}$, where $\mu_{s} > \mu_{k}$, then the surface is not sliding.
+If static friction force calculated above is less than $\mu_{s}\times F_{n}$, where $\mu_{s} > \mu_{k}$, then the surface is not sliding.
 
 In order to avoid the discontinuities when $V_i$ tends to zero, a Stribeck friction model is used. The following \equationname~\ref{Stribeck velocity} was proposed by (\referencename~\cite{ref:tustin1947a})
 \begin{equation}\label{Stribeck velocity}
