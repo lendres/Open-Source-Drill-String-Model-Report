@@ -28,7 +28,7 @@ Torque on top-drive can be derived as
 \end{equation}
 where $\tau_{top\_drive}$ is top-drive torque, $k_{t1}$ is torsional stiffness of first drill-string element, and $\theta_{top\_drive}$ is top-drive rotation angle. \reviewcomment{This equation and explanation still seems off.}
 
-The model incorporates an additional parameter known as \emph{heave} which accounts for the influence of waves during offshore operations. Additional computations are conducted to determine heave displacement and rate of penetration (ROP) when $t > t_{heave\_delay}$. These calculated values are subsequently added to the original top-drive ROP and displacement data. The heave ROP and displacement calculations are represented by the equations
+The model incorporates an additional parameter known as \emph{heave} which accounts for the influence of waves during offshore operations. If the current time surpasses the heave delay\reviewcomment{This needs clarification.}, additional computations are conducted to determine heave displacement and rate of penetration (ROP). These calculated values are subsequently added to the original top-drive ROP and displacement data. The heave ROP and displacement calculations are represented by the equations
 \begin{equation}\label{Z_heave}
   Z_{heave} = x \cdot \sin(\omega \cdot (t - t_{heave\_delay}))
 \end{equation}
@@ -52,7 +52,8 @@ The interaction between PDC bits and the rock formation encompasses a combinatio
 where $k_{WOB}$ is the weight on bit coefficent, $k_{TQ}$ is the torque on bit coefficient, $DOC_{iteration}$ is depth of cut at the current time step, $C_{bit-axial}$ is axial viscous damping, and $Z$ is bit displacement.  The rock strength is incorporated into the coefficients $k_{WOB}$ and $k_{TQ}$.  The dependency on the depth of cut represents the material removed during drilling.
 
 \section{Friction Model}
-Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior, continuous changes in velocity, and a large combination of materials (formation, drilling fluid, et cetera). The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating torque within the system.
+\sout{
+Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior, continuous changes in velocity, and a large combination of materials (formation, drilling fluid, et cetera). The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating torque within the system.}
 \begin{figure}
 	\begin{minipage}[t]{\linewidth}
 			\begin{minipage}[t]{0.3\linewidth}
@@ -71,40 +72,52 @@ Modeling friction forces along the drill string is a challenging task due to the
 	\end{minipage}
 	\caption[Comparison of friction models]{A comparison of Stribeck friction without fluid drag in~(\subref{fig:stribeckfriction}) and the Stribeck friction with fluid drag that is used in the ExxonMobil software in~(\subref{fig:exxonmobilfriction}).}\label{fig:frictionmodels}
 \end{figure}
-%\begin{figure}[!hbt]
-%  \centering
-%  \includegraphics[width=\linewidth]{Stribeck}
-%  \caption[Comparison of friction models]{Friction models: a) without fluid drag (\referencename~\cite{ref:cayeux2020a}), b) Coulomb + fluid drag (\referencename~\cite{ref:dixit2021a})}\label{Friction models}
-%\end{figure}
+\begin{figure}[!hbt]
+  \centering
+  \includegraphics[width=\linewidth]{Stribeck}
+  \caption[Comparison of friction models]{Friction models: a) without fluid drag (\referencename~\cite{ref:cayeux2020a}), b) Coulomb + fluid drag (\referencename~\cite{ref:dixit2021a})}\label{Friction models}
+\end{figure}
 
-To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator.
-
-As the force of friction increases, it introduces a negative damping effect\needsclarification[How so?]as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. The axial and rotational displacement and velocity of the top drive do not instantaneously transfer to the bit. The elements of the drill string must overcome inertia and static friction to transfer energy to the next element. This lag in energy transfer can be effectively described by the Stribeck curve, where the frictional forces decrease as the velocity increases (see \figurename~\ref{fig:frictionmodels}).
-
-The Stribeck friction has the negatively sloped characteristics taking place at low velocities (see \figurename~\ref{fig:stribeckfriction}). The Coulomb friction results in a constant force at any velocities. The fluid drag\footnote{It is called ``viscous friction`` in the manual.} opposes motion with the force directly proportional to the relative velocity which is shown in \figurename~\ref{fig:exxonmobilfriction}. The sum of the Coulomb and Stribeck frictions at the vicinity of zero velocity is often referred to as the breakaway friction. 
+\sout{
+To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator.}
+\sout{
+As the force of friction increases, it introduces a negative damping effect}\needsclarification[How so?]\sout{as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. The axial and rotational displacement and velocity of the top drive do not instantaneously transfer to the bit. The elements of the drill string must overcome inertia and static friction to transfer energy to the next element. This lag in energy transfer can be effectively described by the Stribeck curve, where the frictional forces decrease as the velocity increases (see } \figurename~\ref{fig:frictionmodels}).
+\sout{
+The Stribeck friction has the negatively sloped characteristics taking place at low velocities (see \figurename~\ref{fig:stribeckfriction}). The Coulomb friction results in a constant force at any velocities. The fluid drag}\footnote{It is called ``viscous friction`` in the manual.}\sout{ opposes motion with the force directly proportional to the relative velocity which is shown in \figurename~\ref{fig:exxonmobilfriction}. The sum of the Coulomb and Stribeck frictions at the vicinity of zero velocity is often referred to as the breakaway friction.}
 %\footnotetext{It is called ``viscous friction'' in the manual.}
 \begin{equation}\label{dynamic_force}
   F_{\mu,k} = \mu_{k}\times F_{n} \times (-V_{Sliding})
 \end{equation}
+\sout{
 where $F_{\mu,k}$ is dynamic friction force, $\mu_k$ is dynamic friction factor, $F_n$ is the normal force, and $V_{sliding}$ is sliding velocity.
-
-The dynamic friction force opposes the direction of motion (\equationname~\ref{dynamic_force}). If, static friction applies, i.e., $\omega=0$; $V_{Sliding}=0$, then static friction force $F_{\mu,s}$ acts in the direction opposite to the sum of all frictional forces with a magnitude that equals the sum of all frictional forces. That is, the condition
+The static friction force opposes the direction of axial motion (\equationname~\ref{dynamic_force}), while static friction force $F_{\mu,s}$ acts in the opposite direction of the sum of all tangential forces when there is no sliding motion $V_{Sliding}=0$.}\reviewcomment{Why would dynamic be only in the axial direction?  Why is static the sum only when there is not motion?  \sout{This seems like it was rushed in the original document and needs to be checked.}The magnitude of the static friction force is equal to the sum of all tangential forces. That is, the condition}
 \begin{equation}\label{zero}
   F_{\mu,s} + \sum F_{Ext} = 0
 \end{equation}
+\sout{
 where $F_{\mu,s}$ is static friction force and $\sum F_{Ext}$ is the sum of external forces, is valid when there is no sliding motion $V_{Sliding}=0$.
+If dynamic friction force calculated above is less than $\mu_{s}\times F_{n}$, where $\mu_{s} > \mu_{k}$, then the surface is not sliding.}
 
-If static friction force calculated above is less than $\mu_{s}\times F_{n}$, where $\mu_{s} > \mu_{k}$, then the surface is not sliding.
+The mechanical friction is modeled as Coulomb friction based on Stribeck effect. The static friction applies when there is no slip ($\vec{v}_s$=0), where the velocity vector, $\vec{v}_s$, is a function of rotational and axial velocities of the pipe. More details for the velocity vector can be seen from [Cayeux. 2018]. The magnitude and direction of the static friction force are equal and opposite to that of the external force at contact point, respectively (\equationname~\ref{eq:exxon_staticFF}). On the other hand, dynamic friction applies when the pipe starts to slide ($\vec{v} > 0$). The dynamic friction acts in the opposite direction to the velocity vector. The equation of dynamic friction force is shown in \equationname~\ref{eq:exxon_dynamicFF}, where $\mu_k$ is kinetic friction factor and $\vec{F_n}$ is the normal force at the drill string.
 
-In order to avoid the discontinuities when $V_i$ tends to zero, a Stribeck friction model is used. The following \equationname~\ref{Stribeck velocity} was proposed by (\referencename~\cite{ref:tustin1947a})
-\begin{equation}\label{Stribeck velocity}
-\mu_{effective} = \mu_k + ((\mu_s - \mu_k)\times e^{(-\frac{|V_i|}{V_{CS}})})
+\begin{equation}\label{eq:exxon_staticFF}
+  F_{\mu,s} + \sum F_{Ext} = 0
 \end{equation}
-where $\mu_{effective}$ is effective friction factor, $\mu_k$ is dynamic friction factor, $\mu_s$ is static friction factor, $V_{CS}$ is Stribeck critical velocity.
 
-The model incorporates $\mu_{effective}$ and $\nu_{CS}$ (Stribeck critical velocity) to consider the velocity weakening effect in the dynamics of the system. However, it should be noted that the model does not account for capstan effects. Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. Values of viscous dampers are held constants during simulation but the viscous frictional force will vary depending on the axial and tangential sliding velocities.
+\begin{equation}\label{eq:exxon_dynamicFF}
+  \vec{F_{\mu k}} = -\mu_k ||{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
+\end{equation}
 
-Below, the friction model input parameters are listed.
+
+In order to avoid the discontinuities when $V_s$ tends to zero, a Stribeck friction model is used. The following \equationname~\ref{Stribeck velocity} was proposed by (\referencename~\cite{ref:tustin1947a})
+\begin{equation}\label{Stribeck velocity}
+F_{\mu} = F_{\mu,k} + (F_{\mu,ks} - F_{\mu,k})\times e^{-\frac{|V_s|}{V_{CS}}}
+\end{equation}
+where $F_{\mu}$ is friction applied in the drill string and $V_{CS}$ is Stribeck critical velocity. \figurename~\ref{fig:stribeckfriction} illustrates the Striebec friction force as a function of sliding velocity. However, It should be noted that the model does not account for capstan effects.\reviewcomment{DY: what is capstan effect? do we have to leave this?} 
+
+Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. Values of viscous dampers are held constants during simulation, but the viscous frictional force will vary depending on the sliding velocities as can be seen in \figurename~\ref{fig:exxonmobilfriction}. 
+
+Below, the friction model input parameters are listed. \reviewcomment{DY: maybe we can remove this?}
 \begin{bulletedlist}
     \item Equivalent diameter of pipe
     \item Coulomb friction force
