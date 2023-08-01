@@ -11,31 +11,37 @@ Motion & Torsional & Torsional + Axial\\
 \hline
 Bit model & Constant & Dynamic \\                                                  
 \hline
-Friction model & Coulomb friction as a jump + fluid drag & Coulomb friction from Stribeck effect + fluid drag \\    
+Friction model & Coulomb friction as a jump + fluid drag & Coulomb friction from Stribeck effect\reviewcomment{Coulomb friction is velocity independent and Stribeck friction is velocity dependent.} + fluid drag \\    
 \hline
 System & PDE & ODE\\                                              
 \hline
-Solving method. & Forward scheme  & ODE45 Runge Kutta \\   
+Solving method & Forward scheme  & ODE45 Runge Kutta \\   
 \hline       
 Model approach & Distributed model & Lump Mass Spring \\
 \hline      
 \end{tabular}
 \caption[Summary of the difference between two models]{Summary of the difference between A-S and ExxonMobil models.}\label{table_model_difference}
 \end{table}
+
 \section{Test Case 1}
+\reviewcomment{Add a one sentence description of the test case so the reader does not have to flip back to a previous chapter to remember.}
 The results for Test Case 1 in each model are depicted in \figurename~\ref{figure_testcase1}. Both models exhibited similar outcomes, revealing a fundamental vibration frequency of 0.440 and 0.427 from A-S model and ExxonMobil model, respectively. The maximum bit velocity was at 79 $RPM$ for the A-S model and 81 $RPM$ for the ExxonMobil model. Also, the torque on the top drive was predicted as 1762 $lb\mbox{-}ft$ for the A-S model and 1814 $lb\mbox{-}ft$ for the ExxonMobil model. The comparisons between the results from different models are illustrated in \figurename~\ref{figure_testcase1_overlapped}. Although both models exhibited similar frequencies, the minimal frequency differences contribute to the observed shift between the two models.
+\reviewcomment{Let's create a summary table for all the values.}
 \begin{figure}[!hbt]
   \centering
   \includegraphics[width=6.5in]{output_figureTestCase1}
   \caption[Results of Test Case 1]{Results of Test Case 1. First and second columns show the results from A-S model (Matlab ver.) and ExxonMobil model, respectively.}\label{figure_testcase1}
 \end{figure}
+\reviewcomment{Let's change ``Results of Test Case 1'' to ``Angular velocity and torque plots for Test Case 1''.}
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{overlapped_figureTestCase1}
   \caption[Comparison of the results for Test Case 1]{Comparison between the results from A-S model (Matlab ver.) and ExxonMobil model for Test Case 1. The fundamental vibration frequency are 0.440 from A-S model and 0.427 from ExxonMobil model. The difference in frequency is small but the accumulated effect of this difference caused the phase shift during 60 seconds. Overall, both models matched well, showing similar amplitude of torque and angular velocity of top drive and bit.}\label{figure_testcase1_overlapped}
 \end{figure}
+\reviewcomment{Let's change ``Comparison of the results of Test Case 1'' to ``Angular velocity and torque comparison plots for Test Case 1''.}
 
 \section{Test Case 2}
+\reviewcomment{Add a one sentence description of each test case.}
 \subsection{Test Case 2a}
 The results for Test Case 2a from each model are depicted in \figurename~\ref{figure_testcase2_1}. Similar to Test Case 1, both models well matched with fundamental vibration frequencies of 0.283 and 0.272 for A-S model and ExxonMobil model, respectively. The maximum bit velocity was at 78 $RPM$ for the A-S model and 79 $RPM$ for the ExxonMobil model, while the maximum torque on the top drive was predicted as 6643 $lb\mbox{-}ft$ for the A-S model and 6891 $lb\mbox{-}ft$ for the ExxonMobil model. \figurename~\ref{figure_testcase2_1_overlapped} illustrates the comparison of the results from two different models. 
 \begin{figure}
@@ -69,6 +75,7 @@ The fundamental frequencies of the vibration were 0.280 and 0.269 for A-S model 
 \end{figure}
 
 \section{Test Case 3}
+\reviewcomment{Add a one sentence description of the test case.}
 Test Case 3 shows the effect of BHA components in vertical well. The results show similarities with Test Case 1, but fluctuations in the peak values of the vibration for both bit angular velocity and top drive torque were observed. Specifically, the peak value decreases until 80 seconds and then starts to increase again, ultimately reaching the same value as the beginning at 120 second. Figure \ref{figure_testcase3} and Figure \ref{figure_testcase3_overlapped} illustrate the results for each model and comparisons for Test Case 3. \ref{figure_testcase3_overlapped} shows the simulation results for 120 seconds to clearly show the change in the peak values.
 
 Compared to Test Case 1 (without BHA components), the fundamental vibration frequencies in Test Case 3 were slightly decreased, which are 0.420 $Hz$ for the A-S model and 0.408 $Hz$ for the ExxonMobil model. Conversely, the bit velocity and torque on the top drive increased. The maximum bit velocity was 80 $RPM$ for the A-S model and 81 $RPM$ for the ExxonMobil model, while the torque on the top drive was predicted as 1844 $lb\mbox{-}ft$ for the A-S model and 1841 $lb\mbox{-}ft$ for the ExxonMobil model. 
@@ -85,6 +92,8 @@ Compared to Test Case 1 (without BHA components), the fundamental vibration freq
 \end{figure}
 
 \section{Test Case 4}
+\reviewcomment{Add a one sentence description of each test case.}
+
 \subsection{Test Case 4a}
 Results for Test Case 4a for each model and the comparison between the two models are depicted in \figurename~\ref{figure_testcase4_1} and \ref{figure_testCase4_1_overlapped}. Compared to the difference between Test Case 1 and 3, which presents the BHA effect on vertical well, The effect of BHA components were more significant when comparing Test Case 2a and 4a. The maximum top drive torque increased for about 1500 $lb\mbox{-}ft$ when adding the BHA components to the drill string, while the bit angular velocity was almost the same. This increased effect of the BHA components in Test Case 2a and 4a, compared to Test Case 1 and 3, can be the results of increased depth, Coulomb friction and decreased shear modulus (refer to input parameters in \chaptername~\ref{ch:testcases}). Additional sensitivity tests can should be conducted to analyze the effect of BHA components on drill string vibration.
 
