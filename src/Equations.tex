@@ -1,24 +1,11 @@
-% Removes italics from terms that use the \mbf{} command.  Use this or next command, but not both.
-\newcommand*{\mrm}[1]{\mathrm{#1}}
+% There are issues with using the equations inside the of a glossary entry, but commands that contain math can be used.
 
-% Math fonts.
-\newcommand*{\mscalar}[1]{\mbox{$#1$}}
-\newcommand*{\mbf}[1]{\mbox{\boldmath$\mrm{#1}$}}
-\newcommand*{\half}{\textstyle\frac{1}{2}}
+% STATIC and DYNAMIC
+\newcommand*{\staticforcebalance}{$a = 0; \sum f = 0$}
 
-% Points, lines, angles and polygons.
-\newcommand*{\point}[1]{\mbf{#1}}
-\newcommand*{\pointprime}[1]{\mbf{#1^\prime}}
-\newcommand*{\pointdoubleprime}[1]{\mbf{#1^{\prime\prime}}}
-\newcommand*{\lineseg}[1]{\mbf{\overline{#1}}}
-\newcommand*{\anglenot}[1]{\mbf{\angle#1}}
-
-% STATISTICS
-% Scalars.
+\newcommand*{\systemproperty}{$p$}
+\newcommand*{\continuoussteadystate}{\ensuremath{\left( \frac{\partial p}{\partial t}=0 \;\;\forall\;\; t \right)}}
+\newcommand*{\discretesteadystate}{\ensuremath{\left( p_t-p_{t-1}=0 \;\;\forall\;\; t \right)}}
 
 
-% Coordinate system axes.
-\newcommand*{\axis}[1]{\mbf{\vec{#1}}}
-\newcommand*{\xaxis}{\axis{x}}
-\newcommand*{\yaxis}{\axis{y}}
-\newcommand*{\zaxis}{\axis{z}} 
+\newcommand*{\dynamicforcebalance}{$a \neq 0; \sum f = ma$}

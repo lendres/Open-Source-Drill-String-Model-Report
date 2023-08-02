@@ -10,9 +10,7 @@ The models associated with drilling dynamics that were available on the \osdc{} 
 
 Two models that passed all the criteria were selected for in-depth evaluation.  The first is the torsional model of Aarsnes-Shor.  The model has two versions available; the more mature Matlab version and a newer port to Python.  The second model is from ExxonMobil and written in Python.  The theory and source code of both models was examined.
 
-To compare the models, a set of Test Cases was developed.  The procedures, methods, and reasoning for selecting the Test Cases is documented.
-
-The models were then run on all the Test Cases and the results compared.  A final set of conclusions and recommendations are reported.
+To compare the models, a set of Test Cases was developed.  The procedures, methods, and reasoning for selecting the Test Cases is documented.  The models were then run on all the Test Cases and the results compared.  A final set of conclusions and recommendations are reported.
 
 \section{Objectives}
 The primary motivation for CNPC USA was to evaluate soft string models.  However, in order to compare models, it is necessary to have a set of Test Cases to use as a benchmark.  In addition, well defined procedures should be used in order to allow a direction comparison.  Based on these requirements, the following were adopted as objectives.
@@ -39,9 +37,21 @@ On the contrary, this collaboration is viewed as demonstrating the benefits of o
 
 %The team is eternally grateful for allowing access to these models.
 \section{Nomenclature}
-\notfinished{}
-\reviewcomment{Add info about \emph{transient} and \emph{steady-state} use.}
+\subsection{Steady-State and Transient}
+In vibration analysis, the terms ``transient'' and ``steady-state'' refer to the way in which the vibration of a system changes over time.  Transient vibration refers to a vibration that is changing over time. This could be due to a sudden change in the system, such as a machine starting up or shutting down, or a change in the load or excitation of the system.  Transient vibration is often characterized by a complex frequency spectrum and a rapidly changing amplitude.  Steady-state vibration refers to vibration that remains constant over time.  This could be due to a system running at a constant speed or a constant load or excitation.  Steady-state vibration is often characterized by a relatively simple frequency spectrum and a relatively constant amplitude.  Succinctly, transient vibration is a vibration that changes over time, while steady-state vibration is a vibration that remains constant over time.
 
+In classical mechanics and dynamics, these are well defined and understood.  Steady-state vibrations refer to harmonic vibration that represents the particular part of the solution to the governing equations of motion without forces (free vibration) or only sinusoidal forces (forced vibration).  The transient response is assumed to be damped out so that it has diminished to zero.
+
+A discrete systems with non-harmonic loading (e.g., the discontinuity between static and dynamic friction), would not strictly fall into this definition.  However, there are obvious similarities.  A clear response to machine start up and other changes in loading is evident.  Similarly, it can be seen that, given time, the system will damp out its response to these changes.  \emph{Therefore, in direct analogy to classical harmonic vibration, we will refer to these as the transient and steady-state phase.}
+
+Where the classical systems and the discrete, non-harmonic loading cases differ is in the steady-state phase.  While the classical and the discrete steady-states are comparable in the broad sense that the transient phase has been damped out, they do exhibit somewhat different traits.  The classical steady-state displays an exactly repeating pattern of behavior.  The discrete non-harmonic steady-state may exhibit slight differences from cycle to cycle of vibration.  Nonetheless, it is useful to discuss this phase in the same manner as the classical version.
+
+\subsection{Models}
+\subsubsection{Static and Dynamic}
+Models can be classified as either static or dynamic.  Static models do not account for acceleration (\staticforcebalance{}).  Dynamic models account for inertia (\dynamicforcebalance{}).  Within each of these categories, there are a variety of types of models (single body/multibody, rigid body/flexible, et cetera).  Particularly for dynamics models, there is a broad range of fidelities (or complexity).  The authors did not feel the compulsion to name or classify each of these types of dynamics models.  Rather, a simpler, more straightforward approach is taken and the features of each model are described.
+
+\subsubsection{Steady-State and Transient}
+``Steady-state model'' is a synonym for ``static model.'' Similarly, ``transient model'' is used to mean a dynamic model that can capture transient phases.  The authors prefer the terms ``static'' and ``dynamic'' models.  Partially because they are more approachable and easier to understand.  But also as a way to prevent confusion.  The terms ``steady-state'' and ``transient'' will be reserved for the steady-state and transient phases of a dynamic response.
 
 \section{Guidance and Technical Committee}
 Several members of the industry and academia played key roles in this project.  Their support and guidance is greatly appreciated.  Without their assistance, this project would not have been possible.  Brief biographies are presented below.

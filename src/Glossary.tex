@@ -1,8 +1,6 @@
 % GLOSSARY ENTRIES.
-
-%\addcontentsline{toc}{chapter}{Glossary}
-%\newcommand*{\gsep}{\hspace*{1.5pt}:}
-%\newcommand*{\gsep}{.}
+% There are issues with using the equations inside the of a glossary entry, but commands that contain math can be used.  See "Equations.tex"
+% for the definitions of commands used in this file.
 
 % The \glossary command is comma separated, so use this command to add commas to the glossary.
 \newcommand*{\comma}{,}
@@ -25,7 +23,6 @@
 	description=In the drilling dynamics realm\comma{} this taken the definition of a dynamic drill string code combined with a high fidelity drill bit code
 }
 
-\newcommand*{\dynamicforcebalance}{$a \neq 0; \sum F = MA$}
 \newglossaryentry{dynamicmodel}
 {
 	name=dynamic model,
@@ -62,7 +59,6 @@
 	description={A drill string model that assumes constant contact with the borehole wall.  This is an equivalent assumption to no lateral bending moments}
 }
 
-\newcommand*{\staticforcebalance}{$a = 0; \sum F = 0$}
 \newglossaryentry{staticmodel}
 {
 	name=static model,
@@ -81,19 +77,16 @@
 	description={A drill string model that does not assume constant contact with the borehole wall.  Lateral bending moments can be carried in this type of model}
 }
 
-\newcommand*{\systemproperty}{$p$}
-\newcommand*{\continuoussteadystate}{\ensuremath{\left( \frac{\partial p}{\partial t}=0 \;\;\forall\;\; t \right)}}
-\newcommand*{\discretesteadystate}{\ensuremath{\left( p_t-p_{t-1}=0 \;\;\forall\;\; t \right)}}
 \newglossaryentry{steadystate}
 {
 	name=steady state,
-	description=Steady-state can have two meanings. In the first\comma{} a system or a process is in steady-state if the variables which define the behavior of the system or the process are unchanging in time.  In continuous time\comma{} this means that for those properties \systemproperty{} of the system\comma{} the partial derivative with respect to time is zero and remains so \continuoussteadystate{}.  In discrete time\comma{} it means that the first difference of each property is zero and remains so \discretesteadystate{}.  The second meaning refers to steady-state harmonic vibration that represents the particular part of the solution to the governing equations of motion with only sinusoidal forces.  The transient response is assumed to be damped out so that it has diminished to zero
+	description=A system or a process is in steady-state if the variables which define the behavior of the system or the process are unchanging in time.  A formal descriptions for continuous time\comma{} is that for those properties \systemproperty{} of the system\comma{} the partial derivative with respect to time is zero and remains so \continuoussteadystate{}.  Similarly, in discrete time\comma{} it means that the first difference of each property is zero and remains so \discretesteadystate{}.
 }
 
 \newglossaryentry{steadystatemodel}
 {
 	name=steady-state model,
-	description=The preferred terms are \textit{static model} or \textit{dynamic model} as they are more general and more commonly used.  See \emph{steady-state}
+	description=The preferred term is \textit{static model}.  See \emph{steady-state}
 }
 
 %\newglossaryentry{supervisedlearning}
@@ -108,10 +101,10 @@
 	description=Time domain and dynamic model are synonyms.  See \emph{dynamic model}
 }
 
-\newglossaryentry{torquefunction}
+\newglossaryentry{bitfunction}
 {
-	name=torque function,
-	description=A mathematical equation to convert input parameters such as WOB to a torque value.  Used at the end of a drill string model to generate the torque that would result from the bit-rock interaction.  It does not account for bottom hole patterns or interaction
+	name=bit function,
+	description=A mathematical equation representing a bit.  Used at the end of a drill string model to generate a response that would result from the bit-rock interaction.  It is a mathematic equation or equations that can be rapidly solved.  The bottom hole pattern is often is not represented.  When it is represented it is simplified.  It does not allow for the individual cutting structure elements interacting with the rock
 }
 
 \newglossaryentry{transientdynamics}
@@ -123,7 +116,7 @@
 \newglossaryentry{transientmodel}
 {
 	name=transient model,
-	description=The preferred term is \textit{dynamic model}.  See transient dynamics
+	description=The preferred term is \textit{dynamic model}.  See also \emph{transient dynamics}
 }
 
 %\newglossaryentry{uniformdistribution}
