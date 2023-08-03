@@ -1,13 +1,17 @@
 \chapter{Test Cases}
 \label{ch:testcases}
-The Test Cases presented in this study serve the purpose of comparing and validating different drill string models. All the parameters and results from AS model and ExxonMobil model are provided, therefore; other models can use these Test Cases for validation. All the suggested Test Cases are off-bottom scenarios since AS model only has torsional modeling capability. However, these Test Cases can provide reliable means of cross-checking and comparing the performances of various models. 
+Test Cases were developed in this study for the purpose of comparing and validating different drill string models.  The Test Cases are meant to be general and provide a reliable means of cross-checking and comparing the performances of various models, not just those specific to the current study.  As such, the key parameters, borehole design, and other information required to reproduce the Test Cases is provided.
 
-Total six Test Cases are presented. Specifically, Test Cases 1 and 3 encompass scenarios involving vertical wells, with the distinction in the presence of BHA components. Similarly, Test Cases 2 and 4 are the deviated well scenarios with 60\textdegree inclination angle. The only difference between Test Case 2 and 4 are the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into Test Case 2a, 2b, Test Case 4a and 4b. This extension of Test Cases was established for deviated wells, as vertical wells experience no friction where the drill string - well bore friction is assumed to be only Coulomb friction from the normal force at drill string. \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case. 
+\section{Recommended Procedures for Developing Test Cases}
+\notfinished{}
+
+\section{Overview of Test Cases}
+In total, six Test Cases are presented. Test Cases 1 and 3 encompass scenarios involve vertical wells, with the distinction being the presence of BHA components. Similarly, Test Cases 2 and 4 are the deviated well scenarios with 60\textdegree{}\reviewcomment{Needs brackets to fix spacing.} inclination angle. The only difference between Test Case 2 and 4 are the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into \emph{a} and \emph{b} subcases (2a, 2b, 4a, 4b). This extension of the Test Cases was established for deviated wells, as vertical wells experience no friction where the drill string - well bore friction is assumed to be only Coulomb friction from the normal force at drill string.\reviewcomment{Coulomb only?} All the current Test Cases are for off-bottom scenarios.  \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case. 
 \begin{table}[!hbt]
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
-        \textbf{Test Cases} & \textbf{Well Type} & \textbf{Static FF} & \textbf{Dynamic FF}& \textbf{BHA}\\
+        \textbf{Test Case} & \textbf{Well Type} & \textbf{Static FF} & \textbf{Dynamic FF}& \textbf{BHA}\\
         \hline
         Test Case 1 & Vertical & 0 & 0 & X\\
         \hline
@@ -24,15 +28,15 @@ Total six Test Cases are presented. Specifically, Test Cases 1 and 3 encompass s
     \end{tabular}
     \caption[Scenarios of different Test Cases]{Scenarios of different Test Cases.}
     \label{Test_case_summary}
-\end{table} 
-Additionally, the viscous damping is neglected for the simplicity of the test in this project, but it can be included in future studies. Also, The test was conducted by assuming the top drive velocity to be increased from 0 $RPM$ to 40 $RPM$ at 1 second and maintained the velocity for the rest of the time. The top drive set velocity is shown in \figurename~\ref{figure_topdrive_VSP}
-\begin{figure}[!hbt]
+\end{table}\reviewcomment{Add top drive and time length to table?}\reviewcomment{Use ``Y'' and ``N'' for the inclusion of the BHA?}
+Additionally, the viscous damping is neglected for the simplicity of the tests in this project, but it can be included in future studies. Also, the tests were conducted by assuming the top drive velocity to be increased from 0 $RPM$ to 40 $RPM$ at 1 second and maintained the velocity for the rest of the time. The top drive set velocity is shown in \figurename~\ref{figure_topdrive_VSP}
+\begin{figure}
   \centering
   \includegraphics[width=3.5in]{TopdriveVSP}
   \caption[Top drive set velocity for the Test Cases]{Top drive set velocity for the Test Cases.}\label{figure_topdrive_VSP}
 \end{figure}
 
-Some of the findings and modifications made on the provided source code of the AS and ExxonMobil model are presented in this chapter. In the AS model, the effect of the PI controller was tested. Also, some of the issues with the Python ver.\ of AS model are shown. Since this issue has not been resolved yet, only the Matlab ver./ was used for the analysis in this project. On the other hand, The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. 
+Some of the findings and modifications made on the provided source code of the AS and ExxonMobil model are presented in this chapter. In the AS model, the effect of the PI controller was tested. Also, some of the issues with the Python ver.\ of AS model are shown. Since this issue has not been resolved yet, only the Matlab ver.\ was used for the analysis in this project. On the other hand, The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. \reviewcomment{Remove all references to the tested models from this chapter, make it general to any model.}
 \section{Terminology}
 \subsection{With BHA vs Without BHA}
 
@@ -40,27 +44,30 @@ The Test Cases enables comparing drilling scenarios with and without the BHA com
 %It introduces specific parameters that differ from the rest of the drill pipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drill pipe above the bit will have the same weight and diameter as the rest of the drill pipe.
 
 \begin{definition}{Without BHA}
-Analysis with a single drill pipe configuration to maintain simplicity and establish a baseline. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe are uniform.
+Analysis with a single drill pipe configuration to maintain simplicity and establish a baseline. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe are uniform.\reviewcomment{Tool joints ignored?}
 \end{definition}
 \begin{definition}{With BHA}
-Introduce the BHA into the system and examine its impact on drilling dynamics. The BHA's distinct parameters, such as its weight and diameter, will be considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drill string's behavior and the overall drilling process.
+The BHA's distinct parameters, such as its weight and diameter, are considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drill string's behavior and the overall drilling process.\reviewcomment{Tool joints ignored?}\reviewcomment{Just explain the terminology.}
 \end{definition}
 
 %In the next subsection we will explore additional configurations with varying BHA designs and properties to further investigate their influence on drilling efficiency and performance. These test cases will enable us to optimize drilling operations and develop a comprehensive understanding of how the presence or absence of the BHA affects the system's behavior.
 
 \subsection{Same vs Different FF}
 
-Most of the drill string models, including A-S and ExxonMobil model, take into account both static and dynamic friction factors. The friction factors will affect the drill string vibration in deviated well, since the interaction between the drill string and the wellbore wall becomes complex due to the influence of gravity and the inclination angle.
+Many drill string models take into account both static and dynamic friction factors. The friction factors will affect the drill string vibration in deviated well, since the interaction between the drill string and the wellbore wall becomes complex due to the influence of gravity and the inclination angle.\wording{}
 %but the disparity in FF values is expected to be more pronounced in inclined wells compared to vertical ones. 
-Therefore, to gain insights into the impact of friction factors on drilling dynamics, a detailed investigation is warranted.
+Therefore, to gain insights into the impact of friction factors on drilling dynamics, a detailed investigation is warranted.\wording{}
 %This results in differing frictional forces acting on the drill string as it traverses the wellbore. As a consequence, the FF values play a crucial role in affecting the drilling performance and behavior.
 
+\reviewcomment{Zero friction?}
 \begin{definition}{Same FF}
-Test conducted with the same value of static and dynamic friction. It assumes there is no change between static and dynamic friction while drilling, which could be the baseline of the analysis.
+Tests conducted with the same value of static and dynamic friction.
 \end{definition}
 \begin{definition}{Different FF}
-Test conducted with different values between static and dynamic friction. This test will help analyze the effect of dynamic friction in the system.
+Tests conducted with different values of static and dynamic friction.
 \end{definition}
+
+
 
 
 \section{Test Case 1 - Vertical Well Without BHA}
