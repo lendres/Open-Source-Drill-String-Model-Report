@@ -40,7 +40,8 @@ Aarsnes and Shor developed a distributed model for torsional dynamics of drill s
 \begin{bulletedlist}
 	\item No bit-rock interactions
 	\item No axial or lateral movement
-	\item Both Coulomb friction and viscous friction are assumed for friction model \reviewcomment{Wording of Coulomb friction model.}
+	\item The friction from drill string - wellbore contact is assumed as Coulomb friction. \reviewcomment{Wording of Coulomb friction model.}\resolvedcomment{}
+    \item Viscous friction is considered which results from viscous shear of the drilling mud and the rolling con
 \end{bulletedlist}
 Compared to a more sophisticated friction model (e.g., a Stribeck friction model), the friction model is simplified by Coulomb friction model. However, reliable results were obtained from field validation (see \referencename~\cite{ref:aarsnes2017a}). \wording{}\resolvedcomment{} Two versions of the source code are available, one implemented in Matlab and the other in Python.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion. Please see \chaptername~\ref{ch:aarnessshormodel} for a complete analysis.
 
