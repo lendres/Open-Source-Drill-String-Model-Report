@@ -3,7 +3,7 @@
 This Chapter contains results and its comparisons from both A-S and ExxonMobil models for all the Test Cases. More details for the Test Cases can be find in \chaptername~\ref{ch:testcases}. A summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}.
 \begin{table}
 \centering
-\begin{tabular}{|c|p{2.1in}|p{2.1in}|c|}
+\begin{tabular}{|c|p{2.1in}|p{2.3in}|c|}
 \hline
 \tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
 \hline
@@ -11,11 +11,11 @@ Motion & Torsional & Torsional + Axial\\
 \hline
 Bit model & Constant & Dynamic \\
 \hline
-Friction model & Coulomb friction as a jump + fluid drag & Stribeck friction with fluid drag effect \\
+Friction model & Coulomb friction \& fluid drag & A viscous friction Stribeck model \\
 \hline
 System & PDE & ODE\\
 \hline
-Solving method & Forward scheme  & ODE45 Runge Kutta \\
+Solving method & \reviewcomment{Forward scheme?}  & ODE45 Runge Kutta \\
 \hline
 Model approach & Distributed model & Lump Mass Spring \\
 \hline
@@ -25,7 +25,6 @@ Model approach & Distributed model & Lump Mass Spring \\
 
 \section{Test Case 1}
 Test case 1 represents a scenario with vertical well without BHA components. The results for Test Case 1 in each model are depicted in \figurename~\ref{figure_testcase1}. Both models exhibited similar outcomes, revealing a fundamental vibration frequency of 0.440 and 0.427 from A-S model and ExxonMobil model, respectively. The maximum bit velocity was at 79 $RPM$ for the A-S model and 81 $RPM$ for the ExxonMobil model. Also, the torque on the top drive was predicted as 1762 $lb\mbox{-}ft$ for the A-S model and 1814 $lb\mbox{-}ft$ for the ExxonMobil model. The comparisons between the results from different models are illustrated in \figurename~\ref{figure_testcase1_overlapped} and summarized in \tablename~\ref{table_summary_testcase1}. Although both models exhibited similar frequencies, the minimal frequency differences contribute to the observed shift between the two models.
-\reviewcomment{Let's create a summary table for all the values.}\resolvedcomment{}
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{output_figureTestCase1}
@@ -34,7 +33,7 @@ Test case 1 represents a scenario with vertical well without BHA components. The
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{overlapped_figureTestCase1}
-  \caption[Angular velocity and torque comparison plots for Test Case 1]{Angular velocity and torque comparison between A-S model (Matlab ver.) and ExxonMobil model for Test Case 1. The fundamental vibration frequency are 0.440 from A-S model and 0.427 from ExxonMobil model. The difference in frequency is small but the accumulated effect of this difference caused the phase shift during 60 seconds. Overall, both models matched well, showing similar amplitude of torque and angular velocity of top drive and bit.}\label{figure_testcase1_overlapped}
+  \caption[Angular velocity and torque comparison plots for Test Case 1]{Angular velocity and torque comparison between A-S model (Matlab ver.) and ExxonMobil model for Test Case 1. The fundamental vibration frequency are 0.440 from A-S model and 0.427 from ExxonMobil model. The difference in frequency is small, but the accumulated effect of this difference caused a phase shift as the simulation continued. Overall, both models matched well, showing similar amplitude of torque and angular velocity of top drive and bit.}\label{figure_testcase1_overlapped}
 \end{figure}
 \begin{table}
 \centering
@@ -55,10 +54,10 @@ Computation time & 36 $s$ & 106 $s$\\
 \end{table}
 
 \section{Test Case 2}
-Test case 2 simulates a deviated well scenario without BHA components. In Test Case 2a, both the static and dynamic friction factors are set to 0.5. Test Case 2b uses a static friction factor of 0.5 and a dynamic friction factor of 0.25.
+Test Case 2 simulates a deviated well scenario without BHA components. In Test Case 2a, both the static and dynamic friction factors are set to 0.5. Test Case 2b uses a static friction factor of 0.5 and a dynamic friction factor of 0.25.
 
 \subsection{Test Case 2a}
-The results for Test Case 2a from each model are depicted in \figurename~\ref{figure_testcase2_1}. Similar to Test Case 1, both models well matched with fundamental vibration frequencies of 0.283 and 0.272 for A-S model and ExxonMobil model, respectively. The maximum bit velocity was at 78 $RPM$ for the A-S model and 79 $RPM$ for the ExxonMobil model, while the maximum torque on the top drive was predicted as 6643 $lb\mbox{-}ft$ for the A-S model and 6891 $lb\mbox{-}ft$ for the ExxonMobil model. \figurename~\ref{figure_testcase2_1_overlapped} illustrates the comparison of the results from two different models and the features are summarized in \tablename~\ref{table_summary_testcase2a}.
+The results for Test Case 2a from each model are depicted in \figurename~\ref{figure_testcase2_1}. Similar to Test Case 1, both models are well matched with fundamental vibration frequencies of 0.283 and 0.272 for A-S model and ExxonMobil model, respectively. The maximum bit velocity was at 78 $RPM$ for the A-S model and 79 $RPM$ for the ExxonMobil model, while the maximum torque on the top drive was predicted as 6643 $lb\mbox{-}ft$ for the A-S model and 6891 $lb\mbox{-}ft$ for the ExxonMobil model. \figurename~\ref{figure_testcase2_1_overlapped} illustrates the comparison of the results from two different models and the features are summarized in \tablename~\ref{table_summary_testcase2a}.
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{output_figureTestCase2_1}
@@ -90,7 +89,7 @@ Computation time & 25 $s$ & 117 $s$\\
 
 
 \subsection{Test Case 2b}
-The results for Test Case 2b from each model are depicted in \figurename~\ref{figure_testcase2_2}. The stick-slip behavior during drilling was observed in both models. Both models showed transient behavior until 40 seconds and showed almost consistent patterns of vibration after 40 seconds. The period of the stick phase steadily increased from the beginning and reached about 1.75s for A-S model and 1.78s for ExxonMobil model. This stick-slip event was caused by friction in the deviated well. This reveals the effect of the dynamic friction factor on the drilling dysfunction since only dynamic friction is reduced to half in Test Case 2b compared to Test Case 2a. Both models showed a spike in bit angular velocity which goes below zero. This was not investigated and it is recommended that the cause be explored in future studies. Both models showed very similar responses, especially in the transient duration (before 40s) even showed very similar responses between the two models \reviewcomment{Especially or even?}.
+The results for Test Case 2b from each model are depicted in \figurename~\ref{figure_testcase2_2}. The stick-slip behavior during drilling was observed in both models. Both models showed transient behavior until 40 seconds and showed almost consistent patterns of vibration after 40 seconds. The period of the stick phase steadily increased from the beginning and reached about 1.75s for A-S model and 1.78s for ExxonMobil model. This stick-slip event was caused by friction in the deviated well.  The effect of the dynamic friction factor---the only variable changed---can be seen by comparing Test Cases 2a and 2b. Both models showed a spike in bit angular velocity which goes below zero. This was not investigated and it is recommended that the cause be explored in future studies. Both models showed very similar responses, especially in the transient duration (before 40s).
 
 The fundamental frequencies of the vibration were 0.280 and 0.269 for A-S model and ExxonMobil model, respectively.  These are similar to Test Case 2a. The maximum bit velocity was at 107 $RPM$ for the A-S model and 116 $RPM$ for the ExxonMobil model. The maximum torque on the top drive was predicted as 5185 $lb\mbox{-}ft$ for the A-S model and 5540 $lb\mbox{-}ft$ for the ExxonMobil model and occurred at the first cycle for both cases. \figurename~\ref{figure_testcase2_2_overlapped} illustrates the comparison of the results from two different models during 60 seconds of modeling. Relatively similar behavior can be seen from the comparison and also the effect of the phase shift was observed. The comparison of the features from each model's result is shown in \tablename~\ref{table_summary_testcase2b}.
 

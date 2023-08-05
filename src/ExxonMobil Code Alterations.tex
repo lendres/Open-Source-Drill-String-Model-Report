@@ -2,6 +2,9 @@
 \label{ch:appendixexxonmobil}
 This \appendixname{} contains a list of modifications made to the ExxonMobil model during the testing and evaluation.
 
+\reviewcomment[START]{Needs to be associated with lines of code.}
+\markupnote{During testing, we encountered an issue with the ``on-bottom'' case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling'' mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling'' mode, enabling dynamic changes in both hole depth and non-zero DOC.} \reviewcomment[END]{Needs to be associated with lines of code.}
+
 \section{1st Cell of \codefont{scratch\_pad.ipynb}}
 
 The code was organized by creating separate folders for input and output files, facilitating easier usage and data storage. Additional modifications were made to the original source code to ensure compatibility with different operating systems, as it was previously designed exclusively for Windows and was ``Path'' sensitive.
@@ -17,13 +20,13 @@ The lines which are from original file were commented out and replaced with new 
 \end{codemodification}
 
 \begin{codemodification}{7-8, 11}
-The issue with original files was that the Path/Location of the files had to be renamed for every user since the username is not same for every computer. Hence, we added new variables that will locate the current folder, the output and input files along with their directories regardless of operating system and the location of the files.
+In the original files, the Path/Location of the files involved the user name and would need to be renamed for every user.  New variables that will locate the current folder, the output and input files along with their directories.
 \end{codemodification}
 
 \end{codemodifications}
 
 \section{2nd Cell of \codefont{scratch\_pad.ipynb}}
-This cell needs to be run after running the first cell if you don't have the output file from previous simulations. However, if you have the output file from previous simulations, you can skip the first cell and directly run this second cell which will save a lot of time and computational energy. The modifications were primarily made in location part. 
+This cell needs to be run after running the first cell if you don't have the output file from previous simulations. However, if you have the output file from previous simulations, you can skip the first cell and directly run this second cell without rerunning the simulation. The modifications were primarily made in location part.
 \begin{codemodifications}
 
 \begin{codemodification}{1}
@@ -35,10 +38,10 @@ Importing \textcode{os} library for further use.
 \end{codemodification}
 
 \begin{codemodification}{6-9}
-The original line was replaced with new lines which allow to import the data for further use since the original line of code was 'Path' sensitive.
+The original line was replaced with new lines which allow to import the data.  The original line of code was 'Path' sensitive.
 \end{codemodification}
 
-\end{codemodifications} 
+\end{codemodifications}
 
 \section{File \codefont{bitrock.py}}
 The following change is related to the issue that was addressed in the final section of \chaptername~\ref{ch:exxonmobilmodel}.
@@ -50,7 +53,7 @@ Originally, the variable \textcode{bit\_depth} was set to \textcode{z}. However,
 \end{codemodification}
 \end{codemodifications}
 
-The outputs obtained from the original model are presented in the left column, while those from the modified version are displayed in the right column (\figurename~\ref{Comaprison_on_bottom}). A thorough comparison is made between the two sets of outputs to observe any differences or improvements resulting from the modifications. 
+The outputs obtained from the original model are presented in the left column, while those from the modified version are displayed in the right column (\figurename~\ref{Comaprison_on_bottom}). A thorough comparison is made between the two sets of outputs to observe any differences or improvements resulting from the modifications.
 
 To delve deeper into the on-bottom case, we conducted a model run using a specific approach, where the bit is initially raised from the bottom to simulate the off-bottom case, and then gradually brought into contact with the bottom to transition to the on-bottom case. The results clearly illustrate the effect in subsequent plots.
 
@@ -60,4 +63,4 @@ Upon observation, the drilling process commences at approximately 30 seconds. In
   \centering
   \includegraphics[width=\linewidth]{comp_on_bottom}
   \caption[Output comparison or original and modified model]{Comparison of outputs from original and modified versions of model. Figures in first and second column are the results from original code and from modified code, respectively.}\label{Comaprison_on_bottom}
-\end{figure}
+\end{figure} 
