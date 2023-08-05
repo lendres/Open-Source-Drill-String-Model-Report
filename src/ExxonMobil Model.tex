@@ -11,8 +11,8 @@ The equations of motion are coupled through friction terms. The model takes into
 \begin{bulletedlist}
     \item Friction model is coupled, the resultant velocity of the axial and torsional DOF are use to determine the friction force
     \item No movement until the resultant reaction force reaches static limit
-    \item Coulomb friction model is implemented when the drill string is in motion \reviewcomment{How are both Coulomb and Stribeck friction used?}
-    \item The friction state is tracked for each element
+    \item The dry friction is modeled as Stribeck friction \reviewcomment{How are both Coulomb and Stribeck friction used?}\resolvedcomment{}
+    \item The total friction in the system is linear combination of dry friction and viscous friction.
 \end{bulletedlist}
 
 The bit-rock interaction model is based on depth-of-cut and calculated by tracking the bit-depth relative to hole-depth. At each time step, the bit is considered to be drilling ahead when the DOC is higher than zero (the bit depth is greater than the hole depth) and the angular displacement of the bit is in the direction of the input rotation (i.e., the bit is not standing still or rotating backwards).  This feature contributes to a more realistic representation of the drilling process.
@@ -72,12 +72,6 @@ Modeling friction forces along the drill string is a challenging task due to the
 	\end{minipage}
 	\caption[Comparison of friction models]{A comparison of Stribeck friction without fluid drag in~(\subref{fig:stribeckfriction}) and the Stribeck friction with fluid drag that is used in the ExxonMobil software in~(\subref{fig:exxonmobilfriction}).}\label{fig:frictionmodels}
 \end{figure}
-%\begin{figure}[!hbt]
-%  \centering
-%  \includegraphics[width=\linewidth]{Stribeck}
-%  \caption[Comparison of friction models]{Friction models: a) without fluid drag (\referencename~\cite{ref:cayeux2020a}), b) Coulomb + fluid drag (\referencename~\cite{ref:dixit2021a})}\label{Friction models}
-%\end{figure}
-
 \sout{
 To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator.}
 \sout{
@@ -98,24 +92,25 @@ The static friction force opposes the direction of axial motion (\equationname~\
 where $F_{\mu,s}$ is static friction force and $\sum F_{Ext}$ is the sum of external forces, is valid when there is no sliding motion $V_{Sliding}=0$.
 If dynamic friction force calculated above is less than $\mu_{s}\times F_{n}$, where $\mu_{s} > \mu_{k}$, then the surface is not sliding.}
 
-The mechanical friction is modeled as Coulomb friction based on Stribeck effect. \reviewcomment{Confusion of Coulomb and Stribeck} The static friction applies when there is no slip ($\vec{v}_s$=0)\reviewcomment{Different nomenclature}, where the velocity vector, $\vec{v}_s$, is a function of rotational and axial velocities of the pipe. More details for the velocity vector can be seen from [Cayeux. 2018]. The magnitude and direction of the static friction force are equal and opposite to that of the external force at contact point, respectively (\equationname~\ref{eq:exxon_staticFF}). On the other hand, dynamic friction applies when the pipe starts to slide ($\vec{v} > 0$). The dynamic friction acts in the opposite direction to the velocity vector. The equation of dynamic friction force is shown in \equationname~\ref{eq:exxon_dynamicFF}, where $\mu_k$ is kinetic friction factor and $\vec{F_n}$ is the normal force at the drill string.
-
+The dry friction is modeled as Stribeck friction. \reviewcomment{Confusion of Coulomb and Stribeck}\resolvedcomment{} The static friction applies when there is no slip ($\vec{v}_s$=0)\reviewcomment{Different nomenclature}, where the velocity vector, $\vec{v}_s$, is a function of rotational and axial velocities of the pipe. More details for the velocity vector can be seen from (\referencename~ \cite{ref:cayeux2018a}). The magnitude and direction of the static friction force are equal and opposite to that of the external force at contact point, respectively (\equationname~\ref{eq:exxon_staticFF}). However, once the external foce exceeds the limit of static friction, $\mu_s \vec{F_n}$, where $\mu_s$ is static friction factor and $\vec{F_n}$ is normal force at dril string - wellbore contact, the drill string starts to slide ($\vec{v}_s > 0$) and dynamic friction is applied. The dynamic friction acts in the opposite direction to the velocity vector. The equation of dynamic friction force is shown in \equationname~\ref{eq:exxon_dynamicFF}, where $\mu_k$ is dynamic friction factor.
 \begin{equation}\label{eq:exxon_staticFF}
   F_{\mu,s} + \sum F_{Ext} = 0
 \end{equation}
-
 \begin{equation}\label{eq:exxon_dynamicFF}
-  \vec{F_{\mu k}} = -\mu_k ||{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
+  \vec{F_{\mu, d}} = -\mu_d ||{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
 \end{equation}
-
-
-In order to avoid the discontinuities when $V_s$ tends to zero, a Stribeck friction model is used. The following \equationname~\ref{Stribeck velocity} was proposed by (\referencename~\cite{ref:tustin1947a})
+In order to avoid the discontinuities when $\vec{v}_s$ tends to zero, a Stribeck friction model is used for modeling the dry friction. The following \equationname~\ref{Stribeck velocity} was proposed by Tunstin (cite{ref:tustin1947a}).
 \begin{equation}\label{Stribeck velocity}
-F_{\mu} = F_{\mu,k} + (F_{\mu,ks} - F_{\mu,k})\times e^{-\frac{|V_s|}{V_{CS}}}
+\mu_{eff} = \mu_{d} + (\mu_{s} - \mu_{d})\times e^{-\frac{|V_s|}{V_{CS}}}
 \end{equation}
-where $F_{\mu}$ is friction applied in the drill string and $V_{CS}$ is Stribeck critical velocity. \figurename~\ref{fig:stribeckfriction} illustrates the Striebec friction force as a function of sliding velocity. However, It should be noted that the model does not account for capstan effects. \reviewcomment{DY: what is capstan effect? do we have to leave this?} 
+where $\mu_{eff}$ is effective friction factor, $V_{CS}$ is Stribeck critical velocity, $\mu_{s}$, and $\mu_{d}$ are the static and dynamic friction factor, respectively. The total friction applied in the system is a linear combination of dry and viscous friction. \figurename~\ref{figure_Exxon_friction} illustrates the Stribeck friction and total friction as a function of sliding velocity. However, It should be noted that the model does not account for capstan effects. \reviewcomment{DY: what is capstan effect? do we have to leave this?} 
+\begin{figure}
+  \centering
+  \includegraphics[width=6.5in]{Exxon_friction}
+  \caption[Friction model for ExxonMobil model]{Friction model for ExxonMobil model. Left and right figures are friction models in ExxonMobil model only when Stribeck friction is considered and both Stribeck and viscous friction are included, respectively. Stribeck friction refers to the friction from drill string and wellbore contact. $F_{\mu, s}$ is static friction, $C$ is viscous friction coefficient (same as viscous damping) and $V_{CS}$ is Stribeck critical sliding velocity. Total friction in the system is the linear combination between Stribeck and viscous friction.}\label{figure_Exxon_friction}
+\end{figure}
 
-Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. Values of viscous dampers are held constants during simulation, but the viscous frictional force will vary depending on the sliding velocities as can be seen in \figurename~\ref{fig:exxonmobilfriction}. 
+%Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. Values of viscous dampers are held constants during simulation, but the viscous frictional force will vary depending on the sliding velocities as can be seen in \figurename~\ref{fig:exxonmobilfriction}. 
 
 Below, the friction model input parameters are listed. \reviewcomment{DY: maybe we can remove this?}
 \begin{bulletedlist}
@@ -207,6 +202,8 @@ To convert these equation sets into vector form, we can represent the variables 
 \mathdefitem{k_t}{Torsional stiffness of drill-string}
 \mathdefitem{\dot{\theta}}{bit rotary velocity (Clockwise direction considered as positive)}
 \mathdefitem{TQ_{Surface}}{Surface/Top-drive Torque}
+\mathdefitem{{f}_{\text {fric }}}{Stribeck friction force}
+\mathdefitem{{\tau}_{\text {fric }}}{Stribeck friction torque}
 \end{mathwhere}
 
 The differential equation sets are solved using the ODE45 solver.\ This solver is chosen for its efficiency in computational calculations.
