@@ -2,10 +2,10 @@
 \label{ch:exxonmobilmodel}
 
 \section{Introduction}
-The model is developed by Dixit and Manna in 2021, \referencename~\cite{ref:dixit2021a}. It is designed as a 2 DOF per node, axial-torsional system to model the dynamics of drill strings while drilling and tripping. Modeling is carried out as a lumped-parameter study. Also, the model incorporates bit-rock and friction models in order to investigate stick-slip effects. Governing equations are solved by a Runge-Kutta method using an ODE45 solver. 
+The model is developed by Dixit and Manna in 2021, \referencename~\cite{ref:dixit2021a}. It is designed as a 2 DOF per node, axial-torsional system to model the dynamics of drill strings while drilling and tripping. Modeling is carried out as a lumped-parameter study. Also, the model incorporates bit-rock and friction models in order to investigate stick-slip effects. Governing equations are solved by a Runge-Kutta method using an ODE45 solver.
 
 \section{Model Description}
-The model employs an axial-torsional system and uses a lumped-parameter technique.  The axial and torsional DOF are coupled through the friction terms.  There is not a coupling from material properties, the inertia terms, et cetera.  The model includes the ability to use different operational conditions and incorporation of heave compensator dynamics.  It allows for various components such as drill pipes, HWDP, drill collars, and mud-motors. Additionally, it integrates friction models to represent the axial and tangential forces acting along the drill string and includes a bit-rock interaction model (\referencename~\cite{ref:dixit2021a}). The governing equations of motion are solved by an ODE45 solver. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations. 
+The model employs an axial-torsional system and uses a lumped-parameter technique.  The axial and torsional DOF are coupled through the friction terms.  There is not a coupling from material properties, the inertia terms, et cetera.  The model includes the ability to use different operational conditions and incorporation of heave compensator dynamics.  It allows for various components such as drill pipes, HWDP, drill collars, and mud-motors. Additionally, it integrates friction models to represent the axial and tangential forces acting along the drill string and includes a bit-rock interaction model (\referencename~\cite{ref:dixit2021a}). The governing equations of motion are solved by an ODE45 solver. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
 
 The equations of motion are coupled through friction terms. The model takes into account the velocity, well trajectory, and buoyancy effects when calculations of friction forces. Drag from drilling fluid is uniformly applied throughout the system. The friction model also has the following features:
 \begin{bulletedlist}
@@ -35,9 +35,9 @@ The model incorporates an additional parameter known as \emph{heave} which accou
 \begin{equation}\label{ROP_heave}
   ROP_{heave} = x \cdot \omega \cdot \cos(\omega \cdot (t - t_{heave\_delay}))
 \end{equation}
-where 
+where
 $Z_{heave}$ and $ROP_{heave}$ are heave displacement and ROP, $x$ is heave amplitude, $\omega$ is heave angular velocity, $t$ is time and $t_{heave\_delay}$ is heave delay time.
- 
+
 \section{Bit Model}
 
 The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
@@ -92,27 +92,27 @@ The static friction force opposes the direction of axial motion (\equationname~\
 where $F_{\mu,s}$ is static friction force and $\sum F_{Ext}$ is the sum of external forces, is valid when there is no sliding motion $V_{Sliding}=0$.
 If dynamic friction force calculated above is less than $\mu_{s}\times F_{n}$, where $\mu_{s} > \mu_{k}$, then the surface is not sliding.}
 
-The dry friction is modeled as Stribeck friction. \reviewcomment{Confusion of Coulomb and Stribeck}\resolvedcomment{} The static friction applies when there is no slip ($\vec{v}_s$=0)\reviewcomment{Different nomenclature}, where the velocity vector, $\vec{v}_s$, is a function of rotational and axial velocities of the pipe. More details for the velocity vector can be seen from (\referencename~ \cite{ref:cayeux2018a}). The magnitude and direction of the static friction force are equal and opposite to that of the external force at contact point, respectively (\equationname~\ref{eq:exxon_staticFF}). However, once the external foce exceeds the limit of static friction, $\mu_s \vec{F_n}$, where $\mu_s$ is static friction factor and $\vec{F_n}$ is normal force at dril string - wellbore contact, the drill string starts to slide ($\vec{v}_s > 0$) and dynamic friction is applied. The dynamic friction acts in the opposite direction to the velocity vector. The equation of dynamic friction force is shown in \equationname~\ref{eq:exxon_dynamicFF}, where $\mu_k$ is dynamic friction factor.
+The dry friction is modeled as Stribeck friction. \reviewcomment{Confusion of Coulomb and Stribeck} \resolvedcomment{} The static friction applies when there is no slip ($\vec{v}_s$=0) \reviewcomment{Different nomenclature}, where the velocity vector, $\vec{v}_s$, is a function of rotational and axial velocities of the pipe. More details for the velocity vector can be seen from (\referencename~ \cite{ref:cayeux2018a}). The magnitude and direction of the static friction force are equal and opposite to that of the external force at contact point, respectively (\equationname~\ref{eq:exxon_staticFF}). However, once the external foce exceeds the limit of static friction, $\mu_s \vec{F_n}$, where $\mu_s$ is static friction factor and $\vec{F_n}$ is normal force at dril string - wellbore contact, the drill string starts to slide ($\vec{v}_s > 0$) and dynamic friction is applied. The dynamic friction acts in the opposite direction to the velocity vector. The equation of dynamic friction force is shown in \equationname~\ref{eq:exxon_dynamicFF}, where $\mu_k$ is dynamic friction factor.
 \begin{equation}\label{eq:exxon_staticFF}
   F_{\mu,s} + \sum F_{Ext} = 0
 \end{equation}
 \begin{equation}\label{eq:exxon_dynamicFF}
   \vec{F_{\mu, d}} = -\mu_d ||{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
 \end{equation}
-In order to avoid the discontinuities when $\vec{v}_s$ tends to zero, a Stribeck friction model is used for modeling the dry friction. The following \equationname~\ref{Stribeck velocity} was proposed by Tunstin (cite{ref:tustin1947a}).
+In order to avoid the discontinuities when $\vec{v}_s$ tends to zero, a Stribeck friction model is used for modeling the dry friction. The following \equationname~\ref{Stribeck velocity} was proposed by Tunstin (\cite{ref:tustin1947a}).
 \begin{equation}\label{Stribeck velocity}
 \mu_{eff} = \mu_{d} + (\mu_{s} - \mu_{d})\times e^{-\frac{|V_s|}{V_{CS}}}
 \end{equation}
-where $\mu_{eff}$ is effective friction factor, $V_{CS}$ is Stribeck critical velocity, $\mu_{s}$, and $\mu_{d}$ are the static and dynamic friction factor, respectively. The total friction applied in the system is a linear combination of dry and viscous friction. \figurename~\ref{figure_Exxon_friction} illustrates the Stribeck friction and total friction as a function of sliding velocity. However, It should be noted that the model does not account for capstan effects. \reviewcomment{DY: what is capstan effect? do we have to leave this?} 
+where $\mu_{eff}$ is effective friction factor, $V_{CS}$ is Stribeck critical velocity, $\mu_{s}$, and $\mu_{d}$ are the static and dynamic friction factor, respectively. The total friction applied in the system is a linear combination of dry and viscous friction. \figurename~\ref{figure_Exxon_friction} illustrates the Stribeck friction and total friction as a function of sliding velocity. However, It should be noted that the model does not account for capstan effects. \reviewcomment{DY: what is capstan effect? do we have to leave this?}
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{Exxon_friction}
   \caption[Friction model for ExxonMobil model]{Friction model for ExxonMobil model. Left and right figures are friction models in ExxonMobil model only when Stribeck friction is considered and both Stribeck and viscous friction are included, respectively. Stribeck friction refers to the friction from drill string and wellbore contact. $F_{\mu, s}$ is static friction, $C$ is viscous friction coefficient (same as viscous damping) and $V_{CS}$ is Stribeck critical sliding velocity. Total friction in the system is the linear combination between Stribeck and viscous friction.}\label{figure_Exxon_friction}
 \end{figure}
 
-%Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. Values of viscous dampers are held constants during simulation, but the viscous frictional force will vary depending on the sliding velocities as can be seen in \figurename~\ref{fig:exxonmobilfriction}. 
+%Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. Values of viscous dampers are held constants during simulation, but the viscous frictional force will vary depending on the sliding velocities as can be seen in \figurename~\ref{fig:exxonmobilfriction}.
 
-Below, the friction model input parameters are listed. \reviewcomment{DY: maybe we can remove this?}
+Below, the friction model input parameters are listed. \reviewcomment{DY: Maybe this can be removed?}
 \begin{bulletedlist}
     \item Equivalent diameter of pipe
     \item Coulomb friction force
@@ -126,7 +126,7 @@ Below, the friction model input parameters are listed. \reviewcomment{DY: maybe 
 
 \section{Mathematical Background}
 
-The set of partial differential equations that describe the motion of the drill-string can be combined into a coupled axial-torsional system of second-order differential equations. 
+The set of partial differential equations that describe the motion of the drill-string can be combined into a coupled axial-torsional system of second-order differential equations.
 
 \begin{align}\label{Governing equations}
      m_{i}\dfrac{\partial^{2}s_{i}}{\partial t^{2}} & = -k_{a,i}(s_{i}-s_{i-1}-l_{i}) + k_{a,j+1}(s_{i+1}-s_{i}-l_{i+1}) + \sum{F_{ext, i}} \\
@@ -210,10 +210,10 @@ The differential equation sets are solved using the ODE45 solver.\ This solver i
 
 
 \section{Findings and Code Modifications}
- 
+
 One of the features of this model is simulation of ``on-bottom`` case for drilling. \figurename~\ref{findings} illustrates the typical output for that specific case.
 
-During testing, we encountered an issue with the ``on-bottom'' case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling'' mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling'' mode, enabling dynamic changes in both hole depth and non-zero DOC. More analysis can be found in \appendixname~\ref{ch:appendixexxonmobil}. 
+During testing, we encountered an issue with the ``on-bottom'' case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling'' mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling'' mode, enabling dynamic changes in both hole depth and non-zero DOC. More analysis can be found in \appendixname~\ref{ch:appendixexxonmobil}.
 
 \begin{figure}
   \centering

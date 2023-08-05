@@ -6,8 +6,8 @@ Test Cases were developed in this study for the purpose of comparing and validat
 \notfinished{}
 
 \section{Overview of Test Cases}
-In total, six Test Cases are presented. Test Cases 1 and 3 encompass scenarios involve vertical wells, with the distinction being the presence of BHA components. Similarly, Test Cases 2 and 4 are the deviated well scenarios with 60\textdegree{}. inclination angle. The only difference between Test Case 2 and 4 are the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into \emph{a} and \emph{b} subcases (2a, 2b, 4a, 4b). This extension of the Test Cases was established for deviated wells, as vertical wells experience no mechanical friction where the drill string - well bore has zero normal force. All the current Test Cases are for off-bottom scenarios and assumed there is no viscous friction \resolvedcomment{}. \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case. 
-\begin{table}[!hbt]
+In total, six Test Cases are presented. Test Cases 1 and 3 encompass scenarios involve vertical wells, with the distinction being the presence of BHA components. Similarly, Test Cases 2 and 4 are the deviated well scenarios with a 60\textdegree{} inclination angle. The difference between Test Cases 2 and 4 is the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into \emph{a} and \emph{b} subcases (2a, 2b, 4a, 4b). This extension of the Test Cases was established for deviated wells, as vertical wells experience no mechanical friction where the drill string - well bore has zero normal force. \wording{} All the current Test Cases are for off-bottom scenarios. \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case.
+\begin{table}
     \centering
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
@@ -19,47 +19,46 @@ In total, six Test Cases are presented. Test Cases 1 and 3 encompass scenarios i
         \hline
         Test Case 2b & Deviated (60\textdegree{}) & 0.5 & 0.25 & N \\
         \hline
-        Test Case 3 & Vertical & 0 & 0 & Y \\                                                
+        Test Case 3 & Vertical & 0 & 0 & Y \\
         \hline
-        Test Case 4a & Deviated (60\textdegree{}) & 0.5 & 0.5 & Y \\                                                  
+        Test Case 4a & Deviated (60\textdegree{}) & 0.5 & 0.5 & Y \\
         \hline
-        Test Case 4b & Deviated (60\textdegree{}) & 0.5 & 0.25 & Y \\                                                     
+        Test Case 4b & Deviated (60\textdegree{}) & 0.5 & 0.25 & Y \\
         \hline
     \end{tabular}
     \caption[Scenarios of different Test Cases]{Scenarios of different Test Cases.}
     \label{Test_case_summary}
-\end{table}\reviewcomment{Add top drive and time length to table?}\reviewcomment{Use ``Y'' and ``N'' for the inclusion of the BHA?}\resolvedcomment{}
-Additionally, the viscous damping is neglected for the simplicity of the tests in this project, but it can be included in future studies. Also, the tests were conducted by assuming the top drive velocity to be increased from 0 $RPM$ to 40 $RPM$ at 1 second and maintained the velocity for the rest of the time. The top drive set velocity is shown in \figurename~\ref{figure_topdrive_VSP}
+\end{table}\reviewcomment{Add top drive and time length to table?}
+Additionally, the viscous damping \reviewcomment{It seems we changed our minds on this?} is neglected for the simplicity of the tests in this project, but it can be included in future studies.  The tests were conducted by assuming the top drive velocity to be increased from 0 $RPM$ to 40 $RPM$ at 1 second and maintained the velocity for the rest of the time. The top drive set velocity is shown in \figurename~\ref{figure_topdrive_VSP}
 \begin{figure}
   \centering
-  \includegraphics[width=3.5in]{TopdriveVSP}
+  \includegraphics[width=3.75in]{TopdriveVSP}
   \caption[Top drive set velocity for the Test Cases]{Top drive set velocity for the Test Cases.}\label{figure_topdrive_VSP}
 \end{figure}
 
 Some of the findings and modifications made on the provided source code of the AS and ExxonMobil model are presented in this chapter. In the AS model, the effect of the PI controller was tested. Also, some of the issues with the Python ver.\ of AS model are shown. Since this issue has not been resolved yet, only the Matlab ver.\ was used for the analysis in this project. On the other hand, The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. \reviewcomment{Remove all references to the tested models from this chapter, make it general to any model.}
+
 \section{Terminology}
 \subsection{With BHA vs Without BHA}
-
-The Test Cases enables comparing drilling scenarios with and without the BHA components. In addition, the tool joint is ignored.
-%It introduces specific parameters that differ from the rest of the drill pipe in terms of weight and diameter. However, when the BHA is not present, that particular section of the drill pipe above the bit will have the same weight and diameter as the rest of the drill pipe.
+The Test Cases enable comparing drilling scenarios with and without the BHA components. This allows the influence of the BHA to be examined for each model by comparing the two cases.
 
 \begin{definition}{Without BHA}
-Analysis with a single drill pipe configuration to maintain simplicity and establish a baseline. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe are uniform.\reviewcomment{Tool joints ignored?}\resolvedcomment{}
+Analysis with a single drill pipe configuration to maintain simplicity and establish a baseline. This configuration represents the most straightforward drilling arrangement, with a solitary pipe running from the surface to the drill bit. In this case, the weight and diameter of the entire drill pipe are uniform and tool joints are ignored.
 \end{definition}
 \begin{definition}{With BHA}
-The BHA's distinct parameters, such as its weight and diameter, are considered in the analysis to understand how it influences drilling performance. By conducting these comparative analyses, we aim to gain valuable insights into the effects of the BHA on the drill string's behavior and the overall drilling process.\reviewcomment{Tool joints ignored?}\reviewcomment{Just explain the terminology.}\resolvedcomment{}
+This case is based on the Without BHA case with the notable difference that a BHA is added.  The weight and diameter of the drill pipe is are uniform, however, the BHA's distinct parameters are considered in the analysis.  Tool joints are ignored.
 \end{definition}
 
 %In the next subsection we will explore additional configurations with varying BHA designs and properties to further investigate their influence on drilling efficiency and performance. These test cases will enable us to optimize drilling operations and develop a comprehensive understanding of how the presence or absence of the BHA affects the system's behavior.
 
-\subsection{Same vs Different FF}
-
-Most of the drill string models take into account both static and dynamic friction for friction between drill string and wellbore. The friction factors will affect the drill string motion in deviated well, since the interaction between the drill string and the wellbore wall becomes complex.\wording{}
-%but the disparity in FF values is expected to be more pronounced in inclined wells compared to vertical ones. 
-Therefore, to gain insights into the impact of friction factors on drilling dynamics, a detailed investigation is warranted.\wording{}
+\subsection{Friction Factors}
+Many drill string models take into account both static and dynamic friction between the drill string and wellbore. The friction factors (FF) will affect the drill string motion in deviated well, since the interaction between the drill string and the wellbore wall becomes complex.\wording{}  Therefore, to gain insights into the impact of friction factors on drilling dynamics, a detailed investigation is warranted.\wording{}
+%but the disparity in FF values is expected to be more pronounced in inclined wells compared to vertical ones.
 %This results in differing frictional forces acting on the drill string as it traverses the wellbore. As a consequence, the FF values play a crucial role in affecting the drilling performance and behavior.
 
-\reviewcomment{Zero friction?}
+\begin{definition}{Zero FF}
+Tests conducted with the friction factors set to zero.
+\end{definition}
 \begin{definition}{Same FF}
 Tests conducted with the same value of static and dynamic friction.
 \end{definition}
@@ -70,23 +69,23 @@ Tests conducted with different values of static and dynamic friction.
 
 
 
-\section{Test Case 1 - Vertical Well Without BHA}
+\section{Test Case 1 - Vertical Well Without BHA - Zero FF}
 The model parameters and schematic of the wellbore surveys and drill string components for Test Case 1 are shown in \tablename~\ref{table_verticalwell_input} and \figurename~\ref{figure_verticalwell}. The model were tested with vertical well with MD of 2000 $m$ and bit depth of 1800 $m$. The ExxonMobil model and Matlab ver.\ A-S model uses metric units while Python ver.\ A-S model uses imperial units. For the future convenience, the tables in this chapter contains both imperial and metric units.
 
-\begin{figure}[!hbt]
+\begin{figure}
   \centering
   \includegraphics[width=1.5in]{VerticalWellConfig}
   \caption[Schematic of wellbore and drill string for Test Case1]{Schematic of wellbore and drill string for Test Case1}\label{figure_verticalwell}
 \end{figure}
 
 \begin{testcasetable}
-$\rho$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\                                                  
+$\rho$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
 \hline
-$G_{dp}$ & 1.67$\cdot$10$^{9}$ $lbf/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$  & Shear modulus \\                                                  
+$G_{dp}$ & 1.67$\cdot$10$^{9}$ $lbf/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$  & Shear modulus \\
 \hline
-$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter \\                                                       
+$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter \\
 \hline
-$ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\                                                      
+$ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
 \hline
 \end{tabularx}
 \caption[Input parameters for Test Case 1]{Input parameters for Test Case 1, a vertical well without BHA components.}\label{table_verticalwell_input}
@@ -96,20 +95,20 @@ $ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
 \subsection{Test case 2a - Same FF Values}
 The models were tested with deviated well with simple configuration of drill string. The MD of the well is 4000 $m$ with 60$^{\circ}$ inclination from KOP of 1500 $m$. The drill bit is off-bottom where located at 2500 $m$ depth. The Schematic view of wellbore and drill string are depicted in \figurename~\ref{figure_wellconfig_inclined}. The static and dynamic friction factors were set to be the same as 0.5. The parameters for the test are summarized in \tablename~\ref{table_Inclinedwell_2a_input}.
 
-\begin{figure}[!hbt]
+\begin{figure}
   \centering
   \includegraphics[width=4in]{InclinedWellConfig}
   \caption[Schematic of Test Case 2]{Schematic of wellbore and drill string for Test Case 2.}\label{figure_wellconfig_inclined}
 \end{figure}
 
 \begin{testcasetable}
-  $OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter\\                                                       
+  $OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter\\
   \hline
-  $ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\                                                      
+  $ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
   \hline
-  $\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\                                                  
+  $\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
   \hline
-  $G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\                                                              
+  $G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
   \hline
   $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
   \hline
@@ -124,16 +123,16 @@ The models were tested with deviated well with simple configuration of drill str
 \end{testcasetable}
 
 \subsection{Test Case 2b - Different FF Values}
-The models were tested with the exact same configuration with Test Case 2a, except different values of static and dynamic friction factor values. The following \tablename~\ref{table_Inclinedwell_2b_input} summarizes the input parameters. 
+The models were tested with the exact same configuration with Test Case 2a, except different values of static and dynamic friction factor values. The following \tablename~\ref{table_Inclinedwell_2b_input} summarizes the input parameters.
 
 \begin{testcasetable}
-   $OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter\\                                                       
+   $OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter\\
    \hline
-   $ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\                                                      
+   $ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
    \hline
-   $\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\                                                  
+   $\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
    \hline
-   $G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\                                                              
+   $G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
    \hline
    $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
    \hline
@@ -147,7 +146,7 @@ The models were tested with the exact same configuration with Test Case 2a, exce
 \caption[Input parameters for Test Case 2b]{Input parameters for Test Case 2b, a deviated well without BHA components and has different dynamic and static friction factor values.}\label{table_Inclinedwell_2b_input}
 \end{testcasetable}
 
-\section{Test Case 3 - Vertical Well with BHA}
+\section{Test Case 3 - Vertical Well with BHA - Zero FF}
 In this specific scenario, an BHA components were added to the drill string. The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, which well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged. The specific input parameters can be found in the \tablename~\ref{Input Parameters TC3}.
 
 \begin{figure}
@@ -172,18 +171,18 @@ In this specific scenario, an BHA components were added to the drill string. The
     \hline
     $\rho_{dp}$ & 490.6 $lb/ft^{3}$ & 7850 $kg/m^{3}$ & Drill pipe density \\
     \hline
-    $G_{dp}$ & 1.67$\cdot$10$^{9}$ $lb/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\  
+    $G_{dp}$ & 1.67$\cdot$10$^{9}$ $lb/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
     \hline
     \end{tabularx}
   \caption[Input parameters for Test Case 3]{Input parameters for Test Case 3, a vertical well with BHA components.}\label{Input Parameters TC3}
-\end{testcasetable} 
+\end{testcasetable}
 
 \section{Test Case 4 - Deviated Well With BHA}
 \subsection{Test Case 4a - Same FF Values}
 
-The models were tested with the same input parameters from Test Case 2, with additional configuration of the drill string including BHA. Well survey data for the inclined well remained same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{figure_wellconfig_inclined_BHA}, remained unchanged. The input parameters can be found in the  \tablename~\ref{table_Inclinedwell_4a_input}. 
+The models were tested with the same input parameters from Test Case 2, with additional configuration of the drill string including BHA. Well survey data for the inclined well remained same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{figure_wellconfig_inclined_BHA}, remained unchanged. The input parameters can be found in the  \tablename~\ref{table_Inclinedwell_4a_input}.
 
-\begin{figure}[!hbt]
+\begin{figure}
   \centering
   \includegraphics[width=4in]{InclinedWellConfigBHA}
   \caption[Schematic view of Test Case 4]{Schematic view of wellbore and drill string for Test Case 4.}\label{figure_wellconfig_inclined_BHA}
@@ -196,15 +195,15 @@ The models were tested with the same input parameters from Test Case 2, with add
    \hline
    $OD_{DC}$ & 6.00 $in$ & 0.1524 $m$ & Drill collars outer diameter \\
    \hline
-   $ID_{DC}$ & 2.00 $in$ & 0.0508 $m$ & Drill collars inner diameter \\                                                    
+   $ID_{DC}$ & 2.00 $in$ & 0.0508 $m$ & Drill collars inner diameter \\
    \hline
    $L_{HWDP}$ & 60 $ft$ & 18.30 $m$ & Length of heavy weight drill pipe \\
    \hline
    $L_{DC}$ & 270 $ft$ & 82.30 $m$ & Length of drill collars \\
    \hline
-   $\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\                                                  
+   $\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
    \hline
-   $G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\  
+   $G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
    \hline
    $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
    \hline
@@ -220,7 +219,7 @@ The models were tested with the same input parameters from Test Case 2, with add
 
 \subsection{Test Case 4b - Same FF Values}
 
-Lastly, the models were tested with the same configuration as Test Case 4a, except the dynamic friction factor was reduced from 0.5 to 0.25. The following \tablename~\ref{table_Inclinedwell_4b_input} summarizes the input parameters. 
+Lastly, the models were tested with the same configuration as Test Case 4a, except the dynamic friction factor was reduced from 0.5 to 0.25. The following \tablename~\ref{table_Inclinedwell_4b_input} summarizes the input parameters.
 
 \begin{testcasetable}
    $OD_{HWDP}$ & 4.50 $in$ & 0.1143 $m$ & Heavy weight drill pipe outer diameter \\
@@ -229,15 +228,15 @@ Lastly, the models were tested with the same configuration as Test Case 4a, exce
    \hline
    $OD_{DC}$ & 6.00 $in$ & 0.1524 $m$ & Drill collars outer diameter \\
    \hline
-   $ID_{DC}$ & 2.00 $in$ & 0.0508 $m$ & Drill collars inner diameter \\                                                    
+   $ID_{DC}$ & 2.00 $in$ & 0.0508 $m$ & Drill collars inner diameter \\
    \hline
    $L_{HWDP}$ & 60 $ft$ & 18.30 $m$ & Length of heavy weight drill pipe \\
    \hline
    $L_{DC}$ & 270 $ft$ & 82.30 $m$ & Length of drill collars \\
    \hline
-   $\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\                                                  
+   $\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
    \hline
-   $G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\                                                                
+   $G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
    \hline
    $\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
    \hline
