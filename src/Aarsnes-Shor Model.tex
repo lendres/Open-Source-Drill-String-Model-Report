@@ -8,10 +8,9 @@ The model is developed by Aarsnes and Shor (\referencename~\cite{ref:aarsnes2017
 The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping which are modeled as distributed source term. The effect of this Coulomb friction becomes prominent as the well inclination increases, therefore this model can be effective in predicting the drill string dysfunctions in high inclined wells. Currently, the model is only applicable for torsional mode simulation but the axial mode will be added soon. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are:
 \begin{bulletedlist}
 	\item No bit-rock interaction
-	\item No lateral and axial motion
+	\item No lateral or axial motion
 	\item The effects of cuttings distribution on the friction is homogeneous
-    \item Drill string - well bore friction, dry friction, is modeled as Coulomb friction as a jump.
-    \item Both dry and viscous frictions are included in total friction of the system.
+    \item The friction between the drill string and well bore is modeled as Coulomb friction with the option to setting a non-zero velocity for the change between static and dynamic friction
 \end{bulletedlist}
 
 Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and the validation with field data was also conducted \cite{ref:aarsnes2017a}. In comparison, the Python ver.\ is relatively recent version and the axial mode will be added to it. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section.
