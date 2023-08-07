@@ -6,34 +6,35 @@ Test Cases were developed in this study for the purpose of comparing and validat
 \notfinished{}
 
 \section{Overview of Test Cases}
-In total, six Test Cases are presented. Test Cases 1 and 3 encompass scenarios involve vertical wells, with the distinction being the presence of BHA components. Similarly, Test Cases 2 and 4 are the deviated well scenarios with a 60\textdegree{} inclination angle. The difference between Test Cases 2 and 4 is the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into \emph{a} and \emph{b} subcases (2a, 2b, 4a, 4b). This extension of the Test Cases was established for deviated wells, as vertical wells experience no mechanical friction where the drill string - well bore has zero normal force. \wording{} All the current Test Cases are for off-bottom scenarios. \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case.
+In total, six Test Cases are presented. Test Cases 1 and 3 encompass scenarios involve vertical wells, with the distinction being the presence of BHA components. Similarly, Test Cases 2 and 4 are the deviated well scenarios with a 60\textdegree{} inclination angle. The difference between Test Cases 2 and 4 is the exitance of BHA components. In addition, to analyze the effect of frictional factors, Test Cases 2 and 4 are further divided into \emph{a} and \emph{b} subcases (2a, 2b, 4a, 4b). The friction factors are tested in the deviated wells because in a vertical well gravity does not create contact force (normal force). All the current Test Cases are for off-bottom scenarios. \tablename~\ref{Test_case_summary} summarizes the scenarios for each Test Case.
 \begin{table}
-    \centering
-    \begin{tabular}{|c|c|c|c|c|c|c|}
-        \hline
-        \textbf{Test Case} & \textbf{Well Type} & \textbf{Static FF} & \textbf{Dynamic FF}& \textbf{BHA}\\
-        \hline
-        Test Case 1 & Vertical & 0 & 0 & N\\
-        \hline
-        Test Case 2a & Deviated (60\textdegree{}) & 0.5 & 0.5 & N \\
-        \hline
-        Test Case 2b & Deviated (60\textdegree{}) & 0.5 & 0.25 & N \\
-        \hline
-        Test Case 3 & Vertical & 0 & 0 & Y \\
-        \hline
-        Test Case 4a & Deviated (60\textdegree{}) & 0.5 & 0.5 & Y \\
-        \hline
-        Test Case 4b & Deviated (60\textdegree{}) & 0.5 & 0.25 & Y \\
-        \hline
-    \end{tabular}
-    \caption[Scenarios of different Test Cases]{Scenarios of different Test Cases.}
-    \label{Test_case_summary}
-\end{table}\reviewcomment{Add top drive and time length to table?}
-Additionally, the viscous damping \reviewcomment{It seems we changed our minds on this?} is neglected for the simplicity of the tests in this project, but it can be included in future studies.  The tests were conducted by assuming the top drive velocity to be increased from 0 $RPM$ to 40 $RPM$ at 1 second and maintained the velocity for the rest of the time. The top drive set velocity is shown in \figurename~\ref{figure_topdrive_VSP}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|c|}
+    \hline
+    \tablecolumnheadervlinesone{Test Case} & \tablecolumnheadervlinestwo{Well Type} & \tablecolumnheadervlinestwo{Static} & \tablecolumnheadervlinestwo{Dynamic} & \tablecolumnheadervlinestwo{Viscous} & \tablecolumnheadervlinestwo{BHA} \\[-7pt]
+                                           &                                        & \tablecolumnheadervlinestwo{FF}     & \tablecolumnheadervlinestwo{FF}      & \tablecolumnheadervlinestwo{Damping} & \\
+    \hline
+    Test Case 1 & Vertical & 0 & 0 & 0 & N \\
+    \hline
+    Test Case 2a & Deviated (60\textdegree{}) & 0.5 & 0.5 & 0 & N \\
+    \hline
+    Test Case 2b & Deviated (60\textdegree{}) & 0.5 & 0.25 & 0 & N \\
+    \hline
+    Test Case 3 & Vertical & 0 & 0 & 0 & Y \\
+    \hline
+    Test Case 4a & Deviated (60\textdegree{}) & 0.5 & 0.5 & 0 & Y \\
+    \hline
+    Test Case 4b & Deviated (60\textdegree{}) & 0.5 & 0.25 & 0 & Y \\
+    \hline
+  \end{tabular}
+  \caption[Scenarios of the defined Test Cases]{Scenarios of the defined Test Cases.}
+  \label{Test_case_summary}
+\end{table}
+Additionally, the viscous damping is neglected for the simplicity of the tests in this project, but it can be included in future studies.  The tests were conducted by assuming the top drive velocity to be increased from 0 $RPM$ to 40 $RPM$ at 1 second and maintained the velocity for the rest of the time. The top drive set velocity is shown in \figurename~\ref{figure_topdrive_VSP}
 \begin{figure}
   \centering
   \includegraphics[width=3.75in]{TopdriveVSP}
-  \caption[Top drive set velocity for the Test Cases]{Top drive set velocity for the Test Cases.}\label{figure_topdrive_VSP}
+  \caption[Top drive velocity profile for the Test Cases]{Top drive velocity profile for the Test Cases.}\label{figure_topdrive_VSP}
 \end{figure}
 
 Some of the findings and modifications made on the provided source code of the A-S model and the ExxonMobil model are presented in this chapter. In the A-S model, the effect of the PI controller was tested. Also, some of the issues with the Python ver.\ of A-S model are shown. Since this issue has not been resolved yet, only the Matlab ver.\ was used for the analysis in this project. On the other hand, The problem with the ExxonMobil model's on-bottom case has been resolved. In addition, there is an issue with mud motor that we are addressing. \reviewcomment{Remove all references to the tested models from this chapter, make it general to any model.}
