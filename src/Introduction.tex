@@ -47,11 +47,15 @@ A discrete system with repeating, but non-harmonic loading, would not strictly f
 However, there are obvious similarities between the classical and discrete, non-harmonic loading cases.  A clear response to machine start up and other changes in loading is evident.  Similarly, it can be seen that, given time, the systems will damp out their response to these changes. So while the classical and the discrete, non-harmonically loaded systems exhibit somewhat different traits, they are comparable in the broad sense.  As such, it is useful to speak of the two systems in the a similar manner.  \emph{Therefore, in direct analogy to classical harmonic vibration, we will refer to the transient and steady-state phases of the discrete, non-harmonic system.}
 
 \subsection{Dry, Viscous and Total Friction}
-The governing equation of the motion can be represented as
-\begin{equation}\label{eq:motion_GE}
-    m\ddot{x} + c\dot{x} + kx + f_{fric} = F_{ext}
+The governing equation of axial motion can be represented as
+\begin{equation}\label{eq:axial_motion_GE}
+    m\ddot{x} + c_a\dot{x} + k_ax + f_{fric} = F_{ext}
 \end{equation}
-where $m$ is mass (mass moment of inertial), $c$ is damping coefficient, $k$ is axial stiffness (torsional stiffness), $f_{fric}$ is frictional force, $F_{ext}$ is external force (external torque) and $x$ is axial displacement (angular displacement) for axial (torsional) mode. In drilling dynamics, the damping force, $c\dot{x}$, is a drag, a type of friction for drill string motion from drilling mud and cuttings. Therefore, the damping force is also called viscous friction in this project. On the other hand, frictional force, $f_{fric}$, is dry friction which is a friction between drill string and wellbore surface, also opposing the motion of the drill string. Therefore, total friction in the system is defined as a combination of viscous friction and dry friction.
+where $m$ is mass, $c_a$ is axial damping coefficient, $k_a$ is axial stiffness, $f_{fric}$ is frictional force, $F_{ext}$ is external force and $x$ is axial displacement, while the governing equation of the torsional motion is expressed as 
+\begin{equation}\label{eq:torsional_motion_GE}
+    J\ddot{\theta} + c_t\dot{\theta} + k_t\theta + \tau_{fric} = \tau_{ext}
+\end{equation}
+where $J$ is mass moment of inertia, $c_t$ is torsional damping coefficient, $k_t$ is torsional stiffness, $\tau_{fric}$ is frictional torque, $\tau_{ext}$ is external torque and $\theta$ is angular displacement. In this project, frictional force, $f_{fric}$, and frictional torque, $\tau_{fric}$, is defined as friction which is a friction between drill string and wellbore contact and a function of friction factor and normal force at the drill string, wellbore contact. On the other hand, the damping force, $c_a\dot{x}$ and $c_t\dot{\theta}$, is a drag that is from drilling mud and cuttings, which referred as viscous damping.
 
 \subsection{Models}
 \subsubsection{Static and Dynamic}
