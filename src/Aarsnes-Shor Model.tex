@@ -39,11 +39,11 @@ where $J_{td}$ is top drive inertia, $\tau_{0}$ is the torque on top of the dril
 The model assumes the toque on bit to be constant. The Test Cases for this project are off-bottom scenario with not bit-rock contact, therefore, the torque on bit is fixed to zero. In addition, model does not consider weight on bit since current model is only for torsional mode.
 
 \section{Friction Model}
-The total friction including dry and viscous friction, is modeled as Coulomb friction as a jump. The static friction applies when the angular velocity of the drill string is below the given threshold, which is modeled as inclusion. In other words, below the threshold, The total friction is bounded by static friction. On the other hand, when the angular velocity exceeds the threshold, transit to dynamic friction occurs and the total friction will be linear combination of dynamic and viscous friction. More details can be seen from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}. \figurename~\ref{figure_AS_friction} illustrates the friction model for A-S model.
+The friction is modeled as Coulomb friction as a jump. The static friction applies when the angular velocity of the drill string is below the given threshold, which is modeled as inclusion. In other words, the friction is bounded by static friction when the angular velocity is below the threshold. On the other hand, when the angular velocity exceeds the threshold, transit to dynamic friction occurs. More details can be seen from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}. \figurename~\ref{figure_AS_friction} illustrates the friction model for A-S model.
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{AS_friction}
-  \caption[Friction model for A-S model]{Friction model for A-S model. Left and right figures are friction models in A-S model only when dry friction is considered and both dry and viscous friction are included, respectively. Dry friction refers to the friction from drill string and wellbore contact. $F_{\mu, s}$, $F_{\mu, d}$ are static and dynamic friction force, respectively, $k_{T}$ is viscous friction coefficient for torsional motion and $w_{c}$ is critical angular velocity which is the threshold for transition between static and dynamic friction. When the angular velocity is below the critical velocity, the total friction is bounded by static friction.}\label{figure_AS_friction}
+  \caption[Friction model for A-S model]{Friction model for A-S model. Left and right figures are Friction and the combination of friction and viscous damping with respect to angular velocity, respectively. Friction is modeled as Coulomb friction which refers to the friction from drill string and wellbore contact. $F_{s}$, $F_{d}$ are static and dynamic friction force, respectively, $k_{T}$ is the viscous damping coefficient for torsional motion and $w_{c}$ is the critical angular velocity which is the threshold for transition between static and dynamic friction. When the angular velocity is below the critical velocity, the friction is bounded by static friction.}\label{figure_AS_friction}
 \end{figure}
 
 The Coulomb friction $\mathcal{F}(w,x)$ is modeled as an inclusion which is shown in \equationname~\ref{equation_A-S_columnbfriciton}. The parameters for the equations can be seen from \figurename~\ref{figure_AS_equation_schematic}.
@@ -54,12 +54,12 @@ The Coulomb friction $\mathcal{F}(w,x)$ is modeled as an inclusion which is show
 \end{figure}
 \begin{equation}\label{equation_A-S_columnbfriciton}
   \begin{cases}
-     \mathcal{F}(w,x) = F_{\mu,d}(x), & \mbox{if } w>w_c \\
-     \mathcal{F}(w,x) \in [-F_{\mu,s}(x), F_{\mu,s}(x)], & \mbox{if } |w|<w_c \ \\
-     \mathcal{F}(w,x) = -F_{\mu,d}(x), & \mbox{if } w < -w_c.
+     \mathcal{F}(w,x) = F_{d}(x), & \mbox{if } w>w_c \\
+     \mathcal{F}(w,x) \in [-F_{s}(x), F_{s}(x)], & \mbox{if } |w|<w_c \ \\
+     \mathcal{F}(w,x) = -F_{d}(x), & \mbox{if } w < -w_c.
   \end{cases}
 \end{equation}
-where $w_c$ is the critical angular velocity for Coulomb friction transition from static to dynamic, $F_{\mu,d}$ and $F_{\mu,s}$ are dynamic and static Coulomb torque, respectively. For condition $|w|<w_c$, $\mathcal{F}(w,x)$ takes the boundary values $\pm F_{\mu,s}(x)$.
+where $w_c$ is the critical angular velocity for Coulomb friction transition from static to dynamic, $F_{d}$ and $F_{s}$ are dynamic and static Coulomb friction, respectively. For condition $|w|<w_c$, $\mathcal{F}(w,x)$ takes the boundary values $\pm F_{s}(x)$.
 
 Static friction $F_{\mu,s}$ is calculated from normal force, $F_N$, along the drill string which is obtained as
 \begin{equation}\label{equation_AS_normal_force}
