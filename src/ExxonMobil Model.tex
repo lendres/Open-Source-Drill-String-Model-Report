@@ -2,17 +2,17 @@
 \label{ch:exxonmobilmodel}
 
 \section{Introduction}
-The model is developed by Dixit and Manna in 2021, \referencename~\cite{ref:dixit2021a}. It is designed as a 2 DOF per node, axial-torsional system to model the dynamics of drill strings while drilling and tripping. Modeling is carried out as a lumped-parameter study. Also, the model incorporates bit-rock and friction models in order to investigate stick-slip effects. Governing equations are solved by a Runge-Kutta method using an ODE45 solver.
+The model is developed by Dixit and Manna in 2021, \referencename~\cite{ref:dixit2021a}.  It is an axial-torsional system designed to model the dynamics of drill strings while drilling and tripping. It can be used both vertical and inclined wells and can incorporate BHA components, including mud motors. In addition, the model incorporates bit-rock and friction models in order to investigate stick-slip effects.
 
 \section{Model Description}
-The model employs an axial-torsional system and uses a lumped-parameter technique.  The axial and torsional DOF are coupled through the friction terms.  There is not a coupling from material properties, the inertia terms, et cetera.  The model includes the ability to use different operational conditions and incorporation of heave compensator dynamics.  It allows for various components such as drill pipes, HWDP, drill collars, and mud-motors. Additionally, it integrates friction models to represent the axial and tangential forces acting along the drill string and includes a bit-rock interaction model (\referencename~\cite{ref:dixit2021a}). The governing equations of motion are solved by an ODE45 solver. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
+The model employs a 2 DOF per node, axial-torsional system and uses a lumped-parameter technique.  The axial and torsional DOF are coupled through the friction terms. \reviewcomment{And through the bit?}  There is not a coupling from material properties, the inertia terms, et cetera.  The model includes the ability to use different operational conditions and incorporation of heave compensator dynamics.  It allows for various components such as drill pipes, HWDP, drill collars, and mud-motors. Additionally, it incorporates a Stribeck type friction model and includes a bit-rock interaction model (\referencename~\cite{ref:dixit2021a}). The governing equations of motion are solved by a Runge-Kutta method (similar to the Matlab ODE45 solver). Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
 
-The equations of motion are coupled through friction terms. The model takes into account the velocity, well trajectory, and buoyancy effects when calculations of friction forces. Drag from drilling fluid is uniformly applied throughout the system. The friction model also has the following features:
+%Drilling fluid damping is uniformly applied throughout the system. 
+
+The equations of motion are coupled through the friction. The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model also has the following features:
 \begin{bulletedlist}
     \item Friction model is coupled, the resultant velocity of the axial and torsional DOF are use to determine the friction force
     \item No movement until the resultant reaction force reaches static limit
-    \item The dry friction is modeled as Stribeck friction \reviewcomment{How are both Coulomb and Stribeck friction used?}\resolvedcomment{}
-    \item The total friction in the system is linear combination of dry friction and viscous friction.
 \end{bulletedlist}
 
 The bit-rock interaction model is based on depth-of-cut and calculated by tracking the bit-depth relative to hole-depth. At each time step, the bit is considered to be drilling ahead when the DOC is higher than zero (the bit depth is greater than the hole depth) and the angular displacement of the bit is in the direction of the input rotation (i.e., the bit is not standing still or rotating backwards).  This feature contributes to a more realistic representation of the drilling process.
@@ -209,11 +209,11 @@ To convert these equation sets into vector form, we can represent the variables 
 The differential equation sets are solved using the ODE45 solver.\ This solver is chosen for its efficiency in computational calculations.
 
 
-\section{Findings and Code Modifications}
+\section{On-Bottom Example}
 
-One of the features of this model is simulation of ``on-bottom`` case for drilling.  The Test Cases in this document are for the off-bottom case, so this feature was not directly compared.  However, it is an important feature that should be explored further. \figurename~\ref{findings} illustrates an example of output for an on-bottom case.
+One of the features of this model is simulation of ``on-bottom'' case for drilling.  The Test Cases in this document are for the off-bottom case, so this feature was not directly compared.  However, it is an important feature that should be explored further. \figurename~\ref{findings} illustrates an example of output for an on-bottom case.
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{on_bottom}
   \caption[Plots of on-bottom case]{Plot of drilling parameters for on-bottom case.}\label{findings}
-\end{figure}
+\end{figure} 

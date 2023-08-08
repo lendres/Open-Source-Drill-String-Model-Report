@@ -2,18 +2,22 @@
 \label{ch:aarnessshormodel}
 
 \section{Introduction}
-The model is developed by Aarsnes and Shor (\referencename~\cite{ref:aarsnes2017a}). It is designed to simulate torsional drill string vibration using a distributed model, wherein the partial difference equations governing the motion are solved using the upwind scheme.   Two versions of the source code are available, one implemented in Matlab and the other in Python.  The Python version is newer and is being written to improve the Matlab version.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion.
+The model is developed by Aarsnes and Shor (\referencename~\cite{ref:aarsnes2017a}). It is designed to simulate torsional drill string vibrations using a distributed model.  It can be used both vertical and inclined wells and can incorporate BHA components.
+ 
+%wherein the partial difference equations governing the motion are solved using the upwind scheme.  \reviewcomment{Upwind or forward?}
+
+Two versions of the source code are available, one implemented in Matlab and the other in Python.  The Python version is newer and is being written to improve the Matlab version.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion.
 
 \section{Model Description}
-The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping which are modeled as distributed source term. The effect of this Coulomb friction becomes prominent as the well inclination increases, therefore this model can be effective in predicting the drill string dysfunctions in high inclined wells. Currently, the model is only applicable for torsional mode simulation but the axial mode will be added soon. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are:
+The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping.  These are modeled as distributed along the drill string and are combined into a ``source'' term. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are:
 \begin{bulletedlist}
 	\item No bit-rock interaction
 	\item No lateral or axial motion
 	\item The effects of cuttings distribution on the friction is homogeneous
-    \item The friction between the drill string and well bore is modeled as Coulomb friction with the option to setting a non-zero velocity for the change between static and dynamic friction
+    \item The friction between the drill string and well bore is modeled as Coulomb friction with the option to set a non-zero velocity (critical velocity) for the change between static and dynamic friction
 \end{bulletedlist}
 
-Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and the validation with field data was also conducted \cite{ref:aarsnes2017a}. In comparison, the Python ver.\ is relatively recent version and the axial mode will be added to it. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section.
+Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and the validation with field data was also conducted \cite{ref:aarsnes2017a}. In comparison, the Python ver.\ is a relatively recent version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section.
 
 \section{Top Drive Model}
 The model contains PI controller on the top drive. Therefore, boundary condition at the top is given by top drive torque and velocity calculated from top drive set point velocity. Torque on top drive are derived as
@@ -89,7 +93,7 @@ where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is a
 \end{equation}
 where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole that is derived from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}.
 
-\subsection{Numerical Implementation of Matlab ver.}
+\subsection{Numerical Implementation of Matlab Ver.}
 \subsubsection{Riemann Invariants}
 The partial governing equations \equationname~\ref{AS-motion} and \ref{AS-sourceterm} are transformed into their Riemann invariants solved by first order upwind scheme. The Riemann invariants are defined as
 \begin{equation}\label{AS-Riemann}
@@ -109,7 +113,7 @@ and the variable $\alpha$, $\beta$ satisfies the PDE system
 \begin{equation}\label{AS-Riemann_beta}
   \frac{\partial \beta}{\partial t} - c_t\frac{\partial \beta}{\partial x} = -\mathcal{S}
 \end{equation}
-Therefore, angular velocity w and torque $\tau$ can be obtained by solving $\alpha$ and $\beta$.
+Therefore, angular velocity $w$ and torque $\tau$ can be obtained by solving $\alpha$ and $\beta$.
 The source term $\mathcal{S}$ is
 \begin{equation}\label{AS-source}
   \mathcal{S} = \frac{S}{J \rho} j= k_t(\alpha + \beta) + \frac{1}{J \rho} \mathcal{F}
@@ -169,7 +173,7 @@ where ${F_C}_j^k$ is the static friction calculated at cell j and time step k. F
 \begin{equation}\label{equation_upwind_beta}
   \beta_j^{k+1} = \beta_j^{k} - c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k - \beta_{j}^k) - \Delta t k_t (\alpha_j^k + \beta_j^k) - \mathcal{F}_j^k
 \end{equation}
-\subsection{Numerical Implementation of Python ver.}
+\subsection{Numerical Implementation of Python Ver.}
 The Python ver.\ directly solves the \equationname~\ref{AS-motion} and \ref{AS-motion1} by FDM (forward-time-centered-space) rather than introducing Riemann invariants like in the Matlab ver.\ The angular velocity and torque are updated iteratively from the algorithm below. The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}.
 \begin{table}
 \centering
