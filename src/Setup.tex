@@ -20,9 +20,7 @@
 
 % TABLES
 \usepackage{letable}
-\setlength{\tablerowheight}{6mm}
-\setlength{\tabledoublelinespace}{-13pt}
-\tablecolumnheaderfont{\bfseries}
+
 % Use tabularx to have adjustable width columns.
 \usepackage{tabularx}
 % Create a tabularx column with ragged right interiors.  The default paragraph style columns tries to justify the
@@ -30,19 +28,30 @@
 \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
 % Test Case tables.
-\newenvironment{testcasetable}
+% Tabularx does not like being split into the beginning and ending arguments of a regular environment, so use this different environment definition.
+\NewDocumentEnvironment{testcasetable}{+b}
 {
-	\begin{table}
-		\centering
-		\begin{tabularx}{\linewidth}{|c|c|c|L|}
+	\begin{tabularx}{\linewidth}{|c|c|c|L|}
 		\hline
 		\tablecolumnheadervlinesone{Parameter} & \tablecolumnheadervlinestwo{Value}            & \tablecolumnheadervlinestwo{Value}           & \tablecolumnheadervlinestwo{Description} \\[-7pt]
 		                                       & \tablecolumnheadervlinestwo{(imperial units)} &  \tablecolumnheadervlinestwo{(metric units)} & \\
 		\hline
+		#1
+	\end{tabularx}
+}
+{}
+
+\newenvironment{testcaseresulttable}
+{
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \tablecolumnheadervlinesone{Test Cases} & \tablecolumnheadervlinestwo{Frequency}  & \tablecolumnheadervlinestwo{Max TD Torque}  & \tablecolumnheadervlinestwo{Max Bit Velocity}  & \tablecolumnheadervlinestwo{Simulation Time} \\[-7pt]
+
+        \tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{($Hz$)} & \tablecolumnheadervlinestwo{($lb\mbox{-}ft$)} & \tablecolumnheadervlinestwo{($RPM$)} &  \tablecolumnheadervlinestwo{($s$)} \\
+        \hline
 }
 {
-		
-	\end{table}
+	\end{tabular}
 }
 
 % Package from DY for table

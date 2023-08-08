@@ -247,16 +247,18 @@ Some findings are reported in this section and the tests were conducted based on
 The A-S model contains PI controller on top drive for more realistic simulation, however; the results were sensitive to input parameters which are $k_p, k_i, J_{TD}$ and ramp speed. Therefore, it was difficult to compare between different models when the exact value of these parameters were not provided. \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between Matlab ver.\ and Python ver.\ when same top drive related parameters used
 (\tablename~\ref{table_topdrivesensitivity_input}). Please note that the model was run with same input parameters with different units (Matlab ver: Metric unit, Python ver: Imperial unit).
 
-\begin{testcasetable}
-$k_p$ & $38e^3 \; lbf\cdot ft/s $ & $28e^3\; Nm/s$ & P-gain \\
-\hline
-$k_i$ & $100e^3 \; lbf\cdot ft$ & $74e^3\; Nm$  & I-gain \\
-\hline
-$J_{TD}$ & $2900 \; lb\cdot ft^2 $ & $ 68818 \; kgm^2$ & Top drive inertia\\
-\hline
-\end{tabularx}
-\caption[Top drive related parameters for comparison]{Top drive related parameters for comparison between A-S model Matlab and Python versions.}\label{table_topdrivesensitivity_input}
-\end{testcasetable}
+\begin{table}
+    \centering
+	\begin{testcasetable}
+		$k_p$ & $38e^3 \; lbf\cdot ft/s $ & $28e^3\; Nm/s$ & P-gain \\
+		\hline
+		$k_i$ & $100e^3 \; lbf\cdot ft$ & $74e^3\; Nm$  & I-gain \\
+		\hline
+		$J_{TD}$ & $2900 \; lb\cdot ft^2 $ & $ 68818 \; kgm^2$ & Top drive inertia\\
+		\hline
+	\end{testcasetable}
+	\caption[Top drive related parameters for comparison]{Top drive related parameters for comparison between A-S model Matlab and Python versions.}\label{table_topdrivesensitivity_input}
+\end{table}
 
 \begin{figure}
   \centering
