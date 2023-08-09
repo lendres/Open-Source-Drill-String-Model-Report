@@ -2,30 +2,24 @@
 \label{ch:exxonmobilmodel}
 
 \section{Introduction}
-The model is developed by ExxonMobil beginning in 2021.  It is an axial-torsional system designed to model the dynamics of drill strings while drilling and tripping. It can be used both vertical and inclined wells under various operational conditions.  BHA components such as drill pipes, HWDP, drill collars, and mud-motors can be incorporated.  Additional features include bit-rock interaction and incorporation of heave compensator dynamics. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
+The model is developed by Dixit and Manna in 2021, \referencename~\cite{ref:dixit2021a}.  It is an axial-torsional system designed to model the dynamics of drill strings while drilling and tripping. It can be used both vertical and inclined wells and can incorporate BHA components, including mud motors. In addition, the model incorporates bit-rock and friction models in order to investigate stick-slip effects.
 
 \section{Model Description}
-The model employs a 2 DOF per node, axial-torsional system and uses a lumped-parameter technique (\referencename~\cite{ref:dixit2021a}). The axial and torsional DOF are coupled through the friction terms and the bit-rock interaction.  There is not a coupling from material properties, the inertia terms, et cetera.  The governing equations of motion are solved by a Runge-Kutta method (\referencename~\cite{ref:shor2022a}).
+The model employs a 2 DOF per node, axial-torsional system and uses a lumped-parameter technique.  The axial and torsional DOF are coupled through the friction terms. \reviewcomment{And through the bit?}  There is not a coupling from material properties, the inertia terms, et cetera.  The model includes the ability to use different operational conditions and incorporation of heave compensator dynamics.  It allows for various components such as drill pipes, HWDP, drill collars, and mud-motors. Additionally, it incorporates a Stribeck type friction model and includes a bit-rock interaction model (\referencename~\cite{ref:dixit2021a}). The governing equations of motion are solved by a Runge-Kutta method (similar to the Matlab ODE45 solver). Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
 
-%Drilling fluid damping is uniformly applied throughout the system.
+%Drilling fluid damping is uniformly applied throughout the system. 
+
+The equations of motion are coupled through the friction. The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model also has the following features:
 \begin{bulletedlist}
-	\item A simplified bit model (see \sectionname~\ref{sec:exxonbitmodel})
-	\item No lateral motion
-    \item No lateral bending moments (soft string model)
-    \item The entire drill string is in contact with the well bore (soft string model)
-	\item The effects of cuttings distribution on the friction is homogeneous
-	\item Viscous damping is included
-	\item Cased and open hole sections have the same friction factors
-    \item Friction between the drill string and well bore is modeled as a type of Stribeck friction (see \sectionname~\ref{sec:exxonfrictionmodel})
-    \item Tool joints effects can be included
+    \item Friction model is coupled, the resultant velocity of the axial and torsional DOF are use to determine the friction force
+    \item No movement until the resultant reaction force reaches static limit
 \end{bulletedlist}
-
 
 The bit-rock interaction model is based on depth-of-cut and calculated by tracking the bit-depth relative to hole-depth. At each time step, the bit is considered to be drilling ahead when the DOC is higher than zero (the bit depth is greater than the hole depth) and the angular displacement of the bit is in the direction of the input rotation (i.e., the bit is not standing still or rotating backwards).  This feature contributes to a more realistic representation of the drilling process.
 
 The Python-based source code is designed using a modular approach.  Most functions are distributed across separate Python files and are easily accessible by importing them. The code's operational instructions and guidelines are included in a manual (\referencename~\cite{ref:dixit2021a}), offering users guidance on running the code effectively.
 
-\subsection{Top Drive Model}
+\section{Top Drive Model}
 The model utilizes the axial and rotational velocity of the top-drive as input. These are integrated to calculate the corresponding axial and rotational displacements of the top-drive.
 
 Torque on top-drive can be derived as
@@ -44,8 +38,8 @@ The model incorporates an additional parameter known as \emph{heave} which accou
 where
 $Z_{heave}$ and $ROP_{heave}$ are heave displacement and ROP, $x$ is heave amplitude, $\omega$ is heave angular velocity, $t$ is time and $t_{heave\_delay}$ is heave delay time.
 
-\subsection{Bit Model}
-\label{sec:exxonbitmodel}
+\section{Bit Model}
+
 The laws governing the bit-rock interface in drilling operations primarily rely on the relationships between weight on bit, torque on bit, rate of penetration, and angular velocity. These interdependent variables play a crucial role in achieving efficient drilling while also influencing the emergence of drilling dysfunctions within the system. The forces and torque exerted on the bit are directly influenced by the instantaneous changes in axial and angular velocities.
 
 The interaction between PDC bits and the rock formation encompasses a combination of cutting and frictional contact, as identified by \referencename~\cite{ref:detournay1992a}.   This is modeled by decomposing the weight on bit and torque on bit into cutting and frictional components, which are contingent upon the strength of the rock formation being drilled.  The WOB and TOB are given as
@@ -57,34 +51,34 @@ The interaction between PDC bits and the rock formation encompasses a combinatio
 \end{equation}
 where $k_{WOB}$ is the weight on bit coefficent, $k_{TQ}$ is the torque on bit coefficient, $DOC_{iteration}$ is depth of cut at the current time step, $C_{bit-axial}$ is axial viscous damping, and $Z$ is bit displacement.  The rock strength is incorporated into the coefficients $k_{WOB}$ and $k_{TQ}$.  The dependency on the depth of cut represents the material removed during drilling.
 
-\subsection{Friction Model}
-\label{sec:exxonfrictionmodel}
-A Stribeck type friction model is used for the static and dynamic friction (\referencename~\cite{ref:cayeux2020a}) which is shown in \figurename~\ref{fig:stribeckfriction}.  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model also has the following features:
-\begin{bulletedlist}
-    \item Friction model is coupled, the resultant velocity of the axial and torsional DOF are use to determine the friction force
-    \item No movement until the resultant (combined axial and torsional) reaction force reaches static limit
-\end{bulletedlist}
-The friction is combined with viscous damping (in a manner similar to the source term in the A-S model) to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
+\section{Friction Model}
+\sout{
+Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior, continuous changes in velocity, and a large combination of materials (formation, drilling fluid, et cetera). The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating torque within the system.}
 \begin{figure}
 	\begin{minipage}[t]{\linewidth}
-			\begin{minipage}[t]{0.285\linewidth}
+			\begin{minipage}[t]{0.3\linewidth}
 				\centering
 				\includegraphics[width=0.90\linewidth]{stribeckfriction}
-				\subcaption{Stribeck friction without viscous effects (\referencename~\cite{ref:cayeux2020a}).}
+				\subcaption{Stribeck friction without fluid drag (\referencename~\cite{ref:cayeux2020a}).}
 				\label{fig:stribeckfriction}
 			\end{minipage}
 			\hfill
-			\begin{minipage}[t]{0.67\linewidth}
+			\begin{minipage}[t]{0.65\linewidth}
 				\centering
 				\includegraphics[width=\linewidth]{exxonmobilfriction}
-				\subcaption{Stribeck friction combined with viscous damping it used in the ExxonMobil model (\referencename~\cite{ref:dixit2021a}).}
+				\subcaption{Stribeck friction with fluid drag as it used in the ExxonMobil model (\referencename~\cite{ref:dixit2021a}).}
 				\label{fig:exxonmobilfriction}
 			\end{minipage}
 	\end{minipage}
-	\caption[Comparison of friction models]{A comparison of Stribeck friction without viscous effects in~(\subref{fig:stribeckfriction}) and the Stribeck friction with viscous damping that is used in the ExxonMobil software in~(\subref{fig:exxonmobilfriction}).}\label{fig:frictionmodels}
+	\caption[Comparison of friction models]{A comparison of Stribeck friction without fluid drag in~(\subref{fig:stribeckfriction}) and the Stribeck friction with fluid drag that is used in the ExxonMobil software in~(\subref{fig:exxonmobilfriction}).}\label{fig:frictionmodels}
 \end{figure}
-
-
+\sout{
+To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator.}
+\sout{
+As the force of friction increases, it introduces a negative damping effect}\needsclarification[How so?]\sout{as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. The axial and rotational displacement and velocity of the top drive do not instantaneously transfer to the bit. The elements of the drill string must overcome inertia and static friction to transfer energy to the next element. This lag in energy transfer can be effectively described by the Stribeck curve, where the frictional forces decrease as the velocity increases (see } \figurename~\ref{fig:frictionmodels}).
+\sout{
+The Stribeck friction has the negatively sloped characteristics taking place at low velocities (see \figurename~\ref{fig:stribeckfriction}). The Coulomb friction results in a constant force at any velocities. The fluid drag}\footnote{It is called ``viscous friction`` in the manual.}\sout{ opposes motion with the force directly proportional to the relative velocity which is shown in \figurename~\ref{fig:exxonmobilfriction}. The sum of the Coulomb and Stribeck frictions at the vicinity of zero velocity is often referred to as the breakaway friction.}
+%\footnotetext{It is called ``viscous friction'' in the manual.}
 \begin{equation}\label{dynamic_force}
   F_{\mu,k} = \mu_{k}\times F_{n} \times (-V_{Sliding})
 \end{equation}
@@ -113,7 +107,7 @@ where $\mu_{eff}$ is effective friction factor, $V_{CS}$ is Stribeck critical ve
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{Exxon_friction}
-  \caption[Friction model for ExxonMobil model]{Friction model for ExxonMobil model. Left and right figures are friction models in ExxonMobil model only when Stribeck friction is considered and both Stribeck and viscous friction are included, respectively. Stribeck friction refers to the friction from drill string and wellbore contact. $F_{\mu, s}$ is static friction, $C$ is viscous friction coefficient (same as viscous damping) and $V_{CS}$ is Stribeck critical sliding velocity. Total friction in the system is the linear combination between Stribeck and viscous friction. \reviewcomment{Aren't this just two forms of Stribeck friction?}}\label{figure_Exxon_friction}
+  \caption[Friction model for ExxonMobil model]{Friction model for ExxonMobil model. Left and right figures are friction models in ExxonMobil model only when Stribeck friction is considered and both Stribeck and viscous friction are included, respectively. Stribeck friction refers to the friction from drill string and wellbore contact. $F_{\mu, s}$ is static friction, $C$ is viscous friction coefficient (same as viscous damping) and $V_{CS}$ is Stribeck critical sliding velocity. Total friction in the system is the linear combination between Stribeck and viscous friction. \reviewcomment{Aren't this just two forms of Stribeck friction?\resolvedcomment{}}}\label{figure_Exxon_friction}
 \end{figure}
 
 %Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. Values of viscous dampers are held constants during simulation, but the viscous frictional force will vary depending on the sliding velocities as can be seen in \figurename~\ref{fig:exxonmobilfriction}.
