@@ -5,7 +5,7 @@
 The model is developed by ExxonMobil beginning in 2021.  It is an axial-torsional system designed to model the dynamics of drill strings while drilling and tripping. It can be used both vertical and inclined wells under various operational conditions.  BHA components such as drill pipes, HWDP, drill collars, and mud-motors can be incorporated.  Additional features include bit-rock interaction and incorporation of heave compensator dynamics. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
 
 \section{Model Description}
-The model employs a 2 DOF per node, axial-torsional system and uses a lumped-parameter technique (\referencename~\cite{ref:dixit2021a}). The axial and torsional DOF are coupled through the friction terms and the bit-rock interaction.  There is not a coupling from material properties, the inertia terms, et cetera.  The governing equations of motion are solved by a Runge-Kutta method (\referencename~\cite{ref:shor2022a}).
+The model employs a 2 DOF per node, axial-torsional system and uses a lumped-parameter technique (\referencename~\cite{ref:dixit2021a}). The axial and torsional DOF are coupled through the friction terms and the bit-rock interaction.  There is not a coupling from material properties, the inertia terms, et cetera.  The governing equations of motion are solved by a fourth and fifth order Runge-Kutta-Fehlberg method (\referencename~\cite{ref:shor2022a}).  This is a popular solver that has been implemented many times, including the well known Matlab \textcode{ODE45} function.
 
 %Drilling fluid damping is uniformly applied throughout the system.
 \begin{bulletedlist}
