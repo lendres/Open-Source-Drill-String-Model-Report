@@ -36,14 +36,15 @@ In \referencename~\cite{ref:zamanipour2018a}, the model from \referencename~\cit
 \input{"RGD Family of Models"}
 
 \section{Aarsnes-Shor Models}
-Aarsnes and Shor developed a distributed model for torsional dynamics of drill strings (see \referencename~\cite{ref:aarsnes2017a}).  The model was developed to analyze the stick-slip event during off-bottom drill string rotation without any axial or lateral movement.  This distributed model simulates the torsional dynamics by solving the angular velocity and torque governing equations by applying finite difference method. Key assumptions of the model are the following.
+Aarsnes and Shor developed a distributed model for torsional dynamics of drill strings (\referencename~\cite{ref:aarsnes2017a}).  The model was developed to analyze torsional dynamics of the drill string.  Axial and lateral displacements are ignored.  This distributed model simulates the torsional dynamics by solving the angular velocity and torque governing equations using the finite difference method. Key assumptions of the model are the following.
 \begin{bulletedlist}
-	\item No bit-rock interactions
+	\item A soft string model (no lateral bending moments, entire string in contact with the borehole)
+	\item Bit-rock interactions is simplified to torque as a function of weight on bit
 	\item No axial or lateral movement
-	\item The friction from drill string - wellbore contact is assumed as Coulomb friction. \reviewcomment{Wording of Coulomb friction model.}\resolvedcomment{}
-    \item Viscous friction is considered which results from viscous shear of the drilling mud and the rolling con
+	\item The friction from drill string and wellbore contact is models as Coulomb friction
+    \item Viscous damping is included
 \end{bulletedlist}
-Compared to a more sophisticated friction model (e.g., a Stribeck friction model), the friction model is simplified by Coulomb friction model. However, reliable results were obtained from field validation (see \referencename~\cite{ref:aarsnes2017a}). \wording{}\resolvedcomment{} Two versions of the source code are available, one implemented in Matlab and the other in Python.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion. Please see \chaptername~\ref{ch:aarnessshormodel} for a complete analysis.
+Compared to a more sophisticated friction model (e.g., a Stribeck friction model), the friction model is a less complex Coulomb friction model. However, reliable results were obtained from field validation (\referencename~\cite{ref:aarsnes2017a}). \wording{}\resolvedcomment{} Two versions of the source code are available, one implemented in Matlab and the other in Python.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion. Please see \chaptername~\ref{ch:aarnessshormodel} for a complete analysis.
 
 \section{ExxonMobil Model}
 The ExxonMobil model is based on a soft string axial-torsional concept and utilizes a lumped mass and spring system (see \referencename~\cite{ref:dixit2021a}). It is designed to simulate the dynamics of a drill string under various drilling and tripping conditions for both vertical and inclined wells. It assumes the wellbore to be 2D and as such it is a 2-DOF per node system. The axial and torsional degrees of freedom are coupled through the friction terms. There is not a coupling from material properties or inertia terms.  The bit-rock interaction is modeled and a Stribeck friction model is used. The governing equations are solved using a Runge-Kutta method. The model has been implemented in Python.  Please see \chaptername~\ref{ch:exxonmobilmodel} for a complete analysis. 

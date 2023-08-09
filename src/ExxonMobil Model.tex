@@ -12,11 +12,11 @@ The model employs a 2 DOF per node, axial-torsional system and uses a lumped-par
 	\item A simplified bit model (see \sectionname~\ref{sec:exxonbitmodel})
 	\item No lateral motion
     \item No lateral bending moments (soft string model)
-    \item The entire drill string is in contact with the well bore (soft string model)
+    \item The entire drill string is in contact with the wellbore (soft string model)
 	\item The effects of cuttings distribution on the friction is homogeneous
 	\item Viscous damping is included
 	\item Cased and open hole sections have the same friction factors
-    \item Friction between the drill string and well bore is modeled as a type of Stribeck friction (see \sectionname~\ref{sec:exxonfrictionmodel})
+    \item Friction between the drill string and wellbore is modeled as a type of Stribeck friction (see \sectionname~\ref{sec:exxonfrictionmodel})
     \item Tool joints effects can be included
 \end{bulletedlist}
 
@@ -88,7 +88,7 @@ The dynamic friction force\footnote{This is a conceptualization of the calculati
 \begin{equation}\label{dynamic_force}
   \mbf{F}_{\mu,k} = \mu_{k} F_{n} (-\mbf{V}_{s})
 \end{equation}
-where $\mbf{F}_{\mu,k}$ is dynamic friction force vector (axial and torsional), $\mu_k$ is dynamic friction factor, $F_n$ is the scalar normal force, and $\mbf{V}_{s}$ is velocity vector.\footnote{In the reference material, $\mbf{V}_{s}$ is a scalar value called $V_{sliding}$. $V_{sliding}$ is the magnitude of the combined axial and torsion velocity of the drill pipe at the OD of the drill pipe where it contacts the well bore wall.  The authors have not used the term ``sliding'' in order to prevent any confusion with the ``sliding'' mode in drilling used to build curves.  The drilling sliding mode may imply an axial only displacement, which is not the case for the friction calculation.}
+where $\mbf{F}_{\mu,k}$ is dynamic friction force vector (axial and torsional), $\mu_k$ is dynamic friction factor, $F_n$ is the scalar normal force, and $\mbf{V}_{s}$ is velocity vector.\footnote{In the reference material, $\mbf{V}_{s}$ is a scalar value called $V_{sliding}$. $V_{sliding}$ is the magnitude of the combined axial and torsion velocity of the drill pipe at the OD of the drill pipe where it contacts the wellbore wall.  The authors have not used the term ``sliding'' in order to prevent any confusion with the ``sliding'' mode in drilling used to build curves.  The drilling sliding mode may imply an axial only displacement, which is not the case for the friction calculation.}
 
 
 The static friction force opposes the direction of axial motion (\equationname~\ref{dynamic_force}), while static friction force $F_{\mu,s}$ acts in the opposite direction of the sum of all tangential forces when there is no sliding motion $V_{sliding}=0$.

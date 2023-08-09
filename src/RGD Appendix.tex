@@ -1,7 +1,8 @@
 \chapter{RGB Model Work Flow}
+\reviewcomment{This appendix has only one section.}
 \section{Mathematical background of RGD model}
 \label{ap:rgbworkflow}
-This \appendixname{} briefly summarizes the workflow of RGB model written in Matlab. A more detailed description can be seen in \referencename~\cite{ref:zhang2020a}. This code is for a symmetric full blade which is defined as a D1 bit in the paper. The code calculates coupled PDE and ODE by solving the matrix
+This appendix briefly summarizes the work flow of RGB model written in Matlab. A more detailed description can be seen in \referencename~\cite{ref:zhang2020a}. This code is for a symmetric full blade which is defined as a D1 bit in the paper. The code calculates coupled PDE and ODE by solving the matrix
 \begin{equation}\label{matrix}
   \bm{Adx} + \bm{BX} = \bm{Q}
 \end{equation}
@@ -9,33 +10,33 @@ where $\bm{dx}$ and $\bm{X}$ are defined as follow:
 
 \vspace{\abovedisplayskip}
 \noindent\begin{minipage}{.4\linewidth}
-\begin{equation}
-\bm{x}=
-\begin{bmatrix}
-\dot{u} \\
-u \\
-\psi \\
-\dot{\psi} \\
-a_1\ \\
-\vdots \\
-a_N \\
-\end{bmatrix}
-\end{equation}
+	\begin{equation}
+		\bm{x}=
+		\begin{bmatrix}
+		\dot{u} \\
+		u \\
+		\psi \\
+		\dot{\psi} \\
+		a_1\ \\
+		\vdots \\
+		a_N \\
+		\end{bmatrix}
+	\end{equation}
 \end{minipage}%
 \hfill
 \begin{minipage}{.4\linewidth}
-\begin{equation}
-\bm{dx}=
-\begin{bmatrix}
-\ddot{u} \\
-\dot{u} \\
-\dot{\psi} \\
-\ddot{\psi} \\
-\dot{a_1}\ \\
-\vdots \\
-\dot{a_N} \\
-\end{bmatrix}
-\end{equation}
+	\begin{equation}
+		\bm{dx}=
+		\begin{bmatrix}
+		\ddot{u} \\
+		\dot{u} \\
+		\dot{\psi} \\
+		\ddot{\psi} \\
+		\dot{a_1}\ \\
+		\vdots \\
+		\dot{a_N} \\
+		\end{bmatrix}
+	\end{equation}
 \end{minipage}
 \vspace{\belowdisplayskip}
 
@@ -61,7 +62,7 @@ and
 \end{equation}
 where N is the number of Galerkin base functions.
 
-Equation (\ref{GM1})-(\ref{GM2}) represent a system of $N^{th}$ first order equations for $a_i,\; i=1,2,...,N$ that is 
+Equation (\ref{GM1})-(\ref{GM2}) represent a system of $N^{th}$ first order equations for $a_i,\; i=1,2,...,N$ that is
 \begin{equation}\label{Norder}
   \dot{a}_i = \Phi_i(\dot{u}, u, a_1, ..., a_N), i=1,...,N.
 \end{equation}
@@ -72,7 +73,7 @@ and also coupled with the equation of motion which are
 \begin{equation}\label{GE2_}
   \ddot{\phi} + \phi = \Gamma_0 - \Gamma
 \end{equation}
-where 
+where
 \begin{equation}\label{GE1}
   \varpi-\varpi_0 = n(\delta_n - \lambda(g(\nu)) - \frac{2\pi v}{w_0}
 \end{equation}

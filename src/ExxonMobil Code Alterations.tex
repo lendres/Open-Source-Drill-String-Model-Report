@@ -1,6 +1,6 @@
 \chapter{ExxonMobil Code Alterations}
 \label{ch:appendixexxonmobil}
-This \appendixname{} contains a list of modifications made to the ExxonMobil model during the testing and evaluation.
+This appendix contains a list of modifications made to the ExxonMobil model during the testing and evaluation.
 
 \reviewcomment[START]{Needs to be associated with lines of code.}
 \markupnote{During testing, we encountered an issue with the ``on-bottom'' case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling'' mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling'' mode, enabling dynamic changes in both hole depth and non-zero DOC.} \reviewcomment[END]{Needs to be associated with lines of code.}

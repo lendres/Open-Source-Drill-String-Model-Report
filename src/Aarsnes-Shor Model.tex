@@ -12,16 +12,16 @@ The model simulates torsional vibration of the drill string induced by Coulomb f
 	\item A simplified bit model (see \sectionname~\ref{sec:asbitmodel})
 	\item No lateral or axial motion
     \item No lateral bending moments (soft string model)
-    \item The entire drill string is in contact with the well bore (soft string model)
+    \item The entire drill string is in contact with the wellbore (soft string model)
 	\item The effects of cuttings distribution on the friction is homogeneous
 	\item Viscous damping is included
 	\item Cased and open hole sections have the same friction factors
-    \item Friction between the drill string and well bore is modeled as Coulomb friction (see \sectionname~\ref{sec:asfrictionmodel})
+    \item Friction between the drill string and wellbore is modeled as Coulomb friction (see \sectionname~\ref{sec:asfrictionmodel})
     \item Tool joints are ignored
 \end{bulletedlist}
 While tool joints are not included as part of the model, an equivalent stiffness can be manually calculated for drill string components to account for their effects.
 
-Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and the validation with field data was also conducted \cite{ref:aarsnes2017a}. In comparison, the Python ver.\ is a relatively recent version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section.
+Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and has been validated with field data (\referencename~\cite{ref:aarsnes2017a}). In comparison, the Python ver.\ is a relatively recent version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section.
 
 \subsection{Top Drive Model}
 The model contains PI controller on the top drive. Therefore, boundary condition at the top is given by top drive torque and velocity calculated from top drive set point velocity. Torque on top drive are derived as

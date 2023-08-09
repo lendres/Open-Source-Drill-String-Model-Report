@@ -1,5 +1,5 @@
 \chapter{Aarsnes-Shor Code Alterations}
-This \appendixname{} contains a list of modifications made to the Aarsnes-Shor model during the testing and evaluation.
+This appendix contains a list of modifications made to the Aarsnes-Shor model during the testing and evaluation.
 
 \section{Matlab Ver.\ \codefont{torsionalWaveStep.m}}
 Modifications were made to turn off PI controller and rotate drill string in fixed velocity. Use of the function \textcode{torsionalWaveStet\_FixedVal.m} instead of the function \textcode{torsionalWaveStep.m} will turn off the PI controller. Modifications were made to turn off PI controller and rotate drill string in fixed velocity. Input parameters are changed from (p, x, u), to (p, x, omega\_stat, k), where u is removed while omega\_stat, k are added, where u is structure array containing top drive PI controller information, omega\_stat is set point velocity of the top drive and k is current step of the loop. Below explains the modifications of the code from torsionalWaveStep.m.
@@ -28,12 +28,12 @@ Turning off the PI controller and set the fixed angular velocity at top of the d
 \begin{codemodifications}
 
 \begin{codemodification}{202-209, 267-274, 315}
-Commented out to turn off the PI controller. 
+Commented out to turn off the PI controller.
 \end{codemodification}
 \begin{codemodification}{214-220}
 Code added to increase the top drive speed to set point at desired time.
 \end{codemodification}
 \begin{codemodification}{276-278, 316}
-Code added to calculate torque on top drive (torque on top of the drill string) without PI controller. 
+Code added to calculate torque on top drive (torque on top of the drill string) without PI controller.
 \end{codemodification}
 \end{codemodifications} 
