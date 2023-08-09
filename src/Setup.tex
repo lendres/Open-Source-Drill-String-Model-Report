@@ -54,6 +54,7 @@
 }
 {}
 
+% Test Cases results table.
 \newenvironment{testcaseresulttable}
 {
     \begin{tabular}{|c|c|c|c|c|}
@@ -66,6 +67,21 @@
 {
 	\end{tabular}
 }
+
+
+% Model comparison table.
+\newcommand*{\columnoneentry}[1]{\multicolumn{1}{|l|}{\bfseries#1}}
+\newenvironment{modelcomparisontable}
+{
+    \begin{tabular}{l|c|c|}
+        \cline{2-3}
+         & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
+        \hline
+}
+{
+	\end{tabular}
+}
+
 
 % Package from DY for table
 \usepackage{multirow}

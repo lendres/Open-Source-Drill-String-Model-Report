@@ -2,25 +2,25 @@
 \label{ch:results}
 This chapter contains results and its comparisons from both the A-S and ExxonMobil models for all the Test Cases. More details for the Test Cases can be find in \chaptername~\ref{ch:testcases}. A summary of the differences between the two models are shown in \tablename~\ref{table_model_difference}.
 \begin{table}
-\centering
-\begin{tabular}{|c|p{2.1in}|p{2.3in}|c|}
-\hline
-\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
-\hline
-Motion & Torsional & Torsional + Axial\\
-\hline
-Bit model & Constant & Dynamic \\
-\hline
-Friction model & Coulomb friction \& fluid drag & A viscous friction Stribeck model \\
-\hline
-System & PDE & ODE\\
-\hline
-Solving method & FDM  & ODE45 Runge Kutta \\
-\hline
-Model approach & Distributed model & Lump Mass Spring \\
-\hline
-\end{tabular}
-\caption[Summary of the difference between two models]{Summary of the difference between the A-S and ExxonMobil models.}\label{table_model_difference}
+	\centering
+	\begin{tabular}{l|p{2.1in}|p{2.3in}|c|}
+		\cline{2-3}
+		                        & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
+		\hline
+		\columnoneentry{Motion} & Torsional & Torsional + axial\\
+		\hline
+		\columnoneentry{Bit model} & Constant & Dynamic \\
+		\hline
+		\columnoneentry{Friction model} & Coulomb friction \& fluid drag & A viscous friction Stribeck model \\
+		\hline
+		\columnoneentry{System} & PDE & ODE\\
+		\hline
+		\columnoneentry{Solving method} & FDM  & Runge-Kutta-Fehlberg \\
+		\hline
+		\columnoneentry{Model approach} & Distributed & Lumped mass \& spring \\
+		\hline
+	\end{tabular}
+	\caption[Summary of the difference between two models]{Summary of the difference between the A-S and ExxonMobil models.}\label{table_model_difference}
 \end{table}
 
 \section{Test Case 1}
@@ -36,21 +36,18 @@ Test Case 1 represents a scenario with vertical well without BHA components. The
   \caption[Angular velocity and torque comparison plots for Test Case 1]{Angular velocity and torque comparison between the A-S model (Matlab ver.) and the ExxonMobil model for Test Case 1. The fundamental vibration frequency are 0.440 $Hz$ from the A-S model and 0.427 $Hz$ from the ExxonMobil model. The difference in frequency is small, but the accumulated effect of this difference caused a phase shift as the simulation continued. Overall, both models matched well, showing similar amplitude of torque and angular velocity of top drive and bit.}\label{figure_testcase1_overlapped}
 \end{figure}
 \begin{table}
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
-\hline
-Frequency & 0.440 $Hz$ & 0.427 $Hz$\\
-\hline
-Maximum bit velocity & 79 $RPM$ & 81 $RPM$ \\
-\hline
-Maximum top drive torque & 1762 $lb\mbox{-}ft$ & 1814 $lb\mbox{-}ft$ \\
-\hline
-Computation time & 36 $s$ & 106 $s$\\
-\hline
-\end{tabular}
-\caption[Comparison between the A-S and ExxonMobil models for Test Case 1.]{Comparison between the A-S and ExxonMobil models for Test Case 1.}\label{table_summary_testcase1}
+	\centering
+	\begin{modelcomparisontable}
+		\columnoneentry{Frequency} & 0.440 $Hz$ & 0.427 $Hz$\\
+		\hline
+		\columnoneentry{Maximum bit velocity} & 79 $RPM$ & 81 $RPM$ \\
+		\hline
+		\columnoneentry{Maximum top drive torque} & 1762 $lb\mbox{-}ft$ & 1814 $lb\mbox{-}ft$ \\
+		\hline
+		\columnoneentry{Computation time} & 36 $s$ & 106 $s$\\
+		\hline
+	\end{modelcomparisontable}
+	\caption[Comparison between the A-S and ExxonMobil models for Test Case 1.]{Comparison between the A-S and ExxonMobil models for Test Case 1.}\label{table_summary_testcase1}
 \end{table}
 
 \section{Test Case 2}
@@ -70,21 +67,18 @@ The results for Test Case 2a from each model are depicted in \figurename~\ref{fi
   \caption[Angular velocity and torque comparison plots for Test Case 2a]{Angular velocity and torque comparison between the results from the A-S model (Matlab ver.) and the ExxonMobil model for Test Case 2a. The fundamental vibration frequency are 0.283 $Hz$ from the A-S model and 0.272 $Hz$ from the ExxonMobil model. The difference in frequency is small but the accumulated effect of this differences caused the phase shift during 60 seconds. Overall, both models matched well showing similar amplitude of torque and angular velocity of top drive and bit.}\label{figure_testcase2_1_overlapped}
 \end{figure}
 \begin{table}
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
-\hline
-Frequency & 0.283 $Hz$ & 0.272 $Hz$\\
-\hline
-Maximum bit velocity & 78 $RPM$ & 79 $RPM$ \\
-\hline
-Maximum top drive torque & 6643 $lb\mbox{-}ft$ & 6891 $lb\mbox{-}ft$ \\
-\hline
-Computation time & 25 $s$ & 117 $s$\\
-\hline
-\end{tabular}
-\caption[Comparison between the A-S and ExxonMobil models for Test Case 2a]{Comparison between the A-S model and ExxonMobil model for Test Case 2a.}\label{table_summary_testcase2a}
+	\centering
+	\begin{modelcomparisontable}
+		\columnoneentry{Frequency} & 0.283 $Hz$ & 0.272 $Hz$\\
+		\hline
+		\columnoneentry{Maximum bit velocity} & 78 $RPM$ & 79 $RPM$ \\
+		\hline
+		\columnoneentry{Maximum top drive torque} & 6643 $lb\mbox{-}ft$ & 6891 $lb\mbox{-}ft$ \\
+		\hline
+		\columnoneentry{Computation time} & 25 $s$ & 117 $s$\\
+		\hline
+	\end{modelcomparisontable}
+	\caption[Comparison between the A-S and ExxonMobil models for Test Case 2a]{Comparison between the A-S model and ExxonMobil model for Test Case 2a.}\label{table_summary_testcase2a}
 \end{table}
 
 
@@ -104,23 +98,22 @@ The fundamental frequencies of the vibration were 0.280 $Hz$ and 0.269 $Hz$ for 
   \includegraphics[width=6.5in]{overlapped_figureTestCase2_2_arrow}
   \caption[Angular velocity and torque comparison plots for Test Case 2b]{Angular velocity and torque comparison of the results from the A-S model (Matlab ver.) and the ExxonMobil model for Test Case 2b. Both models demonstrated stick-slip. The fundamental vibration frequencies are 0.280 $Hz$ for the A-S model and 0.269 $Hz$ for the ExxonMobil model. The difference in frequency is small, but the accumulated effect of these differences caused the phase shift during 60 seconds. Overall, both models matched well. The transient phase (before 40 seconds) showed similar vibration patterns for both models. Both models predicted a similar standstill duration of 1.6-1.8 seconds during the stick phase (after 40 seconds). The spikes in bit angular velocity ($<$ 0) were observed from both models, which are pointed out by black arrows.}\label{figure_testcase2_2_overlapped}
 \end{figure}
+
 \begin{table}
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
-\hline
-Frequency & 0.280 $Hz$ & 0.269 $Hz$\\
-\hline
-Maximum bit velocity & 106 $RPM$ & 115 $RPM$ \\
-\hline
-Maximum top drive torque & 5184 $lb\mbox{-}ft$ & 5539 $lb\mbox{-}ft$ \\
-\hline
-Computation time & 25 $s$ & 116 $s$\\
-\hline
-\end{tabular}
-\caption[Comparison between the A-S and ExxonMobil models for Test Case 2b]{Comparison between the A-S and ExxonMobil models for Test Case 2b.}\label{table_summary_testcase2b}
+	\centering
+	\begin{modelcomparisontable}
+		\columnoneentry{Frequency} & 0.280 $Hz$ & 0.269 $Hz$\\
+		\hline
+		\columnoneentry{Maximum bit velocity} & 106 $RPM$ & 115 $RPM$ \\
+		\hline
+		\columnoneentry{Maximum top drive torque} & 5184 $lb\mbox{-}ft$ & 5539 $lb\mbox{-}ft$ \\
+		\hline
+		\columnoneentry{Computation time} & 25 $s$ & 116 $s$\\
+		\hline
+	\end{modelcomparisontable}
+	\caption[Comparison between the A-S and ExxonMobil models for Test Case 2b]{Comparison between the A-S and ExxonMobil models for Test Case 2b.}\label{table_summary_testcase2b}
 \end{table}
+
 \section{Test Case 3}
  Test Case 3 represents the scenario of a vertical well with BHA components. The results show similarities with Test Case 1 (vertical well without BHA components), but fluctuations in the peak values of the vibration for both bit angular velocity and top drive torque were observed. Specifically, the peak value decreases until 80 seconds and then starts to increase again, returning to the peak value at 120 seconds. \figurename{}s~\ref{figure_testcase3} and~\ref{figure_testcase3_overlapped} illustrate the results for each model and comparisons for Test Case 3. \figurename~\ref{figure_testcase3_overlapped} shows the simulation results for a longer time length (120 seconds) to clearly show the change in the peak values. The results of each model are summarized in \tablename~\ref{table_summary_testcase3}
 
@@ -138,21 +131,18 @@ Compared to Test Case 1 (without BHA components), the fundamental vibration freq
 \end{figure}
 
 \begin{table}
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
-\hline
-Frequency & 0.420 $Hz$ & 0.408 $Hz$\\
-\hline
-Maximum bit velocity & 80 $RPM$ & 81 $RPM$ \\
-\hline
-Maximum top drive torque & 1844 $lb\mbox{-}ft$ & 1841 $lb\mbox{-}ft$ \\
-\hline
-Computation time & 36 $s$ & 104 $s$\\
-\hline
-\end{tabular}
-\caption[Comparison between the A-S and ExxonMobil models for Test Case 3]{Comparison between the A-S and ExxonMobil models for Test Case 3.}\label{table_summary_testcase3}
+	\centering
+	\begin{modelcomparisontable}
+		\columnoneentry{Frequency} & 0.420 $Hz$ & 0.408 $Hz$\\
+		\hline
+		\columnoneentry{Maximum bit velocity} & 80 $RPM$ & 81 $RPM$ \\
+		\hline
+		\columnoneentry{Maximum top drive torque} & 1844 $lb\mbox{-}ft$ & 1841 $lb\mbox{-}ft$ \\
+		\hline
+		\columnoneentry{Computation time} & 36 $s$ & 104 $s$\\
+		\hline
+	\end{modelcomparisontable}
+	\caption[Comparison between the A-S and ExxonMobil models for Test Case 3]{Comparison between the A-S and ExxonMobil models for Test Case 3.}\label{table_summary_testcase3}
 \end{table}
 
 \section{Test Case 4}
@@ -174,21 +164,18 @@ Results for Test Case 4a for each model and the comparison between the two model
 \end{figure}
 
 \begin{table}
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
-\hline
-Frequency & 0.268 $Hz$ & 0.260 $Hz$\\
-\hline
-Maximum bit velocity & 78 $RPM$ & 79 $RPM$ \\
-\hline
-Maximum top drive torque & 8083 $lb\mbox{-}ft$ & 8379 $lb\mbox{-}ft$ \\
-\hline
-Computation time & 32 $s$ & 231 $s$\\
-\hline
-\end{tabular}
-\caption[Comparison between the A-S and ExxonMobil models for Test Case 4a]{Comparison between the A-S and ExxonMobil models for Test Case 4a.}\label{table_summary_testcase4a}
+	\centering
+	\begin{modelcomparisontable}
+		\columnoneentry{Frequency} & 0.268 $Hz$ & 0.260 $Hz$\\
+		\hline
+		\columnoneentry{Maximum bit velocity} & 78 $RPM$ & 79 $RPM$ \\
+		\hline
+		\columnoneentry{Maximum top drive torque} & 8083 $lb\mbox{-}ft$ & 8379 $lb\mbox{-}ft$ \\
+		\hline
+		\columnoneentry{Computation time} & 32 $s$ & 231 $s$\\
+		\hline
+	\end{modelcomparisontable}
+	\caption[Comparison between the A-S and ExxonMobil models for Test Case 4a]{Comparison between the A-S and ExxonMobil models for Test Case 4a.}\label{table_summary_testcase4a}
 \end{table}
 
 \subsection{Test Case 4b}
@@ -205,21 +192,18 @@ The effect of BHA components in deviated well is more detailed in \figurename{}s
 \end{figure}
 
 \begin{table}
-\centering
-\begin{tabular}{|c|c|c|}
-\hline
-\tablecolumnheadervlinesone{} & \tablecolumnheadervlinestwo{A-S Model} & \tablecolumnheadervlinestwo{ExxonMobil Model} \\
-\hline
-Frequency & 0.268 $Hz$ & 0.260 $Hz$\\
-\hline
-Maximum bit velocity & 116 $RPM$ & 96 $RPM$ \\
-\hline
-Maximum top drive torque & 7056 $lb\mbox{-}ft$ & 5825 $lb\mbox{-}ft$ \\
-\hline
-Computation time & 32 $s$ & 231 $s$\\
-\hline
-\end{tabular}
-\caption[Comparison between the A-S and ExxonMobil models for Test Case 4b]{Comparison between the A-S and ExxonMobil models for Test Case 4b.}\label{table_summary_testcase4b}
+	\centering
+	\begin{modelcomparisontable}
+		\columnoneentry{Frequency} & 0.268 $Hz$ & 0.260 $Hz$\\
+		\hline
+		\columnoneentry{Maximum bit velocity} & 116 $RPM$ & 96 $RPM$ \\
+		\hline
+		\columnoneentry{Maximum top drive torque} & 7056 $lb\mbox{-}ft$ & 5825 $lb\mbox{-}ft$ \\
+		\hline
+		\columnoneentry{Computation time} & 32 $s$ & 231 $s$\\
+		\hline
+	\end{modelcomparisontable}
+	\caption[Comparison between the A-S and ExxonMobil models for Test Case 4b]{Comparison between the A-S and ExxonMobil models for Test Case 4b.}\label{table_summary_testcase4b}
 \end{table}
 
 
