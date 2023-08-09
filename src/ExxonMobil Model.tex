@@ -59,26 +59,22 @@ where $k_{WOB}$ is the weight on bit coefficent, $k_{TQ}$ is the torque on bit c
 
 \subsection{Friction Model}
 \label{sec:exxonfrictionmodel}
-A Stribeck type friction model is used for the static and dynamic friction.  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model also has the following features:
+A Stribeck type friction model is used for the static and dynamic friction (\referencename~\cite{ref:cayeux2020a}) which is shown in \figurename~\ref{fig:stribeckfriction}.  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model also has the following features:
 \begin{bulletedlist}
     \item Friction model is coupled, the resultant velocity of the axial and torsional DOF are use to determine the friction force
     \item No movement until the resultant (combined axial and torsional) reaction force reaches static limit
 \end{bulletedlist}
-
-
-\sout{
-Modeling friction forces along the drill string is a challenging task due to the system's nonlinear behavior, continuous changes in velocity, and a large combination of materials (formation, drilling fluid, et cetera). The net frictional force is highly influenced by the sliding velocity, with the axial component contributing to drag force and the tangential component generating torque within the system.}
-
+The friction is combined with viscous damping (in a manner similar to the source term in the A-S model) to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
 \begin{figure}
 	\begin{minipage}[t]{\linewidth}
-			\begin{minipage}[t]{0.3\linewidth}
+			\begin{minipage}[t]{0.285\linewidth}
 				\centering
 				\includegraphics[width=0.90\linewidth]{stribeckfriction}
 				\subcaption{Stribeck friction without viscous effects (\referencename~\cite{ref:cayeux2020a}).}
 				\label{fig:stribeckfriction}
 			\end{minipage}
 			\hfill
-			\begin{minipage}[t]{0.65\linewidth}
+			\begin{minipage}[t]{0.67\linewidth}
 				\centering
 				\includegraphics[width=\linewidth]{exxonmobilfriction}
 				\subcaption{Stribeck friction combined with viscous damping it used in the ExxonMobil model (\referencename~\cite{ref:dixit2021a}).}
@@ -87,13 +83,8 @@ Modeling friction forces along the drill string is a challenging task due to the
 	\end{minipage}
 	\caption[Comparison of friction models]{A comparison of Stribeck friction without viscous effects in~(\subref{fig:stribeckfriction}) and the Stribeck friction with viscous damping that is used in the ExxonMobil software in~(\subref{fig:exxonmobilfriction}).}\label{fig:frictionmodels}
 \end{figure}
-\sout{
-To enhance the assessment of frictional forces at the bit and along the length of the drill string, particularly in deviated wellbores, a friction model (\referencename~\cite{ref:cayeux2020a}) is implemented within the drilling simulator.}
-\sout{
-As the force of friction increases, it introduces a negative damping effect}\needsclarification[How so?]\sout{as the sliding velocity approaches zero. This negative damping effect can lead to stick-slip dysfunction, even when the bit is not in contact with the bottom of the well. The axial and rotational displacement and velocity of the top drive do not instantaneously transfer to the bit. The elements of the drill string must overcome inertia and static friction to transfer energy to the next element. This lag in energy transfer can be effectively described by the Stribeck curve, where the frictional forces decrease as the velocity increases (see } \figurename~\ref{fig:frictionmodels}).
-\sout{
-The Stribeck friction has the negatively sloped characteristics taking place at low velocities (see \figurename~\ref{fig:stribeckfriction}). The Coulomb friction results in a constant force at any velocities. The fluid drag}\footnote{It is called ``viscous friction`` in the manual.}\sout{ opposes motion with the force directly proportional to the relative velocity which is shown in \figurename~\ref{fig:exxonmobilfriction}. The sum of the Coulomb and Stribeck frictions at the vicinity of zero velocity is often referred to as the breakaway friction.}
-%\footnotetext{It is called ``viscous friction'' in the manual.}
+
+
 \begin{equation}\label{dynamic_force}
   F_{\mu,k} = \mu_{k}\times F_{n} \times (-V_{Sliding})
 \end{equation}
