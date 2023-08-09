@@ -21,12 +21,12 @@ The model simulates torsional vibration of the drill string induced by Coulomb f
 \end{bulletedlist}
 While tool joints are not included as part of the model, an equivalent stiffness can be manually calculated for drill string components to account for their effects.
 
-Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and has been validated with field data (\referencename~\cite{ref:aarsnes2017a}). In comparison, the Python ver.\ is a relatively recent version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section.
+Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and has been validated with field data (\referencename~\cite{ref:aarsnes2017a}). In comparison, the Python ver.\ is a relatively recent version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section. \reviewcomment{What section?}
 
 \subsection{Top Drive Model}
-The model contains PI controller on the top drive. Therefore, boundary condition at the top is given by top drive torque and velocity calculated from top drive set point velocity. Torque on top drive are derived as
+The model contains a PI controller to represent the behavior of the top drive. The boundary condition at the top is given by the top drive torque and velocity calculated from the top drive velocity set point. The torque on the top drive is derived as
 \begin{equation}\label{AS_err}
-  e = w_{sp} - w_{TD}
+  e = w_{sp} - w_{td}
 \end{equation}
 
 \begin{equation}\label{AS_Ie}
@@ -34,9 +34,9 @@ The model contains PI controller on the top drive. Therefore, boundary condition
 \end{equation}
 
 \begin{equation}\label{AS_tau_m}
-  tau_{td} = K_pe + k_iI_e
+  \tau_{td} = K_pe + k_i I_e
 \end{equation}
-where $w_{sp}$ is set point velocity, $w_{td}$ is top drive velocity, $\tau_{td}$ is top drive torque, $K_p$ and $K_i$ are proportional and integral gain, respectively. $K_p$ and $K_i$ are normally given value from the field. The top drive velocity, $W_{td}$ is then obtained by dynamics
+where $w_{sp}$ is set point velocity, $w_{td}$ is top drive velocity, $\tau_{td}$ is top drive torque, $K_p$ and $K_i$ are proportional and integral gain, respectively. $K_p$ and $K_i$ are parameters that can be adjusted to change the response. The top drive velocity, $w_{td}$ is then obtained by dynamics
 \begin{equation}\label{AS_w_td}
   \frac{\partial w_{td}}{\partial t} = \frac{1}{J_{td}}(\tau_{td} - \tau_0)
 \end{equation}
@@ -44,12 +44,13 @@ where $J_{td}$ is top drive inertia, $\tau_{0}$ is the torque on top of the dril
 
 \subsection{Bit Model}
 \label{sec:asbitmodel}
-The model assumes the toque on bit to be constant. The Test Cases for this project are off-bottom scenario with not bit-rock contact, therefore, the torque on bit is fixed to zero. In addition, model does not consider weight on bit since current model is only for torsional mode.
+The model is considered to be an off-bottom case.  Therefore, the bit-rock interaction is not considered.  However, an input to the model allows for a torque to be applied at the end of the drill string.
 
 \subsection{Friction Model}
 \label{sec:asfrictionmodel}
-%with the option to set a non-zero velocity (critical velocity) for the change between static and dynamic friction
-The friction is modeled as Coulomb friction as a jump. The static friction applies when the angular velocity of the drill string is below the given threshold, which is modeled as inclusion. In other words, the friction is bounded by static friction when the angular velocity is below the threshold. On the other hand, when the angular velocity exceeds the threshold, transit to dynamic friction occurs. More details can be seen from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}. \figurename~\ref{figure_AS_friction} illustrates the friction model for A-S model.
+The friction is modeled as Coulomb friction with the option to set a non-zero critical velocity for the change between static and dynamic friction.
+
+The static friction applies when the angular velocity of the drill string is below the given threshold, which is modeled as inclusion. In other words, the friction is bounded by static friction when the angular velocity is below the threshold. On the other hand, when the angular velocity exceeds the threshold, transit to dynamic friction occurs. More details can be seen from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}. \figurename~\ref{figure_AS_friction} illustrates the friction model for A-S model.
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{AS_friction}
