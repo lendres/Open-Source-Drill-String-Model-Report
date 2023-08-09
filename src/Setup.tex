@@ -1,12 +1,25 @@
 % HYPERLINKS	
 \usepackage[pdfauthor={Lance A. Endres}, pdftitle={Drilling Dynamics and Mechanics}]{lehyperlink}
 
+
 % NOTATIONS AND MARKUP
 \usepackage{lemarkup}
 \usemarkup{}
 
+
 % SPECIAL NAMES
 \newcommand*{\osdc}{\emph{Open-Source Drilling Community}}
+
+
+% FOOTNOTES
+% Change to foot note diving line.  Make it shorter (narrower) and lighter in color.
+\usepackage{color}
+\definecolor{lightgrey}{rgb}{0.5,0.5,0.5}
+\renewcommand{\footnoterule}{%
+  \kern -3pt
+  {\color{lightgrey}\hrule width 0.15\textwidth height 1pt}
+  \kern 2pt
+}
 
 
 % GRAPHICS/FIGURES

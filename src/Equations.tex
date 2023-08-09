@@ -1,4 +1,8 @@
 % There are issues with using the equations inside the of a glossary entry, but commands that contain math can be used.
+% Roman font in math mode.
+\newcommand*{\mrm}[1]{\mathrm{#1}}
+% Bold Roman font for math.  The mbox allows the use of this command in math mode or in regular text.
+\newcommand*{\mbf}[1]{\mbox{\boldmath$\mrm{#1}$}}
 
 % STATIC and DYNAMIC
 \newcommand*{\staticforcebalance}{$a = 0; \sum f = 0$}
@@ -8,4 +12,4 @@
 \newcommand*{\discretesteadystate}{\ensuremath{\left( p_t-p_{t-1}=0 \;\;\forall\;\; t \right)}}
 
 
-\newcommand*{\dynamicforcebalance}{$a \neq 0; \sum f = ma$}
+\newcommand*{\dynamicforcebalance}{$a \neq 0; \sum f = ma$} 
