@@ -26,7 +26,7 @@ The model simulates torsional vibration of the drill string induced by Coulomb f
 \end{bulletedlist}
 While tool joints are not included as part of the model, an equivalent stiffness can be manually calculated for drill string components to account for their effects.
 
-Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and has been validated with field data (\referencename~\cite{ref:aarsnes2017a}). In comparison, the Python ver.\ is a relatively recent version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison between two models are explained in more detail in next section. \reviewcomment{What section?}
+Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and has been validated with field data (\referencename~\cite{ref:aarsnes2017a}). In comparison, the Python ver.\ is a relatively recent version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison of the numerical implementations between two models are explained in more detail in section \ref{AS_Math}. \reviewcomment{What section?}
 
 \subsection{Top Drive Model}
 The model contains a PI controller to represent the behavior of the top drive. The boundary condition at the top is given by the top drive torque and velocity calculated from the top drive velocity set point. The torque on the top drive is derived as
@@ -97,14 +97,16 @@ where $A(x)$ is the cross sectional area at location $x$, and $\rho$, $\rho_{mud
 
 The maximum torque that can be generated from the friction is from the static case and calculated as
 \begin{equation}\label{equation_A-S_static_fric}
-  F_{\mu,s}(x,\mu_s) = \mu_s r_o(x) F_N(x)
+  F_{s}(x,\mu_s) = \mu_s r_o(x) F_N(x)
 \end{equation}
-where $F_{\mu,s}$ is the maximum torque from (static) friction, $\mu_s$ is the coefficient of static friction, and $r_o(x)$ is the outer radius of the drill string at location $x$. On the other hand, the dynamic friction is calculated as a pre-established ratio of static friction. Therefore the dynamic friction is expressed as \reviewcomment{Where is this stated?}
+where $F_{s}$ is the maximum torque from (static) friction, $\mu_s$ is the coefficient of static friction, and $r_o(x)$ is the outer radius of the drill string at location $x$. On the other hand, the dynamic friction is calculated as \reviewcomment{Where is this stated?}\resolvedcomment{}
 \begin{equation}\label{equation_A-S_dynamic_fric}
-  F_{\mu,d}(x,\mu_s) = fRat F_{\mu,s}(x,\mu_s)
+  F_{d}(x,\mu_s) = \mu_d r_o(x) F_N(x)
 \end{equation}.
-
+where $F_d$ is dynamic frictional torque and $\mu_d$ is the dynamic friction factor. 
+ 
 \section{Mathematical Background}\label{SubSec_AS_mathematicalbackground}
+\label{AS_Math}
 \subsection{Governing Equations}
 The model is based on the equations of angular motion, here named wave equation, which are
 \begin{equation}\label{AS-motion}
