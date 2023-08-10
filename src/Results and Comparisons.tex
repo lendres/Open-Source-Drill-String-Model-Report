@@ -264,9 +264,9 @@ The results from the A-S model and ExxonMobil model for all the Test Cases are s
 Some of the key observations are listed below.
 \begin{bulletedlist}
     \item The models matched well in both the transient and steady-state sections.
-    \item Adding BHA components caused larger fluctuations in the peak values of the top drive torque and bit angular velocity in a vertical well.
-    \item Spike in top drive torque is observed before the stick phase only when the BHA components were added to the drill string, which was more significant in A-S model. \reviewcomment{This is hard to understand.}
-    \item Spikes in the bit angular velocity with negative values were observed before the stick phase when the simulation was ran without BHA components. \reviewcomment{Before the stick phase?  At the start of the stick phase?}
+    \item Adding BHA components caused larger fluctuations in the peak values of the top drive torque and bit angular velocity in a vertical well (see \figurename~\ref{figure_testcase3}).
+    \item Spikes in top drive torque and bit angular velocity in deviated well were observed only when the BHA components were added to the drill string. (see \figurename{}s~\ref{figure_BHA_Matlab} and~\ref{figure_BHA_EXXON}). \reviewcomment{This is hard to understand.}\resolvedcomment{}
+    \item Spikes in the bit angular velocity with negative values were observed at the start of the stick phase when the simulation was ran without BHA components. \reviewcomment{Before the stick phase?  At the start of the stick phase?}
     \item The A-S model was able to run faster than real time, a feature attributed to the flexibility in time step
     \item The ExxonMobil model exhibited small movements in the bit position in the stick phase
 \end{bulletedlist} 
