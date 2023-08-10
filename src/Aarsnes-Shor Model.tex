@@ -18,6 +18,7 @@ The model simulates torsional vibration of the drill string induced by Coulomb f
 	\item Cased and open hole sections have the same friction factors
     \item Friction between the drill string and wellbore is modeled as Coulomb friction (see \sectionname~\ref{sec:asfrictionmodel})
     \item Tool joints are ignored
+    \item The effect of the pressure differential, inside and outside the drill string, on the bending moment is not represented and is assumed to be negligible
 \end{bulletedlist}
 While tool joints are not included as part of the model, an equivalent stiffness can be manually calculated for drill string components to account for their effects.
 
@@ -69,7 +70,7 @@ The Coulomb friction force $\mathcal{F}(w,x)$ is modeled as an inclusion which i
      \mathcal{F}(w,x) = -F_{d}(x), & \mbox{if } w < -w_c.
   \end{cases}
 \end{equation}
-where $w_c$ is the critical angular velocity for the transition from static to dynamic friction, $F_{d}$ and $F_{s}$ are dynamic and static friction forces, respectively. For condition $|w|<w_c$, $\mathcal{F}(w,x)$ takes the boundary values $\pm F_{s}(x)$.
+where $w_c$ is the critical angular velocity for the transition from static to dynamic friction, $F_{d}$ and $F_{s}$ are dynamic and static friction forces, respectively. For the condition $|w|<w_c$, $\mathcal{F}(w,x)$ limited by the boundary values $\pm F_{s}(x)$.  For the condition $|w|>w_c$ is equal to the dynamic friction, $F_{d}$.
 
 Static friction $F_{\mu,s}$ is calculated from normal force, $F_N$, along the drill string which is obtained as
 \begin{equation}\label{equation_AS_normal_force}
