@@ -3,6 +3,9 @@
 Test Cases were developed in this study for the purpose of comparing and validating different drill string models.  The Test Cases are meant to be general and provide a reliable means of cross-checking and comparing the performances of various models, not just those specific to the current study.  As such, the key parameters, borehole design, and other information required to reproduce the Test Cases is provided.
 
 \section{Recommended Procedures for Developing Test Cases}
+\begin{bulletedlist}
+	\item Remove top drive
+\end{bulletedlist}
 \notfinished{}
 When working with various friction models, it becomes vital to identify parameters that result in similar frictional behaviors. Ensuring accurate unit conversion is also a key aspect of this process. The parameters for the friction models are static, dynamic and critical velocity. Generally, the static and dynamic friction factors can be equated across different models, while special attention is required to align the critical velocity with the desired frictional behavior. In the context of modeling torsional dynamics, if the critical velocities of two different models are provided in different units such as meters per second ($m/s$) and revolutions per minute ($RPM$), unit compatibility must first be established for meaningful comparison. Converting $m/s$ to $RPM$ can be achieved by \equationname~\ref{velocity_conversion}.
 \begin{equation}\label{velocity_conversion}
@@ -14,7 +17,7 @@ where $N$ and $v$ are angular velocity expressed in $RPM$, and $m/s$, respective
 \begin{figure}
   \centering
   \includegraphics[width=5in]{Stribeck_Coulomb_friction}
-  \caption[Comparison between Coulomb and Stribeck friction model]{Comparison between Coulomb and Stribeck friction models assuming same normal force at the drill string wellbore contact. Stribeck model with a critical angular velocity of 2 $RPM$ and Coulomb friction model with a critical angular velocity of 4$RPM$ and 10$RPM$ is compared. $F_s$ and $F_d$ represents static and dynamic friction, respectively, and $w$ represents the angular velocity.}\label{figure:stribeck_coulomb_friction}
+  \caption[Comparison between Coulomb and Stribeck friction model]{Comparison between Coulomb and Stribeck friction models assuming same normal force at the drill string wellbore contact. Stribeck model with a critical angular velocity of 2 $RPM$ and Coulomb friction model with a critical angular velocity of 4 $RPM$ and 10 $RPM$ is compared. $F_s$ and $F_d$ represents static and dynamic friction, respectively, and $w$ represents the angular velocity.}\label{figure:stribeck_coulomb_friction}
 \end{figure}
 
 \section{Overview of Test Cases}
