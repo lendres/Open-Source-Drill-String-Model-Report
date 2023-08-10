@@ -2,9 +2,13 @@
 \label{ch:aarnessshormodel}
 
 \section{Introduction}
-The model is developed by Aarsnes and Shor (\referencename~\cite{ref:aarsnes2017a}). It is designed to simulate torsional drill string vibrations using a distributed model.  It can be used both vertical and inclined wells and can incorporate BHA components.  The top drive is accounted for and it contains a PI controller.
+\subsection{Overview}
+The model is developed by Aarsnes and Shor (\referencename~\cite{ref:aarsnes2017a}). It is designed to simulate torsional drill string vibrations using a distributed model. It can be used both vertical and inclined wells and can incorporate BHA components. The top drive is accounted for and it contains a PI controller.
 
-Two versions of the source code are available, one implemented in Matlab and the other in Python.  The Python version is newer and is being written to improve the Matlab version.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion.
+Two versions of the source code are available, one implemented in Matlab and the other in Python. The Python version is newer and is being written to improve the Matlab version. Ongoing efforts are focused on enhancing the Python version by incorporating axial motion.
+
+\subsection{Interpretation}
+In many sources, \emph{linear forces} are often represented by variables that use $f$ or $f$-like characters (f, F, $f$, $F$, \mbf{F}). In \referencename~\cite{ref:aarsnes2017a}, the variables $\mathcal{F}$, $F_s$, and $F_d$ are used denote \emph{torque} resulting from \emph{friction}.
 
 \section{Model Description}
 The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping.  These are modeled as distributed along the drill string and are combined into a ``source'' term. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are:
@@ -49,13 +53,26 @@ The model is considered to be an off-bottom case.  Therefore, the bit-rock inter
 
 \subsection{Friction Model}
 \label{sec:asfrictionmodel}
-The friction is modeled as Coulomb friction with the option to set a non-zero critical velocity for the change between static and dynamic friction.  Static friction applies when the angular velocity of the drill string is below the given threshold (critical velocity). When the angular velocity exceeds the threshold, dynamic friction applies. More details can be seen from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}. \figurename~\ref{figure_AS_friction} illustrates the friction model for A-S model.
+The friction is modeled as Coulomb friction with the option to set a non-zero critical velocity for the change between static and dynamic friction.  Static friction applies when the angular velocity of the drill string is below the given threshold (critical velocity). When the angular velocity exceeds the threshold, dynamic friction applies. More details can be seen from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}. \figurename~\ref{figure_AS_damping} illustrates the friction model for A-S model.
 \begin{figure}
-  \centering
-  \includegraphics[width=6.5in]{AS_friction}
-  \caption[Damping models for the A-S model]{Damping models for the A-S model. The left and right figures are the friction model and a model for the combination of friction and viscous damping, respectively. Friction between the drill string and wellbore contact is modeled as Coulomb friction. $F_{s}$, $F_{d}$ are the static and dynamic friction forces, respectively, $k_{T}$ is the viscous damping coefficient for torsional motion and $w_{c}$ is the critical angular velocity which is the threshold for transition between static and dynamic friction. When the angular velocity is below the critical velocity, the friction is bounded by static friction.}\label{figure_AS_friction}
+	\begin{minipage}[t]{\linewidth}
+			\begin{minipage}[t]{0.45\linewidth}
+				\centering
+				\includegraphics[width=\linewidth]{AS_friction}
+				\subcaption{Friction between the drill string and wellbore contact is modeled as Coulomb friction.}
+				\label{fig:asfriction}
+			\end{minipage}
+			\hfill
+			\begin{minipage}[t]{0.45\linewidth}
+				\centering
+				\includegraphics[width=\linewidth]{AS_friction_and_viscous}
+				\subcaption{The friction model combined with viscous damping.  This is the model of the \emph{source term}.}
+				\label{fig:asfrictionandviscous}
+			\end{minipage}
+	\end{minipage}
+	\caption[Damping models for the A-S model]{Damping models for the A-S model. The friction model is shown in~(\subref{fig:asfriction}) and the combination of friction and viscous damping (source term) is shown in~(\subref{fig:asfrictionandviscous}). $F_{s}$, $F_{d}$ are the static and dynamic friction torque, respectively, $k_{T}$ is the viscous damping coefficient for torsional motion and $w_{c}$ is the critical angular velocity which is the threshold for transition between static and dynamic friction.}\label{figure_AS_damping}
 \end{figure}
-\reviewcomment{Break \figurename~\ref{figure_AS_friction} into a and b parts.}
+%When the angular velocity is below the critical velocity, the friction is bounded by static friction.
 
 The Coulomb friction force $\mathcal{F}(w,x)$ is modeled as an inclusion which is shown in \equationname~\ref{equation_A-S_columnbfriciton}. The parameters for the equations can be seen from \figurename~\ref{figure_AS_equation_schematic}.
 \begin{figure}
@@ -72,17 +89,17 @@ The Coulomb friction force $\mathcal{F}(w,x)$ is modeled as an inclusion which i
 \end{equation}
 where $w_c$ is the critical angular velocity for the transition from static to dynamic friction, $F_{d}$ and $F_{s}$ are dynamic and static friction forces, respectively. For the condition $|w|<w_c$, $\mathcal{F}(w,x)$ limited by the boundary values $\pm F_{s}(x)$.  For the condition $|w|>w_c$ is equal to the dynamic friction, $F_{d}$.
 
-Static friction $F_{\mu,s}$ is calculated from normal force, $F_N$, along the drill string which is obtained as
+The normal force, $F_N$, along the drill string is calculated according to
 \begin{equation}\label{equation_AS_normal_force}
   F_n(x) = gA(x)(\rho-\rho_{mud})sin(\theta)
 \end{equation}
-where $A(x)$ is the cross sectional area at location $x$, and $\rho$, $\rho_{mud}$ are material and mud density, respectively.
-Then the static friction is calculated as
+where $A(x)$ is the cross sectional area at location $x$, and $\rho$, $\rho_{mud}$ are material and mud density, respectively.  Here $gA(x)(\rho-\rho_{mud}$ is the buoyed weight per unit length and $sin(\theta)$ accounts for the hole inclination.
+
+The maximum torque that can be generated from the friction is from the static case and calculated as
 \begin{equation}\label{equation_A-S_static_fric}
-  F_{\mu,s}(x,\mu_s) = \mu_sr_o(x)F_N(x)
+  F_{\mu,s}(x,\mu_s) = \mu_s r_o(x) F_N(x)
 \end{equation}
-where $r_o(x)$ is the outer radius of the drill string at location x.
-On the other hand, the dynamic friction is calculated as a pre-established ratio of static friction. Therefore the dynamic friction is expressed as
+where $F_{\mu,s}$ is the maximum torque from (static) friction, $\mu_s$ is the coefficient of static friction, and $r_o(x)$ is the outer radius of the drill string at location $x$. On the other hand, the dynamic friction is calculated as a pre-established ratio of static friction. Therefore the dynamic friction is expressed as \reviewcomment{Where is this stated?}
 \begin{equation}\label{equation_A-S_dynamic_fric}
   F_{\mu,d}(x,\mu_s) = fRat F_{\mu,s}(x,\mu_s)
 \end{equation}.
@@ -100,7 +117,7 @@ where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is a
 \begin{equation}\label{AS-sourceterm}
   S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
 \end{equation}
-where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole that is derived from \equationname~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}.
+where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole that is derived from \equationname{}s~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}.
 
 \subsection{Numerical Implementation of Matlab Ver.}
 \subsubsection{Riemann Invariants}
