@@ -266,10 +266,29 @@ Some of the key observations are listed below.
     \item The models matched well in both the transient and steady-state sections.
     \item Adding BHA components caused larger fluctuations in the peak values of the top drive torque and bit angular velocity in a vertical well (see \figurename~\ref{figure_testcase3}).
     \item Spikes in top drive torque and bit angular velocity in deviated well were observed only when the BHA components were added to the drill string. (see \figurename{}s~\ref{figure_BHA_Matlab} and~\ref{figure_BHA_EXXON}). \reviewcomment{This is hard to understand.}\resolvedcomment{}
-    \item Spikes in the bit angular velocity with negative values were observed at the start of the stick phase when the simulation was ran without BHA components. \reviewcomment{Before the stick phase?  At the start of the stick phase?}
-    \item The A-S model was able to run faster than real time, a feature attributed to the flexibility in time step
+    \item Spikes in the bit angular velocity with negative values were observed at the start of the stick phase when the simulation was ran without BHA components. \reviewcomment{Before the stick phase?  At the start of the stick phase?}\resolvedcomment{}
     \item The ExxonMobil model exhibited small movements in the bit position in the stick phase
+    \item 
 \end{bulletedlist}
 
 \section{Conclusions}
+\reviewcomment{Still working on}
+In this project, we introduce simple but well-structured test cases and compared two different models, A-S and ExxonMobil model. This marks the initial phase in establishing a systematic workflow for evaluating drill string models, enhancing the reliability of any existing or newly developed models. 
+
+Total four Test Cases were provided which are vertical well with and without BHA components, deviated well with and without BHA components. In addition scenario with different dynamic friction factors were also included in the Test Cases. We initiate our test case with a vertical well with a simple drill string configuration that enables the assessment of the models without the influence of friction and BHA components. The Test Cases gradually increase in complexity by adding friction effect and BHA components. Incrementally adding complexity in Test Cases allowed understanding and unrevealing the potential causes of variations between the different model's results. 
+
+Below summarizes the lessons and findings from model comparisons between A-S and ExxonMobil model based on suggested Test Cases.
+\begin{bulletedlist}
+    \item Accurate unit conversions are essential when comparing different models. 
+    \item Comprehensive understanding of the meaning of each parameter is necessary. for example A-S and ExxonMobil model applies different friction model, therefore, finding proper critical velocity for each model that results in similar behavior of the drill string is required.
+    \item To ensure a model comparison or evaluation, it is important to eliminate any factors causing different results. For example ExxonMobil model is able to model the tool joint, while A-S does not. Therefore, removing the tool-joint effect is necessary.
+    \item Implementing a PI controller in simulations led to a decay in vibration amplitude. PI controller acts as a damping to the system which was observed in A-S model. Removing the PI controller enables us to obtain a model with reduced parameters and eliminates the damping effect from the PI controller which has advantage in model comparison. Also, similar results were obtained between ExxonMobil model and A-S model by removing the PI controller. However, a more accurate results from the field can be obtained by enabling the PI controller.
+    \item A-S model and ExxonMobil model showed very similar results, but showed differences in vibration frequencies. The difference was still available without friction, viscous damping and BHA components. So more focus on simple vertical well test is required to find the causation of the frequency differences.
+    \item Overall the model matched very well on both transient and steady state phase. 
+\end{bulletedlist}
+
+The availability of well-structured Test Cases, as introduced in this project, allows for rigorous comparison and verification of drill string models, This enables researchers and engineers to assess their model's accuracy and performance in various scenarios. The data and findings obtained from these Test Cases offer valuable insights and constitute a substantial contribution to the field of drill string modeling and simulation. As a result, this study serves as a valuable reference for further research and development in the domain of drilling engineering and related disciplines. 
+
+
+
 
