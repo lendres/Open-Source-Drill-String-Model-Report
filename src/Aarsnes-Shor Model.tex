@@ -148,22 +148,25 @@ The source term $\mathcal{S}$ is
 \end{equation} \reviewcomment{Where is the ``2'' go?}
 where $k_t$ is damping coefficient and $\mathcal{F}$ is Coulomb friction defined in \equationname~\ref{equation_A-S_columnbfriciton}.
 \subsubsection{Boundary Condition}
-The boundary conditions are given as
-\begin{equation}\label{AS-BC}
-  w_{p,top} = w_{td} \quad \tau_{c,bottom} = \tau_{bit}
-\end{equation}
-where the subscripts $p$ and $c$ represents drill pipe and drill collar. In this project, off-bottom scenarios are used so $\tau_{bit}$ is assumed to be 0.
-Additionally, the conditions imposed at the drill pipe and drill collar interface are:
-\begin{equation}\label{AS-interface}
-  w_{p,interface} = w_{c,interface}, \quad \tau_{p,interface} = \tau_{c,interface}
-\end{equation}
-The boundary and interface condition is then expressed for $\alpha$ and $\beta$. \figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discritized drill string with boundary conditions and interface conditions in terms of Riemann invariants.
+The boundary conditions of the drill string are given as
+\begin{align}
+  w_{p,top} &= w_{td} \label{AS-BC1} \\
+  \tau_{c,bottom} &= \tau_{bit} \label{AS-BC2}
+\end{align}
+\reviewcomment{What about $\tau_{p,top}$ and $\tau_{c,bottom}$?}
+where the subscripts $p$ and $c$ represents drill pipe and drill collar.  The input at the top of the drill string is the velocity of the top drive.  While the bit-rock interaction is not considered for this model, a torque at the end of the drill string can be applied ($\tau_{bit}$). In this project, off-bottom scenarios are used so $\tau_{bit}$ is assumed to be 0. Additionally, the conditions imposed at the drill pipe and drill collar interface are
+\begin{align}
+  w_{p,interface} &= w_{c,interface} \label{AS-interface1} \\
+  \tau_{p,interface} &= \tau_{c,interface} \label{AS-interface2}
+\end{align}
+where $interface$ is used to denote the connection of string elements with different properties ($c_t$, $J$, or $G$). The boundary and interface condition is then expressed for $\alpha$ and $\beta$. \figurename~\ref{AS_discretizeDS} illustrates the schematic view of the discretized drill string with boundary conditions and interface conditions in terms of Riemann invariants.
 
-\equationname~\ref{AS-BC} can be re-written from the relationship from \equationname~\ref{equation_Riemann_relation1} and \ref{equation_Riemann_relation2} as
-\begin{equation}\label{AS-riemannBC}
-  \alpha_{p,top} = -\beta_{p,top} + 2*w_{te}, \quad \beta_{c,bottom} = \alpha_{c,bottom} - 2\tau_{bit} \frac{c_t}{J_c G_c}
-\end{equation}
-and \equationname~\ref{AS-interface} can be re-written as
+\equationname{}s~\ref{AS-BC1} and~\ref{AS-BC2} can be re-written from the relationships in \equationname{}s~\ref{equation_Riemann_relation1} and \ref{equation_Riemann_relation2} as
+\begin{align}
+  \alpha_{p,top} &= -\beta_{p,top} + 2*w_{te} \label{AS-riemannBC1} \\
+  \beta_{c,bottom} &= \alpha_{c,bottom} - 2\tau_{bit} \frac{c_t}{J_c G_c} \label{AS-riemannBC2}
+\end{align}
+and \equationname{}s~\ref{AS-interface1} and~\ref{AS-interface2} can be re-written as
 \begin{align}\label{AS-riemanninterface}
 	\beta_{p,bottom} &= \frac{1}{1+\overline{Z}}\left(\alpha_{p,bottom}(1-\overline{Z}) + 2\overline{Z}\beta_{c,top} \right) \\
 	\alpha_{c,top} &= \frac{1}{1+\overline{Z}}\left(2*\alpha_{p,bottom} - \beta_{c,top}(1-\overline{Z})\right)
@@ -306,34 +309,37 @@ The results imply that, for the further study, the exact input parameters are re
   \caption[Flow chart of top drive elimination]{Flow chart of top drive elimination. The modification of the model assumes only drill string in the model and it rotates with given (fixed) velocity at the top of the drill string.}\label{figure_Topdriveremove_math}
 \end{figure}
 
-A comparison of the models with and without a PI controller is shown in \figurename{}s~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove} for the Matlab and Python versions, respectively. The angular velocity and torque for both the top drive and bit are depicted. In the modified codes (no PI controller), the top drive velocity and torque will refer to those at the top of the drill string. The original and modified codes showed similar behavior except during the first stage when the top drive velocity increased from 0 to 40 $RPM$ (from 0 to 1 second). At the end of this initial ramp up, spikes (high magnitude peaks) can be seen in the top drive torque when the PI controller is included (see \figurename{}s~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove}). Additionally, decaying of the vibration amplitude was observed when the simulation was run with PI controller, which can be clearly seen in the Matlab ver.\ This is due to the damping effect from the PI controller while controlling the top drive velocity and it eventually converges the vibration.
+A comparison of the models with and without a PI controller is shown in \figurename{}s~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove} for the Matlab and Python versions, respectively. The angular velocity and torque for both the top drive and bit are depicted. In the modified codes (no PI controller), the top drive velocity and torque will refer to those at the top of the drill string. The original and modified codes showed similar behavior except during the first stage when the top drive velocity increased from 0 to 40 $RPM$ (from 0 to 1 second). At the end of this initial ramp up, spikes (high magnitude peaks) can be seen in the top drive torque when the PI controller is included (see \figurename{}s~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove}). Additionally, decaying of the vibration amplitude was observed when the simulation was run with PI controller, which can be clearly seen in the Matlab ver. This is due to the damping effect from the PI controller managing the top drive velocity. Eventually, vibrations are removed and the bit velocity converges to the top drive velocity.
 
-In summary, removing the PI controller enables us to obtain a model with reduced parameters and eliminates the damping effect from the PI controller. This simplification of the model results in an advantage in model comparison. However, if the PI controller is available in the rig, simulation with PI controller can provide more accurate results for field application.
+In summary, removing the PI controller enables us to obtain a model with reduced parameters and eliminates the damping effect from the PI controller. This simplification of the model results in an advantage in model comparison. However, if the PI controller is available in the rig, simulation with PI controller can provide more accurate results when comparing the model to a field application.
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{PI_matlab}
-  \caption[Comparison with and without a PI controller for the Matlab ver.\ of the A-S model]{Comparison with and without a PI controller for the Matlab ver.\ of the A-S model. The angular velocity and torque of the top drive and bit are shown.  The first and second columns represent the results with and without PI controller, respectively.}\label{figure_topdriveremove_Matlab}
+  \caption[Comparison with and without a PI controller for the Matlab ver.\ of the A-S model]{Comparison with and without a PI controller for the Matlab ver.\ of the A-S model. The angular velocity and torque of the top drive and bit are shown. The first and second columns represent the results with and without PI controller, respectively.}
+  \label{figure_topdriveremove_Matlab}
 \end{figure}
 
 \begin{figure}
   \centering
   \includegraphics[width=6.5in]{PI_python}
-  \caption[Comparison with and without a PI controller for the Python ver.\ of the A-S model]{Comparison with and without a PI controller for the Python ver.\ of the A-S model. The angular velocity and torque of the top drive and bit are shown.  The first and second columns represent the results with and without PI controller, respectively.}\label{figure_topdriveremove}
+  \caption[Comparison with and without a PI controller for the Python ver.\ of the A-S model]{Comparison with and without a PI controller for the Python ver.\ of the A-S model. The angular velocity and torque of the top drive and bit are shown. The first and second columns represent the results with and without PI controller, respectively. Removing the PI controller removed the spikes (high magnitude peaks) at the end of this initial ramp up.}
+  \label{figure_topdriveremove}
 \end{figure}
 
 \subsection{Comparison Between the Matlab and Python Versions}
-The comparison was conducted using the scenario from Test Case 1. The Python ver.\ showed different patterns of bit and top drive compared to the Matlab ver. There was a period where bit angular velocity and top drive torque were maintained at the maximum value for about 2 seconds.  There was a similar length ``stuck'' phase. The comparison between the Matlab ver.\ and Python ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from the ExxonMobil model added for reference.
+The comparison was conducted using the scenario from Test Case 1. The Python ver.\ showed different patterns of bit and top drive compared to the Matlab ver. There was a period where the bit angular velocity and the top drive torque were maintained at the maximum value for about 2 seconds. There was a similar length ``stuck'' phase. The comparison between the Matlab ver.\ and Python ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from the ExxonMobil model added for reference.
 
-It was suspected that the different results in the Python ver.\ were caused by the difference in wave travel velocity along the drill string.  This is proportional to $\sqrt{\rho/J}$.  Therefore, a test was done and the density was decreased to $1/4$ of the default input (490.50 $lb/ft^3$ $\rightarrow$ 122.65 $lb/ft^3$).  The results improved somewhat and were closer to the Matlab ver.\ and the ExxonMobil model (see \figurename~\ref{figure_Python_reducedDensity}). However, there is still a small stuck phase and phase of maximum velocity.
+It was suspected that the different results in the Python ver.\ were caused by the difference in wave travel velocity along the drill string. This is proportional to $\sqrt{\rho/J}$.  Therefore, a test was done and the density was decreased to $1/4$ of the default input (490.50 $lb/ft^3$ $\rightarrow$ 122.65 $lb/ft^3$). The results improved somewhat and were closer to the Matlab ver.\ and the ExxonMobil model (see \figurename~\ref{figure_Python_reducedDensity}). However, there is still a small stuck phase and phase of maximum velocity.
 
-Given the limited amount of time available, it was not possible to track down this discrepancy.  Therefore, only the Matlab ver.\ of the A-S model and the ExxonMobil model will be used for the final results and discussions in \chaptername~\ref{ch:results}.
+Given the limited amount of time available, it was not possible to track down this discrepancy. Therefore, only the Matlab ver.\ of the A-S model will be used for the final results and discussions in \chaptername~\ref{ch:results}.
 
-Models of this nature are complex physical simulations and require significant training and study to operate.  In addition, the Python ver.\ has been previously verified against the Matlab ver.  Together, these suggest that continued study of the model will unearth the source of the discrepancy as a minor misinterpretation of input or feature.  Regardless of the source, the cause of the issue should be located, but this will have to remain as future work.
+Models of this nature are complex physical simulations and require significant training and study to operate. In addition, the Python ver.\ has been previously verified against the Matlab ver. Together, these suggest that continued study of the model will unearth the source of the discrepancy as a minor misinterpretation of input or feature. This should not be interpreted as an error in the model; the source of the discrepancy is currently unknown. It is left as future work to find the cause of the issue.
 
 \begin{figure}
   \centering
   \includegraphics[height=4.5in]{version_comp}
-  \caption[Comparison between different models for Test Case 1]{Comparison of the angular velocity of bit and the top drive between the A-S model Matlab ver., A-S model Python ver., and ExxonMobil model for Test Case 1.}\label{figure_Test1_comp_chASmodel}
+  \caption[Comparison between different models for Test Case 1]{Comparison of the angular velocity of bit and the top drive between the A-S model Matlab ver., A-S model Python ver., and ExxonMobil model for Test Case 1. The Matlab ver.\ and the ExxonMobil model match well. The Python ver.\ exhibited a period where the bit angular velocity reached a maximum and maintained it for about 2 seconds. It also exhibited a stick phase for approximately the same length of time. This should not be interpreted as an error in the model; the source of the discrepancy is currently unknown and finding it is left as future work.}
+  \label{figure_Test1_comp_chASmodel}
 \end{figure}
 
 \begin{figure}

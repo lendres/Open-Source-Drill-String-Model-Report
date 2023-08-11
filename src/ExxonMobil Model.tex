@@ -5,7 +5,7 @@
 The model is developed by ExxonMobil beginning in 2021.  It is an axial-torsional system designed to model the dynamics of drill strings while drilling and tripping. It can be used both vertical and inclined wells under various operational conditions.  BHA components such as drill pipes, HWDP, drill collars, and mud-motors can be incorporated.  Additional features include bit-rock interaction and incorporation of heave compensator dynamics. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
 
 \section{Model Description}
-The model employs a 2 DOF per node, axial-torsional system and uses a lumped-parameter technique (\referencename~\cite{ref:dixit2021a}). The axial and torsional DOF are coupled through the friction terms and the bit-rock interaction.  There is not a coupling from material properties, the inertia terms, et cetera.  The governing equations of motion are solved by a fourth and fifth order Runge-Kutta-Fehlberg method (\referencename~\cite{ref:shor2022a}).  This is a popular solver that has been implemented many times, including the well known Matlab \textcode{ODE45} function.
+The model employs a 2 DOF per node, axial-torsional system and uses a lumped-parameter technique (\referencename~\cite{ref:dixit2021a}). The axial and torsional DOF are coupled through the friction terms and the bit-rock interaction.  There is not a coupling from material properties, the inertia terms, et cetera.  The governing equations of motion are solved by a fourth and fifth order Runge-Kutta-Fehlberg (RKF) method (\referencename~\cite{ref:shor2022a}).  This is a popular solver that has been implemented many times, including the well known Matlab \textcode{ODE45} function.
 
 %Drilling fluid damping is uniformly applied throughout the system.
 \begin{bulletedlist}
@@ -30,9 +30,9 @@ The model utilizes the axial and rotational velocity of the top-drive as input. 
 
 Torque on top-drive can be derived as
 \begin{equation}\label{TorqueEQ}
-  \tau_{top\_drive} = k_{t1} \times \theta_{top\_drive}
+  \tau_{td} = k_{t1} \theta_{td}
 \end{equation}
-where $\tau_{top\_drive}$ is top-drive torque, $k_{t1}$ is torsional stiffness of first drill-string element, and $\theta_{top\_drive}$ is top-drive rotation angle. \reviewcomment{This equation and explanation still seems off.}
+where $\tau_{td}$ is top-drive torque, $k_{t1}$ is torsional stiffness of first drill-string element, and $\theta_{td}$ is top-drive rotation angle. \reviewcomment{This equation and explanation still seems off.}
 
 The model incorporates an additional parameter known as \emph{heave} which accounts for the influence of waves during offshore operations. If the current time surpasses the heave delay\reviewcomment{This needs clarification.}, additional computations are conducted to determine heave displacement and rate of penetration (ROP). These calculated values are subsequently added to the original top-drive ROP and displacement data. The heave ROP and displacement calculations are represented by the equations
 \begin{equation}\label{Z_heave}
@@ -50,10 +50,10 @@ The laws governing the bit-rock interface in drilling operations primarily rely 
 
 The interaction between PDC bits and the rock formation encompasses a combination of cutting and frictional contact, as identified by \referencename~\cite{ref:detournay1992a}.   This is modeled by decomposing the weight on bit and torque on bit into cutting and frictional components, which are contingent upon the strength of the rock formation being drilled.  The WOB and TOB are given as
 \begin{equation}\label{WOB}
-  WOB_{bit} = (k_{WOB}\times DOC_{iteration}) + (c_{bit-axial}\times \dot{Z}_{bit-ietration})
+  WOB_{bit} = (k_{WOB} DOC_{iteration}) + (c_{bit-axial} \dot{Z}_{bit-ietration})
 \end{equation}
 \begin{equation}\label{Torque}
-  TQ_{bit} = k_{TQ}\times DOC_{iteration\; array}\times (\pm1)
+  TQ_{bit} = k_{TQ} DOC_{iteration\; array} (\pm1)
 \end{equation}
 where $k_{WOB}$ is the weight on bit coefficent, $k_{TQ}$ is the torque on bit coefficient, $DOC_{iteration}$ is depth of cut at the current time step, $C_{bit-axial}$ is axial viscous damping, and $Z$ is bit displacement.  The rock strength is incorporated into the coefficients $k_{WOB}$ and $k_{TQ}$.  The dependency on the depth of cut represents the material removed during drilling.
 
@@ -99,7 +99,7 @@ The static friction force opposes the direction of axial motion (\equationname~\
 \end{equation}
 \sout{
 where $F_{\mu,s}$ is static friction force and $\sum F_{Ext}$ is the sum of external forces, is valid when there is no sliding motion $V_{Sliding}=0$.
-If dynamic friction force calculated above is less than $\mu_{s}\times F_{n}$, where $\mu_{s} > \mu_{k}$, then the surface is not sliding.}
+If dynamic friction force calculated above is less than $\mu_{s} F_{n}$, where $\mu_{s} > \mu_{k}$, then the surface is not sliding.}
 
 The dry friction is modeled as Stribeck friction. \reviewcomment{Confusion of Coulomb and Stribeck} \resolvedcomment{} \reviewcomment[LE]{With the presence of drilling fluid, is this ``dry'' friction?} The static friction applies when there is no slip ($\vec{v}_s$=0) \reviewcomment{Different nomenclature}, where the velocity vector, $\vec{v}_s$, is a function of rotational and axial velocities of the pipe. More details for the velocity vector can be seen from (\referencename~ \cite{ref:cayeux2018a}). The magnitude and direction of the static friction force are equal and opposite to that of the external force at contact point, respectively (\equationname~\ref{eq:exxon_staticFF}). However, once the external foce exceeds the limit of static friction, $\mu_s \vec{F_n}$, where $\mu_s$ is static friction factor and $\vec{F_n}$ is normal force at dril string - wellbore contact, the drill string starts to slide ($\vec{v}_s > 0$) and dynamic friction is applied. The dynamic friction acts in the opposite direction to the velocity vector. The equation of dynamic friction force is shown in \equationname~\ref{eq:exxon_dynamicFF}, where $\mu_k$ is dynamic friction factor.
 \begin{equation}\label{eq:exxon_staticFF}
@@ -108,9 +108,9 @@ The dry friction is modeled as Stribeck friction. \reviewcomment{Confusion of Co
 \begin{equation}\label{eq:exxon_dynamicFF}
   \vec{F_{\mu, d}} = -\mu_d ||{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
 \end{equation}
-In order to avoid the discontinuities when $\vec{v}_s$ tends to zero, a Stribeck friction model is used for modeling the dry friction. \reviewcomment[LE]{I don't think either of these is true.} The following \equationname~\ref{Stribeck velocity} was proposed by Tunstin (\cite{ref:tustin1947a}).
+In order to avoid the discontinuities when $\vec{v}_s$ tends to zero, a Stribeck friction model is used for modeling the friction. The following \equationname~\ref{Stribeck velocity} was proposed by Tunstin (\cite{ref:tustin1947a}).
 \begin{equation}\label{Stribeck velocity}
-\mu_{eff} = \mu_{d} + (\mu_{s} - \mu_{d})\times e^{-(|V_s|/V_{CS})}
+\mu_{eff} = \mu_{d} + (\mu_{s} - \mu_{d}) e^{-(|V_s|/V_{CS})}
 \end{equation}
 where $\mu_{eff}$ is effective friction factor, $V_{CS}$ is Stribeck critical velocity, $\mu_{s}$, and $\mu_{d}$ are the static and dynamic friction factors, respectively. The total friction applied in the system is a linear combination of dry and viscous friction. \figurename~\ref{figure_Exxon_friction} illustrates the Stribeck friction and total friction as a function of sliding velocity. However, It should be noted that the model does not account for capstan effects. \reviewcomment[DY]{what is capstan effect? do we have to leave this?}\resolvedcomment{}
 \begin{figure}
@@ -145,8 +145,8 @@ The set of partial differential equations that describe the motion of the drill-
 To convert these equation sets into vector form, we can represent the variables and their derivatives as vectors.
 
 \begin{align}
-  \{M\} \ddot{\boldsymbol{Z}}+\left\{C_a\right\} \dot{\boldsymbol{Z}}+\left\{K_a\right\} \boldsymbol{Z}+\boldsymbol{f}_{\text {fric }} &= \boldsymbol{F}_{\text {forcing }} \label{eq:em_axial_vector_form}\\
-  \{J\} \ddot{\boldsymbol{\theta}}+\left\{C_t\right\} \dot{\boldsymbol{\theta}}+\left\{K_t\right\} \boldsymbol{\theta}+\boldsymbol{\tau}_{\text {fric }} &= \boldsymbol{\tau}_{\text {forcing }} \label{eq:em_torsional_vector_form}
+  \{M\} \ddot{\boldsymbol{Z}}+\left\{C_a\right\} \dot{\boldsymbol{Z}}+\left\{K_a\right\} \boldsymbol{Z}+\boldsymbol{f}_{\text{fric}} &= \boldsymbol{F}_{\text{forcing}} \label{eq:em_axial_vector_form}\\
+  \{J\} \ddot{\boldsymbol{\theta}}+\left\{C_t\right\} \dot{\boldsymbol{\theta}}+\left\{K_t\right\} \boldsymbol{\theta}+\boldsymbol{\tau}_{\text{fric}} &= \boldsymbol{\tau}_{\text{forcing}} \label{eq:em_torsional_vector_form}
 \end{align}
 
 
@@ -181,41 +181,41 @@ To convert these equation sets into vector form, we can represent the variables 
 							-k_{t 1} & \ddots & \vdots \\
 							\vdots & \cdots & k_{t(n-1)}+k_{t n}
 							\end{array}\right] \\
-  	F_{\text {forcing }} &= \left[\begin{array}{c}
-							\boldsymbol{k}_{a 1} \cdot Z_{\text {top\_drive}} \\
+  	F_{\text{forcing}} &= \left[\begin{array}{c}
+							\boldsymbol{k}_{a 1} \cdot Z_{td} \\
 							\vdots \\
-							-\boldsymbol{k}_{a\_\text{bit}} \cdot \text {DOC}
+							-\boldsymbol{k}_{a\_bit} \cdot \text{DOC}
 							\end{array}\right] \\
-	\mathcal{T}_{\text {forcing }} &= \left[\begin{array}{c}
-							\boldsymbol{k}_{t 1} \cdot \theta_{\text {top\_drive}} \\
+	\mathcal{T}_{\text{forcing}} &= \left[\begin{array}{c}
+							\boldsymbol{k}_{t 1} \cdot \theta_{td} \\
 							\vdots \\
-							-\boldsymbol{k}_{t\_\text{bit}} \cdot \text {DOC}
+							-\boldsymbol{k}_{t\_bit} \cdot \text{DOC}
 							\end{array}\right]
 	\label{eq:emmatrixform}
 \end{align}
 
 
 \begin{mathwhere}[1.0in]
-\mathdefitem{Z_0}{$\int V_0\ dt$}
-\mathdefitem{m_n}{drill string element mass}
-\mathdefitem{Z}{position (downward direction considered as positive)}
-\mathdefitem{k_a}{axial stiffness of drill-string element}
-\mathdefitem{V_o}{Top-drive (draw-works) axial velocity as input}
-\mathdefitem{Z_{top\_drive}}{Top-drive (draw-works) axial displacement as input}
-\mathdefitem{\dot{Z}}{bit axial velocity (downward direction considered as positive)}
-\mathdefitem{WOB_{Surface}}{Surface/Top-drive WOB (In ROP Control Mode)}
-\mathdefitem{J_n}{mass moment of inertia of drill string element}
-\mathdefitem{\theta}{rotation angle (Clockwise direction is considered as positive)}
-\mathdefitem{\omega_o}{top drive angular velocity as input}
-\mathdefitem{\theta_{top\_drive}}{top drive rotation as input}
-\mathdefitem{k_t}{Torsional stiffness of drill-string}
-\mathdefitem{\dot{\theta}}{bit rotary velocity (Clockwise direction considered as positive)}
-\mathdefitem{TQ_{Surface}}{Surface/Top-drive Torque}
-\mathdefitem{{f}_{\text {fric }}}{Stribeck friction force}
-\mathdefitem{{\tau}_{\text {fric }}}{Stribeck friction torque}
+\mathdefitem{Z_0}{$\int V_0\ dt$;}
+\mathdefitem{m_n}{drill string element mass;}
+\mathdefitem{Z}{position (downward direction considered as positive);}
+\mathdefitem{k_a}{axial stiffness of drill-string element;}
+\mathdefitem{V_o}{top-drive (draw-works) axial velocity as input;}
+\mathdefitem{Z_{td}}{top-drive (draw-works) axial displacement as input;}
+\mathdefitem{\dot{Z}}{bit axial velocity (downward direction considered as positive);}
+\mathdefitem{WOB_{surface}}{surface/top-drive WOB (in ROP control mode);}
+\mathdefitem{J_n}{mass moment of inertia of drill string element;}
+\mathdefitem{\theta}{rotation angle (clockwise direction is considered as positive);}
+\mathdefitem{\omega_o}{top drive angular velocity as input;}
+\mathdefitem{\theta_{td}}{top drive rotation as input;}
+\mathdefitem{k_t}{torsional stiffness of drill-string;}
+\mathdefitem{\dot{\theta}}{bit rotary velocity (clockwise direction considered as positive);}
+\mathdefitem{TQ_{surface}}{surface/top-drive torque;}
+\mathdefitem{{f}_{\text{fric}}}{Stribeck friction force;}
+\mathdefitem{{\tau}_{\text {fric }}}{Stribeck friction torque.}
 \end{mathwhere}
 
-The differential equation sets are solved using the ODE45 solver.\ This solver is chosen for its efficiency in computational calculations.
+The differential equation sets are solved using the RKF solver. This solver was chosen for its efficiency in computational calculations.
 
 
 \section{On-Bottom Example}
