@@ -219,10 +219,9 @@ The differential equation sets are solved using the RKF solver. This solver was 
 
 
 \section{On-Bottom Example}
-
-One of the features of this model is simulation of ``on-bottom'' case for drilling.  The Test Cases in this document are for the off-bottom case, so this feature was not directly compared.  However, it is an important feature that should be explored further. \figurename~\ref{findings} illustrates an example of output for an on-bottom case.
+One of the features of this model is simulation of ``on-bottom'' case for drilling.  The Test Cases in this document are for the off-bottom case, so this feature was not directly compared.  However, it is an important feature that should be explored further. \figurename~\ref{findings} illustrates a comparison of an off-bottom and an on-bottom case.
 \begin{figure}
   \centering
-  \includegraphics[width=\linewidth]{on_bottom}
-  \caption[Plots of on-bottom case]{Plot of drilling parameters for on-bottom case.}\label{findings}
+  \includegraphics[width=\linewidth]{comp_on_bottom}
+  \caption[Comparison of off-bottom and on-bottom simulations]{Comparison of off-bottom (left) and on-bottom (right) simulations.  At 30 seconds, the bit touches bottom for the on-bottom case.  The expected results of increased torque, weight, depth of cut, et cetera are seen.}\label{findings}
 \end{figure} 
