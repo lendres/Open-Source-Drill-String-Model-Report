@@ -5,6 +5,7 @@ Test Cases were developed in this study for the purpose of comparing and validat
 \section{Recommended Procedures for Developing Test Cases}
 \begin{bulletedlist}
 	\item Remove top drive
+	\item Note how tool joints are handled: ignored, modified stiffness (equivalent stiffness), account for contact/friction?
 \end{bulletedlist}
 \notfinished{}
 When working with various friction models, it becomes vital to identify parameters that result in similar frictional behaviors. Ensuring accurate unit conversion is also a key aspect of this process. The parameters for the friction models are static, dynamic and critical velocity. Generally, the static and dynamic friction factors can be equated across different models, while special attention is required to align the critical velocity with the desired frictional behavior. In the context of modeling torsional dynamics, if the critical velocities of two different models are provided in different units such as meters per second ($m/s$) and revolutions per minute ($RPM$), unit compatibility must first be established for meaningful comparison. Converting $m/s$ to $RPM$ can be achieved by \equationname~\ref{velocity_conversion}.
