@@ -104,7 +104,7 @@
 \newglossaryentry{steadystate}
 {
 	name=steady state,
-	description=A system or a process is in steady-state if the variables which define the behavior of the system or the process are unchanging in time.  A formal descriptions for continuous time\comma{} is that for those properties \systemproperty{} of the system\comma{} the partial derivative with respect to time is zero and remains so \continuoussteadystate{}.  Similarly, in discrete time\comma{} it means that the first difference of each property is zero and remains so \discretesteadystate{}.
+	description=A system or a process is in steady-state if the variables which define the behavior of the system or the process are unchanging in time.  A formal descriptions for continuous time\comma{} is that for those properties \systemproperty{} of the system\comma{} the partial derivative with respect to time is zero and remains so \continuoussteadystate{}.  Similarly\comma{} in discrete\comma{} time it means that the first difference of each property is zero and remains so \discretesteadystate{}
 }
 
 \newglossaryentry{steadystatemodel}
@@ -147,6 +147,12 @@
 {
     name=unstable (models),
     description=Models that are very sensitive to small changes in the data (small changes in data lead to a different model)
+}
+
+\newglossaryentry{unstablenumericalalgorithms}
+{
+    name=unstable (numerical algorithms),
+	description=In numerical algorithms for differential equations the concern is the growth of round-off errors and/or small fluctuations in initial data which might cause a large deviation of final answer from the exact solution.  Some numerical algorithms may damp out the small fluctuations (errors) in the input data; others might magnify such errors.  Calculations that can be proven not to magnify approximation errors are called numerically stable
 }
 
 \newglossaryentry{viscousdamping}
