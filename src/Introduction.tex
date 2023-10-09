@@ -13,7 +13,7 @@ Two models that passed all the criteria were selected for an in-depth evaluation
 To compare the models, a set of Test Cases was developed.  The procedures, methods, and reasoning for selecting the Test Cases are documented.  The models were then run on the Test Cases and the results compared.  Finally, the conclusions and recommendations are reported.
 
 \section{Objectives}
-The primary motivation for CNPC USA was to evaluate soft string models.  However, in order to compare models, it is necessary to have a set of Test Cases to use as a benchmark.  In addition, well defined procedures should be used in order to allow a direction comparison.  Based on these requirements, the following were adopted as objectives.
+The primary motivation for CNPC USA was to evaluate soft string models.  However, in order to compare models, it is necessary to have a set of Test Cases to use as a benchmark.  In addition, well defined procedures should be used in order to allow a direction comparison.  Based on these requirements, the following objectives were adopted.
 \begin{numberedlist}
 	\item \emph{Review} all the models that were potential available to determine their features.
 	\item \emph{Establish} a set Test Cases for comparing drill string models.
@@ -22,7 +22,7 @@ The primary motivation for CNPC USA was to evaluate soft string models.  However
 \end{numberedlist}
 
 \section{Organization of this Document}
-This document is organized in order to facilitate different use cases.  Together, the chapters provide a complete description of a process that starts from a model search and ends with a comparison between models.  In addition, some of the chapters are written as stand alone chapters that can be referenced independently.  Other chapters are naturally related to each other and are best read as a unit.
+This document is organized in a manner that facilitates different use cases.  Together, the chapters provide a complete description of a process that starts from a model search and ends with a comparison between models.  In addition, some of the chapters are written as stand alone chapters that can be referenced independently.  Other chapters are naturally related to each other and are best read as a unit.
 
 \chaptername~\ref{ch:modelreview} can be read as a stand alone chapter.  It contains short sections that describe each of the models that were examined.  While the models were reviewed in the context of the current project, the reviews can serve as a reference of available drilling dynamics models.
 
@@ -31,31 +31,31 @@ This document is organized in order to facilitate different use cases.  Together
 In \chaptername{}s~\ref{ch:aarnessshormodel},~\ref{ch:exxonmobilmodel}, and~\ref{ch:results} two different models are described in detail and compared on the Test Cases.  These chapters are best read as a unit.
 
 \section{Important Notes on the Models}
-It should be noted that these models are considered research models and are currently still in development.  As such, it was expected to lack some features a commercial code would have.  In addition, some issues were expected to be encountered.  Any potential issues reported in this document are done solely in the interest of providing feedback to the developers in hopes of helping to improve the models.  \important{At no time should any comments in this report be construed as criticisms of these models.}  On the contrary, this collaboration is viewed as demonstrating the benefits of open-source software.  A wider audience gets to make use of the software and access to the source code means issues can examined, tested, and feedback provided to the developers.
+It should be noted that these models are considered research models and are currently still in development.  As such, they were expected to lack some features a commercial code would have.  In addition, some issues were expected to be encountered.  Any potential issues reported in this document are done solely in the interest of providing feedback to the developers in hopes of helping to improve the models.  \important{At no time should any comments in this report be construed as criticisms of these models.}  On the contrary, this collaboration is viewed as demonstrating the benefits of open-source software.  A wider audience gets to make use of the software and access to the source code means issues can examined, tested, and feedback provided to the developers.
 
 %While these models may not contain some of the features of commercial code, they capture
 
 %The team is eternally grateful for allowing access to these models.
 \section{Nomenclature}
-\subsection{Steady-State and Transient}
-In vibration analysis, the terms \emph{transient} and \emph{steady-state} refer to the way in which the vibration of a system behaves over time.  Transient vibration is a vibration that changes over time, while steady-state vibration is a vibration that remains constant (or consistent) over time.
+\subsection{Steady-State and Transient Phases}
+In vibration analysis, the terms \emph{transient} and \emph{steady-state} refer to the way in which the vibration of a system behaves over time.  Transient vibration is a vibration that changes over time, while steady-state vibration is a vibration that remains constant over time.
 
-In classical mechanics and dynamics, these are well defined and understood.  Steady-state vibrations refer to harmonic vibration that represents the particular part of the solution to the governing equations of motion.  The transient response is assumed to be damped out so that it has diminished to zero.
+In classical mechanics and dynamics, these are well defined and understood.  Steady-state vibration refer to harmonic vibration that represents the particular part of the solution to the governing equations of motion.  The transient response is assumed to be damped out so that it has diminished to zero.
 
 A discrete system with repeating, but non-harmonic loading, would not strictly fall into this definition.  It differs from the classical system in the steady-state phase.  The classical steady-state displays an exactly repeating pattern of behavior.  The discrete, non-harmonic systems has a phase where the initial, non-repeating load has been damped out.  However, the remaining ``steady-state'' may exhibit slight differences from cycle to cycle of vibration.
 
 However, there are obvious similarities between the classical and discrete, non-harmonic loading cases.  A clear response to machine start up and other changes in loading is evident.  Similarly, it can be seen that, given time, the systems will damp out their response to these changes. So while the classical and the discrete, non-harmonically loaded systems exhibit somewhat different traits, they are comparable in the broad sense.  As such, it is useful to speak of the two systems in the a similar manner.  \emph{Therefore, in direct analogy to classical harmonic vibration, we will refer to the transient and steady-state phases of the discrete, non-harmonic system.}
 
-\subsection{Dry, Viscous, and Total Friction}
+\subsection{Damping}
 The governing equation of axial motion can be represented as
 \begin{equation}\label{eq:axial_motion_GE}
     m\ddot{x} + c_a\dot{x} + k_ax + f_{fric} = F_{ext}
 \end{equation}
-where $m$ is mass, $c_a$ is axial damping coefficient, $k_a$ is axial stiffness, $f_{fric}$ is frictional force, $F_{ext}$ is external force and $x$ is axial displacement, while the governing equation of the torsional motion is expressed as
+where $m$ is mass, $c_a$ is axial damping coefficient, $k_a$ is axial stiffness, $f_{fric}$ is frictional force, $F_{ext}$ are external forces and $x$ is axial displacement, while the governing equation of the torsional motion is expressed as
 \begin{equation}\label{eq:torsional_motion_GE}
     J\ddot{\theta} + c_t\dot{\theta} + k_t\theta + \tau_{fric} = \tau_{ext}
 \end{equation}
-where $J$ is mass moment of inertia, $c_t$ is torsional damping coefficient, $k_t$ is torsional stiffness, $\tau_{fric}$ is frictional torque, $\tau_{ext}$ is external torque and $\theta$ is angular displacement. In this project, frictional force, $f_{fric}$, and frictional torque, $\tau_{fric}$, is defined as friction which is a friction between drill string and wellbore contact and a function of friction factor and normal force at the drill string, wellbore contact. On the other hand, the damping force, $c_a\dot{x}$ and $c_t\dot{\theta}$, is a drag that is from drilling mud and cuttings, which referred as viscous damping.
+where $J$ is mass moment of inertia, $c_t$ is torsional damping coefficient, $k_t$ is torsional stiffness, $\tau_{fric}$ is frictional torque, $\tau_{ext}$ is external torque and $\theta$ is angular displacement. In this project, frictional force, $f_{fric}$, and frictional torque, $\tau_{fric}$, is defined as friction which is a friction between drill string and wellbore contact and a function of friction factor and normal force at the drill string, wellbore contact. The damping force, $c_a\dot{x}$ and $c_t\dot{\theta}$, is a drag that is from drilling mud and cuttings, which referred as viscous damping.
 
 \subsection{Models}
 \subsubsection{Static and Dynamic}
