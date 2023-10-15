@@ -42,27 +42,34 @@ In vibration analysis, the terms \emph{transient} and \emph{steady-state} refer 
 
 In classical mechanics and dynamics, these are well defined and understood.  Steady-state vibration refer to harmonic vibration that represents the particular part of the solution to the governing equations of motion.  The transient response is assumed to be damped out so that it has diminished to zero.
 
-A discrete system with repeating, but non-harmonic loading, would not strictly fall into this definition.  It differs from the classical system in the steady-state phase.  The classical steady-state displays an exactly repeating pattern of behavior.  The discrete, non-harmonic systems has a phase where the initial, non-repeating load has been damped out.  However, the remaining ``steady-state'' may exhibit slight differences from cycle to cycle of vibration.
+A discrete system with repeating, but non-harmonic loading, would not strictly fall into this definition.  It differs from the classical system in the steady-state phase.  The classical steady-state displays an exactly repeating pattern of behavior.  The discrete, non-harmonic system has a phase where the initial, non-repeating load has been damped out.  However, the remaining ``steady-state'' may exhibit slight differences from cycle to cycle of vibration.  \todo{Add a figure.}
 
 However, there are obvious similarities between the classical and discrete, non-harmonic loading cases.  A clear response to machine start up and other changes in loading is evident.  Similarly, it can be seen that, given time, the systems will damp out their response to these changes. So while the classical and the discrete, non-harmonically loaded systems exhibit somewhat different traits, they are comparable in the broad sense.  As such, it is useful to speak of the two systems in the a similar manner.  \emph{Therefore, in direct analogy to classical harmonic vibration, we will refer to the transient and steady-state phases of the discrete, non-harmonic system.}
 
 \subsection{Damping}
-The governing equation of axial motion can be represented as
-\begin{equation}\label{eq:axial_motion_GE}
-    m\ddot{x} + c_a\dot{x} + k_ax + f_{fric} = F_{ext}
-\end{equation}
-where $m$ is mass, $c_a$ is axial damping coefficient, $k_a$ is axial stiffness, $f_{fric}$ is frictional force, $F_{ext}$ are external forces and $x$ is axial displacement, while the governing equation of the torsional motion is expressed as
-\begin{equation}\label{eq:torsional_motion_GE}
-    J\ddot{\theta} + c_t\dot{\theta} + k_t\theta + \tau_{fric} = \tau_{ext}
-\end{equation}
-where $J$ is mass moment of inertia, $c_t$ is torsional damping coefficient, $k_t$ is torsional stiffness, $\tau_{fric}$ is frictional torque, $\tau_{ext}$ is external torque and $\theta$ is angular displacement. In this project, frictional force, $f_{fric}$, and frictional torque, $\tau_{fric}$, is defined as friction which is a friction between drill string and wellbore contact and a function of friction factor and normal force at the drill string, wellbore contact. The damping force, $c_a\dot{x}$ and $c_t\dot{\theta}$, is a drag that is from drilling mud and cuttings, which referred as viscous damping.
+The governing equations of motion can be represented as
+\begin{align}
+    m\ddot{x}      + c_a\dot{x}      + k_ax      + f_{fric}    & = F_{ext}    \label{eq:axial_motion_GE} \\
+    J\ddot{\theta} + c_t\dot{\theta} + k_t\theta + \tau_{fric} & = \tau_{ext} \label{eq:torsional_motion_GE}
+\end{align}
+where $m$ is mass, $c_a$ is axial damping coefficient, $k_a$ is axial stiffness, $f_{fric}$ is frictional force, $F_{ext}$ are external forces and $x$ is axial displacement, $J$ is mass moment of inertia, $c_t$ is torsional damping coefficient, $k_t$ is torsional stiffness, $\tau_{fric}$ is frictional torque, $\tau_{ext}$ is external torque and $\theta$ is angular displacement.  \equationname~\ref{eq:axial_motion_GE} is the equation for linear motion and \equationname~\ref{eq:torsional_motion_GE} is the analogous equation for rotational motion.
+ 
+In this project, frictional force, $f_{fric}$, and frictional torque, $\tau_{fric}$, are defined as a force resisting the relative motion of elements sliding against each other.  It should be noted that this is the only constraint on the definition.  For example, the frictional force may or may not have a rate dependent component.  For drill string dynamics, the primarily source of friction is from drill string and wellbore contact.
+
+%This type of friction is a function of the friction factor and normal force at the point of contact.
+
+The terms $c_a\dot{x}$ and $c_t\dot{\theta}$, are referred to as viscous damping forces.  For drill string dynamics, this is primarily drag that results from drilling mud and cuttings.
+
+Both friction and viscous damping are types of damping, which is a more general term referring to forces that remove energy from the system.
+
+These definitions are provided to clarify how these terms are used \emph{in this document}.  Other sources may define them differently, use terms such as ``viscous friction'' not used here, or use a different name for the same concepts.
 
 \subsection{Models}
 \subsubsection{Static and Dynamic}
-Models can be classified as either static or dynamic.  Static models do not account for acceleration (\staticforcebalance{}).  Dynamic models account for inertia (\dynamicforcebalance{}).  Within each of these categories, there are a variety of types of models (single body/multibody, rigid body/flexible, et cetera).  Particularly for dynamics models, there is a broad range of fidelities (or complexity).  The authors did not feel the compulsion to name or classify each of these types of dynamics models.  Rather, a simpler, more straightforward approach is taken and the features of each model are described.
+Models can be classified as either static or dynamic.  Static models do not account for acceleration (\staticforcebalance{}).  Dynamic models account for inertia (\dynamicforcebalance{}).  Within each of these categories, there are a variety of types of models (single body/multibody, rigid body/flexible, et cetera).  Particularly for dynamics models, there is a broad range of fidelities (or complexity).  The authors did not feel the compulsion to name or classify each of these types of dynamics models.  Rather, a simpler, more straightforward approach is taken and the features of each model reviewed are described.
 
-\subsubsection{Steady-State and Transient}
-``Steady-state model'' is a synonym for ``static model.'' The phrase ``transient model'' is sometimes used to mean a dynamic model that can capture transient phases.  The authors prefer the terms ``static'' and ``dynamic'' models.  Partially because they are more approachable and easier to understand.  But also as a way to prevent confusion.  The terms ``steady-state'' and ``transient'' will be reserved for the steady-state and transient phases of a dynamic response.
+\subsubsection{Steady-State and Transient Models}
+``Steady-state model'' is a synonym for ``static model.'' The phrase ``transient model'' is sometimes used to mean a dynamic model that can capture transient phases.  The authors prefer the terms ``static'' and ``dynamic'' models.  Partially because they are more approachable and easier to understand.  But also as a way to prevent confusion.  The terms ``steady-state'' and ``transient'' will be reserved for the steady-state and transient \emph{phases} of a dynamic response.
 
 \subsection{Review and Evaluation}
 In this document we will use the term ``review'' in context of a model to mean a literature review and assessment of the features of the model.  The term ``evaluation'' will be used to mean the model was executed, run, tested on standardized cases, and compared to other models.
