@@ -2,19 +2,30 @@
 \label{ch:testcases}
 Test Cases were developed in this study for the purpose of comparing and validating different drill string models.  The Test Cases are meant to be general and provide a reliable means of cross-checking and comparing the performances of various models, not just those specific to the current study.  As such, the key parameters, borehole design, and other information required to reproduce the Test Cases is provided.
 
+In addition to the Test Cases themselves, the learnings from developing the Test Cases is presented.  This will both help the reader understand why the particular Test Cases were chosen and provide a methodology for developing any new cases.
+
 \section{Recommended Procedures for Developing Test Cases}
+Drill string models are complex and contain a number of parameters.  These parameters are used to make a simulation more realistic, but they are often implemented in different ways in different models.
+
+
+
 \begin{bulletedlist}
-	\item Remove top drive
+	\item For initial model comparison, remove top drive to eliminate it as a variable
+	\item Use with a vertical borehole
+
 	\item Note how tool joints are handled: ignored, modified stiffness (equivalent stiffness), account for contact/friction?
+	\item Carefully examine the units and ensure they are accurately converted
 \end{bulletedlist}
 \notfinished{}
-When working with various friction models, it becomes vital to identify parameters that result in similar frictional behaviors. Ensuring accurate unit conversion is also a key aspect of this process. The parameters for the friction models are static, dynamic and critical velocity. Generally, the static and dynamic friction factors can be equated across different models, while special attention is required to align the critical velocity with the desired frictional behavior. In the context of modeling torsional dynamics, if the critical velocities of two different models are provided in different units such as meters per second ($m/s$) and revolutions per minute ($RPM$), unit compatibility must first be established for meaningful comparison. Converting $m/s$ to $RPM$ can be achieved by \equationname~\ref{velocity_conversion}.
+When working with various friction models, it becomes vital to identify parameters that result in similar frictional behaviors.  The parameters for the friction models are static coefficient of friction, dynamic coefficient of friction, and critical velocity. Generally, the static and dynamic coefficients of friction can be equated across different models, while special attention is required to align the critical velocity with the desired frictional behavior. In the context of modeling torsional dynamics, if the critical velocities of two different models are provided in different units such as meters per second ($m/s$) and revolutions per minute ($RPM$), unit compatibility must first be established for meaningful comparison. Converting $m/s$ to $RPM$ can be achieved by \equationname~\ref{velocity_conversion}.
 \begin{equation}\label{velocity_conversion}
-  N_{(rpm)}=v_{(m/s)}\frac{60}{2\pi}*r_o
+  V=v\frac{60}{2\pi}*r_o
 \end{equation}
-where $N$ and $v$ are angular velocity expressed in $RPM$, and $m/s$, respectively, and $r_o$ is outer radius of the drill pipe. For instance, considering Test Case 2 with a critical velocity of 0.03 $m/s$ and a drill string radius of 0.075 $m$, the critical velocity can be converted to 4$RPM$. After matching the units, the critical angular velocity of the model, which is for the comparison, can be decided by comparing the frictional force with respect to angular velocity.
+where $V$ and $v$ are angular velocity expressed in $RPM$, and $m/s$, respectively, and $r_o$ is outer radius of the drill pipe. \wordingstart{} After matching the units, the critical angular velocity of the model, which is for the comparison, can be decided by comparing the frictional force with respect to angular velocity. \wordingend{}
+%For instance, considering Test Case 2 with a critical velocity of 0.03 $m/s$ and a drill string radius of 0.075 $m$, the critical velocity can be converted to 4$RPM$.
 
-\figurename~\ref{figure:stribeck_coulomb_friction} shows the example of comparison between Coulomb and Stribeck friction model with different critical velocity of Coulomb model with 4$RPM$ angular critical velocity for Stribeck model. In this project, we deliberately designate an angular velocity of 10 $RPM$ for the Coulomb model, chosen as a more extreme scenario. This choice allows us to align the exponentially decreasing component of the Stribeck model with the static friction inherent in the Coulomb friction model. However, it is important to note that additional tests involving different angular velocities have been performed and are included in the appendix chapter for comprehensive analysis.\reviewcomment{If not added, modify}.
+\figurename~\ref{figure:stribeck_coulomb_friction} shows an example comparison between Coulomb and Stribeck friction models. It compares two different critical velocity of Coulomb model (4 and 10 $RPM$) with a 4 $RPM$ critical velocity for Stribeck model. In this project, we selected an angular velocity of 10 $RPM$ for the Coulomb model. This choice allows us to align the exponentially decreasing component of the Stribeck model with the static friction inherent in the Coulomb friction model. However, it is important to note that additional tests involving different angular velocities have been performed and are included in the appendix chapter for comprehensive analysis. \reviewcomment{If not added, modify}
+
 \begin{figure}
   \centering
   \includegraphics[width=5in]{Stribeck_Coulomb_friction}

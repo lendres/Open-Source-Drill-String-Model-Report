@@ -43,15 +43,33 @@ In \referencename~\cite{ref:zamanipour2018a}, the model from \referencename~\cit
 \input{"RGD Family of Models"}
 
 \section{Aarsnes-Shor Models}
-Aarsnes and Shor developed a distributed model for torsional dynamics of drill strings (\referencename~\cite{ref:aarsnes2017a}).  The model was developed to analyze torsional dynamics of the drill string.  Axial and lateral displacements are ignored.  This distributed model simulates the torsional dynamics by solving the angular velocity and torque governing equations using the finite difference method. Key assumptions of the model are the following.
+Aarsnes and Shor developed a distributed model for torsional dynamics of drill strings (\referencename~\cite{ref:aarsnes2017a}).  The model was developed to analyze torsional dynamics of the drill string.  This distributed model simulates the torsional dynamics by solving the angular velocity and torque governing equations using the finite difference method. Key assumptions of the model are the following.
 \begin{bulletedlist}
-	\item A soft string model (no lateral bending moments, entire string in contact with the borehole)
-	\item Bit-rock interactions is simplified to torque as a function of weight on bit
+	\item A soft string model (no lateral bending moments, entire string in contact with the borehole, lateral displacements are ignored)
+	\item Axial displacements are ignored (Matlab version only)
+	\item Bit-rock interaction is simplified to torque as a function of weight on bit
 	\item No axial or lateral movement
-	\item The friction from drill string and wellbore contact is models as Coulomb friction
+	\item The friction from the drill string and wellbore contact is modeled as Coulomb friction
     \item Viscous damping is included
+    \item Cuttings are ignored
+    \item Tool joint effects are not directly included and they must be manually accounted for
+    \item Currently, only two drill pipe sizes of inner and outer diameter are allowed, one for the string and one for the BHA
+    \item Cased and open hole sections have the same friction factor
 \end{bulletedlist}
-Compared to a more sophisticated friction model (e.g., a Stribeck friction model), the friction model is a less complex Coulomb friction model. However, reliable results were obtained from field validation (\referencename~\cite{ref:aarsnes2017a}). \wording{}\resolvedcomment{} Two versions of the source code are available, one implemented in Matlab and the other in Python.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion. Please see \chaptername~\ref{ch:aarnessshormodel} for a complete analysis.
+
+While the Coulomb friction model is somewhat less sophisticated than some models (e.g., a Stribeck model), reliable results were obtained from field validation (\referencename~\cite{ref:aarsnes2017a}).
+
+Two versions of the source code are available, one implemented in Matlab and the other in Python.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion. Please see \chaptername~\ref{ch:aarnessshormodel} for a complete analysis.
 
 \section{ExxonMobil Model}
-The ExxonMobil model is based on a soft string axial-torsional concept and utilizes a lumped mass and spring system (see \referencename~\cite{ref:dixit2021a}). It is designed to simulate the dynamics of a drill string under various drilling and tripping conditions for both vertical and inclined wells. It assumes the wellbore to be 2D and as such it is a 2-DOF per node system. The axial and torsional degrees of freedom are coupled through the friction terms. There is not a coupling from material properties or inertia terms.  The bit-rock interaction is modeled and a Stribeck friction model is used. The governing equations are solved using a Runge-Kutta-Fehlberg method. The model has been implemented in Python.  Please see \chaptername~\ref{ch:exxonmobilmodel} for a complete analysis. 
+The ExxonMobil model is based on a soft string axial-torsional model and utilizes a lumped mass and spring system (see \referencename~\cite{ref:dixit2021a}). It is designed to simulate the dynamics of a drill string under various drilling and tripping conditions for both vertical and inclined wells. It assumes the wellbore to be 2D and as such it is a 2-DOF per node system. The axial and torsional degrees of freedom are coupled through the friction terms. There is not a coupling from material properties or inertia terms.  The bit-rock interaction is modeled with depth of cut effects accounted for.  Key assumptions of the model are the following.
+\begin{bulletedlist}
+	\item A soft string model (no lateral bending moments, entire string in contact with the borehole, lateral displacements are ignored)
+	\item The bit-rock interaction is simplified
+	\item The friction from the drill string and wellbore contact is modeled as Stribeck friction
+    \item Viscous damping is included
+    \item Cuttings are ignored
+    \item Cased and open hole sections have the same friction factor
+\end{bulletedlist}
+
+The governing equations are solved using a Runge-Kutta-Fehlberg method. The model has been implemented in Python.  Please see \chaptername~\ref{ch:exxonmobilmodel} for a complete analysis. 
