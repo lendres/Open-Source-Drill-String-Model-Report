@@ -30,6 +30,8 @@
 % Set the search path for figures.  This way we can change it if required without having to modified all of the \includegraphics calls.
 \graphicspath{{Figures/}}
 
+% Reduce the space between floats and captions.  Defaults are 10pt and 0pt.
+\setlength{\abovecaptionskip}{5pt plus 1pt minus 2pt}
 
 % TABLES
 \usepackage{letable}
@@ -115,14 +117,6 @@
 \makeglossaries{}
 
 
-% EPIGRAPHS
-% Quotes at the start of chapters.
-\usepackage{epigraph}
-\renewcommand{\epigraphflush}{center}
-\renewcommand{\epigraphrule}{0pt}
-\setlength{\epigraphwidth}{\textwidth-3in}
-\newcommand*{\formattedepigraph}[2]{\epigraph{\textit{#1}}{--- #2}}
-
 
 % MATH
 \usepackage{amsmath}
@@ -140,7 +134,7 @@
 
 % SPECIAL FORMATTING
 \usepackage{leparskip}
-\globalalternateparskip{0.5\baselineskip plus 2pt minus 2pt}
+\globalalternateparskip{0.5\baselineskip plus 2pt minus 1pt}
 
 % To use hanging indent (hang) inside of the environment.
 \usepackage{hang}
@@ -189,7 +183,7 @@
 
 % WARNINGS
 % Suppress warnings about too many floats on a page.
-\usepackage{silence}
+%\usepackage{silence}
 %\WarningFilter*{latex}{Text page \thepage\space contains only floats}
 
 
