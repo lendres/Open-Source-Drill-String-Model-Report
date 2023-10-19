@@ -83,6 +83,10 @@ The model parameters and schematic of the wellbore surveys and drill string comp
 		\hline
 		$ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
 		\hline
+		$BD$ & 5905.5 $ft$ & 1800 $m$ & Bit depth \\
+		\hline
+		$MD$ & 6561.7 $ft$ & 2000 $m$ & Measured depth \\
+		\hline
 	\end{testcasetable}
 	\caption[Input parameters for Test Case 1]{Input parameters for Test Case 1, a vertical well without BHA components.}\label{table_verticalwell_input}
 \end{table}
@@ -101,88 +105,115 @@ This Test Case uses a deviated well with a simple configuration of the drill str
 \begin{table}
     \centering
 	\begin{testcasetable}
-		$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter\\
+		$\rho$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		\hline
+		$G_{dp}$ & 1.67$\cdot$10$^{9}$ $lbf/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$  & Shear modulus \\
+		\hline
+		$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter \\
 		\hline
 		$ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
 		\hline
-		$\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		$\mu_{s}$ & 0.5 & 0.5 & Static friction factor \\
 		\hline
-		$G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
+		$\mu_{d}$ & 0.5 & 0.5 & Dynamic friction factor \\
 		\hline
-		$\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
-		\hline
-		$\mu_{d}$ & 0.5 & 0.5 & Dynamic friction factor\\
-		\hline
-		$w_c$ & 10 $RPM$ & 10 $RPM$ & Cut-off angular velocity\\
+		$w_c$ & 10 $RPM$ & 10 $RPM$ & Friction critical velocity \\
 		\hline
 		$\theta$ & 60$^{\circ}$ & 60$^{\circ}$ & Inclination\\
+		\hline
+		$KOP$ & 4921.3 $ft$ & 1500 $m$ & Kick off point \\
+		\hline
+		$EOB$ & 6889.8 $ft$ & 2100 $m$ & End of bend \\
+		\hline
+		$BD$ & 8202.1 $ft$ & 2500 $m$ & Bit depth \\
+		\hline
+		$MD$ & 13123.4 $ft$ & 4000 $m$ & Measured depth \\
 		\hline
 	\end{testcasetable}
 	\caption[Input parameters for Test Case 2a]{Input parameters for Test Case 2a, a deviated well without BHA components and has the same dynamic and static friction factor values.}\label{table_Inclinedwell_2a_input}
 \end{table}
 
 \subsection{Test Case 2b - Different FF Values}
-This Test Case uses the exact same configuration with Test Case 2a, except different values of static and dynamic friction factor values. The following \tablename~\ref{table_Inclinedwell_2b_input} summarizes the input parameters.
+This Test Case uses the exact same configuration as Test Case 2a except the dynamic friction factor was reduced from 0.5 to 0.25.  \tablename~\ref{table_Inclinedwell_2b_input} summarizes the input parameters.
 
 \begin{table}
 	\centering
 	\begin{testcasetable}
-		$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter\\
+		$\rho$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		\hline
+		$G_{dp}$ & 1.67$\cdot$10$^{9}$ $lbf/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$  & Shear modulus \\
+		\hline
+		$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter \\
 		\hline
 		$ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
 		\hline
-		$\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		$\mu_{s}$ & 0.5 & 0.5 & Static friction factor \\
 		\hline
-		$G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
+		$\mu_{d}$ & 0.25 & 0.25 & Dynamic friction factor \\
 		\hline
-		$\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
+		$w_c$ & 10 $RPM$ & 10 $RPM$ & Friction critical velocity \\
 		\hline
-		$\mu_{d}$ & 0.25 & 0.25 & Dynamic friction factor\\
+		$\theta$ & 60$^{\circ}$ & 60$^{\circ}$ & Inclination \\
 		\hline
-		$w_c$ & 10 $RPM$ & 10 $RPM$ & Cut-off angular velocity\\
+		$KOP$ & 4921.3 $ft$ & 1500 $m$ & Kick off point \\
 		\hline
-		$\theta$ & 60$^{\circ}$ & 60$^{\circ}$ & Inclination\\
+		$EOB$ & 6889.8 $ft$ & 2100 $m$ & End of bend \\
+		\hline
+		$BD$ & 8202.1 $ft$ & 2500 $m$ & Bit depth \\
+		\hline
+		$MD$ & 13123.4 $ft$ & 4000 $m$ & Measured depth \\
 		\hline
 	\end{testcasetable}
-	\caption[Input parameters for Test Case 2b]{Input parameters for Test Case 2b, a deviated well without BHA components and has different dynamic and static friction factor values.}\label{table_Inclinedwell_2b_input}
+	\caption[Input parameters for Test Case 2b]{Input parameters for Test Case 2b, a deviated well without BHA components and different dynamic and static friction factor values.}
+	\label{table_Inclinedwell_2b_input}
 \end{table}
 
 \section{Test Case 3 - Vertical Well with BHA - Zero FF}
-In this specific scenario, an BHA components were added to the drill string. The BHA introduced extra components, resulting in an increase in both the weight and size of the drill string. However, the well survey data for the vertical well remained the same, which well design, depicted in \figurename~\ref{Vert_well_conf_BHA}, remained unchanged. The specific input parameters can be found in the \tablename~\ref{Input Parameters TC3}.
+This Test Case includes BHA components added to the drill string. The BHA's extra components and increased components size result in an increase in both the weight and size of the drill string. The wellbores is the same as Test Case 1 and is shown in \figurename~\ref{Vert_well_conf_BHA}. The input parameters can be found in the \tablename~\ref{Input Parameters TC3}.
 
 \begin{figure}
   \centering
   \includegraphics[width=2in]{VerticalWellConfigBHA}
-  \caption[Schematic of well and drill string for model comparison]{Schematic of well and drill string for model comparison.}\label{Vert_well_conf_BHA}
+  \caption[Schematic of well and drill string for Test Case 3]{Schematic of well and drill string for Test Case 3.}
+  \label{Vert_well_conf_BHA}
 \end{figure}
 
 
 \begin{table}
     \centering
 	\begin{testcasetable}
+		$\rho$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		\hline
+		$G_{dp}$ & 1.67$\cdot$10$^{9}$ $lbf/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$  & Shear modulus \\
+		\hline
+		$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter \\
+		\hline
+		$ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
+		\hline
 	    $OD_{HWDP}$ & 4.50 $in$ & 0.1143 $m$ & Heavy weight drill pipe outer diameter \\
 	    \hline
 	    $ID_{HWDP}$ & 2.50 $in$ & 0.0635 $m$ & Heavy weight drill pipe inner diameter \\
+	    \hline
+	    $L_{HWDP}$ & 60 $ft$ & 18.30 $m$ & Length of heavy weight drill pipe \\
 	    \hline
 	    $OD_{DC}$ & 6.00 $in$ & 0.1524 $m$ & Drill collars outer diameter \\
 	    \hline
 	    $ID_{DC}$ & 2.00 $in$ & 0.0508 $m$ & Drill collars inner diameter \\
 	    \hline
-	    $L_{HWDP}$ & 60 $ft$ & 18.30 $m$ & Length of heavy weight drill pipe \\
-	    \hline
 	    $L_{DC}$ & 270 $ft$ & 82.30 $m$ & Length of drill collars \\
 	    \hline
-	    $\rho_{dp}$ & 490.6 $lb/ft^{3}$ & 7850 $kg/m^{3}$ & Drill pipe density \\
-	    \hline
-	    $G_{dp}$ & 1.67$\cdot$10$^{9}$ $lb/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
-	    \hline
+		$BD$ & 5905.5 $ft$ & 1800 $m$ & Bit depth \\
+		\hline
+		$MD$ & 6561.7 $ft$ & 2000 $m$ & Measured depth \\
+		\hline
     \end{testcasetable}
-  \caption[Input parameters for Test Case 3]{Input parameters for Test Case 3, a vertical well with BHA components.}\label{Input Parameters TC3}
+  \caption[Input parameters for Test Case 3]{Input parameters for Test Case 3, a vertical well with BHA components.}
+  \label{Input Parameters TC3}
 \end{table}
 
 \section{Test Case 4 - Deviated Well With BHA}
 \subsection{Test Case 4a - Same FF Values}
-The models were tested with the same input parameters from Test Case 2, with additional configuration of the drill string including BHA. Well survey data for the inclined well remained same, except for the incorporation of the BHA. The well design, depicted in \figurename~\ref{figure_wellconfig_inclined_BHA}, remained unchanged. The input parameters can be found in the \tablename~\ref{table_Inclinedwell_4a_input}.
+This Test Case uses the same input parameters from Test Case 2 but includes a BHA. The wellbores is the same as Test Case 2 and is shown in \figurename~\ref{figure_wellconfig_inclined_BHA}. The input parameters can be found in the \tablename~\ref{table_Inclinedwell_4a_input}.
 
 \begin{figure}
   \centering
@@ -190,69 +221,95 @@ The models were tested with the same input parameters from Test Case 2, with add
   \caption[Schematic view of Test Case 4]{Schematic view of wellbore and drill string for Test Case 4.}\label{figure_wellconfig_inclined_BHA}
 \end{figure}
 
+\subsection{Test Case 4b - Same FF Values}
+This Test Case uses the same configuration as Test Case 4a except the dynamic friction factor was reduced from 0.5 to 0.25. \tablename~\ref{table_Inclinedwell_4b_input} summarizes the input parameters.
+
 \begin{table}
+	%\vspace{-1pt} % A trick to get these two floats on the same page, not recommended.
     \centering
 	\begin{testcasetable}
+		$\rho$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		\hline
+		$G_{dp}$ & 1.67$\cdot$10$^{9}$ $lbf/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$  & Shear modulus \\
+		\hline
+		$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter \\
+		\hline
+		$ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
+		\hline
 		$OD_{HWDP}$ & 4.50 $in$ & 0.1143 $m$ & Heavy weight drill pipe outer diameter \\
 		\hline
 		$ID_{HWDP}$ & 2.50 $in$ & 0.0635 $m$ & Heavy weight drill pipe inner diameter \\
+		\hline
+		$L_{HWDP}$ & 60 $ft$ & 18.30 $m$ & Length of heavy weight drill pipe \\
 		\hline
 		$OD_{DC}$ & 6.00 $in$ & 0.1524 $m$ & Drill collars outer diameter \\
 		\hline
 		$ID_{DC}$ & 2.00 $in$ & 0.0508 $m$ & Drill collars inner diameter \\
 		\hline
-		$L_{HWDP}$ & 60 $ft$ & 18.30 $m$ & Length of heavy weight drill pipe \\
-		\hline
 		$L_{DC}$ & 270 $ft$ & 82.30 $m$ & Length of drill collars \\
 		\hline
-		$\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		$\mu_{s}$ & 0.5 & 0.5 & Static friction factor \\
 		\hline
-		$G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
+		$\mu_{d}$ & 0.5 & 0.5 & Dynamic friction factor \\
 		\hline
-		$\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
+		$w_c$ & 10 $RPM$ & 10 $RPM$ & Friction critical velocity \\
 		\hline
-		$\mu_{d}$ & 0.5 & 0.5 & Dynamic friction factor\\
+		$\theta$ & 60$^{\circ}$ & 60$^{\circ}$ & Inclination \\
 		\hline
-		$w_c$ & 10 $RPM$ & 10 $RPM$ & Cut-off angular velocity\\
+		$KOP$ & 4921.3 $ft$ & 1500 $m$ & Kick off point \\
 		\hline
-		$\theta$ & 60$^{\circ}$ & 60$^{\circ}$ & Inclination\\
+		$EOB$ & 6889.8 $ft$ & 2100 $m$ & End of bend \\
+		\hline
+		$BD$ & 8202.1 $ft$ & 2500 $m$ & Bit depth \\
+		\hline
+		$MD$ & 13123.4 $ft$ & 4000 $m$ & Measured depth \\
 		\hline
    \end{testcasetable}
-   \caption[Input parameters for Test Case 4a]{Input parameters for Test Case 4a, a deviated well with BHA components, and has the same static and dynamic friction factors.}\label{table_Inclinedwell_4a_input}
+   \caption[Input parameters for Test Case 4a]{Input parameters for Test Case 4a, a deviated well with BHA components and with the same static and dynamic friction factors.}
+   \label{table_Inclinedwell_4a_input}
 \end{table}
 
-\subsection{Test Case 4b - Same FF Values}
-
-Lastly, the models were tested with the same configuration as Test Case 4a, except the dynamic friction factor was reduced from 0.5 to 0.25. \tablename~\ref{table_Inclinedwell_4b_input} summarizes the input parameters.
-
-\reviewcomment{Aren't \tablename{}s~\ref{table_Inclinedwell_4a_input} and~\ref{table_Inclinedwell_4b_input} the same?}
 \begin{table}
 	\centering
 	\begin{testcasetable}
+		$\rho$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		\hline
+		$G_{dp}$ & 1.67$\cdot$10$^{9}$ $lbf/ft^2$ & 7.99$\cdot$10$^{10}$ $Pa$  & Shear modulus \\
+		\hline
+		$OD_{dp}$ & 5.88 $in$ & 0.15 $m$ & Drill pipe outer diameter \\
+		\hline
+		$ID_{dp}$ & 5.00 $in$ & 0.127 $m$ & Drill pipe inner diameter  \\
+		\hline
 		$OD_{HWDP}$ & 4.50 $in$ & 0.1143 $m$ & Heavy weight drill pipe outer diameter \\
 		\hline
 		$ID_{HWDP}$ & 2.50 $in$ & 0.0635 $m$ & Heavy weight drill pipe inner diameter \\
+		\hline
+		$L_{HWDP}$ & 60 $ft$ & 18.30 $m$ & Length of heavy weight drill pipe \\
 		\hline
 		$OD_{DC}$ & 6.00 $in$ & 0.1524 $m$ & Drill collars outer diameter \\
 		\hline
 		$ID_{DC}$ & 2.00 $in$ & 0.0508 $m$ & Drill collars inner diameter \\
 		\hline
-		$L_{HWDP}$ & 60 $ft$ & 18.30 $m$ & Length of heavy weight drill pipe \\
-		\hline
 		$L_{DC}$ & 270 $ft$ & 82.30 $m$ & Length of drill collars \\
 		\hline
-		$\rho_{dp}$ & 490.6 $lb/ft^3$ & 7850 $kg/m^3$ & Drill pipe density \\
+		$\mu_{s}$ & 0.5 & 0.5 & Static friction factor \\
 		\hline
-		$G_{dp}$ & 1.27$\cdot$10$^{9}$ $lb/ft^2$ & 6.10$\cdot$10$^{10}$ $Pa$ & Drill pipe shear modulus\\
+		$\mu_{d}$ & 0.25 & 0.25 & Dynamic friction factor \\
 		\hline
-		$\mu_{s}$ & 0.5 & 0.5 & Static friction factor\\
+		$w_c$ & 10 $RPM$ & 10 $RPM$ & Friction critical velocity \\
 		\hline
-		$\mu_{d}$ & 0.25 & 0.25 & Dynamic friction factor\\
+		$\theta$ & 60$^{\circ}$ & 60$^{\circ}$ & Inclination \\
 		\hline
-		$w_c$ & 10 $RPM$ & 10 $RPM$ & Cut-off angular velocity\\
+		$KOP$ & 4921.3 $ft$ & 1500 $m$ & Kick off point \\
 		\hline
-		$\theta$ & 60$^{\circ}$ & 60$^{\circ}$ & Inclination\\
+		$EOB$ & 6889.8 $ft$ & 2100 $m$ & End of bend \\
+		\hline
+		$BD$ & 8202.1 $ft$ & 2500 $m$ & Bit depth \\
+		\hline
+		$MD$ & 13123.4 $ft$ & 4000 $m$ & Measured depth \\
 		\hline
 	\end{testcasetable}
-	\caption[Input parameters for Test Case 4b]{Input parameters for Test Case 4b.}\label{table_Inclinedwell_4b_input}
+	\caption[Input parameters for Test Case 4b]{Input parameters for Test Case 4b, a deviated well with BHA components and with different static and dynamic friction factors.}
+	\label{table_Inclinedwell_4b_input}
 \end{table}
+\pagebreak
