@@ -3,15 +3,15 @@
 
 \section{Introduction}
 \subsection{Overview}
-The model is developed by Aarsnes and Shor (\referencename~\cite{ref:aarsnes2017a}). It is designed to simulate torsional drill string vibrations using a distributed model. It can be used both vertical and inclined wells and can incorporate BHA components. The top drive is accounted for and it contains a PI controller.
+The model was developed by Aarsnes and Shor (\referencename~\cite{ref:aarsnes2017a}). It is designed to simulate torsional drill string vibrations using a distributed model. It can be used both vertical and inclined wells and can incorporate BHA components. The top drive is accounted for and it contains a PI controller.
 
 Two versions of the source code are available, one implemented in Matlab and the other in Python. The Python version is newer and is being written to improve the Matlab version. Ongoing efforts are focused on enhancing the Python version by incorporating axial motion.
 
-\subsection{Interpretation}
+\subsection{A Note on Interpretation}
 In many sources, \emph{linear forces} are often represented by variables that use $f$ or $f$-like characters (f, F, $f$, $F$, \mbf{F}). In \referencename~\cite{ref:aarsnes2017a}, the variables $\mathcal{F}$, $F_s$, and $F_d$ are used denote \emph{torque} resulting from \emph{friction}.
 
 \section{Model Description}
-The model simulates torsional vibration of the drill string induced by Coulomb friction and viscous damping.  These are modeled as distributed along the drill string and are combined into a ``source'' term. The governing equations of torsional motion are solved by finite difference method (FDM) by discretizing the drill string. Assumptions of the model are:
+The model simulates torsional vibration of the drill string and includes Coulomb friction and viscous damping effects.  These are modeled as distributed along the drill string and are combined into a ``source'' term. The governing equations of motion are solved using the finite difference method (FDM) by discretizing the drill string. The assumptions of the model are:
 \begin{bulletedlist}
 	\item A simplified bit model (see \sectionname~\ref{sec:asbitmodel})
 	\item No lateral or axial motion
@@ -26,10 +26,10 @@ The model simulates torsional vibration of the drill string induced by Coulomb f
 \end{bulletedlist}
 While tool joints are not included as part of the model, an equivalent stiffness can be manually calculated for drill string components to account for their effects.
 
-Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and has been validated with field data (\referencename~\cite{ref:aarsnes2017a}). In comparison, the Python ver.\ is a relatively recent version. Both codes are based on the same mathematic background and applies finite difference method to solve the torsional vibration of the drill string. However, while Python ver.\ directly solves the governing equation for angular velocity and torque separately, Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equation and solves at once. The comparison of the numerical implementations between two models are explained in more detail in section \ref{AS_Math}.
+Two different versions of the codes are available which are written in Matlab and Python. The Matlab ver.\ is more matured and has been validated with field data (\referencename~\cite{ref:aarsnes2017a}). In comparison, the Python ver.\ is a relatively recent development. Both codes are based on the same mathematic background and applies the finite difference method to solve the torsional vibration of the drill string. However, while the Python ver.\ directly solves the governing equations for angular velocity and torque separately, the Matlab ver.\ introduces Riemann invariants and combines the torque and angular velocity in the governing equations and solves at once. The comparison of the numerical implementations between the two models are explained in more detail in section \ref{AS_Math}.
 
 \subsection{Top Drive Model}
-The model contains a PI controller to represent the behavior of the top drive. The boundary condition at the top is given by the top drive torque and velocity calculated from the top drive velocity set point. The torque on the top drive is derived as
+The model contains a PI controller to represent the behavior of the top drive. The boundary conditions at the top are given by the top drive torque and velocity calculated from the top drive velocity set point. The torque on the top drive is derived as
 \begin{equation}\label{AS_err}
   e = w_{sp} - w_{td}
 \end{equation}
@@ -41,7 +41,7 @@ The model contains a PI controller to represent the behavior of the top drive. T
 \begin{equation}\label{AS_tau_m}
   \tau_{td} = K_pe + k_i I_e
 \end{equation}
-where $w_{sp}$ is set point velocity, $w_{td}$ is top drive velocity, $\tau_{td}$ is top drive torque, $K_p$ and $K_i$ are proportional and integral gain, respectively. $K_p$ and $K_i$ are parameters that can be adjusted to change the response. The top drive velocity, $w_{td}$ is then obtained by dynamics
+where $w_{sp}$ is the set point velocity, $w_{td}$ is the top drive velocity, $\tau_{td}$ is the top drive torque, and $K_p$ and $K_i$ are the proportional and integral gain, respectively. $K_p$ and $K_i$ are parameters that can be adjusted to change the response. The top drive velocity, $w_{td}$ is then obtained by dynamics
 \begin{equation}\label{AS_w_td}
   \frac{\partial w_{td}}{\partial t} = \frac{1}{J_{td}}(\tau_{td} - \tau_0)
 \end{equation}
@@ -70,24 +70,27 @@ The friction is modeled as Coulomb friction with the option to set a non-zero cr
 				\label{fig:asfrictionandviscous}
 			\end{minipage}
 	\end{minipage}
-	\caption[Damping models for the A-S model]{Damping models for the A-S model. The friction model is shown in~(\subref{fig:asfriction}) and the combination of friction and viscous damping (source term) is shown in~(\subref{fig:asfrictionandviscous}). $F_{s}$, $F_{d}$ are the static and dynamic friction torque, respectively, $k_{T}$ is the viscous damping coefficient for torsional motion and $w_{c}$ is the critical angular velocity which is the threshold for transition between static and dynamic friction.}\label{figure_AS_damping}
+    \caption[Damping models for the A-S model]{Damping models for the A-S model. The friction model is shown in~(\subref{fig:asfriction}) and the combination of friction and viscous damping (source term) is shown in~(\subref{fig:asfrictionandviscous}). $F_{s}$, $F_{d}$ are the static and dynamic friction torque, respectively, $k_{T}$ is the viscous damping coefficient for torsional motion and $w_{c}$ is the critical angular velocity which is the threshold for transition between static and dynamic friction.}
+	\label{figure_AS_damping}
 \end{figure}
 %When the angular velocity is below the critical velocity, the friction is bounded by static friction.
 
-The Coulomb friction force $\mathcal{F}(w,x)$ is modeled as an inclusion which is shown in \equationname~\ref{equation_A-S_columnbfriciton}. The parameters for the equations can be seen from \figurename~\ref{figure_AS_equation_schematic}.
+The Coulomb friction force $\mathcal{F}(w,x)$ is modeled as an inclusion which is shown in \equationname~\ref{equation_A-S_columnbfriciton}. The parameters for the equations can be seen in \figurename{}s~\ref{figure_AS_damping} and~\ref{figure_AS_equation_schematic}.
 \begin{figure}
-  \centering
-  \includegraphics[width=2.5in]{AS_parameters}
-  \caption[Schematic of distributed drill string in deviated well]{Schematic of distributed drill string in deviated well and indication of parameters used in the equations \cite{ref:aarsnes2017a}.}\label{figure_AS_equation_schematic}
+	\centering
+	\includegraphics[width=2.5in]{AS_parameters}
+    \caption[Schematic of distributed drill string in deviated well]{Schematic of distributed drill string in deviated well and indication of parameters used in the Aarnes and Shor model (\referencename~\cite{ref:aarsnes2017a}).}
+	\label{figure_AS_equation_schematic}
 \end{figure}
-\begin{equation}\label{equation_A-S_columnbfriciton}
-  \begin{cases}
-     \mathcal{F}(w,x) = F_{d}(x), & \mbox{if } w>w_c \\
-     \mathcal{F}(w,x) \in [-F_{s}(x), F_{s}(x)], & \mbox{if } |w|<w_c \ \\
-     \mathcal{F}(w,x) = -F_{d}(x), & \mbox{if } w < -w_c.
-  \end{cases}
+\begin{equation}
+	\label{equation_A-S_columnbfriciton}
+	\begin{cases}
+		\mathcal{F}(w,x) = F_{d}(x), & \mbox{if } w>w_c \\
+		\mathcal{F}(w,x) \in [-F_{s}(x), F_{s}(x)], & \mbox{if } |w|<w_c \ \\
+		\mathcal{F}(w,x) = -F_{d}(x), & \mbox{if } w < -w_c.
+	\end{cases}
 \end{equation}
-where $w_c$ is the critical angular velocity for the transition from static to dynamic friction, $F_{d}$ and $F_{s}$ are dynamic and static friction forces, respectively. For the condition $|w|<w_c$, $\mathcal{F}(w,x)$ limited by the boundary values $\pm F_{s}(x)$.  For the condition $|w|>w_c$ is equal to the dynamic friction, $F_{d}$.
+where $w_c$ is the critical angular velocity for the transition from static to dynamic friction, $F_{d}$ and $F_{s}$ are dynamic and static friction forces, respectively. For the condition $|w|<w_c$, $\mathcal{F}(w,x)$ is limited by the boundary values $\pm F_{s}(x)$.  For the condition $|w|>w_c$,  $\mathcal{F}(w,x)$ is equal to the dynamic friction, $F_{d}$.
 
 The normal force, $F_N$, along the drill string is calculated according to
 \begin{equation}\label{equation_AS_normal_force}
@@ -109,21 +112,24 @@ where $F_d$ is dynamic frictional torque and $\mu_d$ is the dynamic friction fac
 \label{AS_Math}
 \subsection{Governing Equations}
 The model is based on the equations of angular motion, here named wave equation, which are
-\begin{equation}\label{AS-motion}
-  J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x)
+\begin{equation}
+	\label{AS-motion}
+	J\rho\frac{\partial w(t,x)}{\partial t} + \frac{\partial \tau (t,x)}{\partial x} = S(w,x)
 \end{equation}
-\begin{equation}\label{AS-motion1}
- \frac{\partial\tau(t,x)}{\partial t} + JG\frac{\partial w(t,x)}{\partial x} = 0
+\begin{equation}
+	\label{AS-motion1}
+	\frac{\partial\tau(t,x)}{\partial t} + JG\frac{\partial w(t,x)}{\partial x} = 0
 \end{equation}
 where J is polar moment of inertia and $\rho$ is material density, $w(t,x)$ is angular velocity, $\tau(t,x)$ is torque and S is the source term which can be represented as
-\begin{equation}\label{AS-sourceterm}
-  S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
+\begin{equation}
+	\label{AS-sourceterm}
+	S(w,x) = -k_t \rho J w(t,x) - \mathcal{F}(w,x)
 \end{equation}
 where $k_t$ is damping constant which is viscous shear stresses from drilling mud and cuttings bed and $\mathcal{F}(w,x)$ is Coulomb friction between the drill string and the borehole that is derived from \equationname{}s~\ref{equation_A-S_columnbfriciton}-\ref{equation_A-S_dynamic_fric}.
 
 \subsection{Numerical Implementation of Matlab Version}
 \subsubsection{Riemann Invariants}
-The partial differential equations governing the motion (\equationname{}s~\ref{AS-motion} and \ref{AS-sourceterm}) are transformed into their Riemann invariants solved by a first order upwind scheme. The Riemann invariants are defined as
+The partial differential equations governing the motion (\equationname{}s~\ref{AS-motion}, \ref{AS-motion1}, and~\ref{AS-sourceterm}) are transformed into their Riemann invariants solved by a first order upwind scheme. The Riemann invariants are defined as
 \begin{equation}\label{AS-Riemann}
   \alpha = w + \frac{c_t}{JG}\tau, \quad \beta=w-\frac{c_t}{JG}\tau
 \end{equation}
@@ -134,7 +140,7 @@ where $c_t = \sqrt{G/\rho}$ is the velocity of the torsional wave. It can be not
 \begin{equation}\label{equation_Riemann_relation2}
   J \rho \frac{\alpha + \beta}{2c_t} = \tau
 \end{equation}
-and the variable $\alpha$, $\beta$ satisfies the PDE system
+and the variables $\alpha$ and $\beta$ satisfy the PDE system:
 \begin{equation}\label{AS-Riemann_alpha}
   \frac{\partial \alpha}{\partial t} + c_t\frac{\partial \alpha}{\partial x} = -\mathcal{S}
 \end{equation}
@@ -145,7 +151,7 @@ Therefore, angular velocity $w$ and torque $\tau$ can be obtained by solving $\a
 The source term $\mathcal{S}$ is
 \begin{equation}\label{AS-source}
   \mathcal{S} = \frac{S}{J \rho} = k_t(\alpha + \beta) + \frac{1}{J \rho} \mathcal{F}
-\end{equation} \reviewcomment{Where is the ``2'' go?}
+\end{equation} \reviewcomment{Where is the ``2''/``1/2'' go?  It may reappear in \equationname~\ref{equation_A-S_columnbfriciton_Riemann}.}
 where $k_t$ is damping coefficient and $\mathcal{F}$ is Coulomb friction defined in \equationname~\ref{equation_A-S_columnbfriciton}.
 \subsubsection{Boundary Condition}
 The boundary conditions of the drill string are given as
@@ -163,13 +169,13 @@ where $interface$ is used to denote the connection of string elements with diffe
 
 \equationname{}s~\ref{AS-BC1} and~\ref{AS-BC2} can be re-written from the relationships in \equationname{}s~\ref{equation_Riemann_relation1} and \ref{equation_Riemann_relation2} as
 \begin{align}
-  \alpha_{p,top} &= -\beta_{p,top} + 2*w_{te} \label{AS-riemannBC1} \\
+  \alpha_{p,top} &= -\beta_{p,top} + 2w_{te} \label{AS-riemannBC1} \\
   \beta_{c,bottom} &= \alpha_{c,bottom} - 2\tau_{bit} \frac{c_t}{J_c G_c} \label{AS-riemannBC2}
 \end{align}
 and \equationname{}s~\ref{AS-interface1} and~\ref{AS-interface2} can be re-written as
 \begin{align}\label{AS-riemanninterface}
 	\beta_{p,bottom} &= \frac{1}{1+\overline{Z}}\left(\alpha_{p,bottom}(1-\overline{Z}) + 2\overline{Z}\beta_{c,top} \right) \\
-	\alpha_{c,top} &= \frac{1}{1+\overline{Z}}\left(2*\alpha_{p,bottom} - \beta_{c,top}(1-\overline{Z})\right)
+	\alpha_{c,top} &= \frac{1}{1+\overline{Z}}\left(2\alpha_{p,bottom} - \beta_{c,top}(1-\overline{Z})\right)
 \end{align}
 where $\overline{Z}$ is the relative magnitude of the impedance calculated as shown below.
 \begin{equation}\label{AS_Zbar}
@@ -180,21 +186,23 @@ where $\overline{Z}$ is the relative magnitude of the impedance calculated as sh
   \centering
   \includegraphics[width=6in]{AS_discretizedDS}
   \caption[Schematic of discretized drill string and boundary conditions]{Schematic of discretized drill string, boundary conditions, and interface conditions based on Riemann invariants $\alpha$ and $\beta$.}\label{AS_discretizeDS}
-\end{figure}\reviewcomment{I cannot catch the meaning of \figurename~\ref{AS_discretizeDS}.}
+\end{figure}
 
 \subsubsection{Forward Scheme}
 The PDE is solved using an upwind scheme. First, the Coulomb friction is updated by,
-\begin{equation}\label{AS-upwind}
-  \mathcal{F}_{j}^k = \frac{\rho J}{2 \Delta t}\left(a_j^k - c_t \frac{\Delta t}{\Delta x}(a_j^k - a_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+t}^k-\beta_j^k) + \Delta t k_t (\alpha_j^k + \beta_j^k)\right)
-\end{equation}
+\begin{equation}
+    \label{AS-upwind}
+    \mathcal{F}_{j}^k = \frac{\rho J}{2 \Delta t}\left(\alpha_j^k - c_t \frac{\Delta t}{\Delta x}(\alpha_j^k - \alpha_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k-\beta_j^k) + \Delta t k_t (\alpha_j^k + \beta_j^k)\right)
+\end{equation}\reviewcomment{Why is there a $\rho{}J$ in \equationname~\ref{AS-upwind} but not in equation 22 from the paper?}
 where $\Delta x$ is the cell size, $\Delta t$ is the time step size, $j$ is the cell number, and $k$ time step.  \equationname~\ref{AS-upwind} is driven by rearranging \equationname{}s~\ref{AS-Riemann_alpha}-\ref{AS-source}. Then, $\mathcal{F}_{j}^k$ is limited by \equationname~\ref{equation_A-S_columnbfriciton} and \ref{equation_A-S_dynamic_fric}, which can be expressed in Riemann invariants as
-\begin{equation}\label{equation_A-S_columnbfriciton_Riemann}
-\mathcal{F}_{j}^k =
-  \begin{cases}
-      max(min(\mathcal{F}_{j}^k,{F_C}_j^k),-F_{C,j}^k) , & \mbox{if } \frac{|\alpha_j^k + \beta_j^k|}{2} \le w_c \\
-      sign(\frac{|\alpha_j^k + \beta_j^k|}{2}){F_C}_j^k fRat; , & \mbox{if } \frac{|\alpha_j^k + \beta_j^k|}{2} \ge w_c \\
-  \end{cases}
-\end{equation}
+\begin{equation}
+	\label{equation_A-S_columnbfriciton_Riemann}
+	\mathcal{F}_{j}^k =
+	\begin{cases}
+		max(min(\mathcal{F}_{j}^k,{F_C}_j^k),-F_{C,j}^k) , & \mbox{if } \frac{|\alpha_j^k + \beta_j^k|}{2} \le w_c \\
+		sign(\frac{|\alpha_j^k + \beta_j^k|}{2}){F_C}_j^k f_{rat} , & \mbox{if } \frac{|\alpha_j^k + \beta_j^k|}{2} \ge w_c \\
+	\end{cases}
+\end{equation}\reviewcomment{Why does \equationname~\ref{equation_A-S_columnbfriciton_Riemann} look different than equation 24 from the paper?}
 where ${F_C}_j^k$ is the static friction calculated at cell $j$ and time step $k$. Finally, the Riemann invariants are updated iteratively by using an upwind scheme using the following equations.
 \begin{equation}\label{equation_upwind_alpha}
   \alpha_j^{k+1} = \alpha_j^{k} - c_t \frac{\Delta t}{\Delta x}(\alpha_j^k - \alpha_{j-1}^k) - \Delta t k_t (\alpha_j^k + \beta_j^k) - \mathcal{F}_j^k
@@ -206,35 +214,35 @@ where ${F_C}_j^k$ is the static friction calculated at cell $j$ and time step $k
 \subsection{Numerical Implementation of Python Version}
 The Python ver.\ directly solves the \equationname~\ref{AS-motion} and \ref{AS-motion1} by a forward-time-centered-space FDM rather than introducing Riemann invariants like in the Matlab ver. The angular velocity and torque are updated iteratively from the algorithm below. The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}.
 \begin{table}
-\centering
-\begin{tabularx}{\linewidth-0.75in}{|c|c|L|}
-\hline
-\tablecolumnheadervlinesone{Parameter} & \tablecolumnheadervlinestwo{Units} & \tablecolumnheadervlinestwo{Notes} \\
-\hline
-Simulation length & s & Total simulation time \\
-\hline
-$w_c$ & rad/s & Cut-off angular velocity (static, dynamic transition)\\
-\hline
-$\mu_s$ & -& Static friction factor\\
-\hline
-$\mu_k$ & - & Kinetic friction factor \\
-\hline
-$K_t$ &- & Inertial torsional damping \\
-\hline
-$K_s$ &- & Viscous damping coefficient \\
-\hline
-$\rho$ & $lbf/ft_3$ & Drill string density \\
-\hline
-G & $lbf/ft^2$ & Shear modulus   \\
-\hline
-$K_p$ & $lb$-$ft$ & P-gain of top drive (PI controller) \\
-\hline
-$K_i$ & $lb$-$ft/s$ &I-gain of top drive (PI controller)\\
-\hline
-$J_{TD}$ & $lb$-$ft^2$ & Top drive inertia \\
-\hline
-Ramp speed & $RPM$/s & Ramp speed of top drive\\
-\hline
+	\centering
+	\begin{tabularx}{\linewidth-0.75in}{|c|c|L|}
+	\hline
+	\tablecolumnheadervlinesone{Parameter} & \tablecolumnheadervlinestwo{Units} & \tablecolumnheadervlinestwo{Notes} \\
+	\hline
+	Simulation length & $s$ & Total simulation time \\
+	\hline
+	$w_c$ & $rad/s$ & Cut-off angular velocity (static, dynamic transition) \\
+	\hline
+	$\mu_s$ & -& Static friction factor \\
+	\hline
+	$\mu_k$ & - & Kinetic friction factor \\
+	\hline
+	$K_t$ &- & Inertial torsional damping \\
+	\hline
+	$K_s$ &- & Viscous damping coefficient \\
+	\hline
+	$\rho$ & $lbf/ft_3$ & Drill string density \\
+	\hline
+	G & $lbf/ft^2$ & Shear modulus \\
+	\hline
+	$K_p$ & $lb$-$ft$ & P-gain of top drive (PI controller) \\
+	\hline
+	$K_i$ & $lb$-$ft/s$ &I-gain of top drive (PI controller) \\
+	\hline
+	$J_{TD}$ & $lb$-$ft^2$ & Top drive inertia \\
+	\hline
+	Ramp speed & $RPM/s$ & Ramp speed of top drive \\
+	\hline
 \end{tabularx}
 \caption[Input parameters of Aarsnes-Shor model (Python ver.)]{Input parameters of Aarsnes-Shor model (Python ver.). Well trajectory, top drive set velocity, and bit constant are the additional parameters which are not included in this table.}\label{AS_inptut_params}
 %\end{tabular}
@@ -260,7 +268,7 @@ Ramp speed & $RPM$/s & Ramp speed of top drive\\
 	    \codeitemnonumber $\tau_{TD}(t+1) \gets \tau_{TD}(t+1)-J_{TD}(w_{TD}(t+1)-w_{TD}(t))/dt$
 	    \codeitemnonumber 4. Calculate source term
 	    \codeitemnonumber $fric \gets \mu_k \cot f_n \cdot r_o$ \codecomment{Coulomb friction}
-	    \codeitemnonumber $Iner \gets k_t \cdot \rho \cdot J \cdot (w(t)-w(t-1))$ \codecomment{Inertia damping}
+	    \codeitemnonumber $Iner \gets k_t \cdot \rho \cdot J \cdot (w(t)-w(t-1))$ \codecomment{Inertia}
 	    \codeitemnonumber $vis \gets k_s \cdot w(t)$ \codecomment{Viscous damping}
 	    \codeitemnonumber $S \gets (fric+iner+vis)/dx$
 	    \codeitemnonumber 5. Update the torque and angular velocity \codecomment{eqn.\ref{AS-motion} and \ref{AS-motion1}}
@@ -276,12 +284,10 @@ Ramp speed & $RPM$/s & Ramp speed of top drive\\
 \popinitialcodeindent{}
 
 \section{Comparison of the Matlab and Python Versions}
-The Matlab and the Python versions were compared.
-
-Some findings are reported in this section and the tests were conducted based on Test Case 1 scenario. Please refer to \chaptername~\ref{ch:testcases} for detail description and input parameters for each Test Case.
+The Matlab and the Python versions were compared and some findings are reported in this section.  The tests were conducted based on Test Case 1, please refer to \chaptername~\ref{ch:testcases} for a detailed description and the input parameters.
 
 \subsection{Effect of PI Controller}
-+The A-S model contains a PI controller on top drive for a more realistic simulation. However, the results were sensitive to the top drive related input parameters $k_p$, $k_i$, and $J_{TD}$ and to the ramp speed. \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between Matlab ver.\ and Python ver.\ when same top drive related parameters are used. Please note that the Matlab ver.\ uses metric units and the Python ver.\ uses imperial units. See \tablename~\ref{table_topdrivesensitivity_input} for the parameter values used as input.
+The A-S model contains a PI controller on top drive for a more realistic simulation. However, the results were sensitive to the top drive related input parameters $k_p$, $k_i$, and $J_{TD}$ and to the ramp speed. \figurename~\ref{figure_topdrive_sensitivity} illustrates the comparison between Matlab ver.\ and Python ver.\ when same top drive related parameters are used. Please note that the Matlab ver.\ uses metric units and the Python ver.\ uses imperial units. See \tablename~\ref{table_topdrivesensitivity_input} for the parameter values used as input.
 
 \begin{table}
     \centering
@@ -293,23 +299,26 @@ Some findings are reported in this section and the tests were conducted based on
 		$J_{TD}$ & $2900 \; lb\cdot ft^2 $ & $ 68818 \; kgm^2$ & Top drive inertia\\
 		\hline
 	\end{testcasetable}
-	\caption[Top drive related parameters for comparison]{Top drive related parameters for comparison between A-S model Matlab and Python versions.}\label{table_topdrivesensitivity_input}
+	\caption[Top drive related parameters for comparison]{Top drive related parameters for comparison between A-S model Matlab and Python versions.}
+	\label{table_topdrivesensitivity_input}
 \end{table}
 
 \begin{figure}
-  \centering
-  \includegraphics[width=6.5in]{PI_comp}
-  \caption[Comparison of drill string response to same top drive parameters]{Comparison of top drive and bit responses with same top drive parameters between the Matlab ver.\ and the Python ver. First and second columns are results from the Matlab ver.\ and the Python ver., respectively}\label{figure_topdrive_sensitivity}
+	\centering
+	\includegraphics[width=6.5in]{PI_comp}
+    \caption[Comparison of drill string response to same top drive parameters]{Comparison of top drive and bit responses with same top drive parameters between the Matlab ver.\ and the Python ver. The first and second columns are the results from the Matlab ver.\ and the Python ver., respectively}
+	\label{figure_topdrive_sensitivity}
 \end{figure}
-The results imply that, for the further study, the exact input parameters are required or the PI controller should be removed. Therefore, in the codes the top drive was removed from the system and a fixed velocity at the top of the drill string was assumed. This simplified the comparison between different models. The flowchart in \figurename~\ref{figure_Topdriveremove_math} shows how the algorithms were modified to remove the PI controller.
+The results imply that, for the further study, the exact input parameters are required or the PI controller should be removed. Therefore, in the codes the top drive was removed from the system and the velocity at the top of the drill string was assumed. This simplified the comparison between the different models. The flowchart in \figurename~\ref{figure_Topdriveremove_math} shows how the algorithms were modified to remove the PI controller.
 
 \begin{figure}
-  \centering
-  \includegraphics[width=6in]{Topdriveremove_math}
-  \caption[Flow chart of top drive elimination]{Flow chart of top drive elimination. The modification of the model assumes only drill string in the model and it rotates with given (fixed) velocity at the top of the drill string.}\label{figure_Topdriveremove_math}
+	\centering
+	\includegraphics[width=6in]{Topdriveremove_math}
+    \caption[Flow chart of top drive elimination]{Flow chart of top drive elimination. The modification of the model assumes only the drill string in the model and it rotates with given velocity at the top of the drill string.}
+	\label{figure_Topdriveremove_math}
 \end{figure}
 
-A comparison of the models with and without a PI controller is shown in \figurename{}s~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove} for the Matlab and Python versions, respectively. The angular velocity and torque for both the top drive and bit are depicted. In the modified codes (no PI controller), the top drive velocity and torque will refer to those at the top of the drill string. The original and modified codes showed similar behavior except during the first stage when the top drive velocity increased from 0 to 40 $RPM$ (from 0 to 1 second). At the end of this initial ramp up, spikes (high magnitude peaks) can be seen in the top drive torque when the PI controller is included (see \figurename{}s~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove}). Additionally, decaying of the vibration amplitude was observed when the simulation was run with PI controller, which can be clearly seen in the Matlab ver. This is due to the damping effect from the PI controller managing the top drive velocity. Eventually, vibrations are removed and the bit velocity converges to the top drive velocity.
+A comparison of the models with and without a PI controller is shown in \figurename{}s~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove} for the Matlab and Python versions, respectively. The angular velocity and torque for both the top drive and bit are depicted. In the modified codes (no PI controller), the top drive velocity and torque will refer to those at the top of the drill string. The original and modified codes showed similar behavior except during the first stage when the top drive velocity increased from 0 to 40 $RPM$ (from 0 to 1 second). At the end of this initial ramp up, spikes (high magnitude peaks) can be seen in the top drive torque when the PI controller is included (see \figurename{}s~\ref{figure_topdriveremove_Matlab} and \ref{figure_topdriveremove}). Additionally, decaying of the vibration amplitude was observed when the simulation was run with the PI controller, which can be clearly seen in the Matlab ver. This is due to the damping effect from the PI controller managing the top drive velocity. Eventually, vibrations are removed and the bit velocity converges to the top drive velocity.
 
 In summary, removing the PI controller enables us to obtain a model with reduced parameters and eliminates the damping effect from the PI controller. This simplification of the model results in an advantage in model comparison. However, if the PI controller is available in the rig, simulation with PI controller can provide more accurate results when comparing the model to a field application.
 \begin{figure}
@@ -327,13 +336,13 @@ In summary, removing the PI controller enables us to obtain a model with reduced
 \end{figure}
 
 \subsection{Comparison Between the Matlab and Python Versions}
-The comparison was conducted using the scenario from Test Case 1. The Python ver.\ showed different patterns of bit and top drive compared to the Matlab ver. There was a period where the bit angular velocity and the top drive torque were maintained at the maximum value for about 2 seconds. There was a similar length ``stuck'' phase. The comparison between the Matlab ver.\ and Python ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from the ExxonMobil model added for reference.
+A comparison between the two versions was conducted using the scenario from Test Case 1. The Python ver.\ showed different patterns of bit and top drive behavior compared to the Matlab ver. There was a period where the bit angular velocity and the top drive torque were maintained at the maximum value for about 2 seconds. There was a similar length ``stuck'' phase. The comparison between the Matlab ver.\ and Python ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from the ExxonMobil model added for reference.
 
 It was suspected that the different results in the Python ver.\ were caused by the difference in wave travel velocity along the drill string. This is proportional to $\sqrt{\rho/J}$.  Therefore, a test was done and the density was decreased to $1/4$ of the default input (490.50 $lb/ft^3$ $\rightarrow$ 122.65 $lb/ft^3$). The results improved somewhat and were closer to the Matlab ver.\ and the ExxonMobil model (see \figurename~\ref{figure_Python_reducedDensity}). However, there is still a small stuck phase and phase of maximum velocity.
 
 Given the limited amount of time available, it was not possible to track down this discrepancy. Therefore, only the Matlab ver.\ of the A-S model will be used for the final results and discussions in \chaptername~\ref{ch:results}.
 
-Models of this nature are complex physical simulations and require significant training and study to operate. In addition, the Python ver.\ has been previously verified against the Matlab ver. Together, these suggest that continued study of the model will unearth the source of the discrepancy as a minor misinterpretation of input or feature. This should not be interpreted as an error in the model; the source of the discrepancy is currently unknown. It is left as future work to find the cause of the issue.
+\emph{Models of this nature are complex physical simulations and require significant training and study to operate. In addition, the Python ver.\ has been previously verified against the Matlab ver. Together, these suggest that continued study of the model will unearth the source of the discrepancy as a minor misinterpretation of input or feature. This should not be interpreted as an error in the model; the source of the discrepancy is currently unknown. It is left as future work to find the cause of the issue.}
 
 \begin{figure}
   \centering

@@ -49,12 +49,12 @@ However, there are obvious similarities between the classical and discrete, non-
 \subsection{Damping}
 The governing equations of motion can be represented as
 \begin{align}
-    m\ddot{x}      + c_a\dot{x}      + k_ax      + f_{fric}    & = F_{ext}    \label{eq:axial_motion_GE} \\
-    J\ddot{\theta} + c_t\dot{\theta} + k_t\theta + \tau_{fric} & = \tau_{ext} \label{eq:torsional_motion_GE}
+    m\ddot{x}      + c_a\dot{x}      + k_ax      + f_f    & = f_e    \label{eq:axial_motion_GE} \\
+    J\ddot{\theta} + c_t\dot{\theta} + k_t\theta + \tau_f & = \tau_e \label{eq:torsional_motion_GE}
 \end{align}
-where $m$ is mass, $c_a$ is axial damping coefficient, $k_a$ is axial stiffness, $f_{fric}$ is frictional force, $F_{ext}$ are external forces and $x$ is axial displacement, $J$ is mass moment of inertia, $c_t$ is torsional damping coefficient, $k_t$ is torsional stiffness, $\tau_{fric}$ is frictional torque, $\tau_{ext}$ is external torque and $\theta$ is angular displacement.  \equationname~\ref{eq:axial_motion_GE} is the equation for linear motion and \equationname~\ref{eq:torsional_motion_GE} is the analogous equation for rotational motion.
- 
-In this project, frictional force, $f_{fric}$, and frictional torque, $\tau_{fric}$, are defined as a force resisting the relative motion of elements sliding against each other.  It should be noted that this is the only constraint on the definition.  For example, the frictional force may or may not have a rate dependent component.  For drill string dynamics, the primarily source of friction is from drill string and wellbore contact.
+where $m$ is mass, $c_a$ is axial damping coefficient, $k_a$ is axial stiffness, $f_f$ is frictional force, $f_e$ are external forces and $x$ is axial displacement, $J$ is mass moment of inertia, $c_t$ is torsional damping coefficient, $k_t$ is torsional stiffness, $\tau_f$ is frictional torque, $\tau_e$ is external torque and $\theta$ is angular displacement.  \equationname~\ref{eq:axial_motion_GE} is the equation for linear motion and \equationname~\ref{eq:torsional_motion_GE} is the analogous equation for rotational motion.
+
+In this project, frictional force, $f_f$, and frictional torque, $\tau_f$, are defined as a force resisting the relative motion of elements sliding against each other.  It should be noted that this is the only constraint on the definition.  For example, the frictional force may or may not have a rate dependent component.  For drill string dynamics, the primarily source of friction is from drill string and wellbore contact.
 
 %This type of friction is a function of the friction factor and normal force at the point of contact.
 
