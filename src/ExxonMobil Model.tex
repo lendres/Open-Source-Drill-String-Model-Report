@@ -71,13 +71,32 @@ where $\mu_{eff}$ is effective friction factor, $V_{CS}$ is Stribeck critical ve
 
 
 \begin{figure}
-	\centering
-	\includegraphics[height=2.25in]{stribeckfrictioncurve}
-	\caption[Stribeck friction model]{An example of a Stribeck friction model.}
+	\begin{minipage}[t]{\linewidth}
+		\begin{minipage}[t]{0.32\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{schematicstribeckcurve}
+			\subcaption{Schematic Stribeck curve (Hersey number on horizontal axis, friction coefficient on vertical) 1 Boundary lubrication, 2 Mixed lubrication, 3 Hydrodynamic lubrication.}
+			\label{fig:schematicstribeckcurve}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.32\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{Martens_curves}
+			\subcaption{Typical Stribeck curves obtained by Adolf Martens.}
+			\label{fig:stribeckcurvesbymartens}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.32\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{stribeckfrictioncurve}
+			\caption[Stribeck friction model]{An example of a Stribeck friction model with .}
+			\label{fig:stribeckfrictioncurveexample}
+		\end{minipage}
+	\end{minipage}
+	\caption[Examples of Stribeck friction curves]{Examples of Stribeck friction curves.  (from \referencename~\cite{ref:martens2023a})}
 	\label{fig:stribeckfrictioncurve}
 \end{figure}
 which is shown in \figurename~\ref{fig:stribeckfrictioncurve}
-
 
 
 The friction is combined with viscous damping (in a manner similar to the source term in the A-S model) \reviewcomment{Is this true, or is there a Stribeck friction model that a velocity dependence in the dynamic friction region and a separate viscous damping term?} to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
