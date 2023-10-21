@@ -73,7 +73,7 @@ where $\mu_{eff}$ is effective friction factor, $V_{CS}$ is Stribeck critical ve
 \begin{figure}
 	\centering
 	\includegraphics[height=2.25in]{stribeckfrictioncurve}
-	\caption[Stribeck friction model]{One form of a Stribeck friction model.}
+	\caption[Stribeck friction model]{An example of a Stribeck friction model.}
 	\label{fig:stribeckfrictioncurve}
 \end{figure}
 which is shown in \figurename~\ref{fig:stribeckfrictioncurve}
@@ -90,7 +90,7 @@ The friction is combined with viscous damping (in a manner similar to the source
 
 The dynamic friction force\footnote{This is a conceptualization of the calculation. The presentation in the reference documents and implementation in the code is slightly different.} is calculated as
 \begin{equation}\label{dynamic_force}
-  \mbf{F}_{\mu,k} = - \mu_{k} F_{n} \frac{\mbf{V}_{s}}{\|\mbf{V}_{s}\|}
+  \mbf{F}_{\mu,k} = - \mu_{eff} F_{n} \frac{\mbf{V}_{s}}{\|\mbf{V}_{s}\|}
 \end{equation}
 where $\mbf{F}_{\mu,k}$ is the dynamic friction force vector (axial and torsional), $\mu_k$ is the dynamic friction factor, $F_n$ is the scalar normal force, and $\mbf{V}_{s}$ is the velocity vector.\footnote{In the reference material, $\mbf{V}_{s}$ is a scalar value called $V_{sliding}$. $V_{sliding}$ is the magnitude of the combined axial and torsion velocity of the drill pipe at the OD of the drill pipe where it contacts the wellbore wall.  The authors have not used the term ``sliding'' in order to prevent any confusion with the ``sliding'' mode in drilling used to build curves.  The drilling sliding mode may imply an axial only displacement, which is not the case for the friction calculation.} The dynamic friction force opposes the direction of motion (\equationname~\ref{dynamic_force}).
 
@@ -100,7 +100,7 @@ The static friction force acts in the opposite direction of the sum of all tange
 \end{equation}
 where $F_{\mu,s}$ is static friction force and $\sum F_{Ext}$ is the sum of external forces.
 
-%The friction is modeled as Stribeck friction.  The static friction applies when there is no slip ($\|\mbf{V}_{s}\|$=0), where the velocity vector, $\mbf{V}_{s}$, is a function of rotational and axial velocities of the pipe. 
+%The friction is modeled as Stribeck friction.  The static friction applies when there is no slip ($\|\mbf{V}_{s}\|$=0), where the velocity vector, $\mbf{V}_{s}$, is a function of rotational and axial velocities of the pipe.
 %
 %More details for the velocity vector can be seen from (\referencename~ \cite{ref:cayeux2018a}). The magnitude and direction of the static friction force are equal and opposite to that of the external force at contact point, respectively (\equationname~\ref{eq:exxon_staticFF}). However, once the external foce exceeds the limit of static friction, $\mu_s \vec{F_n}$, where $\mu_s$ is static friction factor and $\vec{F_n}$ is normal force at dril string - wellbore contact, the drill string starts to slide ($\vec{v}_s > 0$) and dynamic friction is applied. The dynamic friction acts in the opposite direction to the velocity vector. The equation of dynamic friction force is shown in \equationname~\ref{eq:exxon_dynamicFF}, where $\mu_k$ is dynamic friction factor.
 %\begin{equation}
