@@ -56,56 +56,60 @@ where $k_{WOB}$ is the weight on bit coefficent, $k_{TQ}$ is the torque on bit c
 
 \subsection{Friction Model}
 \label{sec:exxonfrictionmodel}
-A Stribeck type friction model is used for the static and dynamic friction (\referencename~\cite{ref:cayeux2020a}).  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model also has the following features:
+In this section, the authors attempt to frame the material in the section \emph{Friction Model} from \referencename~\cite{ref:dixit2021a} into the context of the discussion from \sectionname~\ref{sec:damping}.  It is presented as an alternate explanation of the same material; the reader is encouraged to review the material from \referencename~\cite{ref:dixit2021a} and select which ever explanation is more intuitive the them.
+
+The ExxonMobil model uses a Stribeck type friction model for the static and dynamic friction (more information on drill string friction modeling can be found in \referencename~\cite{ref:cayeux2020a}).  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model also has the following features:
 \begin{bulletedlist}
-    \item Friction model is coupled, the resultant velocity of the axial and torsional DOF are use to determine the friction force
-    \item No movement occurs until the resultant (combined axial and torsional) reaction force reaches static limit
+    \item Friction model is coupled, the resultant velocity of the axial and torsional degrees of freedom are use to determine the friction force
+    \item No movement occurs until the resultant (combined axial and torsional) reaction force surpasses the static limit
 \end{bulletedlist}
 
-The Stribeck model is used to avoid the discontinuities when $\vec{v}_s$ tends to zero that occur with the Coulomb model (the jump from static to dynamic friction coefficients). The following \equationname~\ref{Stribeck velocity} was proposed by Tunstin (\cite{ref:tustin1947a}).
+The Stribeck friction model is used to avoid the discontinuities that occur when the velocity tends to zero with the Coulomb model (the jump from static to dynamic friction coefficients). The particular model used is the equation
 \begin{equation}
 	\label{Stribeck velocity}
 	\mu_{eff} = \mu_{d} + (\mu_{s} - \mu_{d}) e^{-(|V_s|/V_{CS})}
 \end{equation}
-where $\mu_{eff}$ is effective friction factor, $V_{CS}$ is Stribeck critical velocity, $\mu_{s}$, and $\mu_{d}$ are the static and dynamic friction factors, respectively.
-
+that was proposed by Tunstin (\cite{ref:tustin1947a}) and where $\mu_{eff}$ is the effective friction factor, $V_s$ is the relative sliding velocity between the bodies, $V_{CS}$ is the Stribeck critical velocity, $\mu_{s}$, and $\mu_{d}$ are the static and dynamic coefficients of friction, respectively.
 
 \begin{figure}
 	\begin{minipage}[t]{\linewidth}
 		\begin{minipage}[t]{0.32\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{schematicstribeckcurve}
-			\subcaption{Schematic Stribeck curve (Hersey number on horizontal axis, friction coefficient on vertical) 1 Boundary lubrication, 2 Mixed lubrication, 3 Hydrodynamic lubrication.}
+             \subcaption{A schematic Stribeck curve (the Hersey number is on the horizontal axis and the friction coefficient on vertical).  The regions are 1) boundary lubrication, 2) mixed lubrication, 3) hydrodynamic lubrication.}
 			\label{fig:schematicstribeckcurve}
 		\end{minipage}
 		\hfill
 		\begin{minipage}[t]{0.32\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{Martens_curves}
-			\subcaption{Typical Stribeck curves obtained by Adolf Martens.}
+			\subcaption{Typical Stribeck curves obtained by Adolf Martens experimentally.}
 			\label{fig:stribeckcurvesbymartens}
 		\end{minipage}
 		\hfill
 		\begin{minipage}[t]{0.32\linewidth}
 			\centering
 			\includegraphics[width=\linewidth]{stribeckfrictioncurve}
-			\caption[Stribeck friction model]{An example of a Stribeck friction model with .}
-			\label{fig:stribeckfrictioncurveexample}
+            \subcaption{A Stribeck friction model where the coefficient of friction does not increase in the hydrodynamic lubrication zone and the boundary lubrication zone is assumed small enough to be ignored.}
+            \label{fig:stribeckfrictioncurve}
 		\end{minipage}
 	\end{minipage}
-	\caption[Examples of Stribeck friction curves]{Examples of Stribeck friction curves.  \figurename{}s~(\subref{fig:schematicstribeckcurve}) and~(\subref{fig:stribeckcurvesbymartens}) are from \referencename~\cite{ref:martens2023a}.}
-	\label{fig:stribeckfrictioncurve}
+	\caption[Examples of Stribeck friction curves]{Examples of Stribeck friction curves.  A generalized Stribeck curve with the separate regions labeled is shown in~(\subref{fig:schematicstribeckcurve}).  In~(\subref{fig:stribeckcurvesbymartens}), experimentally obtained curves are shown.  In~(\subref{fig:stribeckfrictioncurve}), the model Stribeck friction used in the ExxonMobil model is shown.  \figurename{}s~(\subref{fig:schematicstribeckcurve}) and~(\subref{fig:stribeckcurvesbymartens}) are from \referencename~\cite{ref:martens2023a}.}
+	\label{fig:stribeckfrictioncurveexamples}
 \end{figure}
-which is shown in \figurename~\ref{fig:stribeckfrictioncurve}
+The Tunstin equation is shown in \figurename~\ref{fig:stribeckfrictioncurve}.  It is a particular form of the more general Stribeck friction model, a schematic of which is shown in \figurename~\ref{fig:schematicstribeckcurve}.  Examples of Stribeck curves develop from lab tests are shown in \figurename~\ref{fig:stribeckcurvesbymartens}.
 
-
-The friction is combined with viscous damping (in a manner similar to the source term in the A-S model) \reviewcomment{Is this true, or is there a Stribeck friction model that a velocity dependence in the dynamic friction region and a separate viscous damping term?} to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
+In the ExxonMobil model, the friction is combined with viscous damping (in a manner similar to the source term in the A-S model) to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{exxonmobilfriction}
-	\caption[Comparison of friction models]{The combined friction and viscous damping model presented in \referencename~\cite{ref:dixit2021a}}
+	\caption[Comparison of friction models]{The combined friction and viscous damping model presented in \referencename~\cite{ref:dixit2021a}.}
 	\label{fig:exxonmobilfriction}
 \end{figure}
+
+
+
+
 
 The dynamic friction force\footnote{This is a conceptualization of the calculation. The presentation in the reference documents and implementation in the code is slightly different.} is calculated as
 \begin{equation}\label{dynamic_force}
