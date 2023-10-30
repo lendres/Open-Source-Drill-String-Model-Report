@@ -58,18 +58,18 @@ where $k_{WOB}$ is the weight on bit coefficent, $k_{TQ}$ is the torque on bit c
 \label{sec:exxonfrictionmodel}
 In this section, the authors attempt to frame the material in the section \emph{Friction Model} from \referencename~\cite{ref:dixit2021a} into the context of the discussion from \sectionname~\ref{sec:damping}.  It is presented as an alternate explanation of the same material; the reader is encouraged to review the material from \referencename~\cite{ref:dixit2021a} and select which ever explanation is more intuitive the them.
 
-The ExxonMobil model uses a Stribeck type friction model for the static and dynamic friction (more information on drill string friction modeling can be found in \referencename~\cite{ref:cayeux2020a}).  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model also has the following features:
+The ExxonMobil model uses a Stribeck type friction model for the static and dynamic friction (more information on drill string friction modeling can be found in \referencename~\cite{ref:cayeux2020a}).  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model is coupled which creates the following conditions.
 \begin{bulletedlist}
-    \item Friction model is coupled, the resultant velocity of the axial and torsional degrees of freedom are use to determine the friction force
-    \item No movement occurs until the resultant (combined axial and torsional) reaction force surpasses the static limit
+    \item The resultant velocity of the axial and torsional degrees of freedom are use to determine the friction force
+    \item No movement occurs until the resultant axial and torsional reaction force surpasses the static limit
 \end{bulletedlist}
 
 The Stribeck friction model is used to avoid the discontinuities that occur when the velocity tends to zero with the Coulomb model (the jump from static to dynamic friction coefficients). The particular model used is the equation
 \begin{equation}
-	\label{Stribeck velocity}
+	\label{Fig:tunstinfrictionmodel}
 	\mu_{eff} = \mu_{d} + (\mu_{s} - \mu_{d}) e^{-(|V_s|/V_{CS})}
 \end{equation}
-that was proposed by Tunstin (\cite{ref:tustin1947a}) and where $\mu_{eff}$ is the effective friction factor, $V_s$ is the relative sliding velocity between the bodies, $V_{CS}$ is the Stribeck critical velocity, $\mu_{s}$, and $\mu_{d}$ are the static and dynamic coefficients of friction, respectively.
+that was proposed by Tunstin (\cite{ref:tustin1947a}) and where $\mu_{eff}$ is the effective coefficient of friction, $V_s$ is the relative velocity between the bodies at the point of contact, $V_{CS}$ is the critical velocity, $\mu_{s}$, and $\mu_{d}$ are the static and dynamic coefficients of friction, respectively.
 
 \begin{figure}
 	\begin{minipage}[t]{\linewidth}
@@ -97,31 +97,19 @@ that was proposed by Tunstin (\cite{ref:tustin1947a}) and where $\mu_{eff}$ is t
 	\caption[Examples of Stribeck friction curves]{Examples of Stribeck friction curves.  A generalized Stribeck curve with the separate regions labeled is shown in~(\subref{fig:schematicstribeckcurve}).  In~(\subref{fig:stribeckcurvesbymartens}), experimentally obtained curves are shown.  In~(\subref{fig:stribeckfrictioncurve}), the model Stribeck friction used in the ExxonMobil model is shown.  \figurename{}s~(\subref{fig:schematicstribeckcurve}) and~(\subref{fig:stribeckcurvesbymartens}) are from \referencename~\cite{ref:martens2023a}.}
 	\label{fig:stribeckfrictioncurveexamples}
 \end{figure}
-The Tunstin equation is shown in \figurename~\ref{fig:stribeckfrictioncurve}.  It is a particular form of the more general Stribeck friction model, a schematic of which is shown in \figurename~\ref{fig:schematicstribeckcurve}.  Examples of Stribeck curves develop from lab tests are shown in \figurename~\ref{fig:stribeckcurvesbymartens}.
+\equationname~\ref{Fig:tunstinfrictionmodel} is shown in \figurename~\ref{fig:stribeckfrictioncurve}.  It is a particular form of the more general Stribeck friction model, a schematic of which is shown in \figurename~\ref{fig:schematicstribeckcurve}.  Examples of Stribeck curves develop from lab tests are shown in \figurename~\ref{fig:stribeckcurvesbymartens}.
 
-In the ExxonMobil model, the friction is combined with viscous damping (in a manner similar to the source term in the A-S model) to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
-\begin{figure}
-	\centering
-	\includegraphics[width=\linewidth]{exxonmobilfriction}
-	\caption[Comparison of friction models]{The combined friction and viscous damping model presented in \referencename~\cite{ref:dixit2021a}.}
-	\label{fig:exxonmobilfriction}
-\end{figure}
-
-
-
-
-
-The dynamic friction force\footnote{This is a conceptualization of the calculation. The presentation in the reference documents and implementation in the code is slightly different.} is calculated as
-\begin{equation}\label{dynamic_force}
-  \mbf{F}_{\mu,k} = - \mu_{eff} F_{n} \frac{\mbf{V}_{s}}{\|\mbf{V}_{s}\|}
-\end{equation}
-where $\mbf{F}_{\mu,k}$ is the dynamic friction force vector (axial and torsional), $\mu_k$ is the dynamic friction factor, $F_n$ is the scalar normal force, and $\mbf{V}_{s}$ is the velocity vector.\footnote{In the reference material, $\mbf{V}_{s}$ is a scalar value called $V_{sliding}$. $V_{sliding}$ is the magnitude of the combined axial and torsion velocity of the drill pipe at the OD of the drill pipe where it contacts the wellbore wall.  The authors have not used the term ``sliding'' in order to prevent any confusion with the ``sliding'' mode in drilling used to build curves.  The drilling sliding mode may imply an axial only displacement, which is not the case for the friction calculation.} The dynamic friction force opposes the direction of motion (\equationname~\ref{dynamic_force}).
-
-The static friction force acts in the opposite direction of the sum of all tangential forces when there is no motion ($V_{Sliding}=0$).  That is,
+The static friction force acts in the opposite direction of the sum of all tangential forces when there is no motion ($\|\mbf{V}_{s}\|=0$).  That is,
 \begin{equation}\label{zero}
   F_{\mu,s} + \sum F_{Ext} = 0
 \end{equation}
 where $F_{\mu,s}$ is static friction force and $\sum F_{Ext}$ is the sum of external forces.
+
+The dynamic friction force\footnote{This is a conceptualization of the calculation. The presentation in the reference documents and implementation in the code is somewhat different.} is calculated as
+\begin{equation}\label{dynamic_force}
+  \mbf{F}_{\mu,k} = - \mu_{eff} F_{n} \frac{\mbf{V}_{s}}{\|\mbf{V}_{s}\|}
+\end{equation}
+where $\mbf{F}_{\mu,k}$ is the dynamic friction force vector (axial and torsional), $\mu_eff$ is the effective friction factor calculated from \equationname~\ref{Fig:tunstinfrictionmodel}, $F_n$ is the scalar normal force, and $\mbf{V}_{s}$ is the velocity vector.\footnote{In the reference material, $\mbf{V}_{s}$ is a scalar value called $V_{sliding}$. $V_{sliding}$ is the magnitude of the combined axial and torsion velocity of the drill pipe at the OD of the drill pipe where it contacts the wellbore wall.  The authors have not used the term ``sliding'' in order to prevent any confusion with the ``sliding'' mode in drilling used to build curves.  The drilling sliding mode may imply an axial only displacement, which is not the case for the friction calculation.} The dynamic friction force opposes the direction of motion.
 
 %The friction is modeled as Stribeck friction.  The static friction applies when there is no slip ($\|\mbf{V}_{s}\|$=0), where the velocity vector, $\mbf{V}_{s}$, is a function of rotational and axial velocities of the pipe.
 %
@@ -135,14 +123,19 @@ where $F_{\mu,s}$ is static friction force and $\sum F_{Ext}$ is the sum of exte
 %	\vec{F_{\mu, d}} = -\mu_d ||{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
 %\end{equation}
 
-
-
-
-The total damping applied in the system is a linear combination of the friction and viscous damping. \figurename~\ref{figure_Exxon_friction} illustrates the Stribeck friction and total friction as a function of sliding velocity.
+In the ExxonMobil model, the friction is combined with viscous damping (in a manner similar to the source term in the A-S model) to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{exxonmobilfriction}
+	\caption[Comparison of friction models]{The combined friction and viscous damping model presented in \referencename~\cite{ref:dixit2021a}.}
+	\label{fig:exxonmobilfriction}
+\end{figure}
+The total damping applied in the system is a linear combination of friction and viscous damping. \figurename~\ref{figure_Exxon_friction} illustrates the Stribeck friction and total damping as a function of velocity.
 \begin{figure}
 	\centering
 	\includegraphics[width=6.5in]{Exxon_friction}
-    \caption[Friction model for ExxonMobil model]{Friction model for ExxonMobil model. Left and right figures are friction models in ExxonMobil model only when Stribeck friction is considered and both Stribeck and viscous friction are included, respectively. Stribeck friction refers to the friction from drill string and wellbore contact. $F_{\mu, s}$ is static friction, $C$ is viscous friction coefficient (same as viscous damping) and $V_{CS}$ is Stribeck critical sliding velocity. Total friction in the system is the linear combination between Stribeck and viscous friction. \reviewcomment{Aren't this just two forms of Stribeck friction?}}\label{figure_Exxon_friction}
+    \caption[Damping model for ExxonMobil model]{The damping model for the ExxonMobil model. The left is when only Stribeck friction is considered. The right is the damping model when both Stribeck and viscous damping are included. Stribeck friction refers to the friction from the drill string and wellbore contact. $F_{s}$ is static friction, $C$ is the viscous damping coefficient and $V_{CS}$ is the critical velocity. The total damping in the system is the linear combination of the Stribeck friction and the viscous damping.}
+    \label{figure_Exxon_friction}
 \end{figure}
 
 %Furthermore, the order of the viscous damping constants is maintained consistently to ensure that the system remains in an ideal damp state, aligning with the field data. Values of viscous dampers are held constants during simulation, but the viscous frictional force will vary depending on the sliding velocities as can be seen in \figurename~\ref{fig:exxonmobilfriction}.
@@ -161,7 +154,7 @@ The total damping applied in the system is a linear combination of the friction 
 
 \section{Mathematical Background}
 
-The set of partial differential equations that describe the motion of the drill-string can be combined into a coupled axial-torsional system of second-order differential equations.
+The set of differential equations that describe the motion of the drill-string can be combined into a coupled axial-torsional system of second-order differential equations.
 
 \begin{align}\label{Governing equations}
      m_{i}\dfrac{\partial^{2}s_{i}}{\partial t^{2}} & = -k_{a,i}(s_{i}-s_{i-1}-l_{i}) + k_{a,j+1}(s_{i+1}-s_{i}-l_{i+1}) + \sum{F_{ext, i}} \\
@@ -207,45 +200,43 @@ To convert these equation sets into vector form, we can represent the variables 
 							-k_{t 1} & \ddots & \vdots \\
 							\vdots & \cdots & k_{t(n-1)}+k_{t n}
 							\end{array}\right] \\
-  	F_{\text{forcing}} &= \left[\begin{array}{c}
-							\boldsymbol{k}_{a 1} \cdot Z_{td} \\
+  	\boldsymbol{F}_{\text{forcing}} &= \left[\begin{array}{c}
+							k_{a 1} \cdot Z_{td} \\
 							\vdots \\
-							-\boldsymbol{k}_{a\_bit} \cdot \text{DOC}
+							-k_{a\_bit} \cdot \text{DOC}
 							\end{array}\right] \\
-	\mathcal{T}_{\text{forcing}} &= \left[\begin{array}{c}
-							\boldsymbol{k}_{t 1} \cdot \theta_{td} \\
+	\boldsymbol{\mathcal{T}}_{\text{forcing}} &= \left[\begin{array}{c}
+							k_{t 1} \cdot \theta_{td} \\
 							\vdots \\
-							-\boldsymbol{k}_{t\_bit} \cdot \text{DOC}
+							-k_{t\_bit} \cdot \text{DOC}
 							\end{array}\right]
 	\label{eq:emmatrixform}
 \end{align}
 
-
 \begin{mathwhere}[1.0in]
-\mathdefitem{Z_0}{$\int V_0\ dt$;}
+%\mathdefitem{Z_0}{$\int V_0\ dt$;}
 \mathdefitem{m_n}{drill string element mass;}
 \mathdefitem{Z}{position (downward direction considered as positive);}
 \mathdefitem{k_a}{axial stiffness of drill-string element;}
-\mathdefitem{V_o}{top-drive (draw-works) axial velocity as input;}
+%\mathdefitem{V_o}{top-drive (draw-works) axial velocity as input;}
 \mathdefitem{Z_{td}}{top-drive (draw-works) axial displacement as input;}
-\mathdefitem{\dot{Z}}{bit axial velocity (downward direction considered as positive);}
-\mathdefitem{WOB_{surface}}{surface/top-drive WOB (in ROP control mode);}
+\mathdefitem{\dot{Z}}{axial velocity (downward direction considered as positive);}
+%\mathdefitem{WOB_{surface}}{surface/top-drive WOB (in ROP control mode);}
 \mathdefitem{J_n}{mass moment of inertia of drill string element;}
 \mathdefitem{\theta}{rotation angle (clockwise direction is considered as positive);}
-\mathdefitem{\omega_o}{top drive angular velocity as input;}
+%\mathdefitem{\omega_o}{top drive angular velocity as input;}
 \mathdefitem{\theta_{td}}{top drive rotation as input;}
 \mathdefitem{k_t}{torsional stiffness of drill-string;}
-\mathdefitem{\dot{\theta}}{bit rotary velocity (clockwise direction considered as positive);}
-\mathdefitem{TQ_{surface}}{surface/top-drive torque;}
-\mathdefitem{{f}_{\text{fric}}}{Stribeck friction force;}
-\mathdefitem{{\tau}_{\text {fric }}}{Stribeck friction torque.}
+\mathdefitem{\dot{\theta}}{rotary velocity (clockwise direction considered as positive);}
+%\mathdefitem{TQ_{surface}}{surface/top-drive torque;}
+\mathdefitem{\boldsymbol{f}_{\text{fric}}}{Stribeck friction force;}
+\mathdefitem{\boldsymbol{\tau}_{\text {fric }}}{Stribeck friction torque.}
 \end{mathwhere}
-
 The differential equation sets are solved using the RKF solver. This solver was chosen for its efficiency in computational calculations.
 
 
 \section{On-Bottom Example}
-One of the features of this model is simulation of ``on-bottom'' case for drilling.  The Test Cases in this document are for the off-bottom case, so this feature was not directly compared.  However, it is an important feature that should be explored further. \figurename~\ref{findings} illustrates a comparison of an off-bottom and an on-bottom case.
+One of the features of this model is simulation of on-bottom drilling.  The Test Cases in this document are for off-bottom drilling, so this feature was not directly compared.  However, it is an important feature that should be explored further. \figurename~\ref{findings} illustrates a comparison of an off-bottom and an on-bottom case.
 \begin{figure}
   \centering
   \includegraphics[width=\linewidth]{comp_on_bottom}
