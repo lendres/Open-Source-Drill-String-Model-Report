@@ -179,40 +179,49 @@ and \equationname{}s~\ref{AS-interface1} and~\ref{AS-interface2} can be re-writt
 \end{align}
 where $\overline{Z}$ is the relative magnitude of the impedance calculated as shown below.
 \begin{equation}\label{AS_Zbar}
-  \overline{Z} = \dfrac{\left(\dfrac{c_t}{JG}\right)_{p,bottom}}{\left(\dfrac{c_t}{JG}\right)_{c,top}}
+	\overline{Z} = \dfrac{\left(\dfrac{c_t}{JG}\right)_{p,bottom}}{\left(\dfrac{c_t}{JG}\right)_{c,top}}
 \end{equation}
 
 \begin{figure}
-  \centering
-  \includegraphics[width=6in]{AS_discretizedDS}
-  \caption[Schematic of discretized drill string and boundary conditions]{Schematic of discretized drill string, boundary conditions, and interface conditions based on Riemann invariants $\alpha$ and $\beta$.}\label{AS_discretizeDS}
+	\centering
+	\includegraphics[width=6in]{AS_discretizedDS}
+	\caption[Schematic of discretized drill string and boundary conditions]{Schematic of discretized drill string, boundary conditions, and interface conditions based on Riemann invariants $\alpha$ and $\beta$.}
+	\label{AS_discretizeDS}
 \end{figure}
 
 \subsubsection{Forward Scheme}
 The PDE is solved using an upwind scheme. First, the Coulomb friction is updated by,
 \begin{equation}
     \label{AS-upwind}
-    \mathcal{F}_{j}^k = \frac{\rho J}{2 \Delta t}\left(\alpha_j^k - c_t \frac{\Delta t}{\Delta x}(\alpha_j^k - \alpha_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k-\beta_j^k) + \Delta t k_t (\alpha_j^k + \beta_j^k)\right)
-\end{equation}\reviewcomment{Why is there a $\rho{}J$ in \equationname~\ref{AS-upwind} but not in equation 22 from the paper?}
-where $\Delta x$ is the cell size, $\Delta t$ is the time step size, $j$ is the cell number, and $k$ time step.  \equationname~\ref{AS-upwind} is driven by rearranging \equationname{}s~\ref{AS-Riemann_alpha}-\ref{AS-source}. Then, $\mathcal{F}_{j}^k$ is limited by \equationname~\ref{equation_A-S_columnbfriciton} and \ref{equation_A-S_dynamic_fric}, which can be expressed in Riemann invariants as
+    \mathcal{F}_{j}^k = \frac{\rho J}{2 \Delta t}\left(\alpha_j^k - c_t \frac{\Delta t}{\Delta x}(\alpha_j^k - \alpha_{j-1}^k) + \beta_j^k + c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k-\beta_j^k) + 2{\Delta t} k_t (\alpha_j^k + \beta_j^k)\right)
+\end{equation}
+where $\Delta x$ is the cell size, $\Delta t$ is the time step size, $j$ is the cell number, and $k$ time step.\footnote{\equationname~\ref{AS-upwind} is slightly different than that presented as \equationname{}s~22 and~23 in \referencename~\cite{ref:aarsnes2017a}.  There is believed to be a typo in the reference.}  In the Matlab ver.\ of the code, \equationname~\ref{AS-upwind} is arranged slightly differently and presented in \equationname~\ref{AS-upwind-matlab}.\footnote{\equationname~\ref{AS-upwind-matlab} differs from the code in the last term by the absence of the $\Delta t$ variable.  It is believed that the line of code \textcode{\TINY Pvf = dt*p.kt*(Pbeta+Palpha)} should not contain the \textcode{\TINY dt} variable.}
+\begin{equation}
+    \label{AS-upwind-matlab}
+    \mathcal{F}_{j}^k = \frac{\rho J}{2}\left(\frac{\alpha_j^k}{\Delta t} - \frac{c_t}{\Delta x}(\alpha_j^k - \alpha_{j-1}^k) + \frac{\beta_j^k}{\Delta t} + \frac{c_t}{\Delta x}(\beta_{j+1}^k-\beta_j^k) + 2 k_t (\alpha_j^k + \beta_j^k)\right)
+\end{equation}
+
+\equationname~\ref{AS-upwind} is driven by rearranging \equationname{}s~\ref{AS-Riemann_alpha}-\ref{AS-source}. Then, $\mathcal{F}_{j}^k$ is limited by \equationname~\ref{equation_A-S_columnbfriciton} and \ref{equation_A-S_dynamic_fric}, which can be expressed in Riemann invariants as
 \begin{equation}
 	\label{equation_A-S_columnbfriciton_Riemann}
 	\mathcal{F}_{j}^k =
 	\begin{cases}
-		max(min(\mathcal{F}_{j}^k,{F_C}_j^k),-F_{C,j}^k) , & \mbox{if } \frac{|\alpha_j^k + \beta_j^k|}{2} \le w_c \\
-		sign(\frac{|\alpha_j^k + \beta_j^k|}{2}){F_C}_j^k f_{rat} , & \mbox{if } \frac{|\alpha_j^k + \beta_j^k|}{2} \ge w_c \\
+		max(min(\mathcal{F}_{j}^k,{F_C}_j^k),-{F_C}_j^k) , & \mbox{if } \frac{|\alpha_j^k + \beta_j^k|}{2} \le w_c \\
+		sign\left(\frac{|\alpha_j^k + \beta_j^k|}{2}\right) {F_C}_j^k f_{rat} , & \mbox{if } \frac{|\alpha_j^k + \beta_j^k|}{2} \ge w_c \\
 	\end{cases}
-\end{equation}\reviewcomment{Why does \equationname~\ref{equation_A-S_columnbfriciton_Riemann} look different than equation 24 from the paper?}
-where ${F_C}_j^k$ is the static friction calculated at cell $j$ and time step $k$. Finally, the Riemann invariants are updated iteratively by using an upwind scheme using the following equations.
-\begin{equation}\label{equation_upwind_alpha}
-  \alpha_j^{k+1} = \alpha_j^{k} - c_t \frac{\Delta t}{\Delta x}(\alpha_j^k - \alpha_{j-1}^k) - \Delta t k_t (\alpha_j^k + \beta_j^k) - \mathcal{F}_j^k
 \end{equation}
-\begin{equation}\label{equation_upwind_beta}
-  \beta_j^{k+1} = \beta_j^{k} - c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k - \beta_{j}^k) - \Delta t k_t (\alpha_j^k + \beta_j^k) - \mathcal{F}_j^k
+where ${F_C}_j^k$ is the static friction calculated at cell $j$ and time step $k$.\footnote{\equationname~\ref{equation_A-S_columnbfriciton_Riemann} follows the code in the Matlab ver.\ and appears different than \equationname~26 from \referencename~\cite{ref:aarsnes2017a}. The code version and the paper version of the equation may not be equivalent; it is believed the code version is correct.  Further investigation is suggested to sort out the differences.} Finally, the Riemann invariants are updated iteratively by using an upwind scheme using the following equations.\footnote{\equationname{}s~\ref{equation_upwind_alpha} and~\ref{equation_upwind_beta} are slightly different than \equationname{}s~25 and~26 from \referencename~\cite{ref:aarsnes2017a}. It is believed there is a typo and the $\frac{1}{J \rho}$ term was left out.}$^,$\footnote{\equationname{}s~\ref{equation_upwind_alpha} and~\ref{equation_upwind_beta} are slightly different than the implementation in the Matlab ver.\ of the code. It is believed that the line of code \textcode{\TINY Pvf = dt*p.kt*(Pbeta+Palpha)} should not contain the \textcode{\TINY dt} variable which creates the differences between the code and the equations presented here.}
+\begin{equation}
+	\label{equation_upwind_alpha}
+	\alpha_j^{k+1} = \alpha_j^{k} - c_t \frac{\Delta t}{\Delta x}(\alpha_j^k - \alpha_{j-1}^k) - \Delta t \left( k_t (\alpha_j^k + \beta_j^k) + \frac{1}{J \rho} \mathcal{F}_j^k \right)
+\end{equation}
+\begin{equation}
+	\label{equation_upwind_beta}
+	\beta_j^{k+1} = \beta_j^{k} - c_t \frac{\Delta t}{\Delta x}(\beta_{j+1}^k - \beta_{j}^k) - \Delta t \left( k_t (\alpha_j^k + \beta_j^k) + \frac{1}{J \rho} \mathcal{F}_j^k \right)
 \end{equation}
 
 \subsection{Numerical Implementation of Python Version}
-The Python ver.\ directly solves the \equationname~\ref{AS-motion} and \ref{AS-motion1} by a forward-time-centered-space FDM rather than introducing Riemann invariants like in the Matlab ver. The angular velocity and torque are updated iteratively from the algorithm below. The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}.
+The Python ver.\ directly solves \equationname{}s~\ref{AS-motion} and \ref{AS-motion1} by a forward-time-centered-space FDM rather than introducing Riemann invariants like in the Matlab ver. The angular velocity and torque are updated iteratively from the algorithm below. The parameters in the algorithm are listed in \tablename~\ref{AS_inptut_params}.
 \begin{table}
 	\centering
 	\begin{tabularx}{\linewidth-0.75in}{|c|c|L|}

@@ -213,26 +213,26 @@ To convert these equation sets into vector form, we can represent the variables 
 	\label{eq:emmatrixform}
 \end{align}
 
-\begin{mathwhere}[1.0in]
-%\mathdefitem{Z_0}{$\int V_0\ dt$;}
-\mathdefitem{m_n}{drill string element mass;}
-\mathdefitem{\boldsymbol{Z}}{position (downward direction considered as positive);}
-\mathdefitem{\dot{\boldsymbol{Z}}}{axial velocity (downward direction considered as positive);}
-\mathdefitem{\ddot{\boldsymbol{Z}}}{axial acceleration (downward direction considered as positive);}
-%\mathdefitem{V_o}{top-drive (draw-works) axial velocity as input;}
-\mathdefitem{Z_{td}}{top-drive (draw-works) axial displacement as input;}
-\mathdefitem{k_a}{axial stiffness of drill-string element;}
-%\mathdefitem{WOB_{surface}}{surface/top-drive WOB (in ROP control mode);}
-\mathdefitem{J_n}{mass moment of inertia of drill string element;}
-\mathdefitem{\boldsymbol{\theta}}{rotation angle (clockwise direction is considered as positive);}
-\mathdefitem{\dot{\boldsymbol{\theta}}}{rotary velocity (clockwise direction considered as positive);}
-\mathdefitem{\ddot{\boldsymbol{\theta}}}{rotary acceleration (clockwise direction considered as positive);}
-%\mathdefitem{\omega_o}{top drive angular velocity as input;}
-\mathdefitem{\theta_{td}}{top drive rotation as input;}
-\mathdefitem{k_t}{torsional stiffness of drill-string;}
-%\mathdefitem{TQ_{surface}}{surface/top-drive torque;}
-\mathdefitem{\boldsymbol{f}_{\text{fric}}}{Stribeck friction force;}
-\mathdefitem{\boldsymbol{\tau}_{\text {fric }}}{Stribeck friction torque.}
+\begin{mathwhere}[0.4in]
+	%\mathdefitem{Z_0}{$\int V_0\ dt$;}
+	\mathdefitem{m_n}{drill string element mass;}
+	\mathdefitem{\boldsymbol{Z}}{position (downward direction considered as positive);}
+	\mathdefitem{\dot{\boldsymbol{Z}}}{axial velocity (downward direction considered as positive);}
+	\mathdefitem{\ddot{\boldsymbol{Z}}}{axial acceleration (downward direction considered as positive);}
+	%\mathdefitem{V_o}{top-drive (draw-works) axial velocity as input;}
+	\mathdefitem{Z_{td}}{top-drive (draw-works) axial displacement as input;}
+	\mathdefitem{k_a}{axial stiffness of drill-string element;}
+	%\mathdefitem{WOB_{surface}}{surface/top-drive WOB (in ROP control mode);}
+	\mathdefitem{J_n}{mass moment of inertia of drill string element;}
+	\mathdefitem{\boldsymbol{\theta}}{rotation angle (clockwise direction is considered as positive);}
+	\mathdefitem{\dot{\boldsymbol{\theta}}}{rotary velocity (clockwise direction considered as positive);}
+	\mathdefitem{\ddot{\boldsymbol{\theta}}}{rotary acceleration (clockwise direction considered as positive);}
+	%\mathdefitem{\omega_o}{top drive angular velocity as input;}
+	\mathdefitem{\theta_{td}}{top drive rotation as input;}
+	\mathdefitem{k_t}{torsional stiffness of drill-string;}
+	%\mathdefitem{TQ_{surface}}{surface/top-drive torque;}
+	\mathdefitem{\boldsymbol{f}_{\text{fric}}}{Stribeck friction force;}
+	\mathdefitem{\boldsymbol{\tau}_{\text {fric }}}{Stribeck friction torque.}
 \end{mathwhere}
 The differential equation sets are solved using the RKF solver. This solver was chosen for its efficiency in computational calculations.
 
