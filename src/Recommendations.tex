@@ -1,62 +1,78 @@
-\chapter{Conclusions and Recommendations}
-\section{Conclusions}
-This project served as a test case for open-source software.
-
-This project also served as a test case for collaborative research.  The binding of the individuals to the project was not contracts and payments.  It was a mutual interest in advancing the art.
-
-Considering the overall excellent comparison of the model, it may be asked if a deep investigation into the friction models in warranted. The authors feel that it is for a few reasons.  First, a complete knowledge of the models and their limitations is required to be able to apply and interpret them in respect to real world physics.  Second, the friction factor is a collection of unknowns.  By which it is meant, any information that is incomplete or not modeled is captured by this term and then the term is adjusted until it matches reality.  Any narrowing of this window of unknown provides opportunities for a greater understanding of the physics and improved predictions of the models.  Third, the friction models may not have a large impact on events happening on longer timescales, but high frequency events may be effected by these choices.  Research must be conducted to determine the answer.
-
-\begin{bulletedlist}
-	\item Both Stribeck and Coulomb friction models can reproduce stick slip dynamics.
-	\item Stribeck and Coulomb friction can produce similar results.
-	\item The Stribeck friction is slightly easier to implement algorithmically as the friction value can be directly calculated without having to check if static or dynamic friction applies.
-\end{bulletedlist}
-
+\chapter{Final Remarks and Next Steps}
 \section{Next Steps}
-\subsection{Remaining Work}
-\begin{bulletedlist}
-	\item Plot bit velocity and top drive torque for Test Case 2b and 4b.
-	\item Plot critical velocity of friction model for A-S model at 5 and 10 $RPM$.
-	\item Plot A-S model with Stribeck friction.
-	\item Develop procedures for comparing models with a top drive.
-	\item Test viscous damping in both A-S and ExxonMobil models.  The damping coefficients may not be in the same units and this needs to be checked.
-	\item Explore \emph{The Case of the Missing Two}\footnote{\equationname~\ref{AS-source} seems to be missing the ``2'' from \equationname~\ref{equation_Riemann_relation1}}.
-	\item Investigate why the friction (source term) seems out of bounds of the static window and dynamic line on the friction plot.
-	\item Continuation of friction effect study (Coulomb vs Stribeck, outliers, et cetera)
-	\item Evaluation of viscous damping
-	\item Implicit versus explicit solvers
-	\item Resources (what do we have, what can we add)
-	\item Collaboration on code (use Github to contribute pull requests, et cetera)
-	\item Mud motor effects
-	\item Cased versus open-hole feature addition and case study
-	\item Investigate the selection of critical velocities when comparing Coulomb and Stribeck friction models
-\end{bulletedlist}
-
 \subsection{Test Cases}
 The Test Cases selected were deliberately kept simple to provide the foundation of model comparisons.  More advanced Test Cases are necessary.  It should be noted that the more advanced the Test Case, the more difficult the comparisons will be.
 
 Some example Test Cases that could be performed next include the following.
 \begin{bulletedlist}
-	\item Increase/decrease the moment of inertia to observe the change in frequency, the expected results are easily calculated
-	\item Develop on-bottom test cases
+	\item Increase/decrease the moment of inertia to observe the change in frequency, the expected results are easily calculated.
+	\item Develop on-bottom test cases.
+    \item Develop Test Cases for viscous damping.  It should be noted that the damping coefficients may not be in the same units and this needs to be checked.
+\end{bulletedlist}
+
+\subsection{Continuation of the Friction Effect Study}
+The friction models were of particular interest to the team members and significant work went into fully understanding the model's theory, assumptions, implementations, behavior, and results.  In general, each drill string model may choose to describe and implement a friction model in somewhat different ways.  It is important to interpret between the descriptions, account for any implementation differences, and carefully examine the results.  Some topics for future work include:
+\begin{bulletedlist}
+	\item Plot A-S model with Stribeck friction and compare to the Coulomb friction model.
+	\item Investigate why the friction (source term) seems out of bounds of the static window and dynamic line on the Coulomb friction plot in the A-S model.
+	\item Investigate whey the friction term seems to occasionally slightly deviate from the Stribeck curve in the ExxonMobil model.
+	\item Investigate the selection of critical velocities when comparing Coulomb and Stribeck friction models.
+\end{bulletedlist}
+
+Considering the overall excellent comparison of the model, it may be asked if a deep investigation into the friction models in warranted. The authors feel that it is for a few reasons.  First, a complete knowledge of the models and their limitations is required to be able to apply and interpret them in respect to real world physics.  Second, the friction factor is a collection of unknowns.  This term if often used to capture information that is incomplete or not modeled.  Then the term is adjusted until the model matches reality.  Studying the friction models narrows the window of unknowns and thereby provides opportunities for a greater understanding of the physics and improving the predictions of the models.  Third, the friction models may not have a large impact on events happening on longer timescales, but high frequency events may be effected by these choices.  Research must be conducted to determine the answer.
+
+\subsection{Additional Topics}
+Some other topics of future work include the following.
+\begin{bulletedlist}
+    \item Develop procedures for comparing models with a top drive.  Use of different units in the models may make this a challenge.  In addition, the top drive can have a large influence on overall behavior.  It will be important to have demonstrated the models match well in absent of the top drive first.
+	\item Test implicit versus explicit solvers.
+	\item Study the effects of mud motors.  Currently, this is only possible in the ExxonMobil model.
+    \item Study the effects of cased versus open-hole features.  This has not been implemented in either model.  It should be straight forward for the ExxonMobil model.  In the A-S model it is a more challenging because it requires incorporating the values into the equations.
+    \item Study the effects of tool joints and methods for comparing models with and without tool joint modeling capability.
 \end{bulletedlist}
 
 \section{Path Forward}
 \subsection{Collaboration of Industry and Academia}
-Key collaborations both within the industry and between industry an academia can be highly beneficial.  Development of a commercial grade drill string software is a complex and expensive operation.  Collaboration can both lower overall costs and accelerate projects.
+Key collaborations both within the industry and between industry an academia can be highly beneficial.  Development of a advanced modeling software is a complex and expensive operation.  Collaboration can both lower overall costs and accelerate projects.
 
-This project combined personnel from multiple industry and academia entities.  Even in this relatively small scale project, the combined knowledge and resources of all these entities greatly resulted in an observable decrease in time and increase in productivity.
+It can be observed on the academic side that there are many knowledgable individuals skilled in developing the theory and mathematics behind models.  What academia often lacks is the resources to run a large scale software development project.  While industry has skilled individuals, they are frequently spread across different institutions or may lack knowledge in some key areas.  At the same time, industry can often contribute development resources that a university cannot.  It seems natural, therefore, that a partnership between academia and industry could leverage advantages from both sides.
 
-\subsubsection{Commercialization Collaboration}
-It can be observed on the academic side that there are many knowledgable and skill individuals in developing the theory and mathematics behind drill string codes.  What academia often lacks is the resources to run a large scale software development project.  While industry has skill individuals capable of understanding the theory and math required to develop a drill string code, that learning can take time.  At the same time, industry can often contribute development resources that a university may have a hard time justifying.  It seems natural, therefore, that a partnership between academia and industry could leverage advantages from both sides.
 
-\subsection{Development of Generalized User Interface}
-All drill string models have a common need for certain input.  These items include the wellbore geometry, drill string definition, fluid properties, et cetera.  The drill string can further be broken down into the length, inside diameter, outside diameter, material, et cetera of each tubular section.  An important component of user friendly drill string software application is a graphical user interface to quickly and easily input this information.  While the exact format of this information may change from model to model, the content remains the same.
 
-Therefore, it seems feasible to create a universal ``front end'' for a drill string code that could serve as a user friendly interface to any model.  In such a design, there would likely require an intermediate ``interpreter'' to convert the information to the require format.  However, this \emph{Interpreter} could be a lightweight object that simply marshes data into the necessary format for a particular model.
+\subsection{Collaboration Across the Industry}
+In recent years, the industry has been more open to embracing collaboration.  Joint partnerships, open-source efforts like \osdu{}, and willingness to share data on projects have become more common place.  The reasons for collaboration are obvious, these efforts dramatically lower costs and improve the quality of the end product.
 
-\subsubsection{Requirements}
-To develop a universal front end, a few requirements would have to be met.  Use of an interpreter interface would seem a natural way to convert to each models particular formats.  An alternate approach would be to require each model to conform to a particular input.  The front end would need to allow for extensions to the software to meet particular input required by a specific model but not used in others.  This could be in the form of an ``add on'' or in the case of an open-source front end these could be added directly.  Care would have to be taken to separate out these sections of code so it is clear they are specific and not universal.
+%However, the arena of drilling mechanics and dynamics has been slower to adopt this mentality.
+\subsection{Demonstration Project}
 
-\subsubsection{Potential Pitfalls}
-While is seems reasonable that a universal interface could be developed, it would need to be carefully evaluated.  Trying to create a piece of software that is too general often leads to an over complex piece of code that is difficult to understand. 
+
+This project combined personnel from multiple industry and academia entities and served as a test case for open-source software for drilling dynamics.  Even in this relatively small scale project, the combined knowledge and resources of all these entities resulted in an observable decrease in time and increase in productivity.
+
+%The individuals that took place in the project on a volunteer basis and out of a mutual interest in advancing the art.
+
+
+%\subsection{Development of Generalized User Interface}
+%All drill string models have a common need for certain input.  These items include the wellbore geometry, drill string definition, fluid properties, et cetera.  The drill string can further be broken down into the length, inside diameter, outside diameter, material, et cetera of each tubular section.  An important component of user friendly drill string software application is a graphical user interface to quickly and easily input this information.  While the exact format of this information may change from model to model, the content remains the same.
+%
+%Therefore, it seems feasible to create a universal ``front end'' for a drill string code that could serve as a user friendly interface to any model.  In such a design, there would likely require an intermediate ``interpreter'' to convert the information to the require format.  However, this \emph{Interpreter} could be a lightweight object that simply marshes data into the necessary format for a particular model.
+
+%\subsubsection{Requirements}
+%To develop a universal front end, a few requirements would have to be met.  Use of an interpreter interface would seem a natural way to convert to each models particular formats.  An alternate approach would be to require each model to conform to a particular input.  The front end would need to allow for extensions to the software to meet particular input required by a specific model but not used in others.  This could be in the form of an ``add on'' or in the case of an open-source front end these could be added directly.  Care would have to be taken to separate out these sections of code so it is clear they are specific and not universal.
+%
+%\subsubsection{Potential Pitfalls}
+%While is seems reasonable that a universal interface could be developed, it would need to be carefully evaluated.  Trying to create a piece of software that is too general often leads to an over complex piece of code that is difficult to understand.
+
+
+
+\subsection{Why Use Open-Source}
+
+With closed-source models you do not know how they work.  They are black-boxes.  Undoubtedly, many of these models are very good.  But equally without doubt is that they are not perfect.  All models have limitations; it is a fact of models.  And it is important to know exactly what those limitations are in order to know when you can and when you cannot trust a model.
+
+Open-source models provide transparency and that transparency translates to trust.  They can also serve to interrogate closed-source models by comparing closed-source to open-source models.  In this way, they can lend some of their trust to the closed-source models.
+
+
+
+The boom-and-bust nature of the oil industry is not conducive to long term research.  Projects are shut down interrupting progress.  Employees are laid off.  Some of them leave the industry and never return.  Others land at another company, only to have to redo work. 
+
+
+Drilling mechanics and dynamics computer codes have been in use in the industry for over fifty years and some currently used commercial codes are 20 to 30 years old.  Yet, despite this seemingly long history, they failed to reach the predictive power of computer models used in other industries such as aerospace or automotive.  Part of this is due to the difficulties in observing, measuring, and quantifying downhole parameters.  But part of it results from lack of investment.  While companies understand that drilling dynamics are important, it doesn't seem

@@ -1,4 +1,4 @@
-\chapter{Results and Comparisons}
+\chapter{Results, Comparisons, and Conclusions}
 \label{ch:results}
 This chapter contains the results and comparisons of the A-S and ExxonMobil models for the Test Cases. More details for the Test Cases can be find in \chaptername~\ref{ch:testcases}. A summary of the differences between the two models is shown in \tablename~\ref{table_model_difference}.
 \begin{table}
@@ -284,8 +284,12 @@ Some of the key observations are listed below.
 \section{Conclusions}
 In this project, we introduce simple but well-structured test cases and compared two different models, the A-S and ExxonMobil models. This marks the initial phase in establishing a systematic work flow for evaluating drill string models, as well as enhancing the reliability of any existing or newly developed models.
 
+\subsection{Test Cases}
 In total four Test Cases were provided. They include vertical and deviated wells, both with and without BHA components. In addition, scenarios with different dynamic friction factors were included for the Test Cases with deviated wells. We initiate our test case with a vertical well with a simple drill string configuration that enables the assessment of the models without the influence of friction and BHA components. The Test Cases gradually increase in complexity by adding friction effects and BHA components. Incrementally adding complexity in the Test Cases created a systematic process for revealing and debugging the potential causes of variations between the different model's results.
 
+The availability of well-structured Test Cases, as introduced in this project, allows for rigorous comparison and verification of drill string models. This enables researchers and engineers to assess their model's accuracy and performance. The data and findings obtained from these Test Cases offers valuable insights and constitute a substantial contribution to the field of drill string modeling and simulation. As a result, this study serves as a valuable reference for further research and development in the domain of drilling engineering and related disciplines.
+
+\subsection{Comparison of the Drill String Models}
 Below summarizes the lessons and findings from model comparisons between the A-S and ExxonMobil models.
 \begin{bulletedlist}
     \item Care must be taken to ensure accurate unit conversions when comparing different models. Input and output parameters may be in different systems of units or different units within a given system.
@@ -297,8 +301,11 @@ Below summarizes the lessons and findings from model comparisons between the A-S
     \item The two models were derived in different ways, but matched well in the test cases.  This provides verification that both methods are correct.
 \end{bulletedlist}
 
-The availability of well-structured Test Cases, as introduced in this project, allows for rigorous comparison and verification of drill string models. This enables researchers and engineers to assess their model's accuracy and performance. The data and findings obtained from these Test Cases offers valuable insights and constitute a substantial contribution to the field of drill string modeling and simulation. As a result, this study serves as a valuable reference for further research and development in the domain of drilling engineering and related disciplines.
-
-
-
-
+\subsection{Comparison of the Friction Models}
+Below summarizes the lessons and findings from comparing the friction models.
+\begin{bulletedlist}
+	\item Both Stribeck and Coulomb friction models can reproduce stick slip dynamics.
+	\item Stribeck and Coulomb friction can produce similar results.
+	\item The critical velocity may not be the same for a Stribeck and Coulomb model and should be investigated more.
+	\item The Stribeck friction is slightly easier to implement algorithmically as the friction value can be directly calculated without having to check if static or dynamic friction applies.
+\end{bulletedlist}
