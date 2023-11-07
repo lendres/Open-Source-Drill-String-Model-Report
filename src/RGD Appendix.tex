@@ -1,9 +1,10 @@
 \chapter{RGB Model Work Flow}
 \label{ap:rgbworkflow}
 %\section{Mathematical background of RGD model}
-This appendix briefly summarizes the work flow of RGB model written in Matlab. A more detailed description can be seen in \referencename~\cite{ref:zhang2020a}. This code is for a symmetric full blade which is defined as a D1 bit in the paper. The code calculates coupled PDE and ODE by solving the matrix
-\begin{equation}\label{matrix}
-  \bm{Adx} + \bm{BX} = \bm{Q}
+This appendix briefly summarizes the work flow of RGB model written in Matlab. A more detailed description can be seen in \referencename~\cite{ref:zhang2020a}. This code is for a symmetric full blade which is defined as a D1 bit in the paper. The code calculates coupled PDEs and ODEs by solving the matrix
+\begin{equation}
+	\label{eq:rgbmatrix}
+	\bm{Adx} + \bm{BX} = \bm{Q}
 \end{equation}
 where $\bm{dx}$ and $\bm{X}$ are defined as follow:
 
@@ -39,17 +40,17 @@ where $\bm{dx}$ and $\bm{X}$ are defined as follow:
 \end{minipage}
 \vspace{\belowdisplayskip}
 
-The bit trajectory function, which is $\overline{h}(\tau, \theta$), is introduced and PDE can be derived from equation
+The bit trajectory function, which is $\overline{h}(\tau, \theta$), is introduced and the PDE can be derived from equation
 \begin{equation}\label{PDE}
 \frac{\partial \overline{h}}{\partial \tau} + (w_0 + \dot{\psi})\frac{\partial \overline{h}}{\partial \theta}-v_0 = 0
 \end{equation}
-where the equation (\ref{PDE}) is solved by Galerkin-method which approximates $\overline{h}(\tau, \theta$) by using base functions $a_1, a_2, ..., a_N$ (N=25 as default), where $\tau$ is scaled time and $\theta$ is rotation angle of the bit blade. The base functions can be obtained by minimizing the residual which are shown below (please note that all the derivations are for D1-bit):
+where the equation (\ref{PDE}) is solved by the Galerkin-method which approximates $\overline{h}(\tau, \theta$) by using the base functions $a_1, a_2, ..., a_N$ ($N$=25 as default), where $\tau$ is the scaled time and $\theta$ is the rotation angle of the bit blade. The base functions can be obtained by minimizing the residual which is shown below (please note that all the derivations are for a D1-bit):
 \begin{equation}\label{GM}
 \begin{split}
 R &= \left(\frac{n \theta}{2 \pi}-1\right)\dot{u}_b + \frac{n \theta}{2 \pi}\dot{a}_1 + \sum_{k=1}^{N-1}\dot{a}_{k+1}sin\left(\frac{nk\theta}{2}\right) \\ + &(w_0 + \dot{\psi}_0)\left[u_b\frac{n}{2\pi}+a_1\frac{n}{2\pi} + \sum_{k=1}^{N-1}\frac{a_{k+1}nk}{2}cos\left(\frac{nk\theta}{2}\right)\right]
 \end{split}
 \end{equation}
-where n is the number of bit blade. In the paper the blade number is divided into $n_i$, and $n_o$ that are number of inner blades and outer blades, respectively. However, the code runs for D1 bit and it contains n instead of $n_i and n_o$.
+where $n$ is the number of blades on the bit. In the paper, the blade number is divided into $n_i$ and $n_o$ which are the number of inner blades and outer blades, respectively. However, the code runs for a D1 bit and it contains $n$ instead of $n_i$ and $n_o$.
 
 Minimizing $R(\theta, \tau)$ can be achieved by making it orthogonal to the base functions over the domain $\theta \in \left[0, \frac{2\pi}{n_i}\right]$, which results in
 \begin{equation}\label{GM1}
@@ -59,11 +60,11 @@ and
 \begin{equation}\label{GM2}
  \int_{0}^{\frac{2\pi}{n}}R(\theta, \tau)sin\left(\frac{n_im\theta}{2}\right)d\theta=0, \;\; m= 1,...,N-1
 \end{equation}
-where N is the number of Galerkin base functions.
+where $N$ is the number of Galerkin base functions.
 
-Equation (\ref{GM1})-(\ref{GM2}) represent a system of $N^{th}$ first order equations for $a_i,\; i=1,2,...,N$ that is
+\equationname{}s~\ref{GM1} and~\ref{GM2} represent a system of $N^{th}$ first order equations for $a_i,\; i=1,2,...,N$ that is
 \begin{equation}\label{Norder}
-  \dot{a}_i = \Phi_i(\dot{u}, u, a_1, ..., a_N), i=1,...,N.
+  \dot{a}_i = \Phi_i(\dot{u}, u, a_1, ..., a_N), i=1,...,N
 \end{equation}
 and also coupled with the equation of motion which are
 \begin{equation}\label{GE1_}
@@ -83,21 +84,21 @@ and $\delta_n$ is given as
 \begin{equation}\label{deltan1}
   \delta_n = \overline{h}\left(\frac{2\pi}{n}, n\right) + u(\tau)
 \end{equation}
-where $\varpi$, $\Gamma$ represent scaled WOB, TOB, respectively,  $\beta$ is number characterizing bit/rock interaction (generally less than 1). $v$ and $w$ are the scaled axial and angular velocity, respectively that are
+where $\varpi$ and $\Gamma$ represent scaled WOB and TOB, respectively, and $\beta$ is a number characterizing the bit-rock interaction (generally less than 1). $v$ and $w$ are the scaled axial and angular velocity, respectively, that are
 \begin{equation}\label{scaled_axial_ve}
   v = v_0 + \dot{u}
 \end{equation}
 \begin{equation}\label{scaled_angular_vel}
-  w = w_0 + \dot{\psi}
+  w = w_0 + \dot{\psi}.
 \end{equation}
-so far we have N+2 equations with N+4 unknowns ($u, \dot(u), \psi, \dot(\psi), a_1, ..., a_N$). and two additional equations are obtained from relationship below:
+This gives $N$+2 equations with $N$+4 unknowns ($u, \dot(u), \psi, \dot(\psi), a_1, ..., a_N$). Two additional equations are obtained from the relationships
 \begin{equation}\label{axial_dis_vel}
   \dot{u} = \frac{\partial u}{\partial \tau}
 \end{equation}
 \begin{equation}\label{angular_dis_vel}
-  \dot{\psi} = \frac{\partial \psi}{\partial \tau}
+  \dot{\psi} = \frac{\partial \psi}{\partial \tau}.
 \end{equation}
-Finally we obtained N+4 equations for the same number of unknowns and represent as linear from of $\bm{Adx} + \bm{BX} = Q$. and solve the equation for given time interval. However, the discontinuity should be investigated every time step which affects the boundary condition from rock-bit interaction. The model classifies the discontinuity to three which are 1) normal drilling, 2) axial stick, and 3) bit bonce. Below summarizes the conditions for each mode:
+The $N$+4 equations are represented in linear form as \equationname~\ref{eq:rgbmatrix} and then solved for a given time interval. However, the discontinuity should be investigated at every time step which affects the boundary condition from the bit-rock interaction. The model classifies the discontinuity into three types which are normal drilling, axial stick, and bit bounce. Below summarizes the conditions for each mode.
 \begin{equation}\label{drillingmodes}
   \begin{cases}
     Normal\,drilling, & \mbox{if $\delta_n > 0, w > 0$, and $v > 0$ }  \\
@@ -106,15 +107,15 @@ Finally we obtained N+4 equations for the same number of unknowns and represent 
   \end{cases}
 \end{equation}
 
-For example, normal drilling mode simplifies the equations (\ref{GE1}), and (\ref{GE2}) since g($\nu$) = 0 which can be represented as
+For example, normal drilling mode simplifies the \equationname{}s~\ref{GE1} and~\ref{GE2} since g($\nu$) = 0 which can be represented as
 \begin{equation}\label{GE1_normaldrilling}
   \varpi-\varpi_0 = n\left(\delta_n - \frac{2\pi v}{w_0}\right)
 \end{equation}
 \begin{equation}\label{GE2_normaldrilling}
   \Gamma-\Gamma_0 = n\left(\delta_n - \frac{2\pi v}{w_0}\right)
 \end{equation}
-and also, the depth of cut (\ref{deltan1}) is reduced to
+and the depth of cut in \equationname~\ref{deltan1} is reduced to
 \begin{equation}\label{deltan_normaldrilling}
-  \delta_n = a_1 + u(\tau)
+  \delta_n = a_1 + u(\tau).
 \end{equation}
-Therefore, equation (\ref{matrix}) can be solved with reduced equations from equations (\ref{GE1_normaldrilling}) - (\ref{deltan_normaldrilling}).
+Therefore, \equationname~\ref{eq:rgbmatrix} can be solved with the reduced form in \equationname{}s~\ref{GE1_normaldrilling} to~\ref{deltan_normaldrilling}.

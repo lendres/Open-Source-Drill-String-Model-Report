@@ -2,12 +2,9 @@
 \label{ch:appendixexxonmobil}
 This appendix contains a list of modifications made to the ExxonMobil model during the testing and evaluation.
 
-\reviewcomment[START]{Needs to be associated with lines of code.}
-\markupnote{During testing, we encountered an issue with the ``on-bottom'' case, specifically related to the bit-rock interaction model. The code was not displaying the ``drilling'' mode, indicating a constant value of depth of cut (DOC) and bit depth. Upon thorough investigation, we identified the root cause as the improper assignment of bit depth to bit displacement. Implementing a slight modification, the original bit depth was incorporated into the bit displacement calculation, thus accurately representing the actual bit depth during drilling. This change, along with other adjustments, successfully activated the ``drilling'' mode, enabling dynamic changes in both hole depth and non-zero DOC.} \reviewcomment[END]{Needs to be associated with lines of code.}
-
 \section{1st Cell of \codefont{scratch\_pad.ipynb}}
 
-The code was organized by creating separate folders for input and output files, facilitating easier usage and data storage. Additional modifications were made to the original source code to ensure compatibility with different operating systems, as it was previously designed exclusively for Windows and was ``Path'' sensitive.
+The code was organized by creating separate folders for the input and output files, facilitating easier usage and data storage. Additional modifications were made to the original source code to create compatibility with different operating systems, as it was previously designed exclusively for Windows and was ``Path'' sensitive.
 
 \begin{codemodifications}
 
@@ -20,13 +17,13 @@ The lines which are from original file were commented out and replaced with new 
 \end{codemodification}
 
 \begin{codemodification}{7-8, 11}
-In the original files, the Path/Location of the files involved the user name and would need to be renamed for every user.  New variables that will locate the current folder, the output and input files along with their directories.
+In the original files, the Path/Location of the files involved the user name and would need to be renamed for every user.  New variables were added that will locate the current folder, the output and input files along with their directories.
 \end{codemodification}
 
 \end{codemodifications}
 
 \section{2nd Cell of \codefont{scratch\_pad.ipynb}}
-This cell needs to be run after running the first cell if you don't have the output file from previous simulations. However, if you have the output file from previous simulations, you can skip the first cell and directly run this second cell without rerunning the simulation. The modifications were primarily made in location part.
+If you have the output file from previously run simulations, you can skip the first cell and directly run this second cell without rerunning the simulation. The modifications were primarily made in location part.
 \begin{codemodifications}
 
 \begin{codemodification}{1}
@@ -38,29 +35,27 @@ Importing \textcode{os} library for further use.
 \end{codemodification}
 
 \begin{codemodification}{6-9}
-The original line was replaced with new lines which allow to import the data.  The original line of code was 'Path' sensitive.
+The original line was replaced with new lines which allow to importing existing data.  The original line of code was ``Path'' sensitive.
 \end{codemodification}
 
 \end{codemodifications}
 
 \section{File \codefont{bitrock.py}}
-The following change is related to the issue that was addressed in the final section of \chaptername~\ref{ch:exxonmobilmodel}.
-A full comparison of outputs between original and modified models has been provided in \figurename~\ref{Comaprison_on_bottom}.
+During testing, we encountered an issue with the ``on-bottom'' case related to the bit-rock interaction model. In the ``drilling'' mode a constant value of depth of cut (DOC) and bit depth was observed. The cause was identified as an improper assignment of bit depth to bit displacement. A slight modification was made to incorporate the bit depth into the bit displacement calculation. 
+
+%This change, along with other adjustments, successfully activated the ``drilling'' mode, enabling dynamic changes in both hole depth and non-zero DOC.
+
 \begin{codemodifications}
 
 \begin{codemodification}{29}
-Originally, the variable \textcode{bit\_depth} was set to \textcode{z}. However, since \textcode{z} signifies displacement and not the actual bit depth, it does not accurately represent the true bit depth. To obtain the correct bit depth, the displacement needed to be added to the original bit depth, resulting in a list of updated bit depths for each calculation time step.
+Originally, the variable \textcode{bit\_depth} was set to \textcode{z}. However, since \textcode{z} signifies displacement and not the actual bit depth, it does not accurately represent the true bit depth. To obtain the correct bit depth, the displacement was needed to be added to the original bit depth, resulting in a list of updated bit depths for each calculation time step.
 \end{codemodification}
 \end{codemodifications}
 
-The outputs obtained from the original model are presented in the left column, while those from the modified version are displayed in the right column (\figurename~\ref{Comaprison_on_bottom}). A thorough comparison is made between the two sets of outputs to observe any differences or improvements resulting from the modifications.
-
-To delve deeper into the on-bottom case, we conducted a model run using a specific approach, where the bit is initially raised from the bottom to simulate the off-bottom case, and then gradually brought into contact with the bottom to transition to the on-bottom case. The results clearly illustrate the effect in subsequent plots.
-
-Upon observation, the drilling process commences at approximately 30 seconds. Initially, vibrations occur, which is typical, but as soon as the bit makes contact with the bottom at 30 seconds, both the bit and top-drive torque increase, along with WOB and DOC. Furthermore, the hole depth starts to change simultaneously with the bit depth, indicating the initiation of the drilling mode. Around 20 seconds later, the vibrations gradually diminish, indicating the presence of oscillations in the system.
-
+A full comparison of outputs between original and modified code is shown in \figurename~\ref{Comaprison_on_bottom}.  The outputs from the original are in the left column and modified version are in the right column. For this test, the bit is initially off-bottom and is transitioned to the on-bottom case.  The drilling process commences at approximately 30 seconds. When the bit makes contact with the bottom, the bit torque, top-drive torque, WOB, and DOC all increase. Furthermore, the hole depth starts to change simultaneously with the bit depth, indicating the initiation of the drilling mode.
 \begin{figure}
-  \centering
-  \includegraphics[width=\linewidth]{comp_on_bottom}
-  \caption[Output comparison or original and modified model]{Comparison of outputs from original and modified versions of model. Figures in first and second column are the results from original code and from modified code, respectively.}\label{Comaprison_on_bottom}
+	\centering
+	\includegraphics[width=\linewidth]{comp_on_bottom}
+    \caption[Output comparison of the original and modified model ExxonMobil model]{Comparison of the outputs from the original and modified versions of the ExxonMobil model. Plots in left and right column are the results from the original and modified codes, respectively.}
+	\label{Comaprison_on_bottom}
 \end{figure} 
