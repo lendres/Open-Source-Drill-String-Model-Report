@@ -1,6 +1,7 @@
-% This document requires the following to be processed.
+% REQUIREMENTS.
+% This document requires the following packages in order to process/compile it.
 %
-% Lance A. Endres's LaTeX library available at the following location:
+% Lance A. Endres's LaTeX library (LeLaTeX) available at the following location:
 % https://github.com/lendres/LaTeX
 %
 % Perl
@@ -14,23 +15,23 @@
 \input{"Title Page"}
 
 \frontmatter{}
-
-
+% TABLES.
 % Generate the tables of things.
 \tableofcontents{}
 \listoffigures{}
 \listoftables{}
 
+% CONTENT.
 \input{"Executive Summary"}
 
 \mainmatter{}
 % Glossary entries need to be defined before they can be referenced.
 \input{"Glossary"}
 \input{"Acronyms"}
-\markupnote
-{
-	\input{"Notes"}
-}
+
+% Writing notes.  Surround by \markupnote so it can be automatically removed.
+\markupnote{\input{"Notes"}}
+
 \input{"Introduction"}
 \input{"Model Review"}
 \input{"Recommended Procedures for Developing Test Cases"}
@@ -45,33 +46,35 @@
 \input{"ExxonMobil Code Alterations"}
 \input{"Additional Tests"}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXAMPLES
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Comment out for final versions.
 %\input{"LaTeX Examples"}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 \backmatter{}
+% GLOSSARIES.
+% The argument "nogroupskip" prevents adding extra space between the words that start with the same letter and the proceeding and following
+% "set" (words with that star with the same letter).  I.e., there is more space between the "a"s and "b"s than is between the "a" entries.
+% The "nopostdot" option removes the final dot/period that is otherwise automatically added.
+
 % Standard glossary entries.
-\printglossary[type=main, title=Glossary]{}
+\printglossary[nogroupskip, nopostdot, type=main, title=Glossary]{}
 \renewcommand*{\chaptertitle}{Glossary}
 
 % Acronyms.
-\printglossary[type=\acronymtype]
+\printglossary[nogroupskip, nopostdot, type=\acronymtype]{}
 \renewcommand*{\chaptertitle}{Acronyms}
+
+% Use all glossary entries without specifically referencing them.
+% Putting it before "\printgossaries" seems to cause a blank page to be injected.
+\glsaddallunused{}
 
 % PRINT A LIST OF NOTATIONS / NOMENCLATURE.
 % Argument is a text/tex file containing lines in the form of:
 % \addnotation{Variable}{Meaning of variable.}
 %\input{"List of Notations"}
 
-% Use all glossary entries without specifically referencing them.
-% Putting it before "\printgossaries" seems to cause a blank page to be injected.
-\glsaddallunused{}
-
+% BIBLIOGRAPHIES.
+% These are found in the LeLaTeX package (see above).
 \bibliography{strings, le}
 
 \end{document} 

@@ -115,10 +115,30 @@
 %		toc: Adds the main glossary to the table of contents.  The others are added by default.
 %		nonumberlist: Prevents the page numbers from being added to each entry in the glossaries.
 \usepackage[toc=true, nonumberlist=true, acronym]{glossaries}
-\newcommand*{\addacronym}[2]{\newacronym{#1}{\MakeUppercase{#1}}{#2}}
-\newcommand*{\addacronymlowercase}[2]{\newacronym{#1}{\MakeLowercase{#1}}{#2}}
-\makeglossaries{}
 
+% The below macros are used to get the sorting to be done by all lower case.  To use an entry that has mixed case, e.g., AbCd, you would
+% have to manually add it as the following:
+%\newacronym[sort={abcd}]{abcd}{AbCd}{Aaa bbb Ccc ddd}
+% You cannot use the following
+%\newacronym[sort=\lowercase{#1}]{#1}{#1}{#2}
+% because it adds "\lowercase{#1}" to the acronym glossary file and sorts it by that, which is not what is desired.
+\usepackage{titlecaps}
+\newcommand*{\addacronymtitlecase}[2]
+{
+	\newacronym[sort=#1]{#1}{\titlecap{#1}}{#2}
+}
+
+\newcommand*{\addacronymlowercase}[2]
+{
+	\newacronym[sort=#1]{#1}{\lowercase{#1}}{#2}
+}
+
+\newcommand*{\addacronymuppercase}[2]
+{
+	\newacronym[sort=#1]{#1}{\uppercase{#1}}{#2}
+}
+
+\makeglossaries{}
 
 
 % MATH

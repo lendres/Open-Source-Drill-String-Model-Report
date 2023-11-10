@@ -1,7 +1,7 @@
 \chapter{Introduction}
 This document was created as part of the project \emph{Research on Numerical Simulation of Downhole Drill String Dynamics}, a fundamentals research project at CNPC USA.  The project was proposed and kicked off in 2023.
 
-The concept for a model review and evaluation resulted from conversations with members of the \osdc{} (\referencename~\cite{ref:pastusek2019a}).  A number of models have been released to the community's \emph{Github} site, however, it was not known exactly how the models compared in terms of features and performance.  At the same time, CNPC was both interested in studying drill string models and is a member of two industry-university research programs.  These programs may provide access to drilling dynamic models.  These models also need to be reviewed to determine features and investigated to determine availability.
+The concept for a model review and evaluation resulted from conversations with members of the \osdc{} (\referencename~\cite{ref:pastusek2019a}).  A number of models have been released to the community's \emph{Github} site, however, it was not known exactly how the models compared in terms of features and performance.  CNPC was both interested in studying drill string models and is a member of two industry-university research programs.  These programs may provide access to drilling dynamic models.  These models also need to be reviewed to determine features and investigated to determine availability.
 
 Based on this it was decided to review the drilling dynamic models both on the \osdc{} and others that may be accessible through industry memberships.  Promising drill string models would then be selected for further evaluation and testing.
 
@@ -26,7 +26,9 @@ This document is organized in a manner that facilitates different use cases.  To
 
 \chaptername~\ref{ch:modelreview} can be read as a stand alone chapter.  It contains short sections that describe each of the models that were examined.  While the models were reviewed in the context of the current project, the reviews can serve as a reference of available drilling dynamics models.
 
-\chaptername~\ref{ch:testcases} can be read as a stand alone chapter.  The Test Cases are generalized and not specific to the particular models evaluated.  The intent is provide baseline Test Cases that can be used to compare any drill string models.  The Test Cases and procedures are defined completely within the chapter.
+\chaptername~\ref{ch:testcases} can be read as a stand alone chapter.  The Test Cases are generalized and not specific to the particular models evaluated.  The intent is provide baseline Test Cases that can be used to compare any drill string models.  The Test Cases are defined completely within the chapter.
+
+If the reader intends to develop new Test Cases, it is recommended to read \chaptername{}s~\ref{ch:testcaseprocedures} and~\ref{ch:testcases} together.  \chaptername~\ref{ch:testcaseprocedures} gives some useful guidelines and \chaptername~\ref{ch:testcases} provides examples of the type of information required for Test Cases.
 
 In \chaptername{}s~\ref{ch:aarnessshormodel},~\ref{ch:exxonmobilmodel}, and~\ref{ch:results} two different models are described in detail and compared on the Test Cases.  These chapters are best read as a unit.
 
@@ -121,6 +123,6 @@ The boom-and-bust nature of the oil industry makes long term stability of any pr
 
 On a final note, drilling mechanics and dynamics computer codes have been in use in the industry for over fifty years and some currently used commercial codes are 20 to 30 years old.  Despite this seemingly long history, they have failed to reach the predictive power of computer models used in industries such as aerospace or automotive.  Part of this is due to the difficulties in observing, measuring, and quantifying downhole parameters.  But a major cause is the fragmentation of programs.  This refers to both the isolated nature of programs and the interruptions cause by downturns.  Taken altogether, it seems clear that to achieve significant advances in the art, a new approach is required.
 
-%is the isolated nature programs have worked in combined 
+%is the isolated nature programs have worked in combined
 
 %But part of it results from lack of investment.  While companies understand that drilling dynamics are important, it doesn't seem 

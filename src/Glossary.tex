@@ -14,7 +14,7 @@
 \newglossaryentry{bitfunction}
 {
 	name=bit function,
-	description=A mathematical equation representing a bit.  Used at the end of a drill string model to generate a response that would result from the bit-rock interaction.  It is a mathematic equation or equations that can be rapidly solved.  The bottom hole pattern is often is not represented.  When it is represented it is simplified.  It does not allow for the individual cutting structure elements interacting with the rock
+	description=A mathematical equation or equations that represent a bit.  It is used at the end of a drill string model to generate a response that would result from the bit-rock interaction.  The equation(s) equations can be rapidly solved.  The bottom hole pattern is often is not represented and if it is represented it is simplified.  It does not allow for the individual cutting structure elements interacting with the rock.
 }
 
 \newglossaryentry{blackbox}
@@ -23,158 +23,152 @@
 	description={A black box system can only be viewed in terms of the input and output.  The internal workings and, therefore, how the output is generated from the input is not known.}
 }
 
-\newglossaryentry{frictioncriticalvelocity}
-{
-	name=critical velocity (friction),
-	description=The velocity that is considered the dividing point between static and dynamic friction.  In friction models that are a step function (like Coulomb)\comma{} this is easily defined.  In friction models that are continuously differentiable (smooth)\comma{} the critical velocity may be considered a control point (defined point) on the curve
-}
-
 \newglossaryentry{coupled}
 {
 	name=coupled,
-	description=In classical mechanics two variables are coupled if they appeared in each other's equations of motion.  This could be thought of as one variable \textit{always} influences the other
+	description=In classical mechanics two variables are coupled if they appeared in each other's equations of motion.  This could be thought of as one variable \textit{always} influences the other.
 }
 
 \newglossaryentry{coupledcode}
 {
 	name=coupled code,
-	description=In the drilling dynamics realm\comma{} this taken the definition of a dynamic drill string code combined with a high fidelity drill bit code
+	description=In the drilling dynamics realm\comma{} this taken the definition of a dynamic drill string code combined with a high fidelity drill bit code.
 }
 
 \newglossaryentry{criticalvelocityfriction}
 {
 	name=critical velocity (friction),
-	description={The velocity that the coefficient of friction changes (or is assumed to change) from static to dynamic}
+    description=The velocity that is (or is assumed to be) the dividing point between static and dynamic friction.  In friction models that are a step function (like Coulomb)\comma{} this is easily defined.  In friction models that are continuously differentiable (smooth)\comma{} the critical velocity may be considered a control point (defined point) on the curve.
 }
 
 \newglossaryentry{damping}
 {
 	name=damping,
-	description=Resistive forces that remove energy from the system
+	description=Resistive forces that remove energy from the system.
 }
 
 \newglossaryentry{dynamicmodel}
 {
 	name=dynamic model,
-	description=A model that deals with the branch of mechanics concerned with the motion of bodies under the action of forces (\dynamicforcebalance)
+	description=A model that deals with the branch of mechanics concerned with the motion of bodies under the action of forces (\dynamicforcebalance).
 }
 
 \newglossaryentry{frequencydomainmodel}
 {
 	name=frequency domain model,
-	description=The frequency domain refers to the analysis of mathematical functions or signals with respect to frequency\comma{} rather than time.  It may be used to refer to graphs plotted with respect to frequency or to a static model that is used for eigenmode and eigenvalue calculations
+    description=The frequency domain refers to the analysis of mathematical functions or signals with respect to frequency\comma{} rather than time.  It may be used to refer to graphs plotted with respect to frequency or to a static model that is used for eigenmode and eigenvalue calculations.
 }
 
 \newglossaryentry{friction}
 {
 	name=friction,
-	description={A force resisting the relative motion of elements sliding against each other.  The types of friction are dry, fluid, lubricated, skin, and internal}
+	description={A force resisting the relative motion of elements sliding against each other.  The types of friction are dry, fluid, lubricated, skin, and internal.}
 }
 
 \newglossaryentry{qualitative}
 {
 	name=qualitative,
-	description={Data that is non-numeric in nature and cannot be measured}
+	description={Data that is non-numeric in nature and cannot be measured.}
 }
 
 \newglossaryentry{quantitative}
 {
 	name=quantitative,
-	description={Data that is numerical in nature and can be measured.  It can be classified into two types: discrete and continuous}
+	description={Data that is numerical in nature and can be measured.  It can be classified into two types: discrete and continuous.}
 }
 
 \newglossaryentry{sample}
 {
 	name=sample,
-	description={A selection of observations from a population.  Example: People (or IP addresses) who visited a website on a specific day}
+	description={A selection of observations from a population.  Example: People (or IP addresses) who visited a website on a specific day.}
 }
 
 \newglossaryentry{soft string model}
 {
 	name=soft string model,
-	description={A drill string model that assumes constant contact with the borehole wall.  This is an equivalent assumption to a drill string that cannot carry lateral bending moments or lateral shear}
+	description={A drill string model that assumes constant contact with the borehole wall.  This is an equivalent assumption to a drill string that cannot carry lateral bending moments or lateral shear.}
 }
 
 \newglossaryentry{staticmodel}
 {
 	name=static model,
-	description=Models that calculate statics.  Statics is the branch of classical mechanics that is concerned with the analysis of force and torque (also called moment) acting on physical systems that do not experience an acceleration (\staticforcebalance)\comma{} but rather\comma{} are in static equilibrium with their environment.  Note that this does not mean they are not moving
+    description=Models that calculate statics.  Statics is the branch of classical mechanics that is concerned with the analysis of force and torque (also called moment) acting on physical systems that do not experience an acceleration (\staticforcebalance)\comma{} but rather\comma{} are in static equilibrium with their environment.  Note that this does not mean they are not moving.
 }
 
 \newglossaryentry{statistic}
 {
 	name=statistic,
-	description={A numerical value associated with an observed sample.  Example: The average amount of time people spent on a website on a specific day}
+	description={A numerical value associated with an observed sample.  Example: The average amount of time people spent on a website on a specific day.}
 }
 
 \newglossaryentry{stiff string model}
 {
 	name=stiff string model,
-	description={A drill string model that does not assume constant contact with the borehole wall.  Lateral bending moments can be carried in this type of model}
+	description={A drill string model that does not assume constant contact with the borehole wall.  Lateral bending moments can be carried in this type of model.}
 }
 
 \newglossaryentry{steadystate}
 {
 	name=steady state,
-	description=A system or a process is in steady-state if the variables which define the behavior of the system or the process are unchanging in time.  A formal descriptions for continuous time\comma{} is that for those properties \systemproperty{} of the system\comma{} the partial derivative with respect to time is zero and remains so \continuoussteadystate{}.  Similarly\comma{} in discrete\comma{} time it means that the first difference of each property is zero and remains so \discretesteadystate{}
+    description=A system or a process is in steady-state if the variables which define the behavior of the system or the process are unchanging in time.  A formal descriptions for continuous time\comma{} is that for those properties \systemproperty{} of the system\comma{} the partial derivative with respect to time is zero and remains so \continuoussteadystate{}.  Similarly\comma{} in discrete\comma{} time it means that the first difference of each property is zero and remains so \discretesteadystate{}.
 }
 
 \newglossaryentry{steadystatemodel}
 {
 	name=steady-state model,
-	description=The preferred term is \textit{static model}.  See \emph{steady-state}
+	description=The preferred term is \textit{static model}.  See \emph{steady-state}.
 }
 
 %\newglossaryentry{supervisedlearning}
 %{
 %    name=supervised learning,
-%    description=Supervised learning is when you already know the label (value) of the target variable.  It is of two types: regression (for continuous variables) and classification (for categorical or discrete values)
+%    description=Supervised learning is when you already know the label (value) of the target variable.  It is of two types: regression (for continuous variables) and classification (for categorical or discrete values.)
 %}
 
 \newglossaryentry{timedomainmodel}
 {
 	name=time domain model,
-	description=Time domain and dynamic model are synonyms.  See \emph{dynamic model}
+	description=Time domain and dynamic model are synonyms.  See \emph{dynamic model.}
 }
 
 \newglossaryentry{transientdynamics}
 {
 	name=transient dynamics,
-	description=A transient phase is the pattern of change as a system moves from one equilibrium state to another.  The transition phase is often described as\comma{} or assumed to be\comma{} over a short time period\comma{} however\comma{} ``short'' is relative to the system and events being studies.  Perturbations or environmental changes that move a system away from equilibrium will trigger transient dynamics
+    description=A transient phase is the pattern of change as a system moves from one equilibrium state to another.  The transition phase is often described as\comma{} or assumed to be\comma{} over a short time period\comma{} however\comma{} ``short'' is relative to the system and events being studies.  Perturbations or environmental changes that move a system away from equilibrium will trigger transient dynamics.
 }
 
 \newglossaryentry{transientmodel}
 {
 	name=transient model,
-	description=The preferred term is \textit{dynamic model}.  See also \emph{transient dynamics}
+	description=The preferred term is \textit{dynamic model}.  See also \emph{transient dynamics}.
 }
 
 %\newglossaryentry{uniformdistribution}
 %{
 %	name=uniform distribution,
-%	description=The probability is the same across a range of values (the probability of occurrence is uniformly distributed).  Does not favor a particular outcome
+%	description=The probability is the same across a range of values (the probability of occurrence is uniformly distributed).  Does not favor a particular outcome.
 %}
 
 \newglossaryentry{unstablemodels}
 {
     name=unstable (models),
-    description=Models that are very sensitive to small changes in the data (small changes in data lead to a different model)
+    description=Models that are very sensitive to small changes in the data (small changes in data lead to a different model).
 }
 
 \newglossaryentry{unstablenumericalalgorithms}
 {
     name=unstable (numerical algorithms),
-	description=In numerical algorithms for differential equations the concern is the growth of round-off errors and/or small fluctuations in initial data which might cause a large deviation of final answer from the exact solution.  Some numerical algorithms may damp out the small fluctuations (errors) in the input data; others might magnify such errors.  Calculations that can be proven not to magnify approximation errors are called numerically stable
+    description=In numerical algorithms for differential equations the concern is the growth of round-off errors and/or small fluctuations in initial data which might cause a large deviation of final answer from the exact solution.  Some numerical algorithms may damp out the small fluctuations (errors) in the input data; others might magnify such errors.  Calculations that can be proven not to magnify approximation errors are called numerically stable.
 }
 
 \newglossaryentry{viscousdamping}
 {
 	name=viscous damping,
-	description={A damping force that depends on the volume, shape, and velocity of an object moving through a fluid}
+	description={A damping force that depends on the volume, shape, and velocity of an object moving through a fluid.}
 }
 
 %\newglossaryentry{unsupervisedlearning}
 %{
 %    name=unsupervised learning,
-%	description=Unsupervised learning uses machine learning algorithms to analyze and cluster unlabeled data sets.  These algorithms discover hidden patterns in data without the need for human intervention (hence\comma{} they are ``unsupervised'').  Unsupervised learning models are used for three main tasks: clustering\comma{} association and dimensionality reduction
+%	description=Unsupervised learning uses machine learning algorithms to analyze and cluster unlabeled data sets.  These algorithms discover hidden patterns in data without the need for human intervention (hence\comma{} they are ``unsupervised'').  Unsupervised learning models are used for three main tasks: clustering\comma{} association and dimensionality reduction.
 %} 
