@@ -5,7 +5,7 @@ The fundamentals research project \emph{Research on Numerical Simulation of Down
 
 Several open-source and published models were reviewed to assess their features.  Models that did not pertain directly to drill strings, lacked key features, or the source code was unavailable were then filtered out and the remaining models selected for evaluation.  A set of Test Cases was then established and the models chosen for evaluation run on those test cases in order to provide a direct comparison.
 
-A set of procedures and methods for evaluating drill string models was established and documented.  A total of six Test Cases were developed.  The tests range for simple to more complex in order to create a method for comparing drill string models and debugging any differences that occur.  All the parameters used to create the Test Cases are documented so that they may be reproduced.
+Six Test Cases were developed.  The tests start from a simple case and gradually add complexity in order to create a methodology for comparing drill string models and debugging any differences that occur.  All the parameters used to create the Test Cases are documented so that they may be reproduced.
 
 The first model selected the Aarsnes and Shor torsional dynamics model. It is a distributed model where the governing equations are solved by finite difference method. The model assumes constant torque on bit during drilling.  Friction is modeled as Coulomb friction with the option for a non-zero critical velocity.  Viscous damping effects are included as well as a top drive control algorithm.
 
@@ -13,6 +13,6 @@ The second model selected was developed at ExxonMobil. The model is a coupled ax
 
 %The precise representation of axial and tangential forces, as well as the explanation of stick-slip reasons, is achieved in the model through the integration of friction models and the bit-rock interaction model. The system incorporates two degrees of freedom per node, encompassing both axial and rotational displacements as well as velocities. The governing equations are solved using the ODE45 solver and subsequently verified by comparison with field data. Significantly, the model considers the trajectory of the well, the effects of buoyancy, and uniform mud drag in order to accurately calculate the friction force. Its versatility extends to simulating Mud-motor and heave compensator dynamics. Additionally, the model's Python-based source code is designed with modularity, ensuring ease of use and offering comprehensive guidance for effective utilization.
 
-The simulation results from both models for the Test Cases were compared and evaluated. The results from both model matched well showing similar behavior of angular velocity and torque on top drive and bit. Specifically, both models showed similar amplitude and frequency of the drill string vibration and a similar response during stick-slip.
+The simulation results from both models for the Test Cases were compared and evaluated. The results matched well, showing similar responses of the velocity and torque of both the top drive and bit. Specifically, both models showed similar amplitude and frequency of the drill string vibration and a similar response during stick-slip.
 
-
+This project combined personnel from multiple industry and academia entities and served as a test case for open-source software for drilling dynamics.  Even in this relatively small scale project, the combined knowledge and resources of all these entities resulted in an observable increase in both productivity and insights.

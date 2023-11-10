@@ -5,18 +5,18 @@ This chapter presents recommended practices for developing Test Cases.  Some of 
 \section{General Practices}
 Drill string models are complex and may be developed in very different manners.  To compare then, it is recommended to use standard best practices for debugging.  These practices are universal regardless if you are debugging a mechanical system or software source code.
 \begin{bulletedlist}
-	\item Start with the simplest possible case and get that to work first
-	\item Vary parameters one by one, changing multiple at a time convolutes behavior and makes it difficult to determine which parameter affected what part of the behavior
-    \item Learn the subtle details about how the models work, these often are overlooked and can a significant impact on model behavior
+	\item Start with the simplest possible case and get that to work first.
+	\item Vary parameters one by one, changing multiple at a time convolutes behavior and makes it difficult to determine which parameter affected what part of the behavior.
+    \item Learn the subtle details about how the models work, these often are overlooked and can a significant impact on model behavior.
 \end{bulletedlist}
 
 \section{Parameters}
 Drill string models and contain a number of input parameters.  These parameters are used to make a simulation more realistic, but they are often implemented in different ways in different models.  This makes comparing models challenging.
-\begin{numberedlist}
-	\item Be mindful of the units, they may be in completely different systems or have subtle definition differences that must be accounted for
-	\item Eliminate as many variables as possible by carefully selecting your Test Case
-	\item Add parameters back one by one once you have succeeded in matching model behavior
-\end{numberedlist}
+\begin{bulletedlist}
+	\item Be mindful of the units, they may be in completely different systems or have subtle definition differences that must be accounted for.
+	\item Eliminate as many variables as possible by carefully selecting your Test Case.
+	\item Add parameters back one by one once you have succeeded in matching model behavior.
+\end{bulletedlist}
 
 \section{Practices for Drill String Models}
 Below are some practices that are specific to drill string models that can assist in model comparisons.
@@ -33,7 +33,7 @@ This removes the effects of the friction model, gravity, and other effects.
 This eliminates multiple variables such as how the tool joint stiffness and contact are calculated.
 \end{definition}
 
-\begin{definition}{Note how tool joints are handled}
+\begin{definition}{Note the how tool joints are handled}
 Are the tool joints ignored or directly handled by the model?  If the model does not handle the tool joints internally, it may be necessary to use techniques such as modifying the stiffness (equivalent stiffness) to be able to compare one drill string model to another.  It will also be important to account for the contact and friction in this case.
 \end{definition}
 
