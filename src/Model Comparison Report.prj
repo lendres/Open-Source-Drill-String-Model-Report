@@ -4,34 +4,82 @@
 1
 1
 Model Comparison Report.tex
-40
-6
+42
+9
 3
 
+Results and Comparisons.tex
+TeX
+1060859 8 -1 21235 -1 21205 182 182 1602 598 1 1 86 288 -1 -1 0 0 47 -1 -1 47 1 0 21205 -1  0 -1 0
+Executive Summary.tex
+TeX
+1060859 0 -1 3141 -1 3141 0 0 1426 396 1 1 940 416 -1 -1 0 0 28 -1 -1 28 1 0 3141 -1  0 -1 0
+Recommended Procedures for Developing Test Cases.tex
+TeX
+17838075 1 -1 7921 -1 7935 312 312 1437 949 1 1 240 320 -1 -1 0 0 60 -1 -1 60 1 0 7935 -1  0 -1 0
+Additional Tests.tex
+TeX
+269496315 0 -1 11308 -1 11556 182 182 1608 598 1 1 947 288 -1 -1 0 0 26 -1 -1 26 1 0 11556 -1  0 -1 0
+Model Comparison Report.tex
+TeX
+135278587 0 -1 1003 -1 1037 130 130 1556 546 1 1 380 240 -1 -1 0 0 96 -1 -1 96 1 0 1037 -1  0 -1 0
+Final Remarks and the Path Forward.tex
+TeX
+1060859 1 -1 1074 -1 740 26 26 1452 442 1 1 100 144 -1 -1 0 0 44 -1 -1 44 1 0 740 -1  0 -1 0
+Test Cases.tex
+TeX
+17838075 1 -1 16654 -1 14989 26 26 1446 442 1 1 86 192 -1 -1 0 0 20 -1 -1 20 1 0 14989 -1  0 -1 0
+ExxonMobil Model.tex
+TeX
+17838075 2 -1 710 -1 394 156 156 1281 793 1 1 821 80 -1 -1 0 0 26 -1 -1 26 1 0 394 -1  0 -1 0
+:\Custom Program Files\LaTeX\TeX\LaTeX\lefontsizes.sty
+TeX:STY
+1060850 0 0 1 27 59 156 156 1576 572 1 0 477 432 -1 -1 0 0 25 0 0 25 1 0 59 27  0 0 0
+Introduction.tex
+TeX
+17838075 0 -1 1119 -1 2075 52 52 1478 468 1 1 254 304 -1 -1 0 0 22 -1 -1 22 1 0 2075 -1  0 -1 0
+Setup.tex
+TeX
+286273531 0 -1 4348 -1 4562 0 0 1426 416 1 1 86 560 -1 -1 0 0 13 -1 -1 13 1 0 4562 -1  0 0 0
+Acronyms.tex
+TeX
+269496315 0 -1 866 -1 864 52 52 1478 448 1 1 247 256 -1 -1 0 0 52 -1 -1 52 1 0 864 -1  0 0 0
+Glossary.tex
+TeX
+269496315 0 -1 7688 -1 7545 26 26 1452 422 1 1 317 390 -1 -1 0 0 19 -1 -1 19 1 0 7545 -1  0 0 0
+Model Comparison Report.acr
+DATA:UNIX
+273776882 8 42 1 41 1 130 130 1556 546 1 0 71 288 -1 -1 0 0 -1 -1 -1 -1 1 0 1 41  0 0 0
+ExxonMobil Code Alterations.tex
+TeX
+1060859 4 -1 1847 -1 1849 0 0 1420 416 1 1 961 624 -1 -1 0 0 37 -1 -1 37 1 0 1849 -1  0 -1 0
+Aarsnes-Shor Code Alterations.tex
+TeX
+1060859 0 -1 2439 -1 2443 130 130 1556 526 1 1 548 528 -1 -1 0 0 39 -1 -1 39 1 0 2443 -1  0 -1 0
+Aarsnes-Shor Model.tex
+TeX
+17854459 8 -1 23239 -1 23217 130 130 1255 767 1 1 86 288 -1 -1 0 0 28 -1 -1 28 2 0 23217 -1 4 11857 -1  0 -1 0
+Title Page.tex
+TeX
+1060859 1 -1 150 -1 133 182 182 1608 598 1 1 86 48 -1 -1 0 0 98 -1 -1 98 1 0 133 -1  0 -1 0
+Notes.tex
+TeX
+1060859 2 -1 1825 -1 1833 78 78 1498 494 1 1 247 176 -1 -1 0 0 15 -1 -1 15 1 0 1833 -1  0 -1 0
+RGD Appendix.tex
+TeX
+269496315 0 -1 5942 -1 5895 104 104 1530 500 1 1 667 560 -1 -1 0 0 31 -1 -1 31 1 0 5895 -1  0 -1 0
+:\Custom Program Files\LaTeX\bibtex\bib\le.bib
+BibTeX
+269485042 0 2406 51 2406 50 52 52 1177 682 1 1 513 448 -1 -1 0 0 -1 -1 -1 -1 1 0 50 2406  0 -1 0
+Equations.tex
+TeX
+269496315 0 -1 121 -1 605 156 156 1582 572 1 1 303 176 -1 -1 0 0 119 -1 -1 119 1 0 605 -1  0 0 0
 :\Custom Program Files\LaTeX\TeX\LaTeX\lemarkup.sty
 TeX:STY
 1060850 4 93 68 93 69 182 182 1307 819 1 0 547 352 -1 -1 0 0 25 0 0 25 1 0 69 93  0 0 0
 :\Custom Program Files\LaTeX\TeX\LaTeX\letable.sty
 TeX:STY
 1060850 0 17 79 17 50 182 182 1608 598 1 0 414 272 -1 -1 0 0 25 0 0 25 1 0 50 17  0 0 0
-Model Comparison Report.tex
-TeX
-135278587 0 15 40 -1 278 130 130 1556 546 1 1 86 176 -1 -1 0 0 55 -1 -1 55 1 0 278 -1  0 -1 0
-ExxonMobil Model.tex
-TeX
-269496315 0 -1 7190 -1 7187 156 156 1281 793 1 1 324 512 -1 -1 0 0 26 -1 -1 26 1 0 7187 -1  0 -1 0
-Recommended Procedures for Developing Test Cases.tex
-TeX
-17838075 1 -1 6105 -1 6118 312 312 1437 949 1 1 324 112 -1 -1 0 0 58 -1 -1 58 1 0 6118 -1  0 -1 0
-Notes.tex
-TeX
-1060859 0 -1 2098 -1 426 78 78 1498 494 1 1 716 96 -1 -1 0 0 15 -1 -1 15 1 0 426 -1  0 -1 0
-Introduction.tex
-TeX
-269496315 0 -1 7397 -1 7398 52 52 1478 468 1 1 870 494 -1 -1 0 0 22 -1 -1 22 1 0 7398 -1  0 -1 0
-Setup.tex
-TeX
-286273531 0 -1 4214 -1 4215 0 0 1426 416 1 1 485 208 -1 -1 0 0 13 -1 -1 13 1 0 4215 -1  0 0 0
 :\Custom Program Files\LaTeX\TeX\LaTeX\cnpcheadersandfooters.sty
 TeX:STY
 269496306 0 7 26 26 1 234 234 1359 864 1 0 71 416 -1 -1 0 0 -1 -1 -1 -1 1 0 1 26  0 0 0
@@ -41,15 +89,9 @@ TeX:STY
 :\Custom Program Files\LaTeX\TeX\LaTeX\cnpcbusinessletter.cls
 TeX:STY
 1060850 0 26 26 26 40 182 182 1307 812 1 0 344 416 -1 -1 0 0 16 0 0 16 1 0 40 26  0 0 0
-Aarsnes-Shor Model.tex
-TeX
-286289915 4 -1 27369 -1 27370 130 130 1255 767 1 1 1122 608 -1 -1 0 0 28 -1 -1 28 2 0 27370 -1 4 11857 -1  0 -1 0
 :\Custom Program Files\LaTeX\TeX\LaTeX\lebusinessletterbase.cls
 TeX:STY
 1060850 0 0 1 58 26 260 260 1385 890 1 0 246 400 -1 -1 0 0 -1 -1 -1 -1 1 0 26 58  0 0 0
-Test Cases.tex
-TeX
-286273531 0 -1 15735 -1 15641 26 26 1446 442 1 1 639 416 -1 -1 0 0 20 -1 -1 20 1 0 15641 -1  0 -1 0
 :\Custom Program Files\LaTeX\TeX\LaTeX\ikosybusinessletter.cls
 TeX:STY
 269496306 0 0 1 0 1 234 234 1359 864 1 0 71 0 -1 -1 0 0 -1 -1 -1 -1 1 0 1 0  0 0 0
@@ -77,18 +119,6 @@ TeX:STY
 :\Custom Program Files\LaTeX\TeX\LaTeX\lefloats.sty
 TeX:STY
 1060850 1 24 38 24 37 182 182 1307 812 1 0 323 384 -1 -1 0 0 -1 -1 -1 -1 1 0 37 24  0 0 0
-Results and Comparisons.tex
-TeX
-269496315 0 -1 15499 -1 21790 182 182 1602 598 1 1 177 592 -1 -1 0 0 33 -1 -1 33 1 0 21790 -1  0 -1 0
-Glossary.tex
-TeX
-1060859 0 -1 1815 -1 1841 26 26 1452 422 1 1 387 656 -1 -1 0 0 19 -1 -1 19 1 0 1841 -1  0 0 0
-Recommendations.tex
-TeX
-269496315 0 -1 1765 -1 2915 234 234 1359 871 1 1 856 592 -1 -1 0 0 41 -1 -1 41 1 0 2915 -1  0 -1 0
-Additional Tests.tex
-TeX
-269496315 2 -1 1548 -1 1550 182 182 1608 598 1 1 443 448 -1 -1 0 0 26 -1 -1 26 1 0 1550 -1  0 -1 0
 Model Comparison Report.aux
 TeX:AUX:UNIX
 269594610 0 0 1 0 1 234 234 1359 871 1 0 71 0 -1 -1 0 0 7 0 0 7 1 0 1 0  0 0 0
@@ -98,36 +128,12 @@ TeX
 RGD Family of Models.tex
 TeX
 269496315 0 -1 2602 -1 3735 78 78 1504 494 1 1 492 704 -1 -1 0 0 54 -1 -1 54 1 0 3735 -1  0 -1 0
-RGD Appendix.tex
-TeX
-1060859 0 -1 31 -1 31 104 104 1530 500 1 1 86 16 -1 -1 0 0 31 -1 -1 31 1 0 31 -1  0 -1 0
-Title Page.tex
-TeX
-1060859 1 -1 150 -1 133 182 182 1608 598 1 1 86 48 -1 -1 0 0 98 -1 -1 98 1 0 133 -1  0 -1 0
-Acronyms.tex
-TeX
-269496315 0 -1 1354 -1 1354 52 52 1478 448 1 1 289 720 -1 -1 0 0 25 -1 -1 25 1 0 1354 -1  0 0 0
-Equations.tex
-TeX
-1060859 0 -1 121 -1 605 156 156 1582 572 1 1 303 176 -1 -1 0 0 119 -1 -1 119 1 0 605 -1  0 0 0
-ExxonMobil Code Alterations.tex
-TeX
-269496315 0 -1 75 -1 83 0 0 1420 416 1 1 177 32 -1 -1 0 0 37 -1 -1 37 1 0 83 -1  0 -1 0
 :\Custom Program Files\WinEdt\Dictionary\User.dic
 DATA:DIC:UNIX
 5341426 2 387 1 387 9 26 26 1148 442 1 0 127 288 -1 -1 0 0 18 0 0 18 1 0 9 387  0 0 0
-Model Comparison Report.gls
-TeX:AUX:UNIX
-269594610 8 32 1 31 1 182 182 1304 598 1 0 71 496 -1 -1 0 0 -1 -1 -1 -1 1 0 1 31  0 0 0
 :\Users\lance.endres\AppData\Roaming\WinEdt Team\WinEdt 11\ConfigEx\Dictionaries.ini
 DATA:INI:EDT
 1049594 0 0 1 0 1 0 0 1122 416 1 1 86 0 -1 -1 0 0 83 0 0 83 1 0 1 0  0 -1 0
-Aarsnes-Shor Code Alterations.tex
-TeX
-269496315 0 -1 46 -1 1116 130 130 1556 526 1 1 240 192 -1 -1 0 0 39 -1 -1 39 1 0 1116 -1  0 -1 0
-Executive Summary.tex
-TeX
-1060859 0 -1 0 -1 0 0 0 1426 396 1 1 86 0 -1 -1 0 0 28 -1 -1 28 1 0 0 -1  0 -1 0
 
 *Model Comparison Report.tex
 >
@@ -137,7 +143,6 @@ TeX
 *Executive Summary
 *Glossary
 *Acronyms
-*Notes
 *Introduction
 *Model Review
 >
@@ -148,7 +153,7 @@ TeX
 *Aarsnes-Shor Model
 *ExxonMobil Model
 *Results and Comparisons
-*Recommendations
+*Final Remarks and the Path Forward
 *RGD Appendix
 *Aarsnes-Shor Code Alterations
 *ExxonMobil Code Alterations
