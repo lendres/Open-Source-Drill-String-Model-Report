@@ -60,8 +60,8 @@ While the Coulomb friction model is somewhat less sophisticated than some models
 
 Two versions of the source code are available, one implemented in Matlab and the other in Python.  Ongoing efforts are focused on enhancing the Python version by incorporating axial motion. Please see \chaptername~\ref{ch:aarnessshormodel} for a complete analysis.
 
-\section{ExxonMobil Model}
-The ExxonMobil model is based on a soft string axial-torsional model and utilizes a lumped mass and spring system (see \referencename~\cite{ref:dixit2021a}). It is designed to simulate the dynamics of a drill string under various drilling and tripping conditions for both vertical and inclined wells. It assumes the wellbore to be 2D and as such it is a 2-DOF per node system. The axial and torsional degrees of freedom are coupled through the friction terms. There is not a coupling from material properties or inertia terms.  The bit-rock interaction is modeled with depth of cut effects accounted for.  Key assumptions of the model are the following.
+\section{Dixit Model}
+The Dixit model is based on a soft string axial-torsional model and utilizes a lumped mass and spring system (see \referencename~\cite{ref:dixit2021a}). It is designed to simulate the dynamics of a drill string under various drilling and tripping conditions for both vertical and inclined wells. It assumes the wellbore to be 2D and as such it is a 2-DOF per node system. The axial and torsional degrees of freedom are coupled through the friction terms. There is not a coupling from material properties or inertia terms.  The bit-rock interaction is modeled with depth of cut effects accounted for.  Key assumptions of the model are the following.
 \begin{bulletedlist}
 	\item A soft string model (no lateral bending moments, entire string in contact with the borehole, lateral displacements are ignored)
 	\item The bit-rock interaction is simplified

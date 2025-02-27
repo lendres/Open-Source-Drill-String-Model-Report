@@ -1,6 +1,6 @@
-\chapter{ExxonMobil Code Alterations}
+\chapter{Dixit Code Alterations}
 \label{ch:appendixexxonmobil}
-This appendix contains a list of modifications made to the ExxonMobil model during the testing and evaluation.
+This appendix contains a list of modifications made to the Dixit model during the testing and evaluation.
 
 \section{1st Cell of \codefont{scratch\_pad.ipynb}}
 
@@ -41,7 +41,7 @@ The original line was replaced with new lines which allow to importing existing 
 \end{codemodifications}
 
 \section{File \codefont{bitrock.py}}
-During testing, we encountered an issue with the ``on-bottom'' case related to the bit-rock interaction model. In the ``drilling'' mode a constant value of depth of cut (DOC) and bit depth was observed. The cause was identified as an improper assignment of bit depth to bit displacement. A slight modification was made to incorporate the bit depth into the bit displacement calculation. 
+During testing, we encountered an issue with the ``on-bottom'' case related to the bit-rock interaction model. In the ``drilling'' mode a constant value of depth of cut (DOC) and bit depth was observed. The cause was identified as an improper assignment of bit depth to bit displacement. A slight modification was made to incorporate the bit depth into the bit displacement calculation.
 
 %This change, along with other adjustments, successfully activated the ``drilling'' mode, enabling dynamic changes in both hole depth and non-zero DOC.
 
@@ -56,6 +56,6 @@ A full comparison of outputs between original and modified code is shown in \fig
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{comp_on_bottom}
-    \caption[Output comparison of the original and modified model ExxonMobil model]{Comparison of the outputs from the original and modified versions of the ExxonMobil model. Plots in left and right column are the results from the original and modified codes, respectively.}
+    \caption[Output comparison of the original and modified model Dixit model]{Comparison of the outputs from the original and modified versions of the Dixit model. Plots in left and right column are the results from the original and modified codes, respectively.}
 	\label{Comaprison_on_bottom}
 \end{figure} 

@@ -1,8 +1,8 @@
 \chapter{Final Remarks and the Path Forward}
 \section{Summary}
-Several open-source and published models were reviewed to assess their features.  Models that did not pertain directly to drill strings, lacked key features, or the source code was unavailable were then filtered out.  Two models the fit the criteria were selected for evaluation.  The first model selected the Aarsnes and Shor torsional dynamics model.  The second model selected was a coupled axial-torsional system developed at ExxonMobil.
+Several open-source and published models were reviewed to assess their features.  Models that did not pertain directly to drill strings, lacked key features, or the source code was unavailable were then filtered out.  Two models the fit the criteria were selected for evaluation.  The first model selected the Aarsnes and Shor torsional dynamics model.  The second model selected was a coupled axial-torsional system developed by Dixit, et al.
 
-A set of Test Cases was then established and the models chosen for evaluation run on those test cases in order to provide a direct comparison.  Importantly, the methods and learnings for developing Test Cases was documented.  
+A set of Test Cases was then established and the models chosen for evaluation run on those test cases in order to provide a direct comparison.  Importantly, the methods and learnings for developing Test Cases was documented.
 
 The simulation results from both models for the Test Cases were compared and evaluated. The results matched well, showing similar responses of the velocity and torque of both the top drive and bit. Specifically, both models showed similar amplitude and frequency of the drill string vibration and a similar response during stick-slip.
 
@@ -24,7 +24,7 @@ The friction models were of particular interest to the team members and signific
 \begin{bulletedlist}
 	\item Plot A-S model with Stribeck friction and compare to the Coulomb friction model.
 	\item Investigate why the friction (source term) seems out of bounds of the static window and dynamic line on the Coulomb friction plot in the A-S model.
-	\item Investigate whey the friction term seems to occasionally slightly deviate from the Stribeck curve in the ExxonMobil model.
+	\item Investigate whey the friction term seems to occasionally slightly deviate from the Stribeck curve in the Dixit model.
 	\item Investigate the selection of critical velocities when comparing Coulomb and Stribeck friction models.
 \end{bulletedlist}
 
@@ -35,8 +35,8 @@ Some other topics of future work include the following.
 \begin{bulletedlist}
     \item Develop procedures for comparing models with a top drive.  Use of different units in the models may make this a challenge.  In addition, the top drive can have a large influence on overall behavior.  It will be important to have demonstrated the models match well in absent of the top drive first.
 	\item Test implicit versus explicit solvers.
-	\item Study the effects of mud motors.  Currently, this is only possible in the ExxonMobil model.
-    \item Study the effects of cased versus open-hole features.  This has not been implemented in either model.  It should be straight forward for the ExxonMobil model.  In the A-S model it is a more challenging because it requires incorporating the values into the equations.
+	\item Study the effects of mud motors.  Currently, this is only possible in the Dixit model.
+    \item Study the effects of cased versus open-hole features.  This has not been implemented in either model.  It should be straight forward for the Dixit model.  In the A-S model it is a more challenging because it requires incorporating the values into the equations.
     \item Study the effects of tool joints and methods for comparing models with and without tool joint modeling capability.
 \end{bulletedlist}
 

@@ -345,9 +345,9 @@ In summary, removing the PI controller enables us to obtain a model with reduced
 \end{figure}
 
 \subsection{Comparison Between the Matlab and Python Versions}
-A comparison between the two versions was conducted using the scenario from Test Case 1. The Python ver.\ showed different patterns of bit and top drive behavior compared to the Matlab ver. There was a period where the bit angular velocity and the top drive torque were maintained at the maximum value for about 2 seconds. There was a similar length ``stuck'' phase. The comparison between the Matlab ver.\ and Python ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from the ExxonMobil model added for reference.
+A comparison between the two versions was conducted using the scenario from Test Case 1. The Python ver.\ showed different patterns of bit and top drive behavior compared to the Matlab ver. There was a period where the bit angular velocity and the top drive torque were maintained at the maximum value for about 2 seconds. There was a similar length ``stuck'' phase. The comparison between the Matlab ver.\ and Python ver.\ can be seen in \figurename~\ref{figure_Test1_comp_chASmodel} with results from the Dixit model added for reference.
 
-It was suspected that the different results in the Python ver.\ were caused by the difference in wave travel velocity along the drill string. This is proportional to $\sqrt{\rho/J}$.  Therefore, a test was done and the density was decreased to $1/4$ of the default input (490.50 $lb/ft^3$ $\rightarrow$ 122.65 $lb/ft^3$). The results improved somewhat and were closer to the Matlab ver.\ and the ExxonMobil model (see \figurename~\ref{figure_Python_reducedDensity}). However, there is still a small stuck phase and phase of maximum velocity.
+It was suspected that the different results in the Python ver.\ were caused by the difference in wave travel velocity along the drill string. This is proportional to $\sqrt{\rho/J}$.  Therefore, a test was done and the density was decreased to $1/4$ of the default input (490.50 $lb/ft^3$ $\rightarrow$ 122.65 $lb/ft^3$). The results improved somewhat and were closer to the Matlab ver.\ and the Dixit model (see \figurename~\ref{figure_Python_reducedDensity}). However, there is still a small stuck phase and phase of maximum velocity.
 
 Given the limited amount of time available, it was not possible to track down this discrepancy. Therefore, only the Matlab ver.\ of the A-S model will be used for the final results and discussions in \chaptername~\ref{ch:results}.
 
@@ -356,7 +356,7 @@ Given the limited amount of time available, it was not possible to track down th
 \begin{figure}
   \centering
   \includegraphics[height=4.5in]{version_comp}
-  \caption[Comparison between different models for Test Case 1]{Comparison of the angular velocity of bit and the top drive between the A-S model Matlab ver., A-S model Python ver., and ExxonMobil model for Test Case 1. The Matlab ver.\ and the ExxonMobil model match well. The Python ver.\ exhibited a period where the bit angular velocity reached a maximum and maintained it for about 2 seconds. It also exhibited a stick phase for approximately the same length of time. This should not be interpreted as an error in the model; the source of the discrepancy is currently unknown and finding it is left as future work.}
+  \caption[Comparison between different models for Test Case 1]{Comparison of the angular velocity of bit and the top drive between the A-S model Matlab ver., A-S model Python ver., and Dixit model for Test Case 1. The Matlab ver.\ and the Dixit model match well. The Python ver.\ exhibited a period where the bit angular velocity reached a maximum and maintained it for about 2 seconds. It also exhibited a stick phase for approximately the same length of time. This should not be interpreted as an error in the model; the source of the discrepancy is currently unknown and finding it is left as future work.}
   \label{figure_Test1_comp_chASmodel}
 \end{figure}
 

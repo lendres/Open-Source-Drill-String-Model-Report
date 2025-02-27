@@ -1,8 +1,8 @@
-\chapter{ExxonMobil Model}
+\chapter{Dixit Model}
 \label{ch:exxonmobilmodel}
 
 \section{Introduction}
-The model is being developed by ExxonMobil, originally beginning in 2021.  It is an axial-torsional system designed to model the dynamics of drill strings while drilling and tripping. It can be used in both vertical and inclined wells under various operational conditions.  BHA components such as drill pipes, HWDP, drill collars, and mud-motors can be incorporated.  Additional features include bit-rock interaction and incorporation of heave compensator dynamics. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
+The model is being developed by Dixit, et al.\ beginning in 2021.  It is an axial-torsional system designed to model the dynamics of drill strings while drilling and tripping. It can be used in both vertical and inclined wells under various operational conditions.  BHA components such as drill pipes, HWDP, drill collars, and mud-motors can be incorporated.  Additional features include bit-rock interaction and incorporation of heave compensator dynamics. Validation of the model was done by comparing simulation results with field data from rotational startups, off-bottom rotations, and post-connection operations.
 
 \section{Model Description}
 The model employs a 2 DOF per node, axial-torsional system and uses a lumped-parameter technique (\referencename~\cite{ref:dixit2021a}). The axial and torsional DOF are coupled through the friction terms and the bit-rock interaction.  There is not a coupling from material properties, the inertia terms, et cetera.  The governing equations of motion are solved by a fourth and fifth order Runge-Kutta-Fehlberg (RKF) method (\referencename~\cite{ref:shor2022a}).  This is a popular solver that has been implemented many times, including as the well known Matlab \textcode{ODE45} function. Assumptions of the model are:
@@ -58,7 +58,7 @@ where $k_{WOB}$ is the weight on bit coefficent, $k_{TQ}$ is the torque on bit c
 \label{sec:exxonfrictionmodel}
 In this section, the authors attempt to frame the material in the section \emph{Friction Model} from \referencename~\cite{ref:dixit2021a} into the context of the discussion from \sectionname~\ref{sec:damping}.  It is presented as an alternate explanation of the same material; the reader is encouraged to review the material from \referencename~\cite{ref:dixit2021a} and select which ever explanation is more intuitive the them.
 
-The ExxonMobil model uses a Stribeck type friction model for the static and dynamic friction (more information on drill string friction modeling can be found in \referencename~\cite{ref:cayeux2020a}).  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model is coupled which creates the following conditions.
+The Dixit model uses a Stribeck type friction model for the static and dynamic friction (more information on drill string friction modeling can be found in \referencename~\cite{ref:cayeux2020a}).  The model takes into account the velocity, well trajectory, and buoyancy effects when calculating the friction forces. The friction model is coupled which creates the following conditions.
 \begin{bulletedlist}
     \item The resultant velocity of the axial and torsional degrees of freedom are use to determine the friction force
     \item No movement occurs until the resultant axial and torsional reaction force surpasses the static limit
@@ -94,7 +94,7 @@ that was proposed by Tunstin (\cite{ref:tustin1947a}) and where $\mu_{eff}$ is t
             \label{fig:stribeckfrictioncurve}
 		\end{minipage}
 	\end{minipage}
-	\caption[Examples of Stribeck friction curves]{Examples of Stribeck friction curves.  A generalized Stribeck curve with the separate regions labeled is shown in~(\subref{fig:schematicstribeckcurve}).  In~(\subref{fig:stribeckcurvesbymartens}), experimentally obtained curves are shown.  In~(\subref{fig:stribeckfrictioncurve}), the model Stribeck friction used in the ExxonMobil model is shown.  \figurename{}s~(\subref{fig:schematicstribeckcurve}) and~(\subref{fig:stribeckcurvesbymartens}) are from \referencename~\cite{ref:martens2023a}.}
+	\caption[Examples of Stribeck friction curves]{Examples of Stribeck friction curves.  A generalized Stribeck curve with the separate regions labeled is shown in~(\subref{fig:schematicstribeckcurve}).  In~(\subref{fig:stribeckcurvesbymartens}), experimentally obtained curves are shown.  In~(\subref{fig:stribeckfrictioncurve}), the model Stribeck friction used in the Dixit model is shown.  \figurename{}s~(\subref{fig:schematicstribeckcurve}) and~(\subref{fig:stribeckcurvesbymartens}) are from \referencename~\cite{ref:martens2023a}.}
 	\label{fig:stribeckfrictioncurveexamples}
 \end{figure}
 \equationname~\ref{Fig:tunstinfrictionmodel} is shown in \figurename~\ref{fig:stribeckfrictioncurve}.  It is a particular form of the more general Stribeck friction model, a schematic of which is shown in \figurename~\ref{fig:schematicstribeckcurve}.  Examples of Stribeck curves develop from lab tests are shown in \figurename~\ref{fig:stribeckcurvesbymartens}.
@@ -123,7 +123,7 @@ where $\mbf{F}_{\mu,k}$ is the dynamic friction force vector (axial and torsiona
 %	\vec{F_{\mu, d}} = -\mu_d ||{\vec{F_n}}||\frac{\vec{v}_s}{{||\vec{v}_s}||}
 %\end{equation}
 
-In the ExxonMobil model, the friction is combined with viscous damping (in a manner similar to the source term in the A-S model) to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
+In the Dixit model, the friction is combined with viscous damping (in a manner similar to the source term in the A-S model) to create the curve shown in \figurename~\ref{fig:exxonmobilfriction}.
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{exxonmobilfriction}
@@ -134,7 +134,7 @@ The total damping applied in the system is a linear combination of friction and 
 \begin{figure}
 	\centering
 	\includegraphics[width=6.5in]{Exxon_friction}
-    \caption[Damping model for ExxonMobil model]{The damping model for the ExxonMobil model. The left is when only Stribeck friction is considered. The right is the damping model when both Stribeck and viscous damping are included. Stribeck friction refers to the friction from the drill string and wellbore contact. $F_{s}$ is static friction, $C$ is the viscous damping coefficient and $V_{CS}$ is the critical velocity. The total damping in the system is the linear combination of the Stribeck friction and the viscous damping.}
+    \caption[Damping model for Dixit model]{The damping model for the Dixit model. The left is when only Stribeck friction is considered. The right is the damping model when both Stribeck and viscous damping are included. Stribeck friction refers to the friction from the drill string and wellbore contact. $F_{s}$ is static friction, $C$ is the viscous damping coefficient and $V_{CS}$ is the critical velocity. The total damping in the system is the linear combination of the Stribeck friction and the viscous damping.}
     \label{figure_Exxon_friction}
 \end{figure}
 
