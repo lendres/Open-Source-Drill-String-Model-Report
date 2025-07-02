@@ -5,12 +5,18 @@
 1
 Model Comparison Report.tex
 45
-1
-0
+3
+2
 
 Model Comparison Report.tex
 TeX
-403714043 0 -1 533 -1 531 130 130 1556 546 1 1 156 384 -1 -1 0 0 96 -1 -1 96 1 0 531 -1  0 -1 0
+135278587 0 -1 533 -1 531 130 130 1556 546 1 1 156 384 -1 -1 0 0 96 -1 -1 96 1 0 531 -1  0 -1 0
+Aarsnes-Shor Model.tex
+TeX
+17854459 1 -1 21579 -1 21561 130 130 1255 767 1 1 142 304 -1 -1 0 0 28 -1 -1 28 2 0 21561 -1 4 11857 -1  0 -1 0
+Introduction.tex
+TeX
+286273531 0 -1 13206 -1 15153 52 52 1478 468 1 1 163 352 -1 -1 0 0 22 -1 -1 22 1 0 15153 -1  0 -1 0
 :\Custom Program Files\LaTeX\bibtex\bst\leplain.bst
 BST
 269484274 0 848 7 845 6 0 0 1168 440 1 0 106 240 -1 -1 0 0 45 0 0 45 1 0 6 845  0 0 0
@@ -23,9 +29,6 @@ TeX
 :\Custom Program Files\LaTeX\TeX\LaTeX\osdcreport.cls
 TeX:STY
 269495538 0 32 16 32 16 130 130 1294 546 1 0 176 432 -1 -1 0 0 23 0 0 23 1 0 16 32  0 0 0
-Aarsnes-Shor Model.tex
-TeX
-286289915 0 -1 29485 -1 29490 130 130 1255 767 1 1 583 560 -1 -1 0 0 28 -1 -1 28 2 0 29490 -1 4 11857 -1  0 -1 0
 Test Cases.tex
 TeX
 17838075 1 -1 6330 -1 6343 26 26 1446 442 1 1 254 256 -1 -1 0 0 20 -1 -1 20 1 0 6343 -1  0 -1 0
@@ -47,9 +50,6 @@ TeX
 Model Review.tex
 TeX
 1060859 0 -1 7169 -1 7174 78 78 1504 474 1 1 149 336 -1 -1 0 0 22 -1 -1 22 1 0 7174 -1  0 -1 0
-Introduction.tex
-TeX
-17838075 2 -1 12188 -1 12198 52 52 1478 468 1 1 772 352 -1 -1 0 0 22 -1 -1 22 1 0 12198 -1  0 -1 0
 Acronyms.tex
 TeX
 1060859 0 -1 866 -1 864 52 52 1478 448 1 1 247 256 -1 -1 0 0 52 -1 -1 52 1 0 864 -1  0 0 0
@@ -161,12 +161,10 @@ DATA:INI:EDT
 *Recommended Procedures for Developing Test Cases
 *Test Cases
 *Aarsnes-Shor Model
-*ExxonMobil Model
+*Dixit Model
 *Results and Comparisons
 *Final Remarks and the Path Forward
 *RGD Appendix
-*Aarsnes-Shor Code Alterations
-*ExxonMobil Code Alterations
 *Additional Tests
 *? strings
 *? le
